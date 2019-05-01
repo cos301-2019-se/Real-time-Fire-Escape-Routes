@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Ubuntu" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -24,11 +25,18 @@
             width: 100%;
         }
 
-        #background div img {
-            bottom: 0;
+        #sponsor {
             position: absolute;
+            width: 100% !important;
+            height: 38px;
+            bottom: 22px;
+            left: 0; 
+            display: flex;
+        }
+
+        #sponsor span {
             text-align: center;
-            margin: 15px auto;
+            width: 100%;
         }
 
         #container div{
@@ -47,6 +55,8 @@
             font-size: 16px;
             line-height: 22px;
             padding: 6px;
+
+            transition: all 200ms linear;
         }
 
         .btn {
@@ -57,16 +67,27 @@
             background: #f03a01;
             padding: 10px 20px;
             border-radius: 7px;
+            transition: all 200ms linear;
+        }
+
+        .btn:hover {
+            cursor: pointer;
+            box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.27);
+        }
+
+        #dashboard {
+            display: none;
         }
 
         #footer {
             position: absolute;
-            width: 50% !important;
             height: 38px;
             background: white;
             bottom: 0;
             right: 0; 
             display: flex;
+
+            transition: all 200ms linear;
         }
 
         #footer span {
@@ -80,30 +101,70 @@
 <body>
     <div id='container'>
         <div id="background">
-            <div>
-                <img src="tuks.png" style="width: 151px;">
-                <img src="erp.png" style="width: 50px; margin: 0;">   
-                <img src="epiu.png" style="width: 80px">
+            <div id="sponsor">
+                <span><img src="epiu.png" style="width: 80px; "></span>
+                <span><img src="tuks.png" width="150px"></span>
+                <span><img src="erp.png" width="45px"></span>
             </div>
         </div>
-        <div> 
-            <div style="margin: 100px auto; text-align: center; width: 80%;">
+        <div id="login-page"> 
+            <div id="login-form" style="margin: 100px auto; text-align: center; width: 80%;">
                 <div style="position: relative;">
                     <img src="fire.png">
-                    <span style="display: block; font-family: 'Ubuntu'">RealTime Firewatch</span>
+                    <span style="display: block; font-family: 'Fjalla One'; font-size: 30px">RealTime Firewatch</span>
                 </div>
                 <input type="text" name="username" placeholder="Email">
                 <input type="text" name="password" placeholder="Password">
-                <div class="btn">Log in</div>
+                <div id="login" class="btn">Log in</div>
             </div>
         </div>
-        <div id="footer">
+        <div id="dashboard">
+            welcome
+            <div id="out" class="btn">Out</div>
+        </div>
+        <div id="footer" style='width: 50%'>
             <span>About</span>
             <span>Privacy</span>
             <span>Help</span>
         </div>
     </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script>
+    $('#login').on('click', function(){
+        $.ajax({
+            url: "http://localhost:8080",
+            type: "POST",
+            data: {
+                type: 'login',
+                name: 'john',
+                pass: '12345'
+            },
+            success: function(data){
+                console.log(data)
+            }
+        })
+        // $('#login-form').fadeOut('fast', function(){
+        //     $('#background').hide('slide', {direction: 'left'}, 500, function(){
+        //         $('#login-page').fadeOut('fast', function(){
+        //             $('#footer').css('width', '100%');
+        //             $('#dashboard').fadeIn('fast')
+        //         });
+        //     });
+        // })
+    })
+
+    $('#out').on('click', function(){
+        $('#dashboard').fadeOut('fast', function(){
+            $('#footer').css('width', '50%');
+            $('#login-page').fadeIn(function(){
+                $('#background').show('slide', {direction: 'left'}, 500, function(){
+                   $('#login-form').show();
+                })
+            })
+        })
+    })
+</script>
 </body>
 </html>
 
