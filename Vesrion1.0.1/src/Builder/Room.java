@@ -4,6 +4,11 @@ import java.util.Vector;
 
 public class Room {
     public Vector<Door> doors = new Vector<Door>();
+
+    public Vector<Person> getPeopleInRoom() {
+        return peopleInRoom;
+    }
+
     private Vector<Person> peopleInRoom = new Vector<>();
     private double [] [] coordinates;
     public Room(double [] [] array)

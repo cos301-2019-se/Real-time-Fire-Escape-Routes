@@ -23,6 +23,7 @@ public class RoomBuilder extends Builder {
             Room temp = new Room(array);
             return temp;
         } catch (JSONException e) {
+            System.out.println("ROOM FAIL");
             e.printStackTrace();
         }
         return null;

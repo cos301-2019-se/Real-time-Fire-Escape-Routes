@@ -7,11 +7,42 @@ public class DoorBuilder extends Builder{
     }
     Door buildPart(){
         try{
+            double[] x = new double[2];
+            double[] z = new double[2];
+            double[] y ={0,0};
+            // Extract numbers from JSON array.
+            for (int i = 0; i <2; ++i) {
+                x[i] =  data.getJSONArray("x").getDouble(i);
+//                y[i] =  data.getJSONArray("y").getDouble(i);
+                z[i] =  data.getJSONArray("y").getDouble(i);
+            }
 
+            double[][] coords = {x,z,y};
+
+            String name= "";
+            try{
+                name = Integer.toString((Integer) data.get("name"));
+            }catch (Exception e){
+                name = (String)data.get("name");
+            }
+            Door t = new Door(coords,null, name);
+            System.out.println("DoorBuilder: "+data.toString());
+            return t;
         }catch(Exception e){
-
+            System.out.println("Door FAIL");
+            System.out.println(e.getStackTrace());
         }
-              
-        return null
+
+        return null;
     }
 }
+/**
+ *             array[0][0] = 0;
+ *             array[0][1] = 0;
+ *             array[1][0] = 0;
+ *             array[1][1] = 2;
+ *             array[2][0] = 0;
+ *             array[2][1] = 4;
+ *             Node start1 = new Node("door 1", 1);
+ *             Door door1 = new Door(array, start1, "door 1");
+ * */
