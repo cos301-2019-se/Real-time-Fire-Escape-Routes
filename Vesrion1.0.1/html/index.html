@@ -113,8 +113,8 @@
                     <img src="fire.png">
                     <span style="display: block; font-family: 'Fjalla One'; font-size: 30px">RealTime Firewatch</span>
                 </div>
-                <input type="text" name="username" placeholder="Email">
-                <input type="text" name="password" placeholder="Password">
+                <input type="text" id="username" placeholder="Email">
+                <input type="text" id="password" placeholder="Password">
                 <div id="login" class="btn">Log in</div>
             </div>
         </div>
@@ -136,23 +136,26 @@
             url: "http://localhost:8080",
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            data: {
+            dataType: "json",
+            data: JSON.stringify({
                 type: 'login',
-                name: 'john',
-                pass: '12345'
-            },
+                name: $('#username').val(),
+                pass: $('#password').val()
+            }),
             success: function(data){
-                console.log("data")
+                if (data.status){
+                    $('#login-form').fadeOut('fast', function(){
+                        $('#background').hide('slide', {direction: 'left'}, 500, function(){
+                            $('#login-page').fadeOut('fast', function(){
+                                $('#footer').css('width', '100%');
+                                $('#dashboard').fadeIn('fast')
+                            });
+                        });
+                    })
+                }
             }
         })
-        // $('#login-form').fadeOut('fast', function(){
-        //     $('#background').hide('slide', {direction: 'left'}, 500, function(){
-        //         $('#login-page').fadeOut('fast', function(){
-        //             $('#footer').css('width', '100%');
-        //             $('#dashboard').fadeIn('fast')
-        //         });
-        //     });
-        // })
+
     })
 
     $('#out').on('click', function(){
