@@ -3,9 +3,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 import Builder.Building;
 import Builder.BuildingManager;
+import Builder.Person;
+import Builder.Room;
 import io.mappedbus.MappedBusWriter;
 import org.json.*;
 
@@ -317,7 +320,18 @@ public class HTTPServer extends Server{
 
         BuildingManager BobTheBuilder = new BuildingManager(data);
         Building test = BobTheBuilder.construct();
+//        test.AssignRoutes();
 
+
+        Vector<Room> rooms =  test.getFloor(0).getRooms();
+
+        Vector<Integer> assignedDoorsArray = rooms.get(0).assignPeople();
+        Vector<Person> People = rooms.get(0).getPeopleInRoom();
+
+        for (int i = 0; i < People.size(); i++) {
+            String doorname = rooms.get(0).doors.get(assignedDoorsArray.get(0)).doorName;
+            System.out.println("Person - " + People.get(i).getName()+" Assigned to door - "+doorname);
+        }
         System.out.println("L 316");
 
     }

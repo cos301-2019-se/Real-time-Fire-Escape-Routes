@@ -9,6 +9,7 @@ import java.util.Vector;
 public class BuildingManager {// Builder design pattern - Director
     Vector <Builder> rooms = new Vector<Builder>();
     Vector <Builder> doors = new Vector<Builder>();
+    Vector <Builder> people = new Vector<Builder>();
     JSONObject buildingData ;
     public BuildingManager(JSONObject BuildingData){
         buildingData =BuildingData;
@@ -17,6 +18,17 @@ public class BuildingManager {// Builder design pattern - Director
             for (int i = 0; i < roomData.length() ; i++) {
                 rooms.add(new RoomBuilder(roomData.get(i)));
             }
+
+            JSONArray doorData = (JSONArray)buildingData.get("doors");
+            for (int i = 0; i < doorData.length() ; i++) {
+                doors.add(new DoorBuilder(doorData.get(i)));
+            }
+
+            JSONArray peopleData = (JSONArray)buildingData.get("people");
+            for (int i = 0; i < peopleData.length() ; i++) {
+                people.add(new babyMaker(peopleData.get(i)));
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -37,6 +49,12 @@ public class BuildingManager {// Builder design pattern - Director
                 Builder r = doors.get(i);
                 temp.getFloor(0).getRooms().get(0).addDoor((Door)r.buildPart());
             }
+            /**Making People*/
+            for (int i = 0; i < people.size(); i++) {
+                Builder r = people.get(i);
+                temp.getFloor(0).getRooms().get(0).addPerson((Person)r.buildPart());
+            }
+            System.out.println("Building Complete");
         } catch (Exception e) {
             e.printStackTrace();
         }
