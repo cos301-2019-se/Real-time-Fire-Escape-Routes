@@ -8,7 +8,7 @@ public class RoomBuilder extends Builder {
         super(data);
     }
     Room buildPart(){
-        System.out.println(data.toString());
+        System.out.println("RoomBuilder: "+data.toString());
         try {
             double[] x = new double[2];
             double[] y = new double[2];

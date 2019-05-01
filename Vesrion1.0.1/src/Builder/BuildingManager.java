@@ -53,6 +53,7 @@ public class BuildingManager {// Builder design pattern - Director
             for (int i = 0; i < people.size(); i++) {
                 Builder r = people.get(i);
                 temp.getFloor(0).getRooms().get(0).addPerson((Person)r.buildPart());
+
             }
             System.out.println("Building Complete");
         } catch (Exception e) {
