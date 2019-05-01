@@ -48,6 +48,7 @@ public class Room {
         double [] doorCoordinates;
         for(int i = 0; i < doors.size(); i++)
         {
+//            System.out.println("x - "+peopleInRoom.get(personIndex).position[0]+","+"y - "+peopleInRoom.get(personIndex).position[1]);
             doorCoordinates= doors.get(i).getCenter();
             total = Math.sqrt(((doorCoordinates[0] - peopleInRoom.get(personIndex).position[0])*(doorCoordinates[0] - peopleInRoom.get(personIndex).position[0]))+((doorCoordinates[1] - peopleInRoom.get(personIndex).position[1])*(doorCoordinates[1] - peopleInRoom.get(personIndex).position[1])));
             if(total < smallest)
@@ -55,6 +56,7 @@ public class Room {
                 smallest = total;
                 doorIndex = i;
             }
+//            System.out.println("Distance to door "+doorIndex+" is "+total);
         }
         return doorIndex;
     }

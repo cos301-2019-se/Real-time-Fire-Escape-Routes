@@ -9,7 +9,6 @@ import Builder.Building;
 import Builder.BuildingManager;
 import Builder.Person;
 import Builder.Room;
-import io.mappedbus.MappedBusWriter;
 import org.json.*;
 
 public class HTTPServer extends Server{
@@ -260,12 +259,13 @@ public class HTTPServer extends Server{
                 writer.write(req.toString().getBytes(),0,data.length());
                 writer.close();
                 */
-                test(req);
+                Response.put("status", true);
+                Response.put("msg",test(req));
+
 //                Thread.currentThread().notify();
 //                notifyAll();
                 boolean status= false;
-                Response.put("status", status);
-                Response.put("msg","Failed");
+//                Response.put("msg","Failed");
             }catch(Exception e){
                 if(verbose) {
                     System.out.println("CRITICAL - UNITY FAIL");
@@ -316,8 +316,9 @@ public class HTTPServer extends Server{
         }
     }
 
-    private void test(JSONObject data){
-
+    private JSONArray test(JSONObject data){
+        JSONArray unityResponse = new JSONArray();
+        try {
         BuildingManager BobTheBuilder = new BuildingManager(data);
         Building test = BobTheBuilder.construct();
 //        test.AssignRoutes();
@@ -326,14 +327,22 @@ public class HTTPServer extends Server{
         Vector<Room> rooms =  test.getFloor(0).getRooms();
 
         Vector<Integer> assignedDoorsArray = rooms.get(0).assignPeople();
-        Vector<Person> People = rooms.get(0).getPeopleInRoom();
-
+        Vector<Person> People = rooms.get(0).getPeopleInRoom();;
         for (int i = 0; i < People.size(); i++) {
-            String doorname = rooms.get(0).doors.get(assignedDoorsArray.get(0)).doorName;
-            System.out.println("Person - " + People.get(i).getName()+" Assigned to door - "+doorname);
-        }
-        System.out.println("L 316");
+            JSONObject temp = new JSONObject();
 
+            String doorname = rooms.get(0).doors.get(assignedDoorsArray.get(i)).doorName;
+            int [] info = {Integer.parseInt(People.get(i).getName()),Integer.parseInt(doorname)};
+//            temp.put("person",Integer.parseInt(People.get(i).getName()));
+//            temp.put("door",Integer.parseInt(doorname));
+            unityResponse.put(info);
+        }
+//        System.out.println("L 316");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Unity response: "+unityResponse.toString());
+        return unityResponse;
     }
 
 }

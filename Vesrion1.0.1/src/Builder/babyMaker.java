@@ -8,12 +8,13 @@ public class babyMaker extends Builder {
     Person buildPart(){
         try{
 
+            System.out.println("BabyMaker: "+data.toString());
             Person t= new Person(Integer.toString((Integer)data.get("id")));
             double[] xy = new double[2];
             // Extract numbers from JSON array.
-            for (int i = 0; i <2; ++i) {
-                xy[i] = data.getJSONArray("position").getDouble(i);
-            }
+            xy[0] = data.getJSONArray("position").getDouble(0);
+            xy[1] = data.getJSONArray("position").getDouble(2);
+
             t.setPosition(xy);
             return t;
         }catch(Exception e ){
