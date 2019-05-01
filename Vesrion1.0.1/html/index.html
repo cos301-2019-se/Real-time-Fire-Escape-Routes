@@ -79,6 +79,14 @@
             display: none;
         }
 
+        #menu {
+            width: 40px !important;
+            height: 40px;
+            background: #f03a01;
+            position: fixed;
+            right: 10px;       
+        }
+
         #footer {
             position: absolute;
             height: 38px;
@@ -120,6 +128,12 @@
         </div>
         <div id="dashboard">
             welcome
+            <div>
+                <div id="menu">
+                    <img id="menu-icon" src="menu.png" style="width: 27px; margin: 7px">
+                    <img id="cross-icon" src="cross.png" style="width: 30px; margin: 6px; display: none">
+                </div>
+            </div>
             <div id="out" class="btn">Out</div>
         </div>
         <div id="footer" style='width: 50%'>
@@ -171,6 +185,16 @@
                 })
             })
         })
+    })
+
+    $('#menu').on('click', function(){
+        if ($('#menu-icon').css('display') == 'none'){
+            $('#menu-icon').show();
+            $('#cross-icon').hide();
+        }else if ($('#cross-icon').css('display') == 'none'){
+            $('#menu-icon').hide();
+            $('#cross-icon').show();
+        }
     })
 
     function notify(msg){
