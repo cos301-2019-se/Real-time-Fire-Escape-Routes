@@ -332,11 +332,12 @@ public class HTTPServer extends Server{
             JSONObject temp = new JSONObject();
 
             String doorname = rooms.get(0).doors.get(assignedDoorsArray.get(i)).doorName;
-            temp.put("person",Integer.parseInt(People.get(i).getName()));
-            temp.put("door",Integer.parseInt(doorname));
-            unityResponse.put(temp);
+            int [] info = {Integer.parseInt(People.get(i).getName()),Integer.parseInt(doorname)};
+//            temp.put("person",Integer.parseInt(People.get(i).getName()));
+//            temp.put("door",Integer.parseInt(doorname));
+            unityResponse.put(info);
         }
-        System.out.println("L 316");
+//        System.out.println("L 316");
         } catch (Exception e) {
             e.printStackTrace();
         }
