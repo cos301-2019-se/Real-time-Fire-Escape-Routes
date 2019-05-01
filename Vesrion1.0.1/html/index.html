@@ -66,7 +66,6 @@
             color: white;
             background: #f03a01;
             padding: 10px 20px;
-            border-radius: 7px;
             transition: all 200ms linear;
         }
 
@@ -84,7 +83,30 @@
             height: 40px;
             background: #f03a01;
             position: fixed;
-            right: 10px;       
+            top: 10px;
+            right: 10px;     
+            transition: all 200ms linear;
+        }
+
+        #menu-drop {
+            display: none;
+            width: 135px;
+            position: absolute;
+            top: -6px;
+            right: 0px;
+            background: rgb(240, 58, 1) none repeat scroll 0% 0%;
+            color: white;
+        }
+
+        .menu-item {
+            font-family: "Ubuntu";
+            display: block;
+            padding: 5px 10px;
+            transition: all 200ms linear;
+        }
+
+        .menu-item:hover {
+            background: #b22a00;
         }
 
         #footer {
@@ -127,14 +149,22 @@
             </div>
         </div>
         <div id="dashboard">
-            welcome
+            <div id="result"></div>
             <div>
                 <div id="menu">
                     <img id="menu-icon" src="menu.png" style="width: 27px; margin: 7px">
                     <img id="cross-icon" src="cross.png" style="width: 30px; margin: 6px; display: none">
+                    <div style="position: relative">
+                        <div id="menu-drop" style="width: 135px; position: absolute; right: 0;">
+                            <span id="menu-user" style="display: block; font-family: 'Ubuntu'; padding: 6px 10px;">user</span>
+                            <span id="menu-dash" class="menu-item">Dashboard</span>
+                            <span id="menu-get" class="menu-item">get user</span>
+                            <span id="menu-set" class="menu-item">set user</span>
+                            <span id="out" class="menu-item">logout</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="out" class="btn">Out</div>
         </div>
         <div id="footer" style='width: 50%'>
             <span>About</span>
@@ -145,6 +175,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 <script>
+    username = '';
+
     $('#login').on('click', function(){
         $.ajax({
             url: "http://localhost:8080",
@@ -158,11 +190,15 @@
             }),
             success: function(data){
                 if (data.status){
+                    username = $('#username').val();
+
                     $('#login-form').fadeOut('fast', function(){
                         $('#background').hide('slide', {direction: 'left'}, 500, function(){
                             $('#login-page').fadeOut('fast', function(){
                                 $('#footer').css('width', '100%');
-                                $('#dashboard').fadeIn('fast')
+                                $('#dashboard').fadeIn('fast');
+                                $('#menu-user').text(username);
+                                dashboard($('#result'))
                             });
                         });
                     })
@@ -191,10 +227,24 @@
         if ($('#menu-icon').css('display') == 'none'){
             $('#menu-icon').show();
             $('#cross-icon').hide();
+            $('#menu-drop').hide('slide', {direction: 'up'});
         }else if ($('#cross-icon').css('display') == 'none'){
             $('#menu-icon').hide();
             $('#cross-icon').show();
+            $('#menu-drop').show('slide', {direction: 'up'});
         }
+    })
+
+    $('#menu-dash').on('click', function(){
+        dashboard($('#result'))
+    })
+
+    $('#menu-set').on('click', function(){
+        register($('#result'))
+    })
+
+    $('#menu-get').on('click', function(){
+        register($('#result'))
     })
 
     function notify(msg){
@@ -226,6 +276,21 @@
                 $(this).remove();
             })
         )
+    }
+
+    function dashboard(elem){
+        elem.html('');
+        elem.append($('<div></div>').text('welcome'))
+    }
+
+    function getUsers(elem){
+        elem.html('');
+        elem.append($('<div></div>').text('get users'))
+    }
+
+    function register(elem){
+        elem.html('');
+        elem.append($('<div></div>').text('register'))
     }
 </script>
 </body>
