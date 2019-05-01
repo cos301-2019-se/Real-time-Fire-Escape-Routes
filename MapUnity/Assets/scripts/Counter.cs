@@ -41,10 +41,6 @@ public class Counter : MonoBehaviour
         else
         {
             Debug.Log("Received: " + uwr.downloadHandler.text);
-            //uwr.downloadHandler.text[0];
-            //IDictionary<string, int> dict = new Dictionary<string, int>();
-            //dict["red"] = 10;
-            //dict["blue"] = 20;
 
             agentInstructions myObject = JsonUtility.FromJson<agentInstructions>(uwr.downloadHandler.text);
             Debug.Log(myObject.status);
@@ -82,10 +78,6 @@ public class Counter : MonoBehaviour
                     }
                 }
             }
-          
-
-
-
 
         }
     }
