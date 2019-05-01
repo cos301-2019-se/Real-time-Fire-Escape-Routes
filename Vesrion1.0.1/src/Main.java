@@ -23,6 +23,7 @@ public class Main implements Runnable {
             //##############################
             //#         HTTP Server        #
             //##############################
+
             Thread thread = new Thread(new HTTPServer());
             thread.start();
 
@@ -31,8 +32,12 @@ public class Main implements Runnable {
             //##############################
             //#            RTFE            #
             //##############################
+/*
             Thread thread1 = new Thread( new RTFEServer());
+
             thread1.start();
+            thread1.wait();
+  */
             /*
             double array [][] = new double[3][2];
             for(int i = 0; i < 3; i++)

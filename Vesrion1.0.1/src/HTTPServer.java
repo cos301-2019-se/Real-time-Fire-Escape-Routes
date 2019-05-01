@@ -4,6 +4,8 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import Builder.Building;
+import Builder.BuildingManager;
 import io.mappedbus.MappedBusWriter;
 import org.json.*;
 
@@ -160,6 +162,7 @@ public class HTTPServer extends Server{
                             while(in.ready()){
                                 payload.append((char) in.read());
                             }
+//                            System.out.println(payload);
                             String test = getJSONStr(payload);
                             JSONObject req = new JSONObject(test);
                             if(verbose)
@@ -179,6 +182,10 @@ public class HTTPServer extends Server{
                                 case "unity":{
                                     res = sendToRTFE(req);
                                     break;
+                                }
+                                default:{
+                                    res.put("status",false);
+                                    res.put("msg","cant identify type");
                                 }
                             }
                         /**Responding to the client*/
@@ -243,23 +250,30 @@ public class HTTPServer extends Server{
         private JSONObject sendToRTFE(JSONObject req) {
             JSONObject Response = new JSONObject();
             try{
-                MappedBusWriter writer = new MappedBusWriter("/tmp/test", 100000L, 32);
+                /*
+                MappedBusWriter writer = new MappedBusWriter("tmp/test", 100000L, 32);
                 writer.open();
                 String data = req.toString();
                 writer.write(req.toString().getBytes(),0,data.length());
+                writer.close();
+                */
+                test(req);
+//                Thread.currentThread().notify();
+//                notifyAll();
                 boolean status= false;
                 Response.put("status", status);
                 Response.put("msg","Failed");
             }catch(Exception e){
-                if(verbose)
-                    System.out.println("CRITICAL - LOGIN FAILED");
+                if(verbose) {
+                    System.out.println("CRITICAL - UNITY FAIL");
+                    System.out.println(e.getMessage());
+                    System.out.println(e.getStackTrace().toString());
+                }
             }
             return Response;
         }
 
         private String getJSONStr(StringBuilder payload) {
-            if(verbose)
-                System.out.println("String to convert: "+payload);
             return payload.substring(payload.indexOf("{"));
         }
 
@@ -297,6 +311,15 @@ public class HTTPServer extends Server{
 
             return Response;
         }
+    }
+
+    private void test(JSONObject data){
+
+        BuildingManager BobTheBuilder = new BuildingManager(data);
+        Building test = BobTheBuilder.construct();
+
+        System.out.println("L 316");
+
     }
 
 }

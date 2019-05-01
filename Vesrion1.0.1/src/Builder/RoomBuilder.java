@@ -1,4 +1,4 @@
-package Builder;
+package Builder; //Builder design pattern - Concrete Builder
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,13 +8,20 @@ public class RoomBuilder extends Builder {
         super(data);
     }
     Room buildPart(){
+        System.out.println(data.toString());
         try {
-            double [] x= (double[])data.get("x");
-            double [] y= (double[])data.get("y");
-            double [] z= (double[])data.get("z");
-
-        double array [][] = {x,z,y};
-        Room temp = new Room(array);
+            double[] x = new double[2];
+            double[] y = new double[2];
+            double[] z = new double[2];
+            // Extract numbers from JSON array.
+            for (int i = 0; i <2; ++i) {
+                x[i] =  data.getJSONArray("x").getDouble(i);
+                y[i] =  data.getJSONArray("y").getDouble(i);
+                z[i] =  data.getJSONArray("z").getDouble(i);
+            }
+            double array [][] = {x,z,y};
+            Room temp = new Room(array);
+            return temp;
         } catch (JSONException e) {
             e.printStackTrace();
         }

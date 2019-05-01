@@ -7,24 +7,37 @@ import org.json.JSONObject;
 import java.util.Vector;
 
 public class BuildingManager {// Builder design pattern - Director
-    Vector <Builder> RoomBuilder ;
+    Vector <Builder> rooms = new Vector<Builder>();
+    Vector <Builder> doors = new Vector<Builder>();
     JSONObject buildingData ;
     public BuildingManager(JSONObject BuildingData){
         buildingData =BuildingData;
-
+        try {
+            JSONArray roomData = (JSONArray)buildingData.get("rooms");
+            for (int i = 0; i < roomData.length() ; i++) {
+                rooms.add(new RoomBuilder(roomData.get(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public Building construct() {
+        System.out.println("Creating new building");
         Building temp = new Building();
         try {
-            JSONArray rooms = (JSONArray)buildingData.get("rooms");
             temp.addFloor(new Floor());
-            for (int i = 0; i < rooms.length(); i++) {
-
-                temp.getFloor(0).addRoom(new RoomBuilder(rooms.get(i)).buildPart());
+            /**Making Rooms*/
+                for (int i = 0; i < rooms.size(); i++) {
+                    Builder r =rooms.get(i);
+                    temp.getFloor(0).addRoom((Room)r.buildPart());
+                }
+            /**Making Doors*/
+            for (int i = 0; i < doors.size(); i++) {
+                Builder r = doors.get(i);
+                temp.getFloor(0).getRooms().get(0).addDoor((Door)r.buildPart());
             }
-
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return temp;
