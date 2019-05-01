@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <img src="icon.png" width="100px" style="object-fit: cover" align="middle">
+        <div style="font-family: 'Montserrat'">Sandwico</div>
+
+        <label for="email">Email: </label>
+        <input type="text" id="email"><br>
+
+        <button>send</button>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
+<script>
+    var URL = 'http://127.0.0.1:8080';
+    $('button').on('click', function(){
+        var DATA = {
+                "type" : "login",
+                "email": $('#email').val()
+            }
+        console.log($('#email').val());
+        
+        $.ajax({
+            type: "POST",
+            url: URL,
+            contentType: "application/json; charset=utf-8",
+            data: DATA,
+            success: function(data){
+                console.log(data);
+                console.log(JSON.parse(data).msg);
+            }
+        })
+        
+    })
+</script>
+</body>
+</html>
+
