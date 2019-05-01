@@ -143,14 +143,16 @@
                 pass: $('#password').val()
             }),
             success: function(data){
-                $('#login-form').fadeOut('fast', function(){
-                    $('#background').hide('slide', {direction: 'left'}, 500, function(){
-                        $('#login-page').fadeOut('fast', function(){
-                            $('#footer').css('width', '100%');
-                            $('#dashboard').fadeIn('fast')
+                if (data.status){
+                    $('#login-form').fadeOut('fast', function(){
+                        $('#background').hide('slide', {direction: 'left'}, 500, function(){
+                            $('#login-page').fadeOut('fast', function(){
+                                $('#footer').css('width', '100%');
+                                $('#dashboard').fadeIn('fast')
+                            });
                         });
-                    });
-                })
+                    })
+                }
             }
         })
 
