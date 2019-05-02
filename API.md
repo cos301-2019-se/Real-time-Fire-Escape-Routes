@@ -14,9 +14,8 @@ the system assumes that error checking is done on the front end to reduce overhe
   http://localhost:8080/  
 ```
 @return: Will return a json object with contains the following attributes, status, timestamp and message
->   **status**: will return either "success" or "failed"  
->   **timestamp**: will return the date it has taken place  
->   **message**: will return a message notifying whether or no the function succeeded or why it failed   
+>   **status**: will return either true or false     
+>   **message**: will return a message notifying whether or not the function succeeded or why it failed   
 >   for additional info please consult our table below  
   
 @params:  
@@ -70,4 +69,72 @@ jquery
 ```
 
 
+---  
+## RFTE (Real-Time Fire escape) API
 
+```
+ http://localhost:8080
+```
+@return: Will return a json object with contains the following attributes, status, timestamp and message
+>   **status**: will return either true or false      
+>   **message**: will return a message notifying whether or not the function succeeded or why it failed   
+>   for additional info please consult our table below  
+ 
+@params:  
+>**Type**: the type of notification to be done    
+>**rooms**: an Array of Room objects   
+>**doors**: an Array of Door objects   
+>**people**: an Array of People objects   
+>  
+> **valid types are**: unity  
+> Please consult the JSON example to see what data is required  
+
+### Example Json  
+unity    
+```javascript
+{
+	"type":"unity",
+	"rooms":[
+		{
+			"x":[0,10],
+			"y":[0,5],
+			"z":[0,10]
+		},
+		{
+			"x":[10,20],
+			"y":[0,5],
+			"z":[0,10]
+		}	
+	],
+	"doors":[
+		{
+			"id": 1,
+			"x": [4,5],
+			"z": [4,5],
+			"y": [0,2]
+		},
+		{
+			"id": 2,
+			"x": [4,5],
+			"z": [4,5],
+			"y": [0,2]
+		},
+		{
+			"id": 3,
+			"x": [10,12],
+			"z": [4,5],
+			"y": [0,2]
+		}	
+	],
+	"people":[
+		{
+			"id": 11,
+			"position": [2,2]
+		},
+		{
+			"id": 12,
+			"position": [3,3]
+		}
+	]
+}
+```
