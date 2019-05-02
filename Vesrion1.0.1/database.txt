@@ -1,1 +1,1 @@
-john,12345
+john@doe.com,12345

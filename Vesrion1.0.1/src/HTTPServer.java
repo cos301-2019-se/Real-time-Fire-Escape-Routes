@@ -316,8 +316,12 @@ public class HTTPServer extends Server{
         }
     }
 
-    private JSONArray test(JSONObject data){
-        JSONArray unityResponse = new JSONArray();
+    private String test(JSONObject data){
+//    private JSONArray test(JSONObject data){
+            Vector<String> peopleData = new Vector<>();
+            JSONArray unityResponse = new JSONArray();
+        String temp="";
+
         try {
         BuildingManager BobTheBuilder = new BuildingManager(data);
         Building test = BobTheBuilder.construct();
@@ -325,24 +329,29 @@ public class HTTPServer extends Server{
 
 
         Vector<Room> rooms =  test.getFloor(0).getRooms();
-
         Vector<Integer> assignedDoorsArray = rooms.get(0).assignPeople();
         Vector<Person> People = rooms.get(0).getPeopleInRoom();;
-        for (int i = 0; i < People.size(); i++) {
-            JSONObject temp = new JSONObject();
+        for (int i = 0; i < People.size()-1; i++) {
+//            JSONObject temp = new JSONObject();
 
             String doorname = rooms.get(0).doors.get(assignedDoorsArray.get(i)).doorName;
-            int [] info = {Integer.parseInt(People.get(i).getName()),Integer.parseInt(doorname)};
+            temp  += (People.get(i).getName())+"-"+(doorname)+",";
 //            temp.put("person",Integer.parseInt(People.get(i).getName()));
 //            temp.put("door",Integer.parseInt(doorname));
-            unityResponse.put(info);
+//            unityResponse.put(info);
+//            peopleData.add(temp);
         }
+            String doorname = rooms.get(0).doors.get(assignedDoorsArray.lastElement()).doorName;
+            temp  += (People.lastElement().getName())+"-"+(doorname);
+//
 //        System.out.println("L 316");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Unity response: "+unityResponse.toString());
-        return unityResponse;
+//        unityResponse.put(peopleData.toString());
+//        System.out.println("Unity response: "+unityResponse.toString());
+//        return unityResponse;
+        return temp;
     }
 
 }
