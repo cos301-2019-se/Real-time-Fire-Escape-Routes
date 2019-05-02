@@ -2,8 +2,8 @@
 ### Quick links:
 
 <ul>  
-  <li><a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/new/master#web-ui" target="_blank">Web UI</a></li>
-  <li><a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/new/master#rfte-real-time-fire-escape-api" target="_blank">RFTE API</a></li>
+  <li><a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/new/master/API.md#web-ui" target="_blank">Web UI</a></li>
+  <li><a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/API.md#rfte-real-time-fire-escape-api" target="_blank">RFTE API</a></li>
 </ul> 
 
 ---  
