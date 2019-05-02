@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Ubuntu" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        #background {
+            background-image: linear-gradient(145deg, #ff7575, #f2f276);
+            position: relative;
+            display: flex;
+        }
+
+        #background div {
+            width: 100%;
+        }
+
+        #sponsor {
+            position: absolute;
+            width: 100% !important;
+            height: 38px;
+            bottom: 22px;
+            left: 0; 
+            display: flex;
+        }
+
+        #sponsor span {
+            text-align: center;
+            width: 100%;
+        }
+
+        #container div{
+            width: 100%;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            outline: 0;
+            background-color: #fff;
+            border: 1px solid #e6ecf0;
+            border-radius: 3px;
+
+            font-size: 16px;
+            line-height: 22px;
+            padding: 6px;
+
+            transition: all 200ms linear;
+        }
+
+        .btn {
+            font-family: "Ubuntu";
+            width: 50px !important;
+            margin: 0 auto;
+            color: white;
+            background: #f03a01;
+            padding: 10px 20px;
+            border-radius: 7px;
+            transition: all 200ms linear;
+        }
+
+        .btn:hover {
+            cursor: pointer;
+            box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.27);
+        }
+
+        #dashboard {
+            display: none;
+        }
+
+        #footer {
+            position: absolute;
+            height: 38px;
+            background: white;
+            bottom: 0;
+            right: 0; 
+            display: flex;
+
+            transition: all 200ms linear;
+        }
+
+        #footer span {
+            text-align: center;
+            font-family: "Ubuntu";
+            width: 100%;
+            color: #797979;
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <div id="background">
+            <div id="sponsor">
+                <span><img src="epiu.png" style="width: 80px; "></span>
+                <span><img src="tuks.png" width="150px"></span>
+                <span><img src="erp.png" width="45px"></span>
+            </div>
+        </div>
+        <div id="login-page"> 
+            <div id="login-form" style="margin: 100px auto; text-align: center; width: 80%;">
+                <div style="position: relative;">
+                    <img src="fire.png">
+                    <span style="display: block; font-family: 'Fjalla One'; font-size: 30px">RealTime Firewatch</span>
+                </div>
+                <input type="text" name="username" placeholder="Email">
+                <input type="text" name="password" placeholder="Password">
+                <div id="login" class="btn">Log in</div>
+            </div>
+        </div>
+        <div id="dashboard">
+            welcome
+            <div id="out" class="btn">Out</div>
+        </div>
+        <div id="footer" style='width: 50%'>
+            <span>About</span>
+            <span>Privacy</span>
+            <span>Help</span>
+        </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script>
+    $('#login').on('click', function(){
+        $.ajax({
+            url: "http://localhost:8080",
+            type: "POST",
+            data: {
+                type: 'login',
+                name: 'john',
+                pass: '12345'
+            },
+            dataType:"jsonp",
+            success: function(data){
+                console.log(data)
+            }
+        })
+        // $('#login-form').fadeOut('fast', function(){
+        //     $('#background').hide('slide', {direction: 'left'}, 500, function(){
+        //         $('#login-page').fadeOut('fast', function(){
+        //             $('#footer').css('width', '100%');
+        //             $('#dashboard').fadeIn('fast')
+        //         });
+        //     });
+        // })
+    })
+
+    $('#out').on('click', function(){
+        $('#dashboard').fadeOut('fast', function(){
+            $('#footer').css('width', '50%');
+            $('#login-page').fadeIn(function(){
+                $('#background').show('slide', {direction: 'left'}, 500, function(){
+                   $('#login-form').show();
+                })
+            })
+        })
+    })
+</script>
+</body>
+</html>
+
