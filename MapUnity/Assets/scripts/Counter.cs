@@ -163,6 +163,9 @@ public class Counter : MonoBehaviour
         Debug.Log(json);
         //StartCoroutine(postRequest("http://127.0.0.1:5000/", json));
         //StartCoroutine(postRequest("http://10.5.50.231:8080/", json));//kinson
-        StartCoroutine(postRequest("http://10.5.50.202:8080/", json));//kinson
+       //StartCoroutine(postRequest("http://10.5.50.202:8080/", json));//kinson
+
+
+        StartCoroutine(postRequest("http://192.168.43.237:8080/", json));//kinson
     }
 }

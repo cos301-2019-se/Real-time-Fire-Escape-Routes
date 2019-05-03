@@ -10,11 +10,11 @@ public class AgentController : MonoBehaviour
     void Start()
     {
         
-         agent.SetDestination(GameObject.FindWithTag("door").transform.position);
+       //  agent.SetDestination(GameObject.FindWithTag("door").transform.position);
        //Color color = new Color32(0, 0, 0, 0);
 
-        Color color = GameObject.FindWithTag("door").GetComponent<Renderer>().material.color;
-        gameObject.GetComponent<Renderer>().material.color = color;
+        //Color color = GameObject.FindWithTag("door").GetComponent<Renderer>().material.color;
+        //gameObject.GetComponent<Renderer>().material.color = color;
         // agent.destination = new Vector3(1,1,1);
     }
 
