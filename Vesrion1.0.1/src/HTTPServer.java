@@ -8,7 +8,6 @@ import java.util.Vector;
 import Builder.Building;
 import Builder.BuildingManager;
 import Builder.Person;
-import Builder.Room;
 import org.json.*;
 
 public class HTTPServer extends Server{
@@ -368,3 +367,5 @@ public class HTTPServer extends Server{
     }
 
 }
+
+import Builder.Room;
