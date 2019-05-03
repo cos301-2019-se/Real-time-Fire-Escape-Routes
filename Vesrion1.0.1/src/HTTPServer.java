@@ -118,10 +118,16 @@ public class HTTPServer extends Server{
                     out = new PrintWriter(connect.getOutputStream());
                     // get binary output stream to client (for requested data)
                     dataOut = new BufferedOutputStream(connect.getOutputStream());
-
+                    String input="";
                     // get first line of the request from the client
-                    while (!in.ready()){/*DONT REMOVE THIS it prevents a null pointer*/}
-                    String input = in.readLine();
+//                    try {
+                        input = in.readLine();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+                     // THis line seemed to fix the thread issue
+//                    while (!in.ready()){/*DONT REMOVE THIS it prevents a null pointer*/} //IT also caused some weird thread issues so no
+//                    String input = in.readLine();
                     // we parse the request with a string tokenizer
 
                     StringTokenizer parse = new StringTokenizer(input);
@@ -232,8 +238,14 @@ public class HTTPServer extends Server{
                     System.err.println("Server error : " + ioe);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                } finally {
+                }catch (Exception e){
+//                    System.out
+                }
+                finally {
                     try {
+                        out.flush();
+                        dataOut.flush();
+
                         in.close();
                         out.close();
                         dataOut.close();
@@ -245,6 +257,7 @@ public class HTTPServer extends Server{
                     if (verbose) {
                         System.out.println("Connection closed.\n");
                     }
+//                    connect.close();
                 }
             }
         }

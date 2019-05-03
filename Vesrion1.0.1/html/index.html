@@ -43,7 +43,7 @@
             width: 100%;
         }
 
-        input {
+        .login-input {
             display: block;
             width: 100%;
             margin: 10px 0;
@@ -143,8 +143,8 @@
                     <img src="fire.png">
                     <span style="display: block; font-family: 'Fjalla One'; font-size: 30px">RealTime Firewatch</span>
                 </div>
-                <input type="text" id="username" placeholder="Email">
-                <input type="text" id="password" placeholder="Password">
+                <input type="text" id="username" class="login-input" placeholder="Email">
+                <input type="text" id="password" class="login-input" placeholder="Password">
                 <div id="login" class="btn">Log in</div>
             </div>
         </div>
@@ -203,7 +203,7 @@
                         });
                     })
                 }else{
-                    notify('Error: Email or Password is incorrect!');
+                    notify('Error: Email or Password is incorrect!', 'red');
                 }
             }
         })
@@ -247,7 +247,7 @@
         register($('#result'))
     })
 
-    function notify(msg){
+    function notify(msg, color){
         $('body').append($('<div></div>')
             .css({
                 'position' : 'fixed',
@@ -261,7 +261,7 @@
                 .css({
                     'font-family' : 'Ubuntu',
                     'padding' : '10px 20px',
-                    'background-color' : 'red',
+                    'background-color' : color,
                     'color' : 'white',
                     'border-radius' : '7px',
                     'box-shadow' : '0px 2px 3px 1px rgba(0,0,0,0.27)'
@@ -290,7 +290,43 @@
 
     function register(elem){
         elem.html('');
-        elem.append($('<div></div>').text('register'))
+        elem.append($('<div></div>')
+            .append($('<input>')
+                .attr({
+                    'type': 'text',
+                    'id' : 'reg-name',
+                    'placeholder' : 'email' 
+                })
+                )
+            .append($('<input>')
+                .attr({
+                    'type': 'text',
+                    'id' : 'reg-pass',
+                    'placeholder' : 'password'
+                })
+                )
+            .append($('<div></div>')
+                .addClass('btn')
+                .text('register')
+                .on('click', function(){
+                    $.ajax({
+                        url: "http://localhost:8080",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify({
+                            type: 'register',
+                            name: $('#reg-name').val(),
+                            pass: $('#reg-pass').val()
+                        }),success: function(data){
+                            if (data.status){
+                                notify('Register success', 'green')
+                            }
+                        }
+                    })
+                })
+                )
+            )
     }
 </script>
 </body>
