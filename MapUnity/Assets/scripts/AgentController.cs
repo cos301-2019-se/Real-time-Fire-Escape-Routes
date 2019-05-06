@@ -10,7 +10,7 @@ public class AgentController : MonoBehaviour
     void Start()
     {
         
-       //  agent.SetDestination(GameObject.FindWithTag("door").transform.position);
+         agent.SetDestination(GameObject.FindWithTag("door").transform.position);
        //Color color = new Color32(0, 0, 0, 0);
 
         //Color color = GameObject.FindWithTag("door").GetComponent<Renderer>().material.color;
@@ -44,5 +44,17 @@ public class AgentController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "door")
+        {
+
+
+            Destroy(this.gameObject);
+            Debug.Log("here");
+        }
+        Debug.Log("here1");
     }
 }
