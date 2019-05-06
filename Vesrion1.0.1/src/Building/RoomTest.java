@@ -6,13 +6,14 @@ import static Building.RoomType.hall;
 
 public class RoomTest {
 
+
     private static double [][] CorridoorCorners = {
             {20,0}, //First corner
             {25,0},
             {25,20},
             {50,20},
             {50,25},
-            {20,25}, // Last corner
+            {20,25}, // Last corner - Will always connect to first corner
     };
 
     public static void main(String[] args)

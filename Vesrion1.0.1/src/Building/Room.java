@@ -38,6 +38,30 @@ public class Room {
         Rooms.add(room);
     }
 
+    public boolean addPerson(Person p){
+        for (int i = 0; i < getRooms().size(); i++) {
+            if(getRooms(i).addPerson(p))
+                return true;
+        }
+        /** !REPLACE THIS - Pseudo code for adding a person
+         *  DO some wall detection stuff if 4 or more walls matches the coords
+         *  if(wallOverlaps >=4 ){
+         *      peopleInRoom.add(p)
+         *      return true;
+         * }
+         * */
+        return false;
+    }
+
+    public int getNumPeople(){
+        int total = 0;
+        for (int i = 0; i < getRooms().size(); i++) {
+            total += getRooms(i).getNumPeople();
+        }
+        total += peopleInRoom.size();
+        return total;
+    }
+
     /**
      * @Description: Returns a string specifying the type of room and if it is valid
      * */
@@ -88,9 +112,9 @@ public class Room {
                 b= Corners.get(i);
         }
         if(a==null)
-            a = new Corner(corner1[0],corner1[1]);
+            a = new Corner(corner1);
         if(b==null)
-            b = new Corner(corner2[0],corner2[1]);
+            b = new Corner(corner2);
         buildWall(a,b);
     }
 
