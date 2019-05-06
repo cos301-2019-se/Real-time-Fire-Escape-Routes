@@ -29,4 +29,12 @@ public class Building {
             }
             return PeopleList;
       }
+      public boolean addPerson(Person p){
+            /**
+             * @Tilanie
+             * So the idea I have is the building loops through its rooms(floors) and places the person accordingly
+             * the person should have an x,y,z
+             * */
+            return false;
+      }
 }
