@@ -23,6 +23,11 @@ public class Building {
       public Vector<Room> getFloors() {
             return Floor;
       }
-
-
+      public Vector<Person> getPeople(){
+            Vector<Person> PeopleList = new Vector<Person>();
+            for (int i = 0; i < Floor.size(); i++) {
+                  PeopleList.addAll(Floor.get(i).getPeople());
+            }
+            return PeopleList;
+      }
 }

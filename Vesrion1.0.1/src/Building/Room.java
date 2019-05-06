@@ -1,5 +1,6 @@
 package Building;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 enum RoomType{
@@ -62,6 +63,14 @@ public class Room {
         return total;
     }
 
+    public Vector<Person> getPeople(){
+        Vector <Person> ListOfPeople = new Vector<Person>();
+        for (int i = 0; i < getRooms().size(); i++) {
+            ListOfPeople.addAll(getRooms(i).getPeople());
+        }
+        ListOfPeople.addAll(peopleInRoom);
+        return ListOfPeople;
+    }
     /**
      * @Description: Returns a string specifying the type of room and if it is valid
      * */
