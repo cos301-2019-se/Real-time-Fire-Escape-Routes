@@ -12,7 +12,6 @@ public class Building {
       public int getId() {
             return id;
       }
-
       /**Floor related functions*/
       public void addFloor(Room r){
             Floor.add(r);
