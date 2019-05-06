@@ -69,7 +69,17 @@
             transition: all 200ms linear;
         }
 
-        .btn:hover {
+        .btn-reg {
+            font-family: "Ubuntu";
+            width: 100px !important;
+            margin: 0 auto;
+            color: white;
+            background: #f03a01;
+            padding: 10px 20px;
+            transition: all 200ms linear;
+        }
+
+        .btn:hover, .btn-reg:hover {
             cursor: pointer;
             box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.27);
         }
@@ -280,7 +290,20 @@
 
     function dashboard(elem){
         elem.html('');
-        elem.append($('<div></div>').text('welcome'))
+        elem.append($('<div></div>')
+            .css({
+                'display' : 'none',
+                'text-align' : 'center',
+                'margin' : '50px 0'
+            })
+            .append($('<span></span>')
+                .text('Welcome')
+                .css({
+                    'font-family' : '"Fjalla One"',
+                    'font-size' : '23px'
+                })
+            ).fadeIn()
+        )
     }
 
     function getUsers(elem){
@@ -291,42 +314,62 @@
     function register(elem){
         elem.html('');
         elem.append($('<div></div>')
-            .append($('<input>')
-                .attr({
-                    'type': 'text',
-                    'id' : 'reg-name',
-                    'placeholder' : 'email' 
+            .css({
+                'display' : 'none',
+                'text-align' : 'center',
+                'margin' : '50px 0'
+            })
+            .append($('<span></span>')
+                .text('Register a User')
+                .css({
+                    'font-family' : '"Fjalla One"',
+                    'font-size' : '23px'
                 })
-                )
-            .append($('<input>')
-                .attr({
-                    'type': 'text',
-                    'id' : 'reg-pass',
-                    'placeholder' : 'password'
-                })
-                )
-            .append($('<div></div>')
-                .addClass('btn')
-                .text('register')
-                .on('click', function(){
-                    $.ajax({
-                        url: "http://localhost:8080",
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data: JSON.stringify({
-                            type: 'register',
-                            name: $('#reg-name').val(),
-                            pass: $('#reg-pass').val()
-                        }),success: function(data){
-                            if (data.status){
-                                notify('Register success', 'green')
-                            }
-                        }
-                    })
-                })
-                )
             )
+            .append($('<div></div>')
+                .css({
+                    'width' : '90%',
+                    'margin' : '0 auto'
+                })
+                .append($('<input>')
+                    .attr({
+                        'type': 'text',
+                        'id' : 'reg-name',
+                        'class' : 'login-input',
+                        'placeholder' : 'email' 
+                    })
+                    )
+                .append($('<input>')
+                    .attr({
+                        'type': 'text',
+                        'id' : 'reg-pass',
+                        'class' : 'login-input',
+                        'placeholder' : 'password'
+                    })
+                    )
+                .append($('<div></div>')
+                    .addClass('btn-reg')
+                    .text('Register')
+                    .on('click', function(){
+                        $.ajax({
+                            url: "http://localhost:8080",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify({
+                                type: 'register',
+                                name: $('#reg-name').val(),
+                                pass: $('#reg-pass').val()
+                            }),success: function(data){
+                                if (data.status){
+                                    notify('Register success', 'green')
+                                }
+                            }
+                        })
+                    })
+                )
+            ).fadeIn()
+        )
     }
 </script>
 </body>

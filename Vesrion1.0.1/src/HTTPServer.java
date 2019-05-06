@@ -170,7 +170,7 @@ public class HTTPServer extends Server{
                             while(in.ready()){
                                 payload.append((char) in.read());
                             }
-//                            System.out.println(payload);
+                            System.out.println(payload);
                             String test = getJSONStr(payload);
                             JSONObject req = new JSONObject(test);
                             if(verbose)
