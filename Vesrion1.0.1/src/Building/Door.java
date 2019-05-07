@@ -1,28 +1,26 @@
 package Building;
+
 public class Door {
-    /*
+    private static int numDoors =0;
     private Node node;
-    private double [][] coordinates;
+    private double [] coordinates;
     private double size;
-    public String doorName;
-    private int resistanceClassification;
-    public Door(double[][] c, Node n, String name)
+    private NodeType type;
+    private int id;
+    public Door(NodeType Type,double[] c)
     {
-        coordinates = new double[3][2];
+        id= numDoors++;
+        type = Type;
+        coordinates = new double[2];
         for(int i = 0; i < 3; i++)
         {
-            coordinates[i][0] = c[i][0];
-            coordinates[i][1] = c[i][1];
+            coordinates[0] = c[0];
+            coordinates[1] = c[1];
         }
-        node = n;
-        doorName = name;
+        node = new Node(type);
     }
     public double[] getCenter()
     {
-        double center[] = new double[2];
-        center[0] = (coordinates[0][0] + coordinates[0][1])/2;
-        center[1] = (coordinates[1][0] + coordinates[1][1])/2;
-        return center;
+        return coordinates;
     }
-    */
 }

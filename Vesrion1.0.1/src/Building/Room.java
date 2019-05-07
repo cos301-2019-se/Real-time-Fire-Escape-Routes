@@ -38,6 +38,29 @@ public class Room {
     public void addRoom(Room room) {
         Rooms.add(room);
     }
+    public boolean addDoor(Door d){
+        for (int i = 0; i < Walls.size(); i++) {
+            if(onWall(i,d.getCenter())){
+                doors.add(d);
+                return true;
+            }
+        }
+        for (int i = 0; i < Rooms.size(); i++) {
+            // 
+            // add
+        }
+
+        return false;
+    }
+
+    private boolean onWall(int i, double[] pos) {
+        /**
+         * @Tilanie
+         * @Description: Identify whether or not the pos from the param overlaps with the wall
+         *
+         * */
+        return false;
+    }
 
     public boolean addPerson(Person p){
         for (int i = 0; i < getRooms().size(); i++) {
