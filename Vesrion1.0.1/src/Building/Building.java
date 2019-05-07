@@ -29,12 +29,16 @@ public class Building {
             }
             return PeopleList;
       }
+
+      public int getNumPeople(){
+            int total = 0;
+            for (int i = 0; i < Floor.size(); i++) {
+                  total += Floor.get(i).getNumPeople();
+            }
+            return total;
+      }
       public boolean addPerson(Person p){
-            /**
-             * @Tilanie
-             * So the idea I have is the building loops through its rooms(floors) and places the person accordingly
-             * the person should have an x,y,z
-             * */
-            return false;
+            return Floor.get(0).addPerson(p);
+//            return false;
       }
 }

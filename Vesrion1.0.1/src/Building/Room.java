@@ -44,6 +44,16 @@ public class Room {
             if(getRooms(i).addPerson(p))
                 return true;
         }
+        int wallOverlaps = 0;
+        for (int i = 0; i < Walls.size(); i++) {
+            if(crossWall(i,p.getPosition()))
+                wallOverlaps++;
+        }
+        System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
+        if(wallOverlaps >=4 || wallOverlaps == Walls.size() ){
+            peopleInRoom.add(p);
+            return true;
+        }
         /** !REPLACE THIS - Pseudo code for adding a person
          *  DO some wall detection stuff if 4 or more walls matches the coords
          *  if(wallOverlaps >=4 ){
@@ -68,6 +78,7 @@ public class Room {
         for (int i = 0; i < getRooms().size(); i++) {
             ListOfPeople.addAll(getRooms(i).getPeople());
         }
+        System.out.println("People In Room "+roomType.toString() +" is "+peopleInRoom.size());
         ListOfPeople.addAll(peopleInRoom);
         return ListOfPeople;
     }
@@ -174,6 +185,8 @@ public class Room {
      *  false - Returns false if it still needs walls
      * */
     Boolean isCyclic() {
+        if(Walls.lastElement().size() == 0)
+            Walls.remove(Walls.size()-1);
         Boolean visited[] = new Boolean[Corners.size()];
         for (int i = 0; i < Corners.size(); i++)
             visited[i] = false;
@@ -200,5 +213,6 @@ public class Room {
             double [] temp = {x,z};
             return temp;
         }
+
     }
 }
