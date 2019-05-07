@@ -91,6 +91,27 @@ public class Room {
         return Corners.get(i);
     }
 
+    public boolean crossWall(int i, double [] coords)
+    {
+        boolean inRange = false;
+        Vector<Corner> wall = Walls.get(i);
+        double [] point1 = wall.get(0).getCoords();
+        double [] point2 = wall.get(1).getCoords();
+        double largeX = Math.max(point1[0], point2[0]);
+        double largeZ = Math.max(point1[1], point2[1]);
+        double smallX = Math.min(point1[0], point2[0]);
+        double smallZ = Math.min(point1[1], point2[1]);
+
+        if(coords[0] < largeX && coords[0] > smallX)
+        {
+            inRange = true;
+        }
+        if(coords[1] < largeZ && coords[1] > smallZ)
+        {
+            inRange = true;
+        }
+        return inRange;
+    }
     /**
      * Connects 2 corners and adds them into the wall array
      * You can call this function with corners not previously added since it will add it automatically
