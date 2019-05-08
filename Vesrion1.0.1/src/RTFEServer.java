@@ -1,5 +1,5 @@
-import Builder.Building;
-import Builder.BuildingManager;
+import Builder.*;
+import Building.*;
 import io.mappedbus.MappedBusMessage;
 import io.mappedbus.MappedBusReader;
 import org.json.JSONObject;

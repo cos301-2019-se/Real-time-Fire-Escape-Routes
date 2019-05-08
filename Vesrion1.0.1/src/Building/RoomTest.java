@@ -1,10 +1,8 @@
 package Building;
-
 import static Building.NodeType.buildingExit;
 import static Building.RoomType.floor;
 import static Building.RoomType.normal;
 import static Building.RoomType.hall;
-
 public class RoomTest {
 
 

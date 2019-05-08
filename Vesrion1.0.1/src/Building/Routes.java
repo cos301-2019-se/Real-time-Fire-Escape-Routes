@@ -4,6 +4,8 @@ import Builder.Building;
 import Builder.Node;
 import Builder.Person;
 
+import Building.*;
+
 import java.util.Vector;
 
 public class Routes {

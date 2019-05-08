@@ -1,11 +1,14 @@
 package Builder;
 
+import Building.Door;
+
 public class DoorBuilder extends Builder{
 
     DoorBuilder(Object _data) {
         super(_data);
     }
     Door buildPart(){
+        /*
         try{
             double[] x = new double[2];
             double[] z = new double[2];
@@ -32,17 +35,7 @@ public class DoorBuilder extends Builder{
             System.out.println("Door FAIL");
             System.out.println(e.getStackTrace());
         }
-
+        */
         return null;
     }
 }
-/**
- *             array[0][0] = 0;
- *             array[0][1] = 0;
- *             array[1][0] = 0;
- *             array[1][1] = 2;
- *             array[2][0] = 0;
- *             array[2][1] = 4;
- *             Node start1 = new Node("door 1", 1);
- *             Door door1 = new Door(array, start1, "door 1");
- * */

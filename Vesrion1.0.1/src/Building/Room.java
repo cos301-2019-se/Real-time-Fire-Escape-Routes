@@ -3,12 +3,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-enum RoomType{
-    normal,
-    floor,
-    hall
-}
-
 public class Room {
 
     /**Attributes*/
@@ -21,7 +15,7 @@ public class Room {
     Vector<Node> nodesInRooms = new Vector<Node>();
 
     // Constructor
-    Room(RoomType type) {
+    public Room(RoomType type) {
         roomType = type;
         Walls.add(new Vector<>());
     }
@@ -237,7 +231,7 @@ public class Room {
     /**
      * Just a simple way of building Walls
      * */
-    void buildWall(double [] corner1, double[] corner2 ) {
+    public void buildWall(double[] corner1, double[] corner2) {
 
         Corner a = null;
         Corner b = null;
