@@ -22,7 +22,8 @@ public class RoomTest {
             {0,40}, // Last corner - Will always connect to first corner
     };
     private static double [][] doorPositions = {
-            {22.5,0}
+            {22.5,0},
+            {50, 22.5}
     };
 
 
@@ -73,6 +74,19 @@ public class RoomTest {
         System.out.println("number of people found:" + Demo.getNumPeople());
         System.out.println("==================Placing Doors=================");
             System.out.println("Door "+0+" "+GroundFloor.addDoor(new Door(buildingExit,doorPositions[0])));
+        System.out.println("Door "+0+" "+GroundFloor.addDoor(new Door(buildingExit,doorPositions[1])));
         System.out.println();
+        System.out.println("==================Connecting Doors=================");
+        System.out.println(Demo.connectDoors());
+        System.out.println();
+        for(int i = 0; i < Demo.getFloor(0).doors.size(); i++)
+        {
+            System.out.println("=================");
+            for(int j = 0; j < Demo.getFloor(0).doors.get(i).node.connectedTo.size(); j++)
+            {
+                System.out.print(Demo.getFloor(0).doors.get(i).node.nodeId + " <-> " +  Demo.getFloor(0).doors.get(i).node.connectedTo.get(j).nodeId + "\n");
+            }
+
+        }
     }
 }
