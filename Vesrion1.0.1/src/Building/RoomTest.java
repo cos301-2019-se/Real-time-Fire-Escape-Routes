@@ -1,5 +1,6 @@
 package Building;
 
+import static Building.NodeType.buildingExit;
 import static Building.RoomType.floor;
 import static Building.RoomType.normal;
 import static Building.RoomType.hall;
@@ -22,6 +23,10 @@ public class RoomTest {
             {10,50},
             {0,40}, // Last corner - Will always connect to first corner
     };
+    private static double [][] doorPositions = {
+            {22.5,0}
+    };
+
 
     public static void main(String[] args)
     {
@@ -45,6 +50,7 @@ public class RoomTest {
             GroundFloor.addRoom(corridoor);
         else
             return;
+
         Room triangle = new Room(normal);
         for (int i = 0; i < TriangleCorners.length-1; i++)
             triangle.buildWall(TriangleCorners[i],TriangleCorners[i+1]);
@@ -66,8 +72,9 @@ public class RoomTest {
         pos[1] = 49;
         test = new Person("",pos);
         System.out.println("Placing person - "+Demo.addPerson(test));
-        System.out.println("number of people found:" + Demo.getPeople().size());
         System.out.println("number of people found:" + Demo.getNumPeople());
+        System.out.println("==================Placing Doors=================");
+            System.out.println("Door "+0+" "+GroundFloor.addDoor(new Door(buildingExit,doorPositions[0])));
+        System.out.println();
     }
-
 }

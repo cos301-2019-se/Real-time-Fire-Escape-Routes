@@ -15,8 +15,6 @@ public class Room {
     RoomType roomType;
     public Vector<Door> doors = new Vector<Door>();
     private Vector<Person> peopleInRoom = new Vector<>();
-
-
     private Vector<Room> Rooms = new Vector<Room>();
     private Vector<Corner> Corners = new Vector<>();
     private Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
@@ -39,17 +37,20 @@ public class Room {
         Rooms.add(room);
     }
     public boolean addDoor(Door d){
+        int numDoorsPlaced = 0;
+        for (int i = 0; i < Rooms.size(); i++) {
+            if(Rooms.get(i).addDoor(d))
+                numDoorsPlaced++;
+        }
         for (int i = 0; i < Walls.size(); i++) {
             if(onWall(i,d.getCenter())){
                 doors.add(d);
+                System.out.println("Door Placed in "+roomType.toString());
                 return true;
             }
         }
-        for (int i = 0; i < Rooms.size(); i++) {
-            // 
-            // add
-        }
-
+        if(numDoorsPlaced>=1)
+            return true;
         return false;
     }
 
@@ -58,8 +59,26 @@ public class Room {
          * @Tilanie
          * @Description: Identify whether or not the pos from the param overlaps with the wall
          *
-         * */
-        return false;
+         * Take note this works but doesnt 'snap' to the diagonal walls so your guessing should be on point
+         * consult this link below for some useful math stuff en live triangle demo 0.o (such wow)
+         * http://blackpawn.com/texts/pointinpoly
+         **/
+        //Very specific reason for this no touchy!
+        Corner A = Corners.get(i);
+        Corner B = Walls.get(i).get(0);
+
+        //Line is Vertical
+        if(A.x == B.x && A.x == pos[0])
+            return (pos[1] < A.z && pos[1] > B.z) || (pos[1] > A.z && pos[1] < B.z);
+
+        //Line is Horizontal
+        if(A.z == B.z && A.z == pos[1])
+            return (pos[0] < A.x && pos[0] > B.x) || (pos[0] > A.x && pos[0] < B.x);
+        
+        //Line is diagonal
+        return ((A.x <pos[0] && pos[0] <B.x) && (A.z <pos[1] && pos[1] <B.z)) || ((A.x >pos[0] && pos[0] >B.x) && (A.z >pos[1] && pos[1] >B.z));
+
+
     }
 
     public boolean addPerson(Person p){
