@@ -57,6 +57,8 @@ public class Node {
     }
     void connect(Node n,double distance){// Done
         connectedTo.add(n);
+        n.connectedTo.add(this);
+        n.distanceToNodes.add(distance);
         distanceToNodes.add(distance);
     }
 

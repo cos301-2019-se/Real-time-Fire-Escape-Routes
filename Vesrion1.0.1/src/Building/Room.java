@@ -18,6 +18,7 @@ public class Room {
     private Vector<Room> Rooms = new Vector<Room>();
     private Vector<Corner> Corners = new Vector<>();
     private Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
+    Vector<Node> nodesInRooms = new Vector<Node>();
 
     // Constructor
     Room(RoomType type) {
@@ -80,7 +81,60 @@ public class Room {
 
 
     }
+    public double distance(double[] doorCoordinates, double[] doorCoordinates2)
+    {
+        double total = Math.sqrt(((doorCoordinates[0] - doorCoordinates2[0])*(doorCoordinates[0] - doorCoordinates2[0]))+((doorCoordinates[1] - doorCoordinates2[1])*(doorCoordinates[1] - doorCoordinates2[1])));
+        return total;
+    }
+    public boolean connectDoors()
+    {
+        boolean connect = true;
+        for (int i = 0; i < getRooms().size(); i++) {
+            if(getRooms(i).connectDoors())
+            {
+                return true;
+            }
 
+        }
+        for(int j = 0; j < doors.size()-1; j++)
+        {
+            for(int k = j + 1; k < doors.size(); k++)
+            {
+                for(int i = 0; i < Walls.size(); i++)
+                {
+                    if(onWall(i, doors.get(j).getCenter()) && onWall(i, doors.get(k).getCenter()))
+                    {
+                        // DO NOT CONNECT
+                        connect = false;
+                    }
+                }
+                if(connect)
+                {
+                    doors.get(j).node.connect(doors.get(k).node, distance(doors.get(j).getCenter(), doors.get(k).getCenter()));
+                    System.out.println("Connecting doors: " + doors.get(j).node.nodeId + " <-> " + doors.get(k).node.nodeId + "  // distance: " + distance(doors.get(j).getCenter(), doors.get(k).getCenter()));
+                }
+                connect = true;
+            }
+
+        }
+        return true;
+    }
+
+    public boolean getAllNodes()
+    {
+        for (int i = 0; i < getRooms().size(); i++) {
+            if(getRooms(i).getAllNodes())
+                return true;
+        }
+        for(int i = 0; i < doors.size(); i++)
+        {
+            if(!nodesInRooms.contains(doors.get(i).node))
+            {
+                nodesInRooms.add(doors.get(i).node);
+            }
+        }
+        return true;
+    }
     public boolean addPerson(Person p){
         for (int i = 0; i < getRooms().size(); i++) {
             if(getRooms(i).addPerson(p))

@@ -2,7 +2,7 @@ package Building;
 
 public class Door {
     private static int numDoors =0;
-    private Node node;
+    public Node node;
     private double [] coordinates;
     private double size;
     private NodeType type;

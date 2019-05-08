@@ -23,8 +23,15 @@ public class RoomTest {
             {10,50},
             {0,40}, // Last corner - Will always connect to first corner
     };
+    private static double [][] test1 = {
+            {25,0}, //First corner
+            {50,0},
+            {50,20},{25,20}, // Last corner - Will always connect to first corner
+    };
     private static double [][] doorPositions = {
-            {22.5,0}
+            {22.5,0},
+            {50, 22.5},
+            {40,20}
     };
 
 
@@ -61,6 +68,16 @@ public class RoomTest {
         else
             return;
 
+        Room test2 = new Room(normal);
+        for (int i = 0; i < test1.length-1; i++)
+            test2.buildWall(test1[i],test1[i+1]);
+        test2.buildWall(test1[test1.length-1],test1[0]);
+        System.out.println(test2.isValidRoom());
+        if(test2.isCyclic())
+            GroundFloor.addRoom(test2);
+        else
+            return;
+
         double [] pos = {22.5,22.5};
         Person test = new Person("",pos);
         System.out.println("Placing person - "+Demo.addPerson(test));
@@ -75,6 +92,20 @@ public class RoomTest {
         System.out.println("number of people found:" + Demo.getNumPeople());
         System.out.println("==================Placing Doors=================");
             System.out.println("Door "+0+" "+GroundFloor.addDoor(new Door(buildingExit,doorPositions[0])));
+        System.out.println("Door "+0+" "+GroundFloor.addDoor(new Door(buildingExit,doorPositions[1])));
+        System.out.println("Door "+0+" "+GroundFloor.addDoor(new Door(buildingExit,doorPositions[2])));
         System.out.println();
+        System.out.println("==================Connecting Doors=================");
+        System.out.println(Demo.connectDoors());
+        System.out.println();
+        for(int i = 0; i < Demo.getFloor(0).doors.size(); i++)
+        {
+            System.out.println("=================");
+            for(int j = 0; j < Demo.getFloor(0).doors.get(i).node.connectedTo.size(); j++)
+            {
+                System.out.print(Demo.getFloor(0).doors.get(i).node.nodeId + " <-> " +  Demo.getFloor(0).doors.get(i).node.connectedTo.get(j).nodeId + "\n");
+            }
+
+        }
     }
 }

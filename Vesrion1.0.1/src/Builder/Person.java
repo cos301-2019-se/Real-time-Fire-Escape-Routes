@@ -1,6 +1,6 @@
 package Builder;
 
-import Builder.Routes;
+import Routes;
 
 public class Person {
     static int numPeople = 0;
