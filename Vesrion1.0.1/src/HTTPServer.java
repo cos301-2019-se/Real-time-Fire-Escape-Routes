@@ -20,8 +20,8 @@ public class HTTPServer extends Server{
         //Enable this for addition console logs
         static final boolean verbose = true;
 
-        public HTTPServer(){
-
+        public HTTPServer(Building b){
+            super(b);
         }
         @Override
         void start(){}
@@ -189,6 +189,10 @@ public class HTTPServer extends Server{
                                     res = sendToRTFE(req);
                                     break;
                                 }
+                                case "getNumRooms":{
+                                    res = getNumRooms(req);
+                                    break;
+                                }
                                 default:{
                                     res.put("status",false);
                                     res.put("msg","cant identify type");
@@ -231,7 +235,6 @@ public class HTTPServer extends Server{
                     } catch (IOException ioe) {
                         System.err.println("Error with file not found exception : " + ioe.getMessage());
                     }
-
                 } catch (IOException ioe) {
                     System.err.println("Server error : " + ioe);
                 } catch (JSONException e) {
@@ -243,7 +246,6 @@ public class HTTPServer extends Server{
                     try {
                         out.flush();
                         dataOut.flush();
-
                         in.close();
                         out.close();
                         dataOut.close();
@@ -260,23 +262,28 @@ public class HTTPServer extends Server{
             }
         }
 
+        private JSONObject getNumRooms(JSONObject req) {
+            JSONObject Response = new JSONObject();
+            try{
+                Response.put("status", true);
+                Response.put("msg","There are "+ building.getFloor(0).getRooms().size()+" rooms");
+                boolean status= false;
+            }catch(Exception e){
+                if(verbose) {
+                    System.out.println("CRITICAL - UNITY FAIL");
+                    System.out.println(e.getMessage());
+                    System.out.println(e.getStackTrace().toString());
+                }
+            }
+            return Response;
+        }
+
         private JSONObject sendToRTFE(JSONObject req) {
             JSONObject Response = new JSONObject();
             try{
-                /*
-                MappedBusWriter writer = new MappedBusWriter("tmp/test", 100000L, 32);
-                writer.open();
-                String data = req.toString();
-                writer.write(req.toString().getBytes(),0,data.length());
-                writer.close();
-                */
                 Response.put("status", true);
                 Response.put("msg",test(req));
-
-//                Thread.currentThread().notify();
-//                notifyAll();
                 boolean status= false;
-//                Response.put("msg","Failed");
             }catch(Exception e){
                 if(verbose) {
                     System.out.println("CRITICAL - UNITY FAIL");
@@ -331,45 +338,17 @@ public class HTTPServer extends Server{
     }
 
     private String test(JSONObject data){
-
-//    private JSONArray test(JSONObject data){
-            Vector<String> peopleData = new Vector<>();
-            JSONArray unityResponse = new JSONArray();
+        Vector<String> peopleData = new Vector<>();
+        JSONArray unityResponse = new JSONArray();
         String temp="";
 
         try {
         BuildingManager BobTheBuilder = new BuildingManager(data);
-        Building test = BobTheBuilder.construct();
-//        test.AssignRoutes();
-
-        /*
-        Vector<Room> rooms =  test.getFloor(0).getRooms();
-        Vector<Integer> assignedDoorsArray = rooms.get(0).assignPeople();
-        Vector<Person> People = rooms.get(0).getPeopleInRoom();;
-        for (int i = 0; i < People.size()-1; i++) {
-//            JSONObject temp = new JSONObject();
-
-            String doorname = rooms.get(0).doors.get(assignedDoorsArray.get(i)).doorName;
-            temp  += (People.get(i).getName())+"-"+(doorname)+",";
-//            temp.put("person",Integer.parseInt(People.get(i).getName()));
-//            temp.put("door",Integer.parseInt(doorname));
-//            unityResponse.put(info);
-//            peopleData.add(temp);
-        }
-            String doorname = rooms.get(0).doors.get(assignedDoorsArray.lastElement()).doorName;
-            temp  += (People.lastElement().getName())+"-"+(doorname);
-//
-        */
-//        System.out.println("L 316");
+        building = BobTheBuilder.construct();
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        unityResponse.put(peopleData.toString());
-//        System.out.println("Unity response: "+unityResponse.toString());
-//        return unityResponse;
         return temp;
-
-            //return"Not implemented";
     }
 
 }

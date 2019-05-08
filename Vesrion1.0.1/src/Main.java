@@ -18,7 +18,7 @@ public class Main implements Runnable {
             //#         HTTP Server        #
             //##############################
 
-            Thread thread = new Thread(new HTTPServer());
+            Thread thread = new Thread(new HTTPServer(Current));
             thread.start();
             //##############################
             //#            RTFE            #

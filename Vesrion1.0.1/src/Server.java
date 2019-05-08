@@ -1,9 +1,9 @@
 import Building.*;
 
 public abstract class Server implements Runnable{
-    Building current;
+    Building building;
     Server(Building b){
-        current=b;
+        building=b;
     };
     void  start(){}; //Needs to be defined in which ever class inherits from this one
 }
