@@ -60,7 +60,12 @@ public class Room {
          **/
         //Very specific reason for this no touchy!
         Corner A = Corners.get(i);
-        Corner B = Walls.get(i).get(0);
+
+        Corner B ;
+        if(i==0)
+            B = Walls.get(i).get(0);
+        else
+            B = Walls.get(i).get(1);
 
         //Line is Vertical
         if(A.x == B.x && A.x == pos[0])

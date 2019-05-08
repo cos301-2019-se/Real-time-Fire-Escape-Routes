@@ -1,9 +1,5 @@
 package Building;
 
-import Builder.Building;
-import Builder.Node;
-import Builder.Person;
-
 import Building.*;
 
 import java.util.Vector;
@@ -12,8 +8,8 @@ public class Routes {
     public String RouteName;
     private String routeName;
     private int routeId;
-    private Vector<Builder.Node> nodes = new Vector<Builder.Node>();
-    private Vector<Builder.Person> assignedPeople = new Vector<Builder.Person>();
+    private Vector<Node> nodes = new Vector<Node>();
+    private Vector<Person> assignedPeople = new Vector<Person>();
 
     public Routes(String s) {
         RouteName = s;
@@ -27,16 +23,16 @@ public class Routes {
     {
         return null;
     }
-    public int calculateHeuristic(Builder.Node startNode)
+    public int calculateHeuristic(Node startNode)
     {
         return 0;
     }
-    public void addNode(Builder.Node n)
+    public void addNode(Node n)
     {
         nodes.add(n);
     }
 
-    public double distanceToGoal(Builder.Node n)
+    public double distanceToGoal(Node n)
     {
         double dist = 0;
         Node temp = n;

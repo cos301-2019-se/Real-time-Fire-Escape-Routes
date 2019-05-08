@@ -10,7 +10,6 @@ public class RoomBuilder extends Builder {
         super(data);
     }
     Room buildPart(){
-        System.out.println("RoomBuilder: "+data.toString());
         try {
             if(data.has("floor")){
                 JSONObject cornersData  = (JSONObject)data.get("floor");

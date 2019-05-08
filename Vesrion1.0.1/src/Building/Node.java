@@ -1,13 +1,6 @@
 package Building;
 
 import java.util.Vector;
-enum NodeType {
-    stairs,
-    singleDoor,
-    doubleDoor,
-    buildingExit,
-    goal
-}
 
 public class Node {
 

@@ -1,2 +1,0 @@
-java Main
-PAUSE
