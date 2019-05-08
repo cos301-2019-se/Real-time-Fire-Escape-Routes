@@ -1,5 +1,7 @@
 package Builder;
 
+import Building.*;
+
 import java.util.Vector;
 
 public class Routes {

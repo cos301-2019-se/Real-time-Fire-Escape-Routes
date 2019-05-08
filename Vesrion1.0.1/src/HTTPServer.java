@@ -5,10 +5,8 @@ import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import Builder.Building;
+import Building.*;
 import Builder.BuildingManager;
-import Builder.Person;
-import Builder.Room;
 import org.json.*;
 
 public class HTTPServer extends Server{
@@ -170,7 +168,7 @@ public class HTTPServer extends Server{
                             while(in.ready()){
                                 payload.append((char) in.read());
                             }
-                            System.out.println(payload);
+                            //System.out.println(payload);
                             String test = getJSONStr(payload);
                             JSONObject req = new JSONObject(test);
                             if(verbose)
@@ -299,7 +297,10 @@ public class HTTPServer extends Server{
             try{
                 boolean status= USERDB.search(name, password);
                 Response.put("status", status);
-                Response.put("msg","Invalid user/pass");
+                if(status)
+                    Response.put("msg","Login success");
+                else
+                    Response.put("msg","Invalid user/pass");
             }catch(Exception e){
                 if(verbose)
                     System.out.println("CRITICAL - LOGIN FAILED");
@@ -330,6 +331,7 @@ public class HTTPServer extends Server{
     }
 
     private String test(JSONObject data){
+
 //    private JSONArray test(JSONObject data){
             Vector<String> peopleData = new Vector<>();
             JSONArray unityResponse = new JSONArray();
@@ -340,7 +342,7 @@ public class HTTPServer extends Server{
         Building test = BobTheBuilder.construct();
 //        test.AssignRoutes();
 
-
+        /*
         Vector<Room> rooms =  test.getFloor(0).getRooms();
         Vector<Integer> assignedDoorsArray = rooms.get(0).assignPeople();
         Vector<Person> People = rooms.get(0).getPeopleInRoom();;
@@ -357,6 +359,7 @@ public class HTTPServer extends Server{
             String doorname = rooms.get(0).doors.get(assignedDoorsArray.lastElement()).doorName;
             temp  += (People.lastElement().getName())+"-"+(doorname);
 //
+        */
 //        System.out.println("L 316");
         } catch (Exception e) {
             e.printStackTrace();
@@ -365,6 +368,8 @@ public class HTTPServer extends Server{
 //        System.out.println("Unity response: "+unityResponse.toString());
 //        return unityResponse;
         return temp;
+
+            //return"Not implemented";
     }
 
 }
