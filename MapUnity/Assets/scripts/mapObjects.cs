@@ -41,6 +41,20 @@ public class agentInstructions
 {
     public bool status;
     public string msg;
+
+
+    //public List<GameObject> doorList  = new List<GameObject>();
+    //public List<GameObject> roomList = new List<GameObject>();
+    //public List<GameObject> agentList = new List<GameObject>();
+}
+
+public class fullInstructions
+{
+    public bool type;
+    public string floors;
+    public string halls;
+    public string rooms;
+    public string people;
     //public List<GameObject> doorList  = new List<GameObject>();
     //public List<GameObject> roomList = new List<GameObject>();
     //public List<GameObject> agentList = new List<GameObject>();
