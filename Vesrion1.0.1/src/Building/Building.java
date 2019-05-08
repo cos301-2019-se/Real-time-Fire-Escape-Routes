@@ -41,4 +41,8 @@ public class Building {
             return Floor.get(0).addPerson(p);
 //            return false;
       }
+      public boolean connectDoors()
+      {
+            return Floor.get(0).connectDoors();
+      }
 }
