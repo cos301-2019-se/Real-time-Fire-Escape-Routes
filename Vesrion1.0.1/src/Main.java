@@ -1,3 +1,4 @@
+import Building.*;
 public class Main implements Runnable {
 
     Server myserver;
@@ -12,16 +13,13 @@ public class Main implements Runnable {
     public static void main(String[] args){
         try
         {
-
+            Building Current = null;
             //##############################
             //#         HTTP Server        #
             //##############################
 
             Thread thread = new Thread(new HTTPServer());
             thread.start();
-
-
-
             //##############################
             //#            RTFE            #
             //##############################
