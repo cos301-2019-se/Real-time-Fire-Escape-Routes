@@ -3,11 +3,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
-import java.util.Vector;
-
 import Building.*;
 import Builder.BuildingManager;
 import org.json.*;
+
+import static Web.WebAPI.*;
+
 
 public class HTTPServer extends Server{
         static final File WEB_ROOT = new File("./html");
@@ -15,10 +16,7 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        Database USERDB = new Database();
-        // verbose mode
-        //Enable this for addition console logs
-        static final boolean verbose = true;
+        static final boolean verbose = false;
         private JSONObject lastBuild = null;
 
         public HTTPServer(Building b){
@@ -26,6 +24,7 @@ public class HTTPServer extends Server{
         }
         @Override
         void start(){}
+
         @Override
         public void run() {
             System.out.println("--------------------------");
@@ -62,14 +61,12 @@ public class HTTPServer extends Server{
 
             return fileData;
         }
-        // return supported MIME Types
         private String getContentType(String fileRequested) {
             if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
                 return "text/html";
             else
                 return "text/plain";
         }
-
         private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
             File file = new File(WEB_ROOT, FILE_NOT_FOUND);
             int fileLength = (int) file.length();
@@ -92,10 +89,7 @@ public class HTTPServer extends Server{
             }
         }
 
-
-
     class HTTPClientConnection implements Runnable {
-
         private Socket connect;
         HTTPClientConnection(Socket c) {
             connect = c;
@@ -103,31 +97,16 @@ public class HTTPServer extends Server{
         @Override
         public void run() {
             if(connect != null) {
-                // we manage our particular client connection
                 BufferedReader in = null;
                 PrintWriter out = null;
                 BufferedOutputStream dataOut = null;
                 String fileRequested = null;
-
                 try {
-
-                    // we read characters from the client via input stream on the socket
                     in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                    // we get character output stream to client (for headers)
                     out = new PrintWriter(connect.getOutputStream());
-                    // get binary output stream to client (for requested data)
                     dataOut = new BufferedOutputStream(connect.getOutputStream());
                     String input="";
-                    // get first line of the request from the client
-//                    try {
-                        input = in.readLine();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-                     // THis line seemed to fix the thread issue
-//                    while (!in.ready()){/*DONT REMOVE THIS it prevents a null pointer*/} //IT also caused some weird thread issues so no
-//                    String input = in.readLine();
-                    // we parse the request with a string tokenizer
+                    input = in.readLine();
 
                     StringTokenizer parse = new StringTokenizer(input);
                     String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
@@ -169,11 +148,12 @@ public class HTTPServer extends Server{
                             while(in.ready()){
                                 payload.append((char) in.read());
                             }
-                            //System.out.println(payload);
                             String test = getJSONStr(payload);
                             JSONObject req = new JSONObject(test);
                             if(verbose)
                                 System.out.println("Client -> Server: "+ req.toString());
+
+
                         /**Processing the req.body*/
                             String reqType = (String)req.get("type");
                             JSONObject res = new JSONObject();
@@ -397,43 +377,8 @@ public class HTTPServer extends Server{
             return payload.substring(payload.indexOf("{"));
         }
 
-        private JSONObject login(String name, String password){
 
-            JSONObject Response = new JSONObject();
-            try{
-                boolean status= USERDB.search(name, password);
-                Response.put("status", status);
-                if(status)
-                    Response.put("msg","Login success");
-                else
-                    Response.put("msg","Invalid user/pass");
-            }catch(Exception e){
-                if(verbose)
-                    System.out.println("CRITICAL - LOGIN FAILED");
-            }
-            return Response;
-        }
 
-        private JSONObject register(String name,String password){
-            JSONObject Response = new JSONObject();
-            try{
-                boolean exist = USERDB.search(name, "");
-                if(exist){
-                    Response.put("status", false);
-                    Response.put("msg","User already Exists");
-                }else{
-                    USERDB.write(name, password);
-                    Response.put("status", true);
-                    Response.put("msg","User Successfully created");
-
-                }
-            }catch (Exception e){
-                if(verbose)
-                    System.out.println("CRITICAL - REGISTER FAILED");
-            }
-
-            return Response;
-        }
     }
 
     private String build(JSONObject data){
