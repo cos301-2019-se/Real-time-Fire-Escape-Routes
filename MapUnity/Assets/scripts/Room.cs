@@ -24,6 +24,11 @@ public class Room : MonoBehaviour
         buildFloorTop(corners, floorNum);
     }
 
+    void buildWallsFront(float[][] corners, int floorNum)
+    {
+
+    }
+
 
     void buildFloorTop(float[][] corners, int floorNum)
     {
