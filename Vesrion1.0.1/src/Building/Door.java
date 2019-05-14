@@ -17,7 +17,7 @@ public class Door {
             coordinates[0] = c[0];
             coordinates[1] = c[1];
         }
-        node = new Node(type);
+        node = new Node(type, coordinates);
     }
     public double[] getCenter()
     {

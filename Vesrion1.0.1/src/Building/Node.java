@@ -3,7 +3,7 @@ package Building;
 import java.util.Vector;
 
 public class Node {
-
+    private double [] coordinates;
     static int numNodes = 0;
     NodeType type;
     int nodeId;
@@ -12,6 +12,36 @@ public class Node {
     Vector<Double> distanceToNodes = new Vector();
     Vector<Node> connectedTo = new Vector();
     Vector<Person> assignedPersons = new Vector();
+
+    Node(NodeType Type, double [] d){
+        coordinates = new double[2];
+        coordinates[0] = d[0];
+        coordinates[1] = d[1];
+        nodeId = numNodes++;
+        type= Type;
+        switch (type){
+            case doubleDoor:{
+                weight = 1;
+                break;
+            }
+            case singleDoor:{
+                weight = 2;
+                break;
+            }
+            case stairs:{
+                weight = 3;
+                break;
+            }
+            case buildingExit:{
+                weight = 1;
+                break;
+            }
+            case goal:{
+                weight = 0;
+                break;
+            }
+        }
+    }
 
     Node(NodeType Type){
         nodeId = numNodes++;
@@ -39,7 +69,6 @@ public class Node {
             }
         }
     }
-
     public Vector<Person> listPeople()//Done
     {
         return assignedPersons;
