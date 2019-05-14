@@ -1,5 +1,8 @@
 package Web;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.File;
 
 /**
  * @Description: The purpose of this Class is to simplify the HTTP server by
@@ -46,5 +49,16 @@ public class WebAPI {
                 System.out.println("CRITICAL - LOGIN FAILED");
         }
         return Response;
+    }
+
+    public static JSONArray listDir(){
+        File folder = new File("Buildings/");
+        JSONArray buildings = new JSONArray();
+        File[] listOfFiles = folder.listFiles();
+        for (File file : listOfFiles) {
+            if(file.isDirectory())
+                buildings.put(file.getName());;
+        }
+        return buildings;
     }
 }

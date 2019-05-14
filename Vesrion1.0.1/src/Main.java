@@ -1,4 +1,7 @@
 import Building.*;
+
+import static Web.WebAPI.listDir;
+
 public class Main implements Runnable {
 
     Server myserver;
@@ -14,6 +17,7 @@ public class Main implements Runnable {
         try
         {
             Building Current = null;
+            listDir();
             //##############################
             //#         HTTP Server        #
             //##############################

@@ -13,6 +13,7 @@ public class Room {
     private Vector<Corner> Corners = new Vector<>();
     private Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
     Vector<Node> nodesInRooms = new Vector<Node>();
+    static boolean verbose = false;
 
     // Constructor
     public Room(RoomType type) {
@@ -40,7 +41,8 @@ public class Room {
         for (int i = 0; i < Walls.size(); i++) {
             if(onWall(i,d.getCenter())){
                 doors.add(d);
-                System.out.println("Door Placed in "+roomType.toString());
+                if(verbose)
+                    System.out.println("Door Placed in "+roomType.toString());
                 return true;
             }
         }

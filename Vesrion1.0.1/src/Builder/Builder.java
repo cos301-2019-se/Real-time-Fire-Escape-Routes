@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public abstract class Builder {
+    static boolean verbose = false;
     JSONObject data;
     Builder(Object _data){
         data =  (JSONObject)_data;

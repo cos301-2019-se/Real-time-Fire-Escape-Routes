@@ -11,6 +11,7 @@ public class BuildingManager {// Builder design pattern - Director
     Vector <Vector<Builder>> halls = new Vector<>();
     Vector <Vector<Builder>> rooms = new Vector<>();
     Vector <Vector<Builder>> doors = new Vector<>();
+    private static boolean verbose = true;
 
     JSONObject buildingData ;
     public BuildingManager(JSONObject BuildingData){
@@ -71,13 +72,15 @@ public class BuildingManager {// Builder design pattern - Director
     }
 
     public Building construct() {
-        System.out.println("Creating new building");
+        if(verbose)
+            System.out.println("Creating new building");
         Building building = new Building();
 
         try {
             for (int i = 0; i < floors.size(); i++) {
                 Room f =(Room)floors.get(i).buildPart();
-                System.out.println(f.isValidRoom());
+                if(verbose)
+                    System.out.println(f.isValidRoom());
                 building.addFloor(f);
             }
 
@@ -85,21 +88,24 @@ public class BuildingManager {// Builder design pattern - Director
                 for (int j = 0; j < halls.get(i).size(); j++) {
                     Room f =(Room)halls.get(i).get(j).buildPart();
                     building.getFloor(i).addRoom(f);
-                    System.out.println(f.isValidRoom());
+                    if(verbose)
+                        System.out.println(f.isValidRoom());
                 }
             }
             for (int i = 0; i < rooms.size(); i++) {
                 for (int j = 0; j < rooms.get(i).size(); j++) {
                     Room f =(Room)rooms.get(i).get(j).buildPart();
                     building.getFloor(i).addRoom(f);
-                    System.out.println(f.isValidRoom());
+                    if(verbose)
+                        System.out.println(f.isValidRoom());
                 }
             }
 
             for (int i = 0; i < doors.size(); i++) {
                 for (int j = 0; j < doors.get(i).size(); j++) {
                     boolean status =  building.getFloor(i).addDoor((Door)doors.get(i).get(j).buildPart());
-                    System.out.println("Placing door "+status);
+                    if(verbose)
+                        System.out.println("Placing door "+status);
                 }
             }
 
@@ -112,7 +118,8 @@ public class BuildingManager {// Builder design pattern - Director
 
             }
             /**/
-            System.out.println("Building Complete");
+            if(verbose)
+                System.out.println("Building Complete");
         } catch (Exception e) {
             e.printStackTrace();
         }

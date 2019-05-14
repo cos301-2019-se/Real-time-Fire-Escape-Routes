@@ -166,6 +166,11 @@ public class HTTPServer extends Server{
                                     res = register((String)req.get("name"), (String)req.get("pass"));
                                     break;
                                 }
+                                case "getBuildings":{
+                                    res.put("msg",listDir());
+                                    res.put("status",true);
+                                    break;
+                                }
                                 case "buildingData":
                                 case "build":{
                                     res = sendToRTFE(req);
