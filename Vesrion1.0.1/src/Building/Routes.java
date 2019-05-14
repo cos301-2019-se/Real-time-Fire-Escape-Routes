@@ -41,8 +41,6 @@ public class Routes {
         {
             temp = nodes.get(position);
             dist += temp.distanceToNode(nodes.get(++position));
-
-
         }
         return dist;
     }

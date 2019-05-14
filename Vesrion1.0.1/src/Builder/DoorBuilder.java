@@ -18,13 +18,6 @@ public class DoorBuilder extends Builder{
             pos[0]= posData.getDouble(0);
             pos[1]= posData.getDouble(1);
             String type = data.get("type").toString();
-            /**
-             *     stairs,
-             *     singleDoor,
-             *     doubleDoor,
-             *     buildingExit,
-             *     goal
-             *     */
             switch (type){
                 case "stairs":{
                     return new Door(NodeType.stairs,pos);

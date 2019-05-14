@@ -19,6 +19,7 @@ public class HTTPServer extends Server{
         // verbose mode
         //Enable this for addition console logs
         static final boolean verbose = true;
+        private JSONObject lastBuild = null;
 
         public HTTPServer(Building b){
             super(b);
@@ -185,7 +186,8 @@ public class HTTPServer extends Server{
                                     res = register((String)req.get("name"), (String)req.get("pass"));
                                     break;
                                 }
-                                case "unity":{
+                                case "buildingData":
+                                case "build":{
                                     res = sendToRTFE(req);
                                     break;
                                 }
@@ -278,20 +280,117 @@ public class HTTPServer extends Server{
             return Response;
         }
 
-        private JSONObject sendToRTFE(JSONObject req) {
+        private JSONObject sendToRTFE(JSONObject req) throws Exception {
             JSONObject Response = new JSONObject();
             try{
+                switch ( (String)req.get("type")){
+                    case "build":{
+                        Response.put("msg",build(req));
+                        break;
+                    }
+                    case "buildingData":{
+                        Response.put("msg",BuildingToUnityString(Response));
+                    }
+
+                }
                 Response.put("status", true);
-                Response.put("msg",test(req));
-                boolean status= false;
             }catch(Exception e){
                 if(verbose) {
                     System.out.println("CRITICAL - UNITY FAIL");
                     System.out.println(e.getMessage());
                     System.out.println(e.getStackTrace().toString());
                 }
+                Response.put("msg","Exception: "+e.getMessage());
+                Response.put("status", false);
             }
             return Response;
+        }
+
+        private String BuildingToUnityString(JSONObject response)throws Exception {
+            if (lastBuild == null)
+                throw new Exception("Please build a building first") ;
+
+            String responseMessage = "No people to add yet";
+            response.put("numberFloors",building.getFloors().size());
+
+            /**
+             * Adding Rooms to the response
+             * */
+            JSONArray rooms = (JSONArray)lastBuild.get("rooms");
+            String data ="";
+            for (int i = 0; i < rooms.length() ; i++) {
+                JSONObject current = (JSONObject) rooms.get(i);
+                data += current.getInt("floor") + " * ";
+                JSONArray corners = (JSONArray)current.get("corners");
+                for (int j = 0; j < corners.length(); j++) {
+                    JSONArray c = (JSONArray)corners.get(j);
+                    data += c.getDouble(0)+","+c.getDouble(1);
+                    if(j < corners.length()-1)
+                        data+=" % ";
+                }
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+
+            /**
+             * Adding Halls to the response
+             * */
+            rooms = (JSONArray)lastBuild.get("halls");
+            data += " - ";
+            for (int i = 0; i < rooms.length() ; i++) {
+                JSONObject current = (JSONObject) rooms.get(i);
+                data += current.getInt("floor") + " * ";
+                JSONArray corners = (JSONArray)current.get("corners");
+                for (int j = 0; j < corners.length(); j++) {
+                    JSONArray c = (JSONArray)corners.get(j);
+                    data += c.getDouble(0)+","+c.getDouble(1);
+                    if(j < corners.length()-1)
+                        data+=" % ";
+                }
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+
+            /**
+             * Adding Floors to the response
+             * */
+            rooms = (JSONArray)lastBuild.get("floors");
+            data += " - ";
+            for (int i = 0; i < rooms.length() ; i++) {
+                JSONObject current = (JSONObject) rooms.get(i);
+                data += current.getInt("floor") + " * ";
+                JSONArray corners = (JSONArray)current.get("corners");
+                for (int j = 0; j < corners.length(); j++) {
+                    JSONArray c = (JSONArray)corners.get(j);
+                    data += c.getDouble(0)+","+c.getDouble(1);
+                    if(j < corners.length()-1)
+                        data+=" % ";
+                }
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+            response.put("rooms",data);
+
+            /**
+             * Adding Doors to the response
+             * */
+            data = "";
+            JSONArray doors = (JSONArray)lastBuild.get("doors");
+            for (int i = 0; i < doors.length() ; i++) {
+                JSONObject current = (JSONObject) doors.get(i);
+                data += current.getInt("floor") + " * ";
+                data += (String)current.get("type") + " * ";
+                JSONArray pos = (JSONArray)current.get("position");
+                data += pos.getDouble(0)+","+pos.getDouble(1);
+
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+            response.put("doors",data);
+
+
+
+            return responseMessage;
         }
 
         private String getJSONStr(StringBuilder payload) {
@@ -337,16 +436,15 @@ public class HTTPServer extends Server{
         }
     }
 
-    private String test(JSONObject data){
-        Vector<String> peopleData = new Vector<>();
-        JSONArray unityResponse = new JSONArray();
-        String temp="";
-
+    private String build(JSONObject data){
+        String temp="Building built successfully";
+        lastBuild = data;
         try {
         BuildingManager BobTheBuilder = new BuildingManager(data);
         building = BobTheBuilder.construct();
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
         return temp;
     }

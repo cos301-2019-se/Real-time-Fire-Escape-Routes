@@ -11,6 +11,7 @@ public class BuildingManager {// Builder design pattern - Director
     Vector <Vector<Builder>> halls = new Vector<>();
     Vector <Vector<Builder>> rooms = new Vector<>();
     Vector <Vector<Builder>> doors = new Vector<>();
+
     JSONObject buildingData ;
     public BuildingManager(JSONObject BuildingData){
         buildingData =BuildingData;
@@ -101,13 +102,6 @@ public class BuildingManager {// Builder design pattern - Director
                     System.out.println("Placing door "+status);
                 }
             }
-            // /**Making Rooms*/
-            /*
-                for (int i = 0; i < rooms.size(); i++) {
-                    Builder r =rooms.get(i);
-                    temp.getFloor(0).addRoom((Room)r.buildPart());
-                }
-            ///**Making Doors*/
 
 
             ///**Making People*/
