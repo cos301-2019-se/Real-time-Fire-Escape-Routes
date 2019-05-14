@@ -3,13 +3,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
-import java.util.Vector;
-
-import Builder.Building;
+import Building.*;
 import Builder.BuildingManager;
-import Builder.Person;
-import Builder.Room;
 import org.json.*;
+
+import static Web.WebAPI.*;
+
 
 public class HTTPServer extends Server{
         static final File WEB_ROOT = new File("./html");
@@ -17,16 +16,15 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        Database USERDB = new Database();
-        // verbose mode
-        //Enable this for addition console logs
-        static final boolean verbose = true;
+        static final boolean verbose = false;
+        private JSONObject lastBuild = null;
 
-        public HTTPServer(){
-
+        public HTTPServer(Building b){
+            super(b);
         }
         @Override
         void start(){}
+
         @Override
         public void run() {
             System.out.println("--------------------------");
@@ -63,14 +61,12 @@ public class HTTPServer extends Server{
 
             return fileData;
         }
-        // return supported MIME Types
         private String getContentType(String fileRequested) {
             if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
                 return "text/html";
             else
                 return "text/plain";
         }
-
         private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
             File file = new File(WEB_ROOT, FILE_NOT_FOUND);
             int fileLength = (int) file.length();
@@ -93,10 +89,7 @@ public class HTTPServer extends Server{
             }
         }
 
-
-
     class HTTPClientConnection implements Runnable {
-
         private Socket connect;
         HTTPClientConnection(Socket c) {
             connect = c;
@@ -104,31 +97,16 @@ public class HTTPServer extends Server{
         @Override
         public void run() {
             if(connect != null) {
-                // we manage our particular client connection
                 BufferedReader in = null;
                 PrintWriter out = null;
                 BufferedOutputStream dataOut = null;
                 String fileRequested = null;
-
                 try {
-
-                    // we read characters from the client via input stream on the socket
                     in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-                    // we get character output stream to client (for headers)
                     out = new PrintWriter(connect.getOutputStream());
-                    // get binary output stream to client (for requested data)
                     dataOut = new BufferedOutputStream(connect.getOutputStream());
                     String input="";
-                    // get first line of the request from the client
-//                    try {
-                        input = in.readLine();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-                     // THis line seemed to fix the thread issue
-//                    while (!in.ready()){/*DONT REMOVE THIS it prevents a null pointer*/} //IT also caused some weird thread issues so no
-//                    String input = in.readLine();
-                    // we parse the request with a string tokenizer
+                    input = in.readLine();
 
                     StringTokenizer parse = new StringTokenizer(input);
                     String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
@@ -170,11 +148,12 @@ public class HTTPServer extends Server{
                             while(in.ready()){
                                 payload.append((char) in.read());
                             }
-                            System.out.println(payload);
                             String test = getJSONStr(payload);
                             JSONObject req = new JSONObject(test);
                             if(verbose)
                                 System.out.println("Client -> Server: "+ req.toString());
+
+
                         /**Processing the req.body*/
                             String reqType = (String)req.get("type");
                             JSONObject res = new JSONObject();
@@ -187,8 +166,18 @@ public class HTTPServer extends Server{
                                     res = register((String)req.get("name"), (String)req.get("pass"));
                                     break;
                                 }
-                                case "unity":{
+                                case "getBuildings":{
+                                    res.put("msg",listDir());
+                                    res.put("status",true);
+                                    break;
+                                }
+                                case "buildingData":
+                                case "build":{
                                     res = sendToRTFE(req);
+                                    break;
+                                }
+                                case "getNumRooms":{
+                                    res = getNumRooms(req);
                                     break;
                                 }
                                 default:{
@@ -233,7 +222,6 @@ public class HTTPServer extends Server{
                     } catch (IOException ioe) {
                         System.err.println("Error with file not found exception : " + ioe.getMessage());
                     }
-
                 } catch (IOException ioe) {
                     System.err.println("Server error : " + ioe);
                 } catch (JSONException e) {
@@ -245,7 +233,6 @@ public class HTTPServer extends Server{
                     try {
                         out.flush();
                         dataOut.flush();
-
                         in.close();
                         out.close();
                         dataOut.close();
@@ -262,23 +249,12 @@ public class HTTPServer extends Server{
             }
         }
 
-        private JSONObject sendToRTFE(JSONObject req) {
+        private JSONObject getNumRooms(JSONObject req) {
             JSONObject Response = new JSONObject();
             try{
-                /*
-                MappedBusWriter writer = new MappedBusWriter("tmp/test", 100000L, 32);
-                writer.open();
-                String data = req.toString();
-                writer.write(req.toString().getBytes(),0,data.length());
-                writer.close();
-                */
                 Response.put("status", true);
-                Response.put("msg",test(req));
-
-//                Thread.currentThread().notify();
-//                notifyAll();
+                Response.put("msg","There are "+ building.getFloor(0).getRooms().size()+" rooms");
                 boolean status= false;
-//                Response.put("msg","Failed");
             }catch(Exception e){
                 if(verbose) {
                     System.out.println("CRITICAL - UNITY FAIL");
@@ -289,81 +265,137 @@ public class HTTPServer extends Server{
             return Response;
         }
 
+        private JSONObject sendToRTFE(JSONObject req) throws Exception {
+            JSONObject Response = new JSONObject();
+            try{
+                switch ( (String)req.get("type")){
+                    case "build":{
+                        Response.put("msg",build(req));
+                        break;
+                    }
+                    case "buildingData":{
+                        Response.put("msg",BuildingToUnityString(Response));
+                    }
+
+                }
+                Response.put("status", true);
+            }catch(Exception e){
+                if(verbose) {
+                    System.out.println("CRITICAL - UNITY FAIL");
+                    System.out.println(e.getMessage());
+                    System.out.println(e.getStackTrace().toString());
+                }
+                Response.put("msg","Exception: "+e.getMessage());
+                Response.put("status", false);
+            }
+            return Response;
+        }
+
+        private String BuildingToUnityString(JSONObject response)throws Exception {
+            if (lastBuild == null)
+                throw new Exception("Please build a building first") ;
+
+            String responseMessage = "No people to add yet";
+            response.put("numberFloors",building.getFloors().size());
+
+            /**
+             * Adding Rooms to the response
+             * */
+            JSONArray rooms = (JSONArray)lastBuild.get("rooms");
+            String data ="";
+            for (int i = 0; i < rooms.length() ; i++) {
+                JSONObject current = (JSONObject) rooms.get(i);
+                data += current.getInt("floor") + " * ";
+                JSONArray corners = (JSONArray)current.get("corners");
+                for (int j = 0; j < corners.length(); j++) {
+                    JSONArray c = (JSONArray)corners.get(j);
+                    data += c.getDouble(0)+","+c.getDouble(1);
+                    if(j < corners.length()-1)
+                        data+=" % ";
+                }
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+
+            /**
+             * Adding Halls to the response
+             * */
+            rooms = (JSONArray)lastBuild.get("halls");
+            data += " - ";
+            for (int i = 0; i < rooms.length() ; i++) {
+                JSONObject current = (JSONObject) rooms.get(i);
+                data += current.getInt("floor") + " * ";
+                JSONArray corners = (JSONArray)current.get("corners");
+                for (int j = 0; j < corners.length(); j++) {
+                    JSONArray c = (JSONArray)corners.get(j);
+                    data += c.getDouble(0)+","+c.getDouble(1);
+                    if(j < corners.length()-1)
+                        data+=" % ";
+                }
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+
+            /**
+             * Adding Floors to the response
+             * */
+            rooms = (JSONArray)lastBuild.get("floors");
+            data += " - ";
+            for (int i = 0; i < rooms.length() ; i++) {
+                JSONObject current = (JSONObject) rooms.get(i);
+                data += current.getInt("floor") + " * ";
+                JSONArray corners = (JSONArray)current.get("corners");
+                for (int j = 0; j < corners.length(); j++) {
+                    JSONArray c = (JSONArray)corners.get(j);
+                    data += c.getDouble(0)+","+c.getDouble(1);
+                    if(j < corners.length()-1)
+                        data+=" % ";
+                }
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+            response.put("rooms",data);
+
+            /**
+             * Adding Doors to the response
+             * */
+            data = "";
+            JSONArray doors = (JSONArray)lastBuild.get("doors");
+            for (int i = 0; i < doors.length() ; i++) {
+                JSONObject current = (JSONObject) doors.get(i);
+                data += current.getInt("floor") + " * ";
+                data += (String)current.get("type") + " * ";
+                JSONArray pos = (JSONArray)current.get("position");
+                data += pos.getDouble(0)+","+pos.getDouble(1);
+
+                if( i < rooms.length() -1)
+                    data+= " - ";
+            }
+            response.put("doors",data);
+
+
+
+            return responseMessage;
+        }
+
         private String getJSONStr(StringBuilder payload) {
             return payload.substring(payload.indexOf("{"));
         }
 
-        private JSONObject login(String name, String password){
 
-            JSONObject Response = new JSONObject();
-            try{
-                boolean status= USERDB.search(name, password);
-                Response.put("status", status);
-                Response.put("msg","Invalid user/pass");
-            }catch(Exception e){
-                if(verbose)
-                    System.out.println("CRITICAL - LOGIN FAILED");
-            }
-            return Response;
-        }
 
-        private JSONObject register(String name,String password){
-            JSONObject Response = new JSONObject();
-            try{
-                boolean exist = USERDB.search(name, "");
-                if(exist){
-                    Response.put("status", false);
-                    Response.put("msg","User already Exists");
-                }else{
-                    USERDB.write(name, password);
-                    Response.put("status", true);
-                    Response.put("msg","User Successfully created");
-
-                }
-            }catch (Exception e){
-                if(verbose)
-                    System.out.println("CRITICAL - REGISTER FAILED");
-            }
-
-            return Response;
-        }
     }
 
-    private String test(JSONObject data){
-//    private JSONArray test(JSONObject data){
-            Vector<String> peopleData = new Vector<>();
-            JSONArray unityResponse = new JSONArray();
-        String temp="";
-
+    private String build(JSONObject data){
+        String temp="Building built successfully";
+        lastBuild = data;
         try {
         BuildingManager BobTheBuilder = new BuildingManager(data);
-        Building test = BobTheBuilder.construct();
-//        test.AssignRoutes();
-
-
-        Vector<Room> rooms =  test.getFloor(0).getRooms();
-        Vector<Integer> assignedDoorsArray = rooms.get(0).assignPeople();
-        Vector<Person> People = rooms.get(0).getPeopleInRoom();;
-        for (int i = 0; i < People.size()-1; i++) {
-//            JSONObject temp = new JSONObject();
-
-            String doorname = rooms.get(0).doors.get(assignedDoorsArray.get(i)).doorName;
-            temp  += (People.get(i).getName())+"-"+(doorname)+",";
-//            temp.put("person",Integer.parseInt(People.get(i).getName()));
-//            temp.put("door",Integer.parseInt(doorname));
-//            unityResponse.put(info);
-//            peopleData.add(temp);
-        }
-            String doorname = rooms.get(0).doors.get(assignedDoorsArray.lastElement()).doorName;
-            temp  += (People.lastElement().getName())+"-"+(doorname);
-//
-//        System.out.println("L 316");
+        building = BobTheBuilder.construct();
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
-//        unityResponse.put(peopleData.toString());
-//        System.out.println("Unity response: "+unityResponse.toString());
-//        return unityResponse;
         return temp;
     }
 

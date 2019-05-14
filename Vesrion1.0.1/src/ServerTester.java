@@ -21,9 +21,6 @@ public class ServerTester {
         }
         System.out.println(result.wasSuccessful());
 
-        System.out.print("Testing RTFE Server: ");
-        result = JUnitCore.runClasses(RTFEServerTest.class);
-
         for (Failure failure : result.getFailures()) {
             System.out.println(failure.toString());
         }

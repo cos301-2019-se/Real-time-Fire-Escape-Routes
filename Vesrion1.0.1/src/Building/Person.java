@@ -1,8 +1,8 @@
-package Builder;
+package Building;
 
-import Builder.Routes;
 
 public class Person {
+
     static int numPeople = 0;
     public String name;
     Routes AssignedRoute;
@@ -13,6 +13,11 @@ public class Person {
         name = n;
         personID =numPeople++;
 
+    }
+    public Person(String n,double [] pos) {
+        name = n;
+        personID =numPeople++;
+        setPosition(pos);
     }
 
     public void setPosition(double[] p) {
@@ -41,4 +46,5 @@ public class Person {
     public Routes getAssignedRoute() {
         return AssignedRoute;
     }
+
 }

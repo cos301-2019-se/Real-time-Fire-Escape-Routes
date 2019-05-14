@@ -1,27 +1,43 @@
-package Builder;
+package Building;
 
 import java.util.Vector;
 
 public class Node {
 
     static int numNodes = 0;
-
-    String type;
+    NodeType type;
     int nodeId;
     int weight;
+
     Vector<Double> distanceToNodes = new Vector();
     Vector<Node> connectedTo = new Vector();
     Vector<Person> assignedPersons = new Vector();
 
-    Node(String Type, int Weight){
+    Node(NodeType Type){
         nodeId = numNodes++;
         type= Type;
-        weight = Weight;
-    }
-    Node(int Weight){
-        nodeId = numNodes++;
-        type= "node";
-        weight = Weight;
+        switch (type){
+            case doubleDoor:{
+                weight = 1;
+                break;
+            }
+            case singleDoor:{
+                weight = 2;
+                break;
+            }
+            case stairs:{
+                weight = 3;
+                break;
+            }
+            case buildingExit:{
+                weight = 1;
+                break;
+            }
+            case goal:{
+                weight = 0;
+                break;
+            }
+        }
     }
 
     public Vector<Person> listPeople()//Done
@@ -34,6 +50,8 @@ public class Node {
     }
     void connect(Node n,double distance){// Done
         connectedTo.add(n);
+        n.connectedTo.add(this);
+        n.distanceToNodes.add(distance);
         distanceToNodes.add(distance);
     }
 
@@ -59,7 +77,7 @@ public class Node {
         int index = connectedTo.indexOf(n);
         return distanceToNodes.get(index);
     }
-    public String getType() {
+    public NodeType getType() {
         return type;
     }
     public double distanceToGoal(Node start,double d)

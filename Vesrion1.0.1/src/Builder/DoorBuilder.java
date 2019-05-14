@@ -1,48 +1,45 @@
 package Builder;
 
+import Building.Door;
+import Building.NodeType;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class DoorBuilder extends Builder{
 
     DoorBuilder(Object _data) {
         super(_data);
     }
     Door buildPart(){
-        try{
-            double[] x = new double[2];
-            double[] z = new double[2];
-            double[] y = new double[2];
-            // Extract numbers from JSON array.
-            for (int i = 0; i <2; ++i) {
-                x[i] =  data.getJSONArray("x").getDouble(i);
-                y[i] =  data.getJSONArray("y").getDouble(i);
-                z[i] =  data.getJSONArray("z").getDouble(i);
+        try {
+            //System.out.println("DoorBuilder - "+data);
+            double [] pos= new double[2];
+            JSONArray posData =(JSONArray)data.get("position");
+            pos[0]= posData.getDouble(0);
+            pos[1]= posData.getDouble(1);
+            String type = data.get("type").toString();
+            switch (type){
+                case "stairs":{
+                    return new Door(NodeType.stairs,pos);
+                }
+                case "singleDoor":{
+                    return new Door(NodeType.singleDoor,pos);
+                }
+                case "doubleDoor":{
+                    return new Door(NodeType.doubleDoor,pos);
+                }
+                case "buildingExit":{
+                    return new Door(NodeType.buildingExit,pos);
+                }
+                case "goal":{
+                    return new Door(NodeType.goal,pos);
+                }
             }
-
-            double[][] coords = {x,z,y};
-
-            String name= "";
-            try{
-                name = Integer.toString((Integer) data.get("id"));
-            }catch (Exception e){
-                name = (String)data.get("id");
-            }
-            Door t = new Door(coords,null, name);
-            System.out.println("DoorBuilder: "+data.toString());
-            return t;
-        }catch(Exception e){
+            throw new Exception();
+        } catch (Exception e) {
             System.out.println("Door FAIL");
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
         }
-
         return null;
     }
 }
-/**
- *             array[0][0] = 0;
- *             array[0][1] = 0;
- *             array[1][0] = 0;
- *             array[1][1] = 2;
- *             array[2][0] = 0;
- *             array[2][1] = 4;
- *             Node start1 = new Node("door 1", 1);
- *             Door door1 = new Door(array, start1, "door 1");
- * */

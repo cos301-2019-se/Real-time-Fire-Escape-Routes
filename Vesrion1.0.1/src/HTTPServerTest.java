@@ -6,7 +6,8 @@ public class HTTPServerTest {
     @Test
     public void testOne()
     {
-        Thread thread = new Thread(new HTTPServer());
+
+        Thread thread = new Thread(new HTTPServer(null));
         thread.start();
 
         thread.stop();

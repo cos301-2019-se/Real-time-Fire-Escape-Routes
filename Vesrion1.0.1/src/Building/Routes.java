@@ -1,4 +1,6 @@
-package Builder;
+package Building;
+
+import Building.*;
 
 import java.util.Vector;
 
@@ -39,8 +41,6 @@ public class Routes {
         {
             temp = nodes.get(position);
             dist += temp.distanceToNode(nodes.get(++position));
-
-
         }
         return dist;
     }
