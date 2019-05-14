@@ -3,7 +3,7 @@ package Building;
 import java.util.Vector;
 
 public class Node {
-    private double [] coordinates;
+    public double [] coordinates;
     static int numNodes = 0;
     NodeType type;
     int nodeId;
@@ -97,7 +97,11 @@ public class Node {
         }
         return temp;
     }
-
+    public double distance(double x, double y)
+    {
+        double total = Math.sqrt(((x - coordinates[0])*(x - coordinates[0]))+((y - coordinates[1])*(y - coordinates[1])));
+        return total;
+    }
     public int getNodeId() {
         return nodeId;
     }
