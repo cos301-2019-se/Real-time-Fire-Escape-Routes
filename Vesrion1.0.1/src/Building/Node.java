@@ -73,6 +73,7 @@ public class Node {
     {
         return assignedPersons;
     }
+
     public int getNumPeople()//Done
     {
         return assignedPersons.size();
@@ -105,11 +106,13 @@ public class Node {
     public int getNodeId() {
         return nodeId;
     }
+
     public double distanceToNode(Node n)
     {
         int index = connectedTo.indexOf(n);
         return distanceToNodes.get(index);
     }
+
     public NodeType getType() {
         return type;
     }

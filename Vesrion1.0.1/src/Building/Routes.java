@@ -34,6 +34,8 @@ public class Routes {
         doorResistance *= weight;
         double heuristic = distanceToGoal + doorResistance;
         return heuristic;
+
+
     }
     public void addNode(Node n)
     {

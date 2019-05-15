@@ -385,6 +385,9 @@ public class HTTPServer extends Server{
 
 
     }
+    private String clearPeople(){
+            return"";
+    }
 
     private String build(JSONObject data){
         String temp="Building built successfully";
