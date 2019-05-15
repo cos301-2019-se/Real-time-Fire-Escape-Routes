@@ -1,4 +1,4 @@
-package Web;
+package ApiEndpoints;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
