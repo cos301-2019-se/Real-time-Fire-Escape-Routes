@@ -1,4 +1,4 @@
-package Web;
+package ApiEndpoints;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,12 +9,31 @@ import java.io.File;
  * seperating functions related ONLY to the web related content here so that
  * it can be easily called by the HTTP server
  * */
-public class WebAPI {
+public class WebAPI extends API {
 
     private static boolean verbose = false; //USED for debugging purposes
     private static Database USERDB = new Database();
 
-    public static JSONObject register(String name, String password){
+    public static JSONObject handleRequest(JSONObject request)throws Exception {
+        //String reqType = (String)req.get("type");
+        JSONObject response;
+        switch ((String)request.get("type")){
+            case"login":
+                response = login((String)request.get("name"), (String)request.get("pass"));
+                return response;
+            case "register":
+                response =  register((String)request.get("name"), (String)request.get("pass"));
+                return response;
+            case "getBuildings":{
+                response = listDir();
+                return response;
+            }
+        }
+
+        throw new Exception("Unsupported Request");
+    }
+
+    private static JSONObject register(String name, String password){
         JSONObject Response = new JSONObject();
         try{
             boolean exist = USERDB.search(name, "");
@@ -34,7 +53,7 @@ public class WebAPI {
 
         return Response;
     }
-    public static JSONObject login(String name, String password){
+    private static JSONObject login(String name, String password){
 
         JSONObject Response = new JSONObject();
         try{
@@ -50,15 +69,17 @@ public class WebAPI {
         }
         return Response;
     }
-
-    public static JSONArray listDir(){
+    private static JSONObject listDir()throws Exception{
         File folder = new File("Buildings/");
         JSONArray buildings = new JSONArray();
+        JSONObject response = new JSONObject();
         File[] listOfFiles = folder.listFiles();
         for (File file : listOfFiles) {
             if(file.isDirectory())
                 buildings.put(file.getName());;
         }
-        return buildings;
+        response.put("status",false);
+        response.put("msg",buildings);
+        return response;
     }
 }

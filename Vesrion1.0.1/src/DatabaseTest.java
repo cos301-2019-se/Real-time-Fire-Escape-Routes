@@ -1,4 +1,4 @@
-import Web.Database;
+import ApiEndpoints.Database;
 import org.junit.Assert;
 import org.junit.Test;
 

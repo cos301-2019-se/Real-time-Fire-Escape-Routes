@@ -37,10 +37,16 @@ public class Building {
             }
             return total;
       }
-      public boolean addPerson(Person p){
-            return Floor.get(0).addPerson(p);
-//            return false;
+      public boolean addPerson(Person p,int floor){
+            return Floor.get(floor).addPerson(p);
       }
+
+      public void clearPeople(){
+            for (int i = 0; i < Floor.size(); i++) {
+                  Floor.get(i).removePeople();
+            }
+      }
+
       public boolean connectDoors()
       {
             return Floor.get(0).connectDoors();

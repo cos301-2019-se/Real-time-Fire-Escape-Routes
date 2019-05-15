@@ -3,11 +3,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
+
+import ApiEndpoints.*;
 import Building.*;
 import Builder.BuildingManager;
 import org.json.*;
 
-import static Web.WebAPI.*;
+import static ApiEndpoints.WebAPI.*;
 
 
 public class HTTPServer extends Server{
@@ -154,43 +156,32 @@ public class HTTPServer extends Server{
                                 System.out.println("Client -> Server: "+ req.toString());
 
 
-                        /**Processing the req.body*/
-                            String reqType = (String)req.get("type");
-                            JSONObject res = new JSONObject();
-                            switch (reqType){
-                                case "login":{
-                                    res = login((String)req.get("name"), (String)req.get("pass"));
-                                    break;
-                                }
-                                case "register":{
-                                    res = register((String)req.get("name"), (String)req.get("pass"));
-                                    break;
-                                }
-                                case "getBuildings":{
-                                    res.put("msg",listDir());
-                                    res.put("status",true);
-                                    break;
-                                }
-                                case "buildingData":
-                                case "build":{
-                                    res = sendToRTFE(req);
-                                    break;
-                                }
-                                case "getNumRooms":{
-                                    res = getNumRooms(req);
-                                    break;
-                                }
-                                default:{
-                                    res.put("status",false);
-                                    res.put("msg","cant identify type");
-                                }
-                            }
-                        /**Responding to the client*/
-                            if(verbose)
-                                System.out.println("Server -> Client:"+ res.toString());
-                            out.println(res.toString());
-                            out.flush();
+                        /** Determining the API endpoint requested */
 
+                        System.out.println(fileRequested.toString());
+                        String endPoint = fileRequested.toString();
+                        JSONObject response = new JSONObject();
+                        endPoint = endPoint.substring(1);
+                        endPoint = endPoint.toLowerCase();
+                        switch (endPoint){
+                            case "database":
+                                response = WebAPI.handleRequest(req);
+                                break;
+                            case "buildinggeneration":
+                                response = BuildingGenerationAPI.handleRequest(req);
+                                break;
+                            case "building":
+                                response = BuildingAPI.handleRequest(req);
+                                break;
+                            default:
+                                response = new JSONObject();
+                                response.put("status",false);
+                                response.put("msg","invalid endpoint");
+                        }
+                        if(verbose)
+                            System.out.println("Server -> Client:"+ response.toString());
+                        out.println(response.toString());
+                        out.flush();
                     }
                     else { // GET or HEAD method
 
@@ -227,7 +218,6 @@ public class HTTPServer extends Server{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }catch (Exception e){
-//                    System.out
                 }
                 finally {
                     try {
@@ -244,159 +234,14 @@ public class HTTPServer extends Server{
                     if (verbose) {
                         System.out.println("Connection closed.\n");
                     }
-//                    connect.close();
                 }
             }
         }
-
-        private JSONObject getNumRooms(JSONObject req) {
-            JSONObject Response = new JSONObject();
-            try{
-                Response.put("status", true);
-                Response.put("msg","There are "+ building.getFloor(0).getRooms().size()+" rooms");
-                boolean status= false;
-            }catch(Exception e){
-                if(verbose) {
-                    System.out.println("CRITICAL - UNITY FAIL");
-                    System.out.println(e.getMessage());
-                    System.out.println(e.getStackTrace().toString());
-                }
-            }
-            return Response;
-        }
-
-        private JSONObject sendToRTFE(JSONObject req) throws Exception {
-            JSONObject Response = new JSONObject();
-            try{
-                switch ( (String)req.get("type")){
-                    case "build":{
-                        Response.put("msg",build(req));
-                        break;
-                    }
-                    case "buildingData":{
-                        Response.put("msg",BuildingToUnityString(Response));
-                    }
-
-                }
-                Response.put("status", true);
-            }catch(Exception e){
-                if(verbose) {
-                    System.out.println("CRITICAL - UNITY FAIL");
-                    System.out.println(e.getMessage());
-                    System.out.println(e.getStackTrace().toString());
-                }
-                Response.put("msg","Exception: "+e.getMessage());
-                Response.put("status", false);
-            }
-            return Response;
-        }
-
-        private String BuildingToUnityString(JSONObject response)throws Exception {
-            if (lastBuild == null)
-                throw new Exception("Please build a building first") ;
-
-            String responseMessage = "No people to add yet";
-            response.put("numberFloors",building.getFloors().size());
-
-            /**
-             * Adding Rooms to the response
-             * */
-            JSONArray rooms = (JSONArray)lastBuild.get("rooms");
-            String data ="";
-            for (int i = 0; i < rooms.length() ; i++) {
-                JSONObject current = (JSONObject) rooms.get(i);
-                data += current.getInt("floor") + " * ";
-                JSONArray corners = (JSONArray)current.get("corners");
-                for (int j = 0; j < corners.length(); j++) {
-                    JSONArray c = (JSONArray)corners.get(j);
-                    data += c.getDouble(0)+","+c.getDouble(1);
-                    if(j < corners.length()-1)
-                        data+=" % ";
-                }
-                if( i < rooms.length() -1)
-                    data+= " - ";
-            }
-
-            /**
-             * Adding Halls to the response
-             * */
-            rooms = (JSONArray)lastBuild.get("halls");
-            data += " - ";
-            for (int i = 0; i < rooms.length() ; i++) {
-                JSONObject current = (JSONObject) rooms.get(i);
-                data += current.getInt("floor") + " * ";
-                JSONArray corners = (JSONArray)current.get("corners");
-                for (int j = 0; j < corners.length(); j++) {
-                    JSONArray c = (JSONArray)corners.get(j);
-                    data += c.getDouble(0)+","+c.getDouble(1);
-                    if(j < corners.length()-1)
-                        data+=" % ";
-                }
-                if( i < rooms.length() -1)
-                    data+= " - ";
-            }
-
-            /**
-             * Adding Floors to the response
-             * */
-            rooms = (JSONArray)lastBuild.get("floors");
-            data += " - ";
-            for (int i = 0; i < rooms.length() ; i++) {
-                JSONObject current = (JSONObject) rooms.get(i);
-                data += current.getInt("floor") + " * ";
-                JSONArray corners = (JSONArray)current.get("corners");
-                for (int j = 0; j < corners.length(); j++) {
-                    JSONArray c = (JSONArray)corners.get(j);
-                    data += c.getDouble(0)+","+c.getDouble(1);
-                    if(j < corners.length()-1)
-                        data+=" % ";
-                }
-                if( i < rooms.length() -1)
-                    data+= " - ";
-            }
-            response.put("rooms",data);
-
-            /**
-             * Adding Doors to the response
-             * */
-            data = "";
-            JSONArray doors = (JSONArray)lastBuild.get("doors");
-            for (int i = 0; i < doors.length() ; i++) {
-                JSONObject current = (JSONObject) doors.get(i);
-                data += current.getInt("floor") + " * ";
-                data += (String)current.get("type") + " * ";
-                JSONArray pos = (JSONArray)current.get("position");
-                data += pos.getDouble(0)+","+pos.getDouble(1);
-
-                if( i < rooms.length() -1)
-                    data+= " - ";
-            }
-            response.put("doors",data);
-
-
-
-            return responseMessage;
-        }
-
+        
         private String getJSONStr(StringBuilder payload) {
             return payload.substring(payload.indexOf("{"));
         }
-
-
-
     }
 
-    private String build(JSONObject data){
-        String temp="Building built successfully";
-        lastBuild = data;
-        try {
-        BuildingManager BobTheBuilder = new BuildingManager(data);
-        building = BobTheBuilder.construct();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-        return temp;
-    }
 
 }

@@ -53,7 +53,6 @@ public class Room {
 
     private boolean onWall(int i, double[] pos) {
         /**
-         * @Tilanie
          * @Description: Identify whether or not the pos from the param overlaps with the wall
          *
          * Take note this works but doesnt 'snap' to the diagonal walls so your guessing should be on point
@@ -80,8 +79,17 @@ public class Room {
         //Line is diagonal
         return ((A.x <pos[0] && pos[0] <B.x) && (A.z <pos[1] && pos[1] <B.z)) || ((A.x >pos[0] && pos[0] >B.x) && (A.z >pos[1] && pos[1] >B.z));
 
-
     }
+
+    public void removePeople(){
+        for (int i = 0; i < Rooms.size(); i++) {
+            Rooms.get(i).removePeople();
+        }
+        while(peopleInRoom.size() != 0){
+            peopleInRoom.remove(0);
+        }
+    }
+
     public double distance(double[] doorCoordinates, double[] doorCoordinates2)
     {
         double total = Math.sqrt(((doorCoordinates[0] - doorCoordinates2[0])*(doorCoordinates[0] - doorCoordinates2[0]))+((doorCoordinates[1] - doorCoordinates2[1])*(doorCoordinates[1] - doorCoordinates2[1])));
@@ -146,18 +154,12 @@ public class Room {
             if(crossWall(i,p.getPosition()))
                 wallOverlaps++;
         }
-        System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
+        if(verbose)
+            System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
         if(wallOverlaps >=4 || wallOverlaps == Walls.size() ){
             peopleInRoom.add(p);
             return true;
         }
-        /** !REPLACE THIS - Pseudo code for adding a person
-         *  DO some wall detection stuff if 4 or more walls matches the coords
-         *  if(wallOverlaps >=4 ){
-         *      peopleInRoom.add(p)
-         *      return true;
-         * }
-         * */
         return false;
     }
 

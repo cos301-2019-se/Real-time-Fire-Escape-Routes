@@ -12,11 +12,13 @@ public class BuildingManager {// Builder design pattern - Director
     Vector <Vector<Builder>> rooms = new Vector<>();
     Vector <Vector<Builder>> doors = new Vector<>();
     private static boolean verbose = true;
-
+    JSONArray peopleData;
     JSONObject buildingData ;
     public BuildingManager(JSONObject BuildingData){
         buildingData =BuildingData;
         try {
+
+
             JSONArray TempData = (JSONArray)buildingData.get("floors");
             for (int i = 0; i < TempData.length() ; i++) {
                 JSONObject data = new JSONObject();
@@ -66,6 +68,14 @@ public class BuildingManager {// Builder design pattern - Director
                 doors.get(floornum).add(new DoorBuilder(doorData.get(i)));
             }
             /**/
+
+            try{
+                peopleData = (JSONArray)BuildingData.getJSONArray("people");
+            }catch(Exception e){
+                if(verbose)
+                    System.out.println("No people specified in original dataset");
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -109,15 +119,10 @@ public class BuildingManager {// Builder design pattern - Director
                 }
             }
 
-
-            ///**Making People*/
-            /*
-            for (int i = 0; i < people.size(); i++) {
-                Builder r = people.get(i);
-                temp.getFloor(0).getRooms().get(0).addPerson((Person)r.buildPart());
-
+            if(peopleData != null){
+                PersonManager HumanResources = new PersonManager(building,peopleData);
+                HumanResources.construct();
             }
-            /**/
             if(verbose)
                 System.out.println("Building Complete");
         } catch (Exception e) {

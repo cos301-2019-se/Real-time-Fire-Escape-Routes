@@ -35,6 +35,7 @@ public class RoomTest {
 
     public static void main(String[] args)
     {
+        /*
         Building Demo = new Building();
         Room GroundFloor = new Room(floor);
             for (int i = 0; i < FloorCorners.length-1; i++)
@@ -105,5 +106,6 @@ public class RoomTest {
             }
 
         }
+        */
     }
 }

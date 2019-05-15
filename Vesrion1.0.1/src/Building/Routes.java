@@ -10,6 +10,7 @@ public class Routes {
     private int routeId;
     private Vector<Node> nodes = new Vector<Node>();
     private Vector<Person> assignedPeople = new Vector<Person>();
+    public double weight;
 
     public Routes(String s) {
         RouteName = s;
@@ -23,9 +24,18 @@ public class Routes {
     {
         return null;
     }
-    public int calculateHeuristic(Node startNode)
+    public double calculateHeuristic(Node startNode, Person p)
     {
-        return 0;
+        weight = 5; //tweak
+        double distanceToGoal = startNode.distance(p.position[0], p.position[1]);
+        distanceToGoal += distanceToGoal(startNode);
+        int numPeople = startNode.getNumPeople();
+        double doorResistance = startNode.weight * numPeople;
+        doorResistance *= weight;
+        double heuristic = distanceToGoal + doorResistance;
+        return heuristic;
+
+
     }
     public void addNode(Node n)
     {
