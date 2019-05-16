@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 public class Counter : MonoBehaviour
 {
     bool runOnce;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -166,6 +167,6 @@ public class Counter : MonoBehaviour
        //StartCoroutine(postRequest("http://10.5.50.202:8080/", json));//kinson
 
 
-        StartCoroutine(postRequest("http://192.168.43.237:8080/", json));//kinson
+        StartCoroutine(postRequest("http://localhost:8080/buildingGeneration", "{\"type\":\"buildingData\"}"));//kinson
     }
 }

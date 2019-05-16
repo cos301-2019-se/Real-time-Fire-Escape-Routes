@@ -19,26 +19,103 @@ public class Room : MonoBehaviour
        // s.BuildNavMesh();
     }
 
-    public void build(float[][] corners, int floorNum)
+    public void build(Vector2[] vertices2D, bool[] boolList , int floorNum)
     {
-        buildFloorTop(corners, floorNum);
+        // for(int i = 0; i <boolList.Length; i++)
+        // {
+        //     Debug.Log("floorNum: "+boolList[i]);
+        // }
+        buildFloorTop(vertices2D, boolList, floorNum);
+        buildWalls(vertices2D, boolList, floorNum);
     }
 
-    void buildWallsFront(float[][] corners, int floorNum)
+    void buildWalls(Vector2[] vertices2D, bool[] boolList , int floorNum)
     {
-
-    }
-
-
-    void buildFloorTop(float[][] corners, int floorNum)
-    {
-        List<Vector2> vectorList = new List<Vector2>();
-        for(int i = 0; i < corners.Length; i++)
+        for(int i = 0; i < vertices2D.Length; i++)
         {
-            vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
-        }
+            if(i + 1 >= vertices2D.Length)
+            {
+                if(!boolList[i] || !boolList[0])
+                {
+                    Vector3[] vertices = new Vector3[4];
+                    vertices[0] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
+                    vertices[1] = new Vector3(vertices2D[i].x, (floorNum*3)+3, vertices2D[i].y);
+                    vertices[2] = new Vector3(vertices2D[0].x, (floorNum*3)+3, vertices2D[0].y);
+                    vertices[3] = new Vector3(vertices2D[0].x, (floorNum*3), vertices2D[0].y);
 
-        Vector2[] vertices2D = vectorList.ToArray();
+                    buildWallFront(vertices);
+
+                    Vector3[] vertices1 = new Vector3[4];
+                    vertices1[3] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
+                    vertices1[2] = new Vector3(vertices2D[i].x, (floorNum*3)+3, vertices2D[i].y);
+                    vertices1[1] = new Vector3(vertices2D[0].x, (floorNum*3)+3, vertices2D[0].y);
+                    vertices1[0] = new Vector3(vertices2D[0].x, (floorNum*3), vertices2D[0].y);
+
+                    buildWallFront(vertices1);
+                }
+            }
+            else
+            {
+                if(!boolList[i] || !boolList[i+1])
+                {
+                    Vector3[] vertices = new Vector3[4];
+                    vertices[0] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
+                    vertices[1] = new Vector3(vertices2D[i].x, (floorNum*3)+3, vertices2D[i].y);
+                    vertices[2] = new Vector3(vertices2D[i+1].x, (floorNum*3)+3, vertices2D[i+1].y);
+                    vertices[3] = new Vector3(vertices2D[i+1].x, (floorNum*3), vertices2D[i+1].y);
+
+                    buildWallFront(vertices);
+
+                    Vector3[] vertices1 = new Vector3[4];
+                    vertices1[3] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
+                    vertices1[2] = new Vector3(vertices2D[i].x, (floorNum*3)+3, vertices2D[i].y);
+                    vertices1[1] = new Vector3(vertices2D[i+1].x, (floorNum*3)+3, vertices2D[i+1].y);
+                    vertices1[0] = new Vector3(vertices2D[i+1].x, (floorNum*3), vertices2D[i+1].y);
+
+                    buildWallFront(vertices1);
+                }
+            }
+        }
+    }
+
+    void buildWallFront(Vector3[] vertices3D)
+    {
+        int[] tri = new int[6];
+
+        tri[0] = 0;
+        tri[1] = 1;
+        tri[2] = 2;
+        
+        tri[3] = 2;
+        tri[4] = 3;
+        tri[5] = 0;
+        
+        Mesh msh = new Mesh();
+        msh.vertices = vertices3D;
+        msh.triangles = tri;
+        msh.RecalculateNormals();
+        msh.RecalculateBounds();
+
+        GameObject objToSpawn = new GameObject("Cool GameObject made from Code");
+         objToSpawn.AddComponent(typeof(MeshRenderer));
+         MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
+         filter.mesh = msh;
+
+
+        Material myMaterial = Resources.Load("materials/glass") as Material; 
+        objToSpawn.GetComponent<Renderer>().material = myMaterial; 
+    }
+
+
+    void buildFloorTop(Vector2[] vertices2D, bool[] boolList , int floorNum)
+    {
+        // List<Vector2> vectorList = new List<Vector2>();
+        // for(int i = 0; i < corners.Length; i++)
+        // {
+        //     vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
+        // }
+
+        // Vector2[] vertices2D = vectorList.ToArray();
 
         //Vector2[] vertices2D = new Vector2[] {
         //    new Vector2(0,0),
@@ -61,13 +138,15 @@ public class Room : MonoBehaviour
         Mesh msh = new Mesh();
         msh.vertices = vertices;
         msh.triangles = indices;
-        // msh.RecalculateNormals();
-        // msh.RecalculateBounds();
+        msh.RecalculateNormals();
+        msh.RecalculateBounds();
  
         // Set up game object with mesh;
         gameObject.AddComponent(typeof(MeshRenderer));
         MeshFilter filter = gameObject.AddComponent(typeof(MeshFilter)) as MeshFilter;
         filter.mesh = msh;
+        Material myMaterial = Resources.Load("materials/routeGreen") as Material; 
+        GetComponent<Renderer>().material = myMaterial; 
     }
 
 

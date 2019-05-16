@@ -26,7 +26,7 @@ public class agent
 
 public class mapObjects
 {   
-    public string type = "unity";
+    public string type = "buildingData";
     public agent [] people;
     public door [] doors;
     public room [] rooms;

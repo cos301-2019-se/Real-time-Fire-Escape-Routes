@@ -29,8 +29,8 @@ public class Building : MonoBehaviour
     {
         type = "unity";
         numberFloors = 3;
-        rooms = "0 * 0,0 % 0,10 % 10,10 % 10,0 - 1 * 5,5 % 5,10 % 10,10 % 10,5 - 2 * 5,5 % 5,10 % 10,10 % 10,5"; //- 0 * 0,0 % 0,20 % 20,20 % 20,0 - 1 * 0,0 % 0,18 % 18,18 % 18,0 - 2 * 0,0 % 0,16 % 16,16 % 16,0 - 0 * 0,0 % 0,5 % 5,5 % 5,0 - 1 * 0,0 % 0,5 % 5,5 % 5,0 - 2 * 0,0 % 0,5 % 5,5 % 5,0";
-        doors = "0 * 1 * 0,2 - 1 * 1  * 0,2 - 2 * 1 * 0,2";//floor*type*x,y
+        rooms = "0 * 0,0 % 0,10 % 10,10 % 10,0 - 1 * 5,5 % 5,10 % 10,10 % 10,5 - 2 * 5,5 % 5,10 % 10,10 % 10,5 - 0 * 2,2 % 2,4 % 4,4"; //- 0 * 0,0 % 0,20 % 20,20 % 20,0 - 1 * 0,0 % 0,18 % 18,18 % 18,0 - 2 * 0,0 % 0,16 % 16,16 % 16,0 - 0 * 0,0 % 0,5 % 5,5 % 5,0 - 1 * 0,0 % 0,5 % 5,5 % 5,0 - 2 * 0,0 % 0,5 % 5,5 % 5,0";
+        doors = "0 * 1 * 0,2 - 1 * 1  * 5,7 - 2 * 1 * 5,8.3 - 0 * 1 * 3,3";//floor*type*x,y
         people = "0 * 0 * 7,7 - 1 * 1  * 7,7 - 2 * 2 * 7,7";
 
 
@@ -52,7 +52,7 @@ public class Building : MonoBehaviour
             doorsArr[i][2] = float.Parse(xy[0]);//x
             doorsArr[i][3] = float.Parse(xy[1]);//z
 
-            Debug.Log("door: " + doorsArr[i][0] + " " + doorsArr[i][1] + " " + doorsArr[i][2] + doorsArr[i][3] + " ");//--------------splitting doors
+           // Debug.Log("door: " + doorsArr[i][0] + " " + doorsArr[i][1] + " " + doorsArr[i][2] + doorsArr[i][3] + " ");//--------------splitting doors
         }
         //--------finding doors end
 
@@ -62,7 +62,7 @@ public class Building : MonoBehaviour
         for (int i = 0; i < numberFloors; i++)
         {
             Floor floorPtr = gameObject.AddComponent(typeof(Floor)) as Floor;
-            floorPtr.addAllDoors(doorsArr);//adding all doors into floor
+            floorPtr.addAllDoors(doorsArr);//adding all doors into each floor
             floorPtr.floorNumber = i;
             floorList.Add(floorPtr);
         }
@@ -105,7 +105,34 @@ public class Building : MonoBehaviour
         }
         //--------adding rooms to floors end
 
+        //--------placing people
 
+        people = people.Replace(" ", string.Empty);
+        string[] peopleA = people.Split('-');
+
+        float[][] peopleArr = new float[peopleA.Length][];
+        for (int i = 0; i < peopleA.Length; i++)
+        {
+            peopleArr[i] = new float[4];
+
+            string[] peopleA1 = peopleA[i].Split('*');
+
+            peopleArr[i][0] = float.Parse(peopleA1[0]);//floor
+            peopleArr[i][1] = float.Parse(peopleA1[1]);//type
+            string[] xy = peopleA1[2].Split(',');
+            peopleArr[i][2] = float.Parse(xy[0]);//x
+            peopleArr[i][3] = float.Parse(xy[1]);//z
+
+            Debug.Log("door: " + peopleArr[i][0] + " " + peopleArr[i][1] + " " + peopleArr[i][2] + peopleArr[i][3] + " ");//--------------splitting doors
+        }
+
+        for(int i = 0; i < peopleArr.Length; i++)
+        {
+          //  Instantiate(Resources.Load("Capsule"), new Vector3(peopleArr[i][2],peopleArr[i][1]*3,peopleArr[i][3]));
+          Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
+          GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][2], (peopleArr[i][0]*3)+1.2f,peopleArr[i][3]), new Quaternion(0, 0, 0, 1)) as GameObject;
+        }
+        //--------placing people end
 
     }
 }
