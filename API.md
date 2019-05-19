@@ -38,8 +38,8 @@ Thus far supported/planned requests at each endpoints are:
 <ul>  
   <li><a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/new/master/API.md#Database" target="_blank">Database</a></li>
   <li><a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/API.md#rfte-real-time-fire-escape-api" target="_blank">RFTE API</a></li>
-</ul> 
----
+</ul>   
+
 ## Database
 The service will be accessed by making use of POST requests to our system,
 the system assumes that error checking is done on the front end to reduce overhead on the backend
