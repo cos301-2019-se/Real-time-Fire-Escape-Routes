@@ -123,11 +123,57 @@ public class BuildingManager {// Builder design pattern - Director
                 PersonManager HumanResources = new PersonManager(building,peopleData);
                 HumanResources.construct();
             }
+
+
             if(verbose)
                 System.out.println("Building Complete");
+
+            constructRoutes(building);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return building;
+    }
+
+    private void constructRoutes(Building building)throws Exception{
+        if (verbose){
+            System.out.println("Building Routes");
+        }
+        int numRoutes = 0;
+        for (int i = 0; i < building.getNumFloors(); i++) {
+            Room floor = building.getFloor(i);
+            boolean status =floor.connectDoors();
+            if(verbose){
+                System.out.println("Connected doors for floor - "+i);
+            }
+
+            Vector<Node> Doors = filterDoors( floor.getAllDoors());
+            for (int j = 0; j < Doors.size(); j++) {
+                if(Doors.get(j).getType() == NodeType.buildingExit){
+                    Node goal = Doors.get(j);
+                    Routes r = new Routes(String.valueOf(++numRoutes));
+                    for (int k = 0; k < Doors.size(); k++) {
+                        if(j!=k || Doors.get(k).getType() != NodeType.buildingExit){
+                            r.addNode(Doors.get(k));
+                        }
+                    }
+                    r.addNode(goal);
+                    building.addRoute(r);
+                }
+            }
+        }
+
+        if (verbose) {
+            System.out.println("Building Routes Complete");
+        }
+    }
+
+    private Vector<Node> filterDoors (Vector<Node> b){
+        Vector<Node> a = new Vector<Node>();
+        for (int i = 0; i < b.size(); i++) {
+            if(!a.contains(b.elementAt(i)))
+                a.add(b.elementAt(i));
+        }
+        return a;
     }
 }

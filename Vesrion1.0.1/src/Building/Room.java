@@ -13,7 +13,7 @@ public class Room {
     private Vector<Corner> Corners = new Vector<>();
     private Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
     Vector<Node> nodesInRooms = new Vector<Node>();
-    static boolean verbose = false;
+    static boolean verbose = true;
 
     // Constructor
     public Room(RoomType type) {
@@ -95,6 +95,7 @@ public class Room {
         double total = Math.sqrt(((doorCoordinates[0] - doorCoordinates2[0])*(doorCoordinates[0] - doorCoordinates2[0]))+((doorCoordinates[1] - doorCoordinates2[1])*(doorCoordinates[1] - doorCoordinates2[1])));
         return total;
     }
+
     public boolean connectDoors()
     {
         boolean connect = true;
@@ -129,6 +130,21 @@ public class Room {
         return true;
     }
 
+    public Vector<Node> getAllDoors(){
+        Vector<Node> currentDoors = new Vector<Node>();
+        for (int i = 0; i < Rooms.size(); i++) {
+            currentDoors.addAll(Rooms.get(i).getAllDoors());
+        }
+        for (int i = 0; i < doors.size(); i++) {
+            currentDoors.add(doors.get(i).node);
+        }
+        return currentDoors;
+    }
+
+    /**
+     * @Tilanie:
+     * What is the purpose of this function?
+     * */
     public boolean getAllNodes()
     {
         for (int i = 0; i < getRooms().size(); i++) {
@@ -145,7 +161,7 @@ public class Room {
         return true;
     }
     public boolean addPerson(Person p){
-        for (int i = 0; i < getRooms().size(); i++) {
+        for (int i = getRooms().size()-1; i >=0 ; i--) {
             if(getRooms(i).addPerson(p))
                 return true;
         }
@@ -189,6 +205,7 @@ public class Room {
             return roomType.name()+ " (room) has an error";
         return roomType.name()+ " (room) is complete";
     }
+
     /**
      * @Description: Adds a corner to the room, Take Note it means nothing on its own
      * */
@@ -294,6 +311,35 @@ public class Room {
                 if (isCyclicUtil(Corners.elementAt(u), visited, null))
                     return true;
         return false;
+    }
+
+    public void assignPeople(Vector<Routes> routes){
+        for (int i = 0; i < Rooms.size(); i++) {
+            Rooms.get(i).assignPeople(routes);
+        }
+
+        for (int i = 0; i < peopleInRoom.size(); i++) {
+            double Distance =  Double.POSITIVE_INFINITY;
+            Person p = peopleInRoom.get(i);
+            int BestRoute = 0;
+            int BestDoor = 0;
+            for (int j = 0; j < doors.size(); j++) {
+                for (int k = 0; k < routes.size(); k++) {
+                    double temp = routes.get(k).calculateHeuristic(doors.get(j).node,p);
+                    if(temp < Distance){
+                        Distance= temp;
+                        BestDoor =j;
+                        BestRoute = k;
+                    }
+                }
+            }
+            if(verbose){
+                System.out.println("Person "+p.personID+" is assigned to Route "+BestRoute +" Distance to safety is: "+Distance+ " using door " +doors.get(BestDoor).id);
+            }
+
+            p.setAssignedRoute(routes.get(BestRoute));
+            routes.get(BestRoute).addPerson(p);
+        }
     }
 
     public static class Corner{
