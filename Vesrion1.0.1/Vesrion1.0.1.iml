@@ -42,5 +42,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="json" level="project" />
+    <orderEntry type="library" name="unirest-java-1.4.9" level="project" />
+    <orderEntry type="library" name="okhttp-1.2.1-jar-with-dependencies" level="project" />
   </component>
 </module>

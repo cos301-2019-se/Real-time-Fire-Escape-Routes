@@ -6,7 +6,7 @@ public class Door {
     private double [] coordinates;
     private double size;
     private NodeType type;
-    private int id;
+    public int id;
     public Door(NodeType Type,double[] c)
     {
         id= numDoors++;

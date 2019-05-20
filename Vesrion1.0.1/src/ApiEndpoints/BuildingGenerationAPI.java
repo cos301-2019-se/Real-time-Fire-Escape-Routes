@@ -94,24 +94,53 @@ public class BuildingGenerationAPI {
         for (int i = 0; i < doors.length() ; i++) {
             JSONObject current = (JSONObject) doors.get(i);
             data += current.getInt("floor") + " * ";
-            data += (String)current.get("type") + " * ";
+            switch ((String)current.get("type")){
+                case "buildingExit":
+                    data+="2.0 * ";
+                    break;
+                case "singleDoor":
+                    data+="2.0 * ";
+                    break;
+                case "doubleDoor":
+                    data+="1.8 * ";
+                    break;
+                case "stairs":
+                    data+="2.0 * ";
+                    break;
+                default:
+                    data+="0.9 * ";
+            }
             JSONArray pos = (JSONArray)current.get("position");
             data += pos.getDouble(0)+","+pos.getDouble(1);
 
-            if( i < rooms.length() -1)
+            if( i < doors.length() -1)
                 data+= " - ";
         }
         response.put("doors",data);
 
 
-
+        /**
+         * Adding People
+         * */
+        data = "";
+        data = "";
+        JSONArray people = (JSONArray)API.lastbuild.get("people");
+        for (int i = 0; i < people.length() ; i++) {
+            JSONObject current = (JSONObject) people.get(i);
+            data += current.getInt("floor") + " * ";
+            data += current.getInt("id")+" * ";
+            JSONArray pos = (JSONArray)current.get("position");
+            data += pos.getDouble(0)+","+pos.getDouble(1);
+            if( i < people.length() -1)
+                data+= " - ";
+        }
+        response.put("people",data);
         return responseMessage;
     }
 
     private static String build(JSONObject data){
         String temp="Building built successfully";
         API.lastbuild = data;
-//        lastBuild = data;
         try {
             BuildingManager BobTheBuilder = new BuildingManager(data);
             API.building = BobTheBuilder.construct();

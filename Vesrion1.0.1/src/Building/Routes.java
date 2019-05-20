@@ -50,9 +50,18 @@ public class Routes {
         while(position < nodes.size() - 1)
         {
             temp = nodes.get(position);
-            dist += temp.distanceToNode(nodes.get(++position));
+            if(nodes.get(position).connectedTo.contains(nodes.get(position+1)))
+            dist += temp.distanceToNode(nodes.get(position+1));
+            position++;
+
         }
         return dist;
     }
+    public Node getGoal(){
+        return nodes.lastElement();
+    }
 
+    public void addPerson(Person p) {
+        assignedPeople.add(p);
+    }
 }
