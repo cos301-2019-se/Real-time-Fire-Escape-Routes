@@ -2,36 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+public class buildingString
+{
+    public string doors;
+    public string msg;
+    public string rooms;
+    public int numberFloors;
+    public string people;
+    public string status;
+}
 
 public class Building : MonoBehaviour
 {
-    public string type;
-    public int numberFloors;
-    //public string floors = "0 * 0,0 % 0,20 % 20,20 % 20,0 - 1 * 0,0 % 0,18 % 18,18 % 18,0 - 2 * 0,0 % 0,16 % 16,16 % 16,0";
-    //public string halls = "0 * 0,0 % 0,5 % 5,5 % 5,0 - 1 * 0,0 % 0,5 % 5,5 % 5,0 - 2 * 0,0 % 0,5 % 5,5 % 5,0";
-    public string rooms;
-    public string doors;
-    public string people;
+    private string doors;
+    private string msg;
+    private string rooms;
+    private int numberFloors;
+    private string people;
+    private string status;
     //above will be used to convert from json
-
+    List<Floor> floorList = new List<Floor>();
 
     void Start()
     {
-        createArrays();
+        //createArrays();
 
     }
 
-    List<Floor> floorList = new List<Floor>();
+    public void addStrings(buildingString s)
+    {
+        doors = s.doors;
+        msg = s.msg;
+        rooms = s.rooms;
+        numberFloors = s.numberFloors;
+        people = s.people;
+        status = s.status;
+        //Debug.Log("adding data to building");
+    }
 
 
     public void createArrays()
     {
-        type = "unity";
-        numberFloors = 3;
-        rooms = "0 * 0,0 % 0,10 % 10,10 % 10,0 - 1 * 5,5 % 5,10 % 10,10 % 10,5 - 2 * 5,5 % 5,10 % 10,10 % 10,5 - 0 * 2,2 % 2,4 % 4,4"; //- 0 * 0,0 % 0,20 % 20,20 % 20,0 - 1 * 0,0 % 0,18 % 18,18 % 18,0 - 2 * 0,0 % 0,16 % 16,16 % 16,0 - 0 * 0,0 % 0,5 % 5,5 % 5,0 - 1 * 0,0 % 0,5 % 5,5 % 5,0 - 2 * 0,0 % 0,5 % 5,5 % 5,0";
-        doors = "0 * 1 * 0,2 - 1 * 1  * 5,7 - 2 * 1 * 5,8.3 - 0 * 1 * 3,3";//floor*type*x,y
-        people = "0 * 0 * 7,7 - 1 * 1  * 7,7 - 2 * 2 * 7,7";
+        // numberFloors = 3;
+        // rooms = "0 * 0,0 % 0,10 % 10,10 % 10,0 - 1 * 5,5 % 5,10 % 10,10 % 10,5 - 2 * 5,5 % 5,10 % 10,10 % 10,5 - 0 * 2,2 % 2,4 % 4,4"; //- 0 * 0,0 % 0,20 % 20,20 % 20,0 - 1 * 0,0 % 0,18 % 18,18 % 18,0 - 2 * 0,0 % 0,16 % 16,16 % 16,0 - 0 * 0,0 % 0,5 % 5,5 % 5,0 - 1 * 0,0 % 0,5 % 5,5 % 5,0 - 2 * 0,0 % 0,5 % 5,5 % 5,0";
+        // doors = "0 * 1 * 0,2 - 1 * 1  * 5,7 - 2 * 1 * 5,8.3 - 0 * 1 * 3,3";//floor*type*x,y
+        // people = "0 * 0 * 7,7 - 1 * 1  * 7,7 - 2 * 2 * 7,7";
+      
 
 
         //--------finding doors
@@ -130,7 +146,7 @@ public class Building : MonoBehaviour
         {
           //  Instantiate(Resources.Load("Capsule"), new Vector3(peopleArr[i][2],peopleArr[i][1]*3,peopleArr[i][3]));
           Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
-          GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][2], (peopleArr[i][0]*3)+1.2f,peopleArr[i][3]), new Quaternion(0, 0, 0, 1)) as GameObject;
+          GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][3], (peopleArr[i][0]*3)+1.2f,peopleArr[i][2]), new Quaternion(0, 0, 0, 1)) as GameObject;
         }
         //--------placing people end
 

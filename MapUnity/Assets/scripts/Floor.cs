@@ -33,12 +33,13 @@ public class Floor : MonoBehaviour
         //todo: check if anys doors fall between any of the corners and then put them into and array and label door indexes.
 
         List<Vector2> vectorList = new List<Vector2>();
-        List<bool> boolList = new List<bool>();
+        List<int> intList = new List<int>();
+        int newDoor = 1;
        
         for(int i = 0; i < corners.Length; i++)
         {
             vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
-            boolList.Add(false);
+            intList.Add(0);
             for(int j = 0; j < doors.Length; j++)
             {
                 
@@ -79,10 +80,8 @@ public class Floor : MonoBehaviour
                             vectorList.Add(new Vector2(doorx1, doorz1));
                             vectorList.Add(new Vector2(doorx2, doorz2));
                             
-                            boolList.Add(true);
-                            boolList.Add(true);
-
-
+                            intList.Add(newDoor);
+                            intList.Add(newDoor++);
                         }
                         else
                         {
@@ -126,8 +125,8 @@ public class Floor : MonoBehaviour
                             vectorList.Add(new Vector2(doorx1, doorz1));
                             vectorList.Add(new Vector2(doorx2, doorz2));
                             //boolList.Add(false);
-                            boolList.Add(true);
-                            boolList.Add(true);
+                            intList.Add(newDoor);
+                            intList.Add(newDoor++);
 
                         }
                         else
@@ -144,11 +143,11 @@ public class Floor : MonoBehaviour
         }
 
         Vector2[] verticesArray = vectorList.ToArray();
-        bool[] boolArray = boolList.ToArray();
+        int[] intListarr = intList.ToArray();
 
 
 
         //------------------------------------end of checking for doors
-        r.GetComponent<Room>().build(verticesArray, boolArray, floorNumber);
+        r.GetComponent<Room>().build(verticesArray, intListarr, floorNumber);
     }
 }

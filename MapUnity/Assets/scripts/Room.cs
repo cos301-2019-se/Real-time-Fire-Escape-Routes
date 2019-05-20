@@ -19,7 +19,7 @@ public class Room : MonoBehaviour
        // s.BuildNavMesh();
     }
 
-    public void build(Vector2[] vertices2D, bool[] boolList , int floorNum)
+    public void build(Vector2[] vertices2D, int[] boolList , int floorNum)
     {
         // for(int i = 0; i <boolList.Length; i++)
         // {
@@ -29,13 +29,13 @@ public class Room : MonoBehaviour
         buildWalls(vertices2D, boolList, floorNum);
     }
 
-    void buildWalls(Vector2[] vertices2D, bool[] boolList , int floorNum)
+    void buildWalls(Vector2[] vertices2D, int[] boolList , int floorNum)
     {
         for(int i = 0; i < vertices2D.Length; i++)
         {
             if(i + 1 >= vertices2D.Length)
             {
-                if(!boolList[i] || !boolList[0])
+                if(boolList[i] != boolList[0] || (boolList[0] == 0 || boolList[i] == 0) )
                 {
                     Vector3[] vertices = new Vector3[4];
                     vertices[0] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
@@ -56,7 +56,7 @@ public class Room : MonoBehaviour
             }
             else
             {
-                if(!boolList[i] || !boolList[i+1])
+                if(boolList[i] != boolList[i+1] || (boolList[i+1] == 0 || boolList[i] == 0) )
                 {
                     Vector3[] vertices = new Vector3[4];
                     vertices[0] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
@@ -97,9 +97,9 @@ public class Room : MonoBehaviour
         msh.RecalculateBounds();
 
         GameObject objToSpawn = new GameObject("Cool GameObject made from Code");
-         objToSpawn.AddComponent(typeof(MeshRenderer));
-         MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
-         filter.mesh = msh;
+        objToSpawn.AddComponent(typeof(MeshRenderer));
+        MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
+        filter.mesh = msh;
 
 
         Material myMaterial = Resources.Load("materials/glass") as Material; 
@@ -107,7 +107,7 @@ public class Room : MonoBehaviour
     }
 
 
-    void buildFloorTop(Vector2[] vertices2D, bool[] boolList , int floorNum)
+    void buildFloorTop(Vector2[] vertices2D, int[] boolList , int floorNum)
     {
         // List<Vector2> vectorList = new List<Vector2>();
         // for(int i = 0; i < corners.Length; i++)

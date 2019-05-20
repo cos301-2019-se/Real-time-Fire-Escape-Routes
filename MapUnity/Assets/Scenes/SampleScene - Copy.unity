@@ -163,11 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2294de04a384341ebaf3628ac81c1579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 
-  numberFloors: 0
-  rooms: 
-  doors: 
-  people: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd1850b53b34c149afe216e997748f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingOb: {fileID: 222109079}
+  s: {fileID: 1690057787}
 --- !u!4 &1611823374
 Transform:
   m_ObjectHideFlags: 0

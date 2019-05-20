@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using UnityEngine.AI;
 
 public class Counter : MonoBehaviour
 {
     bool runOnce;
+    public GameObject buildingOb;
+   // public GameObject meshOb;
+     public NavMeshSurface s;
 
     // Start is called before the first frame update
     void Start()
@@ -43,42 +47,50 @@ public class Counter : MonoBehaviour
         {
             Debug.Log("Received: " + uwr.downloadHandler.text);
 
-            agentInstructions myObject = JsonUtility.FromJson<agentInstructions>(uwr.downloadHandler.text);
-            Debug.Log(myObject.status);
-            Debug.Log(myObject.msg);
+            buildingString myObject = JsonUtility.FromJson<buildingString>(uwr.downloadHandler.text);
+            Debug.Log("doors: "+myObject.doors);
+            Debug.Log("msg: "+myObject.msg);
+            Debug.Log("rooms: "+myObject.rooms);
+            Debug.Log("numberFloors: "+myObject.numberFloors);
+            Debug.Log("people: "+myObject.people);
+            Debug.Log("status: "+myObject.status);
+            buildingOb.GetComponent<Building>().addStrings(myObject);
+            buildingOb.GetComponent<Building>().createArrays();
+            s.BuildNavMesh();
+     
 
-            string [] x = myObject.msg.Split(',');
-            var x1 = new string[x.Length][];
-            for(int i = 0; i < x.Length; i++)
-            {
-                x1[i] = x[i].Split('-');
-            }
+            // string [] x = myObject.msg.Split(',');
+            // var x1 = new string[x.Length][];
+            // for(int i = 0; i < x.Length; i++)
+            // {
+            //     x1[i] = x[i].Split('-');
+            // }
 
 
-            int [][] x2 = new int[x.Length][];
-            for (int i = 0; i < x.Length; i++)
-            {
-                x2[i] = new int[2];
-                for (int j = 0; j < 2; j++)
-                {
-                    //x2[i][j] = (int)x1[i][j];
-                    x2[i][j] = int.Parse(x1[i][j]);
-                    Debug.Log(x2[i][j]);
-                }
-            }
+            // int [][] x2 = new int[x.Length][];
+            // for (int i = 0; i < x.Length; i++)
+            // {
+            //     x2[i] = new int[2];
+            //     for (int j = 0; j < 2; j++)
+            //     {
+            //         //x2[i][j] = (int)x1[i][j];
+            //         x2[i][j] = int.Parse(x1[i][j]);
+            //         Debug.Log(x2[i][j]);
+            //     }
+            // }
 
-            var goArray = FindObjectsOfType<GameObject>();
-            for(int i =0; i < x.Length; i++)
-            {
-                for (int j = 0; j < goArray.Length; j++)
-                {
-                    if(goArray[j].GetComponent<number>() != null)
-                    if (goArray[j].GetComponent<number>().objectNumber == x2[i][0])
-                    {
-                        goArray[j].GetComponent<AgentController>().goTo(x2[i][1]);
-                    }
-                }
-            }
+            // var goArray = FindObjectsOfType<GameObject>();
+            // for(int i =0; i < x.Length; i++)
+            // {
+            //     for (int j = 0; j < goArray.Length; j++)
+            //     {
+            //         if(goArray[j].GetComponent<number>() != null)
+            //         if (goArray[j].GetComponent<number>().objectNumber == x2[i][0])
+            //         {
+            //             goArray[j].GetComponent<AgentController>().goTo(x2[i][1]);
+            //         }
+            //     }
+            // }
 
         }
     }
@@ -141,15 +153,15 @@ public class Counter : MonoBehaviour
 
         if (doorList.Count == 0) 
         {
-             Debug.Log("No Doors");
+             //Debug.Log("No Doors");
         }
         if (roomList.Count == 0) 
         {
-            Debug.Log("No Rooms");
+            //Debug.Log("No Rooms");
         }
         if (agentList.Count == 0) 
         {
-            Debug.Log("No Agents");
+            //Debug.Log("No Agents");
         }
 
         mapObjects mo = new mapObjects();
