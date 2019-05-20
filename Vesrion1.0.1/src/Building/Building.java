@@ -6,6 +6,12 @@ public class Building {
       private Vector<Room> Floor= new Vector<>();
       private int id;
 
+      public Vector<Routes> getRoutes() {
+            return Routes;
+      }
+
+      private Vector<Routes> Routes = new Vector<Routes>();
+
       public Building() {
             id = numBuildings++;
       }
@@ -47,8 +53,29 @@ public class Building {
             }
       }
 
+      public int getNumFloors(){
+            return Floor.size();
+      }
       public boolean connectDoors()
       {
             return Floor.get(0).connectDoors();
       }
+
+      public void addRoute(Routes r) {
+            Routes.add(r);
+      }
+
+
+
+      public void assignPeople(){
+            try{
+            for (int i = 0; i < getNumFloors(); i++) {
+                  getFloor(i).assignPeople(Routes);
+            }
+            }
+            catch (Exception e){
+                  System.out.println(e.getMessage());
+            }
+      }
+
 }

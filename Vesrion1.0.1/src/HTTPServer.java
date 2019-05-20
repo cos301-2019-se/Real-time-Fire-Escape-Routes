@@ -218,6 +218,7 @@ public class HTTPServer extends Server{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }catch (Exception e){
+                    System.out.println(e.getMessage());
                 }
                 finally {
                     try {
