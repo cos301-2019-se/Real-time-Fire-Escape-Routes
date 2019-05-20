@@ -116,6 +116,7 @@ public class Node {
     public NodeType getType() {
         return type;
     }
+
     public double distanceToGoal(Node start,double d)
     {
         /*
