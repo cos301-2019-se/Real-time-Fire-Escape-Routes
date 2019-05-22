@@ -12,7 +12,7 @@ public class PersonManager {
     public Building building;
     static boolean verbose = true;
 
-    PersonManager(Building b,JSONArray data){
+    public PersonManager(Building b,JSONArray data){
         peopleData=data;
         building = b;
     }

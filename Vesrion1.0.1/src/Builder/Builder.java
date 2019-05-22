@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public abstract class Builder {
     static boolean verbose = false;
     JSONObject data;
-    Builder(Object _data){
+    public Builder(Object _data){
         data =  (JSONObject)_data;
     }
     Object buildPart(){

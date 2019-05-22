@@ -7,10 +7,10 @@ import org.json.JSONException;
 
 public class DoorBuilder extends Builder{
 
-    DoorBuilder(Object _data) {
+    public DoorBuilder(Object _data) {
         super(_data);
     }
-    Door buildPart(){
+    protected Door buildPart(){
         try {
             //System.out.println("DoorBuilder - "+data);
             double [] pos= new double[2];

@@ -99,7 +99,7 @@ public class Database {
 //                System.out.println(currentLine[0]);
                 if(currentLine[0].equals(name) )
                 {
-                    System.out.println("found user");
+//                    System.out.println("found user");
                     found = true;
                     break;
                 }
@@ -107,8 +107,8 @@ public class Database {
             }
 
             bufferedReader.close();
-            System.out.println("Found:"+found);
-            System.out.println("pass match:"+currentLine[1].equals(pass));
+//            System.out.println("Found:"+found);
+//            System.out.println("pass match:"+currentLine[1].equals(pass));
             if(pass.equals("") || found == false){//normal search
                 return found;
             }else{  // Login Attempt

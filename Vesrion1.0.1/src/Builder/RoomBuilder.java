@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RoomBuilder extends Builder {
-    RoomBuilder(Object data) {
+    public RoomBuilder(Object data) {
         super(data);
     }
     Room buildPart(){

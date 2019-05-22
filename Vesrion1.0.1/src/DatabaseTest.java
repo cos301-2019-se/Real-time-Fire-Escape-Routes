@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class DatabaseTest {
     @Test
-    public void testOne()
+    public void DatabaseCreation()
     {
         Database a = null;
         Database d = new Database();
@@ -17,7 +17,7 @@ public class DatabaseTest {
         System.out.println("Databse creation  --  passed");
     }
     @Test
-    public void testTwo()
+    public void DatabaseReading()
     {
         Database d = new Database();
         String output = d.outputFile();
@@ -30,7 +30,7 @@ public class DatabaseTest {
         System.out.println("Databse file reading  --  passed");
     }
     @Test
-    public void testThree()
+    public void DatabaseAddUser()
     {
         Database d = new Database();
         //TEST FILE WRITING AND READING
@@ -39,15 +39,18 @@ public class DatabaseTest {
         d.write(name, pass);
         System.out.println("Databse file writing  --  passed");
         boolean actual = d.search(name, pass);
-       boolean expected = true;
+        boolean expected = true;
         Assert.assertEquals(actual, expected);
         System.out.println("Databse file searching  --  passed");
     }
     @Test
-    public void testFour()
+    public void DatabaseRemoveUser()
     {
         Database d = new Database();
 
+        String name = "Json";
+        String pass = "12345";
+        d.write(name, pass);
         String expected = "Json";
         String actual = d.remove(expected);
         Assert.assertEquals(expected, actual);
