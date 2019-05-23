@@ -2,215 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3d4e709-9903-472f-94b4-50c0bf85ed14" name="Default Changelist" comment="commit travis testing">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Real-time-Fire-Escape-Routes.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/API.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingGenerationAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Builder/Builder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Builder/BuildingManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Builder/DoorBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Builder/PersonManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Builder/RoomBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/Building.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/BuildingTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/BuildingTester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/Door.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/NodeType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/RoomTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/RoomType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Building/Routes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/HTTPServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/UnitTester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/test/BuilderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/test/BuildingAPITest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/test/BuildingGenerationAPITest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/test/WebAPITest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/HTTPServerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/simpleTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/AgentRed.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/AgentRed.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/FloorColor.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/FloorColor.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/RouteBlue.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/RouteBlue.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/routeGreen.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Agents/routeGreen.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/AOT.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/AOT/Newtonsoft.Json.XML" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/AOT/Newtonsoft.Json.XML.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/AOT/Newtonsoft.Json.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/AOT/Newtonsoft.Json.dll.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Standalone.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.XML" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.XML.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Windows.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Windows/Newtonsoft.Json.XML" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Windows/Newtonsoft.Json.XML.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Windows/Newtonsoft.Json.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Assemblies/Windows/Newtonsoft.Json.dll.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Documentation.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Documentation/Json Net for Unity 2.0.1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/Documentation/Json Net for Unity 2.0.1.pdf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/JsonDotNet201Source.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/JsonDotNet201Source.zip.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/link.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/JsonDotNet/link.xml.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshAssetManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshAssetManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshComponentsEditor.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshComponentsEditor.asmdef.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshComponentsGUIUtility.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshComponentsGUIUtility.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshLinkEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshLinkEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshModifierEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshModifierEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshModifierVolumeEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshModifierVolumeEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshSurfaceEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Editor/NavMeshSurfaceEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshComponents.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshComponents.asmdef.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshLink.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshLink.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshModifier.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshModifier.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshModifierVolume.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshModifierVolume.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshSurface.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/NavMeshComponents/Scripts/NavMeshSurface.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Scenes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Scenes/SampleScene.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Scenes/SampleScene/NavMesh-navMesh.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/Scenes/SampleScene/NavMesh-navMesh.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/SketchUpModels.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/SketchUpModels/BasicRoom1.skp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/SketchUpModels/BasicRoom1.skp.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/rooms.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/rooms/GenericRoom1.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/rooms/GenericRoom1.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/AgentController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/AgentController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/Counter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/Counter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/mapObjects.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/mapObjects.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/number.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Assets/scripts/number.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Logs/Packages-Update.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/Packages/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/AudioManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/ClusterInputManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/DynamicsManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/EditorSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/GraphicsSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/InputManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/NavMeshAreas.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/Physics2DSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/PresetManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/ProjectSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/ProjectVersion.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/QualitySettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/TagManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/TimeManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/VFXManager.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MapUnity/ProjectSettings/XRSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RTFEServer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/.idea/libraries/java_json.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/Vesrion1.0.1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/database.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/404.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/cross.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/epiu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/erp.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/fire.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/html/tuks.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/java-json.jar.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/java-json.jar/java-json.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/lib/hamcrest-core-1.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/lib/junit-4.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Building.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/BuildingManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Door.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/DoorTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Floor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/NodeTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Person.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/PersonTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Room.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/RoomBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/Routes.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Builder/TestBuildMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Database.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/DatabaseTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/HTTPServer$HTTPClientConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/HTTPServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/HTTPServerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/RTFEServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/RTFEServerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/Server.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/ServerTester.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MappedBusConstants$Length.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MappedBusConstants$StatusFlag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MappedBusConstants$Structure.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MappedBusConstants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MappedBusMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MappedBusReader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MappedBusWriter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/out/production/Vesrion1.0.1/io/mappedbus/MemoryMappedFile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Builder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Building.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/BuildingManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Door.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/DoorBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/DoorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Floor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/NodeTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Person.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/PersonTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Room.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/RoomBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/Routes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/TestBuildMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Builder/babyMaker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Database.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/DatabaseTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/HTTPServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/HTTPServerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/RTFEServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/RTFEServerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/Server.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/ServerTester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/io/mappedbus/MappedBusConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/io/mappedbus/MappedBusMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/io/mappedbus/MappedBusReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/io/mappedbus/MappedBusWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/io/mappedbus/MemoryMappedFile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/src/io/mappedbus/package-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vesrion1.0.1/tmp/test" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminRegistrationLogin/jquery-3.3.1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminRegistrationLogin/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminRegistrationLogin/splash.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminRegistrationLogin/splashScript.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/adminRegistrationLogin/splashStyle.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/processors.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/uml-of-builedr (1).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webservice/epiu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webservice/erp.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webservice/fire.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webservice/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webservice/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webservice/tuks.png" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -239,6 +78,17 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="travisTesting" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="travisTesting" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="travisTesting" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -260,8 +110,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/DatabaseTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            <state relative-caret-position="208">
+              <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -298,9 +148,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="173" />
-    <option name="width" value="1032" />
-    <option name="height" value="564" />
+    <option name="x" value="2447" />
+    <option name="y" value="-10" />
+    <option name="width" value="1290" />
+    <option name="height" value="705" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -348,7 +199,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558634018927" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558634558359" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -587,13 +438,17 @@
       <option name="project" value="LOCAL" />
       <updated>1558631244917</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="commit travis testing">
+      <created>1558634154046</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1558634154046</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Travis_[test] - 2019.05.23 at 18h 26m 23s.xml">
-      <configuration name="Travis [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
     <history-entry file="Travis_[test] - 2019.05.23 at 18h 29m 54s.xml">
       <configuration name="Travis [test]" configurationId="GradleRunConfiguration" />
     </history-entry>
@@ -621,12 +476,15 @@
     <history-entry file="Travis_[test] - 2019.05.23 at 19h 09m 33s.xml">
       <configuration name="Travis [test]" configurationId="GradleRunConfiguration" />
     </history-entry>
+    <history-entry file="TravisTesting_[test] - 2019.05.23 at 19h 59m 48s.xml">
+      <configuration name="TravisTesting [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2521322" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31744966" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -635,7 +493,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4084507" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.407932" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -650,7 +508,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Maven" order="4" />
-      <window_info anchor="right" id="Gradle" order="5" visible="true" weight="0.114605546" />
+      <window_info anchor="right" id="Gradle" order="5" visible="true" weight="0.11409396" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
@@ -663,7 +521,8 @@
     <MESSAGE value="commit new yml file" />
     <MESSAGE value="commit changes made to the main file" />
     <MESSAGE value="commit adaption of server.java to travis test branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit adaption of server.java to travis test branch" />
+    <MESSAGE value="commit travis testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit travis testing" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
@@ -758,8 +617,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/DatabaseTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        <state relative-caret-position="208">
+          <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
         </state>
       </provider>
     </entry>
