@@ -50,6 +50,7 @@ public class BuildingGenerationAPI {
         /**
          * Adding Halls to the response
          * */
+        /* //Temp fix for unity
         rooms = (JSONArray)API.lastbuild.get("halls");
         data += " - ";
         for (int i = 0; i < rooms.length() ; i++) {
@@ -96,16 +97,16 @@ public class BuildingGenerationAPI {
             data += current.getInt("floor") + " * ";
             switch ((String)current.get("type")){
                 case "buildingExit":
-                    data+="2.0 * ";
+                    data+="0.9 * ";
                     break;
                 case "singleDoor":
-                    data+="2.0 * ";
+                    data+="0.9 * ";
                     break;
                 case "doubleDoor":
-                    data+="1.8 * ";
+                    data+="0.9 * ";
                     break;
                 case "stairs":
-                    data+="2.0 * ";
+                    data+="0.9 * ";
                     break;
                 default:
                     data+="0.9 * ";
