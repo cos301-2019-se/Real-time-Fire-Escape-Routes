@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Globalization;
 
 public class buildingString
 {
@@ -51,8 +52,10 @@ public class Building : MonoBehaviour
         //doors = "0 * 1 * 0,2 - 0 * 1 * 0,5 - 0 * 1 * 0.5,10.5- 0 * 1 * 3,10.5- 0 * 1 * 1,0- 0 * 1 * 3,0-0 * 1 * 4,2 - 0 * 1 * 4,5";
         // doors = "0 * 1 * 0,2 - 1 * 1  * 5,7 - 2 * 1 * 5,8.3 - 0 * 1 * 3,3";//floor*type*x,y
         // people = "0 * 0 * 7,7 - 1 * 1  * 7,7 - 2 * 2 * 7,7";
-      
 
+
+
+        float test = float.Parse("0.9", System.Globalization.CultureInfo.InvariantCulture);
 
         //--------finding doors
         Debug.Log("doors string: " + doors);//--------------splitting doors
@@ -66,11 +69,12 @@ public class Building : MonoBehaviour
 
             string[] doorsA1 = doorsA[i].Split('*');
 
-            doorsArr[i][0] = float.Parse(doorsA1[0]);//floor
-            doorsArr[i][1] = float.Parse(doorsA1[1]);//type
+            doorsArr[i][0] = float.Parse(doorsA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor
+            Debug.Log("-"+doorsA1[1]+"-");
+            doorsArr[i][1] = float.Parse(doorsA1[1], System.Globalization.CultureInfo.InvariantCulture);//type
             string[] xy = doorsA1[2].Split(',');
-            doorsArr[i][2] = float.Parse(xy[0]);//x
-            doorsArr[i][3] = float.Parse(xy[1]);//z
+            doorsArr[i][2] = float.Parse(xy[0], System.Globalization.CultureInfo.InvariantCulture);//x
+            doorsArr[i][3] = float.Parse(xy[1], System.Globalization.CultureInfo.InvariantCulture);//z
 
            // Debug.Log("door: " + doorsArr[i][0] + " " + doorsArr[i][1] + " " + doorsArr[i][2] + doorsArr[i][3] + " ");//--------------splitting doors
         }
@@ -116,7 +120,7 @@ public class Building : MonoBehaviour
                 for (int m = 0; m < 2; m++)
                 {
                     //x2[i][j] = (int)x1[i][j];
-                    cornersFloat[l][m] = float.Parse(corners[l][m]);
+                    cornersFloat[l][m] = float.Parse(corners[l][m], System.Globalization.CultureInfo.InvariantCulture);
                     //Debug.Log("corner values: " + cornersFloat[l][m]);
                 }
             }
@@ -137,11 +141,11 @@ public class Building : MonoBehaviour
 
             string[] peopleA1 = peopleA[i].Split('*');
 
-            peopleArr[i][0] = float.Parse(peopleA1[0]);//floor
-            peopleArr[i][1] = float.Parse(peopleA1[1]);//type
+            peopleArr[i][0] = float.Parse(peopleA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor
+            peopleArr[i][1] = float.Parse(peopleA1[1], System.Globalization.CultureInfo.InvariantCulture);//type
             string[] xy = peopleA1[2].Split(',');
-            peopleArr[i][2] = float.Parse(xy[0]);//x
-            peopleArr[i][3] = float.Parse(xy[1]);//z
+            peopleArr[i][2] = float.Parse(xy[0], System.Globalization.CultureInfo.InvariantCulture);//x
+            peopleArr[i][3] = float.Parse(xy[1], System.Globalization.CultureInfo.InvariantCulture);//z
 
             //Debug.Log("door: " + peopleArr[i][0] + " " + peopleArr[i][1] + " " + peopleArr[i][2] + peopleArr[i][3] + " ");//--------------splitting doors
         }

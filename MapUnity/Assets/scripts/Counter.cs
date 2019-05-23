@@ -69,7 +69,8 @@ public class Counter : MonoBehaviour
                 buildingOb.GetComponent<Building>().addStrings(myObject);
                 buildingOb.GetComponent<Building>().createArrays();
                 s.BuildNavMesh();
-                StartCoroutine(postRequest("http://localhost:8080/building", "{\"type\":\"assignPeople\"}","assignPeople"));
+                //StartCoroutine(postRequest("http://localhost:8080/building", "{\"type\":\"assignPeople\"}","assignPeople"));
+                StartCoroutine(postRequest("http://192.168.1.39:8080/building", "{\"type\":\"assignPeople\"}", "assignPeople"));
             }
             else if(type == "assignPeople")
             {
@@ -88,10 +89,10 @@ public class Counter : MonoBehaviour
                 {
                     values[i] = new float[3];
                     string[] x1 = x[i].Split('*');
-                    values[i][0] = float.Parse(x1[0]);
+                    values[i][0] = float.Parse(x1[0], System.Globalization.CultureInfo.InvariantCulture);
                     string[] x2 = x1[1].Split(',');
-                    values[i][1] = float.Parse(x2[0]);
-                    values[i][2] = float.Parse(x2[1]);
+                    values[i][1] = float.Parse(x2[0], System.Globalization.CultureInfo.InvariantCulture);
+                    values[i][2] = float.Parse(x2[1], System.Globalization.CultureInfo.InvariantCulture);
                 }
 
                 GameObject[] Exits = new GameObject[myObject.numRoutes];
@@ -273,6 +274,6 @@ public class Counter : MonoBehaviour
        //StartCoroutine(postRequest("http://10.5.50.202:8080/", json));//kinson
 
 
-        StartCoroutine(postRequest("http://localhost:8080/buildingGeneration", "{\"type\":\"buildingData\"}","buildingGeneration"));//kinson
+        StartCoroutine(postRequest("http://192.168.1.39:8080/buildingGeneration", "{\"type\":\"buildingData\"}","buildingGeneration"));//kinson
     }
 }
