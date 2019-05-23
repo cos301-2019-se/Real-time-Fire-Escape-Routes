@@ -67,7 +67,7 @@ public class BuildingAPI extends API {
             double[] pos =c.getAssignedRoute().getGoal().coordinates;
             data+= c.getPersonID() + " * "+ pos[0]+","+pos[1];
             if(i<people.size()-1)
-                data+= " - ";
+                data+= " % ";
 //            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
         }
         return data ;

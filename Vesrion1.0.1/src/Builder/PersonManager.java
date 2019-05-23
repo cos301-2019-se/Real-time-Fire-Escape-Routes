@@ -23,7 +23,8 @@ public class PersonManager {
                 boolean status = false;
                 JSONObject person = (JSONObject) peopleData.get(i);
                 JSONArray pos = person.getJSONArray("position");
-                double [] position = {pos.getDouble(0),pos.getDouble(1)};
+//                double [] position = {pos.getDouble(0),pos.getDouble(1)};
+                double [] position = {pos.getDouble(1),pos.getDouble(0)};
                 int floor =person.getInt("floor");
                 if(floor<building.getFloors().size())
                     status = building.getFloor(floor).addPerson(new Person(person.get("id").toString(),position));

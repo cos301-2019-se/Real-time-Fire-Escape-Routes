@@ -161,7 +161,7 @@ public class Room {
         return true;
     }
     public boolean addPerson(Person p){
-        for (int i = getRooms().size()-1; i >=0 ; i--) {
+        for (int i = 0; i <getRooms().size() ; i++) {
             if(getRooms(i).addPerson(p))
                 return true;
         }
@@ -172,7 +172,7 @@ public class Room {
         }
         if(verbose)
             System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
-        if(wallOverlaps >=4 || wallOverlaps == Walls.size() ){
+        if((wallOverlaps >=4)|| wallOverlaps == Walls.size() ){
             peopleInRoom.add(p);
             return true;
         }
