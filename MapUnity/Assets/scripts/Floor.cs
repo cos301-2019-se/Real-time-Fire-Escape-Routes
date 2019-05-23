@@ -50,38 +50,40 @@ public class Floor : MonoBehaviour
                     {
                         if(Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]) == Distance(corners[i][0], corners[i][1], corners[0][0], corners[0][1]) )
                         {
-                            Debug.Log("found door between 2 corners1 on floor no: "+floorNumber);
+                             Debug.Log("---------------------------------------------- "+floorNumber);
 
-                            float x = corners[i][0] - doors[j][2];
-                            float z = corners[i][1] - doors[j][3];
-                            float dis = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]);
+                            // float x = corners[i][0] - doors[j][2];
+                            // float z = corners[i][1] - doors[j][3];
+                            // float dis = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]);
 
-                            float xn = x/dis;
-                            float zn = z/dis;
+                            // float xn = x/dis;
+                            // float zn = z/dis;
 
-                            float doorx1 = doors[j][2] + (xn*(doors[j][1]/2));
-                            float doorz1 = doors[j][3] + (zn*(doors[j][1]/2));
+                            // float doorx1 = doors[j][2] + (xn*(doors[j][1]/2));
+                            // float doorz1 = doors[j][3] + (zn*(doors[j][1]/2));
 
-                            //-------------------------------------------------------
+                            // //-------------------------------------------------------
 
-                            float x1 = corners[0][0] - doors[j][2] ;
-                            float z1 = corners[0][1] - doors[j][3];
-                            float dis1 = Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]);
+                            // float x1 = corners[0][0] - doors[j][2];
+                            // float z1 = corners[0][1] - doors[j][3];
+                            // float dis1 = Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]);
 
-                            float xn1 = x1/dis1;
-                            float zn1 = z1/dis1;
+                            // float xn1 = x1/dis1;
+                            // float zn1 = z1/dis1;
 
-                            float doorx2 = doors[j][2] + (xn1*(doors[j][1]/2));
-                            float doorz2 = doors[j][3] + (zn1*(doors[j][1]/2));
+                            // float doorx2 = doors[j][2] + (xn1*(doors[j][1]/2));
+                            // float doorz2 = doors[j][3] + (zn1*(doors[j][1]/2));
 
-                            Debug.Log("new door positions: "+doorx1+","+doorz1+"   "+doorx2+","+doorz2); 
-
-                            //vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
-                            vectorList.Add(new Vector2(doorx1, doorz1));
-                            vectorList.Add(new Vector2(doorx2, doorz2));
+                            // Debug.Log("new door positions: "+doorx1+","+doorz1+"   "+doorx2+","+doorz2); 
                             
-                            intList.Add(newDoor);
-                            intList.Add(newDoor++);
+                            //  vectorList.Add(new Vector2(doorx1, doorz1));
+                            // vectorList.Add(new Vector2(doorx2, doorz2));
+                           
+                            
+                        
+                            
+                            // intList.Add(newDoor);
+                            // intList.Add(newDoor++);
                         }
                         else
                         {
@@ -95,8 +97,6 @@ public class Floor : MonoBehaviour
                     {
                         if(Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + Distance(corners[i+1][0], corners[i+1][1], doors[j][2], doors[j][3]) == Distance(corners[i][0], corners[i][1], corners[i+1][0], corners[i+1][1]) )
                         {
-                            Debug.Log("found door between 2 corners1 on floor no: "+floorNumber);
-
                             float x = corners[i][0] - doors[j][2];
                             float z = corners[i][1] - doors[j][3];
                             float dis = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]);
@@ -124,6 +124,8 @@ public class Floor : MonoBehaviour
                             //vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
                             vectorList.Add(new Vector2(doorx1, doorz1));
                             vectorList.Add(new Vector2(doorx2, doorz2));
+                            
+                            
                             //boolList.Add(false);
                             intList.Add(newDoor);
                             intList.Add(newDoor++);

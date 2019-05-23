@@ -44,7 +44,11 @@ public class Building : MonoBehaviour
     public void createArrays()
     {
         // numberFloors = 3;
-        // rooms = "0 * 0,0 % 0,10 % 10,10 % 10,0 - 1 * 5,5 % 5,10 % 10,10 % 10,5 - 2 * 5,5 % 5,10 % 10,10 % 10,5 - 0 * 2,2 % 2,4 % 4,4"; //- 0 * 0,0 % 0,20 % 20,20 % 20,0 - 1 * 0,0 % 0,18 % 18,18 % 18,0 - 2 * 0,0 % 0,16 % 16,16 % 16,0 - 0 * 0,0 % 0,5 % 5,5 % 5,0 - 1 * 0,0 % 0,5 % 5,5 % 5,0 - 2 * 0,0 % 0,5 % 5,5 % 5,0";
+        // rooms = "0 * 0,0 % 0,10 % 10,10 % 10,0 - 1 * 5,5 % 5,10 % 10,10 % 10,5 - 2 * 5,5 % 5,10 % 10,10 % 10,5 - 0 * 2,2 % 2,4 % 4,4- 0 * 0,0 % 0,20 % 20,20 % 20,0 - 1 * 0,0 % 0,18 % 18,18 % 18,0 - 2 * 0,0 % 0,16 % 16,16 % 16,0 - 0 * 0,0 % 0,5 % 5,5 % 5,0 - 1 * 0,0 % 0,5 % 5,5 % 5,0 - 2 * 0,0 % 0,5 % 5,5 % 5,0";
+        //rooms ="0 * 0.0,0.0 % 0.0,4.5 % 4.0,4.5 % 4.0,0.0 - 0 * 4.0,0.0 % 4.0,4.5 % 8.0,4.5 % 8.0,0.0 - 0 * 8.0,0.0 % 8.0,4.5 % 12.0,4.5 % 12.0,0.0 - 0 * 0.0,5.8 % 4.0,5.8 % 4.0,10.0 - 0 * 4.0,5.8 % 8.0,5.8 % 8.0,10.0 % 4.0,10.0 - 0 * 8.0,5.8 % 12.0,5.8 % 12.0,10.0 % 8.0,10.0 - 0 * 12.0,5.8 % 16.0,5.8 % 16.0,10.0 % 12.0,10.0 - 0 * 16.0,5.8 % 20.0,5.8 % 20.0,10.0 % 16.0,10.0 - 0 * 20.0,5.8 % 24.0,5.8 % 24.0,10.0 % 20.0,10.0 - 0 * 13.3,0.0 % 17.0,0.0 % 17.0,1.7 % 13.3,1.7 - 0 * 13.3,1.7 % 13.3,4.5 % 17.0,4.5 % 17.0,1.7 - 0 * 17.0,1.7 % 17.0,4.5 % 24.0,4.5 % 24.0,1.7 ";
+
+        //rooms = "0 * 0.0,0.0 % 0.0,10.5 % 4.0,10.5 % 4.0,0.0";
+        //doors = "0 * 1 * 0,2 - 0 * 1 * 0,5 - 0 * 1 * 0.5,10.5- 0 * 1 * 3,10.5- 0 * 1 * 1,0- 0 * 1 * 3,0-0 * 1 * 4,2 - 0 * 1 * 4,5";
         // doors = "0 * 1 * 0,2 - 1 * 1  * 5,7 - 2 * 1 * 5,8.3 - 0 * 1 * 3,3";//floor*type*x,y
         // people = "0 * 0 * 7,7 - 1 * 1  * 7,7 - 2 * 2 * 7,7";
       
@@ -139,14 +143,15 @@ public class Building : MonoBehaviour
             peopleArr[i][2] = float.Parse(xy[0]);//x
             peopleArr[i][3] = float.Parse(xy[1]);//z
 
-            Debug.Log("door: " + peopleArr[i][0] + " " + peopleArr[i][1] + " " + peopleArr[i][2] + peopleArr[i][3] + " ");//--------------splitting doors
+            //Debug.Log("door: " + peopleArr[i][0] + " " + peopleArr[i][1] + " " + peopleArr[i][2] + peopleArr[i][3] + " ");//--------------splitting doors
         }
 
         for(int i = 0; i < peopleArr.Length; i++)
         {
           //  Instantiate(Resources.Load("Capsule"), new Vector3(peopleArr[i][2],peopleArr[i][1]*3,peopleArr[i][3]));
-          Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
+         // Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
           GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][3], (peopleArr[i][0]*3)+1.2f,peopleArr[i][2]), new Quaternion(0, 0, 0, 1)) as GameObject;
+          r.GetComponent<number>().objectNumber = peopleArr[i][1];
         }
         //--------placing people end
 

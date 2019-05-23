@@ -67,10 +67,10 @@ public class Room : MonoBehaviour
                     buildWallFront(vertices);
 
                     Vector3[] vertices1 = new Vector3[4];
-                    vertices1[3] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
-                    vertices1[2] = new Vector3(vertices2D[i].x, (floorNum*3)+3, vertices2D[i].y);
-                    vertices1[1] = new Vector3(vertices2D[i+1].x, (floorNum*3)+3, vertices2D[i+1].y);
-                    vertices1[0] = new Vector3(vertices2D[i+1].x, (floorNum*3), vertices2D[i+1].y);
+                    vertices1[2] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
+                    vertices1[1] = new Vector3(vertices2D[i].x, (floorNum*3)+3, vertices2D[i].y);
+                    vertices1[0] = new Vector3(vertices2D[i+1].x, (floorNum*3)+3, vertices2D[i+1].y);
+                    vertices1[3] = new Vector3(vertices2D[i+1].x, (floorNum*3), vertices2D[i+1].y);
 
                     buildWallFront(vertices1);
                 }

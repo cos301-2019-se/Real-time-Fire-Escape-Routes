@@ -5,11 +5,14 @@ using UnityEngine;
 [SerializeField]
 public class number : MonoBehaviour
 {
-    public int objectNumber;
+    public double objectNumber;
     public int[][] array;
+    public string type = "";
+    public float x, y ,z;
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(type == "")
         if (collision.gameObject.tag == "Player")
         {
 
