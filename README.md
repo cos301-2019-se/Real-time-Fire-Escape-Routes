@@ -1,9 +1,10 @@
-<h1> sandwico</h1>
+<h1> Sandwico</h1>
 <h2>COS301 Group sandwico</h2>
 
 <p>The Real-time Fire Escape Routes (Real-time FER) System is a new approach to solve an age-old problem. The main goal of the Real-time FER is to indicate to the agent using the application what the most efficient route in a specific building one should take in the case of a fire emergency. Each agent in the building will be sent a push notification to his/her phone indicating what escape path to follow in such extreme situation.</p>
 <p>
   <a href="https://trello.com/b/qBKV2KyD/android" target = "_blank">Trello</a> <br/>
+  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/SRS%20Demo%201.pdf" target = "_blank">SRS Demo 1</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/ArchitecturalDesignDocumentation.pdf"  target = "_blank"> Architectural Requirements and design documentation</a><br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/CodingStandardsDocumentation.pdf" target = "_blank">Coding Standarts Document</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Testing_policy_document.pdf"  target = "_blank">Testing Policie Document</a> <br/>
