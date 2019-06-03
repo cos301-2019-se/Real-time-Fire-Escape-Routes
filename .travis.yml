@@ -5,4 +5,5 @@ jdk:
   - oraclejdk11
 
 before_install:
+  - cd RTFE_Server
   - chmod +x gradlew
