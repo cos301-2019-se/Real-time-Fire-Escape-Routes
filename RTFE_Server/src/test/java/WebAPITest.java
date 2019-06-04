@@ -1,11 +1,8 @@
-package test;
 
 import ApiEndpoints.WebAPI;
-import org.json.JSONObject;
-import org.junit.Assert;
-import org.junit.Test;
-
-public class BuildingGenerationAPITest {
+        import org.json.JSONObject;
+        import org.junit.*;
+public class WebAPITest {
     @Test
     public void HandleRequestTest()
     {

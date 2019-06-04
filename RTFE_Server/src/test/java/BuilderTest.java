@@ -1,4 +1,3 @@
-package test;
 
 import Builder.*;
 import Building.Door;

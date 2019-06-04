@@ -2,7 +2,6 @@
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import test.*;
 
 import java.util.Vector;
 
@@ -10,6 +9,7 @@ public class UnitTester {
     private static Vector<Object> Classes;
 
     public static void main(String[] args) {
+        /*
         JUnitCore.runClasses();
         Vector<Class> classesToTest = new Vector<>();
         classesToTest.add(WebAPITest.class);
@@ -44,5 +44,7 @@ public class UnitTester {
 //            System.out.println(failure.toString());
 //        }
 //        System.out.println(result.wasSuccessful());
+*/
     }
+
 }

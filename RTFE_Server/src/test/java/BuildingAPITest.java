@@ -1,4 +1,3 @@
-package test;
 
 import ApiEndpoints.*;
 import org.json.JSONObject;

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 public class HTTPServerTest {
     @Test
-    public void testOne()
+    public void CreatonOfHTTPThread()
     {
 
         Thread thread = new Thread(new HTTPServer(null));
