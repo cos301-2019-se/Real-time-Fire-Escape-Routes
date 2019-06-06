@@ -14,7 +14,7 @@
 
  
 <h2>Meat Great sandwico Team</h2>
-<img src ="https://raw.githubusercontent.com/cos301-2019-se/Real-time-Fire-Escape-Routes/Development/images/groupPhoto.jpeg" alt="the team photo" width ="100%"/>
+<img src ="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/images/groupPhoto.jpeg?raw=true" width ="100%"/>
 <p><i>From left to right: Pieter Braak, Xaio Jian Li, Kateryna Reva, Mathilda Bresler, Jason Louw</i></p>
 <ul>
     <li><b>Name: </b> Mathilda Anna Bresler</li>
