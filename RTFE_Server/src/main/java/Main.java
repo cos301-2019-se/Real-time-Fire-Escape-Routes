@@ -34,7 +34,7 @@ public class Main implements Runnable {
             //##############################
             //#            RTFE            #
             //##############################
-            loadDefaultBuilding();
+//            loadDefaultBuilding();
 /*
             Thread thread1 = new Thread( new RTFEServer());
 
