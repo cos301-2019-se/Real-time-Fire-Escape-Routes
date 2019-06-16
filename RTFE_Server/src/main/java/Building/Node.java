@@ -7,7 +7,7 @@ public class Node {
     static int numNodes = 0;
     NodeType type;
     int nodeId;
-    int weight;
+    double weight;
 
     Vector<Double> distanceToNodes = new Vector();
     Vector<Node> connectedTo = new Vector();
@@ -37,7 +37,7 @@ public class Node {
                 break;
             }
             case goal:{
-                weight = 0;
+                weight = 0.0001;
                 break;
             }
         }

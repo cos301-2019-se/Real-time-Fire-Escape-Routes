@@ -400,18 +400,30 @@ public class Room {
         for (int i = 0; i < peopleInRoom.size(); i++) {
             double Distance =  Double.POSITIVE_INFINITY;
             Person p = peopleInRoom.get(i);
-            int BestRoute = 0;
-            int BestDoor = 0;
-            for (int j = 0; j < doors.size(); j++) {
-                for (int k = 0; k < routes.size(); k++) {
-                    double temp = routes.get(k).calculateHeuristic(doors.get(j).node,p);
-                    if(temp < Distance){
-                        Distance= temp;
-                        BestDoor =j;
-                        BestRoute = k;
+            int BestRoute = -1;
+            int BestDoor = -1;
+            Door BestD = null;
+            Routes BestR = null;
+//            System.out.println("New Person:");
+            for (int j = 0; j < routes.size(); j++) {
+                for (int k = 0; k < doors.size(); k++) {
+                    Door d = doors.get(k);
+                    try {
+                        double distance = routes.get(j).calculateHeuristic(d.node, p);
+//                        System.out.println("Heuristic val: "+distance +" for Person: "+p.personID+" on Route "+routes.get(j).RouteName);
+                        if (distance < Distance) {
+//                            System.out.println("update Heuristic: "+distance);
+                            BestRoute = j;
+                            BestDoor = k;
+                            Distance = distance;
+                        }
+                    }catch (Exception e){
+//                        System.out.println(e.getMessage());
                     }
                 }
             }
+
+
 
             p.setAssignedRoute(routes.get(BestRoute));
             routes.get(BestRoute).addPerson(p);
