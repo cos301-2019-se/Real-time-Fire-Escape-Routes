@@ -423,7 +423,8 @@ public class Room {
                 }
             }
 
-
+            if(BestRoute == -1)
+                continue;
 
             p.setAssignedRoute(routes.get(BestRoute));
             routes.get(BestRoute).addPerson(p);

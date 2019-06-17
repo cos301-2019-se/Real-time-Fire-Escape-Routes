@@ -26,7 +26,7 @@ public class Routes {
     }
     public double calculateHeuristic(Node startNode, Person p) throws Exception {
         try {
-            weight = 500; //tweak
+            weight = 100; //tweak
             double distanceToGoal = startNode.distance(p.position[0], p.position[1]);
             distanceToGoal += distanceToGoal(startNode);
             int numPeople = startNode.getNumPeople();
