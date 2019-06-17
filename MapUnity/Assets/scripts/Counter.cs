@@ -18,6 +18,7 @@ public class Counter : MonoBehaviour
     public GameObject buildingOb;
    // public GameObject meshOb;
      public NavMeshSurface s;
+    public string ip = "http://192.168.1.41:8080/";
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +70,7 @@ public class Counter : MonoBehaviour
                 buildingOb.GetComponent<Building>().addStrings(myObject);
                 buildingOb.GetComponent<Building>().createArrays();
                 s.BuildNavMesh();
-                StartCoroutine(postRequest("http://192.168.43.237:8080/building", "{\"type\":\"assignPeople\"}","assignPeople"));
+                StartCoroutine(postRequest(ip+"building", "{\"type\":\"assignPeople\"}","assignPeople"));
                // StartCoroutine(postRequest("http://192.168.1.39:8080/building", "{\"type\":\"assignPeople\"}", "assignPeople"));
             }
             else if(type == "assignPeople")
@@ -122,10 +123,10 @@ public class Counter : MonoBehaviour
                             Exits[j].GetComponent<number>().z = values[i][2];
                             
                             gotoExit = Exits[j];
-                            Debug.Log("new x: "+gotoExit.GetComponent<number>().x+"new y: "+gotoExit.GetComponent<number>().y);
-                            Debug.Log("new");
+                            //Debug.Log("new x: "+gotoExit.GetComponent<number>().x+"new y: "+gotoExit.GetComponent<number>().y);
+                            //Debug.Log("new");
                             string r = "route"+(i+1);
-                            Debug.Log(r);
+                            //Debug.Log(r);
                             Material myMaterial = Resources.Load("materials/"+r) as Material; 
                             gotoExit.GetComponent<Renderer>().material = myMaterial; 
                             break;
@@ -144,7 +145,7 @@ public class Counter : MonoBehaviour
                                 {
                                     if(gotoExit != null)
                                     {
-                                        Debug.Log("x: "+gotoExit.GetComponent<number>().x+" y: "+gotoExit.GetComponent<number>().y);
+                                        //Debug.Log("x: "+gotoExit.GetComponent<number>().x+" y: "+gotoExit.GetComponent<number>().y + " z: " + gotoExit.GetComponent<number>().z);
                                         goArray[j].GetComponent<AgentController>().goTo(gotoExit);
                                     }
                                 } 
@@ -275,6 +276,6 @@ public class Counter : MonoBehaviour
        //StartCoroutine(postRequest("http://10.5.50.202:8080/", json));//kinson
 
 
-        StartCoroutine(postRequest("http://192.168.43.237:8080/buildingGeneration", "{\"type\":\"buildingData\"}","buildingGeneration"));//kinson
+        StartCoroutine(postRequest(ip + "buildingGeneration", "{\"type\":\"buildingData\"}","buildingGeneration"));//kinson
     }
 }

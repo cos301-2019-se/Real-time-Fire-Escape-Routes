@@ -70,7 +70,7 @@ public class Building : MonoBehaviour
             string[] doorsA1 = doorsA[i].Split('*');
 
             doorsArr[i][0] = float.Parse(doorsA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor
-            Debug.Log("-"+doorsA1[1]+"-");
+           //Debug.Log("-"+doorsA1[1]+"-");
             doorsArr[i][1] = float.Parse(doorsA1[1], System.Globalization.CultureInfo.InvariantCulture);//type
             string[] xy = doorsA1[2].Split(',');
             doorsArr[i][2] = float.Parse(xy[0], System.Globalization.CultureInfo.InvariantCulture);//x

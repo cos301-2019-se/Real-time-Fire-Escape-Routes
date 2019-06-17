@@ -42,61 +42,57 @@ public class Floor : MonoBehaviour
             intList.Add(0);
             for(int j = 0; j < doors.Length; j++)
             {
-                
                 if(doors[j][0] == floorNumber)
                 {
                
                     if(i + 1 >= corners.Length)
                     {
-                        if(Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]) == Distance(corners[i][0], corners[i][1], corners[0][0], corners[0][1]) )
+                        //todo: remmeber to use Mathf.Approximately(v1, v2) when comparing floats
+                        float v1 = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]);
+                        float v2 = Distance(corners[i][0], corners[i][1], corners[0][0], corners[0][1]);
+                        if (Mathf.Approximately(v1, v2))
                         {
-                             Debug.Log("---------------------------------------------- "+floorNumber);
+                               // Debug.Log("---------------------------------------------- " + doors[j][2]+"  "+ doors[j][3]);
 
-                            // float x = corners[i][0] - doors[j][2];
-                            // float z = corners[i][1] - doors[j][3];
-                            // float dis = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]);
+                             float x = corners[i][0] - doors[j][2];
+                             float z = corners[i][1] - doors[j][3];
+                             float dis = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]);
 
-                            // float xn = x/dis;
-                            // float zn = z/dis;
+                             float xn = x/dis;
+                             float zn = z/dis;
 
-                            // float doorx1 = doors[j][2] + (xn*(doors[j][1]/2));
-                            // float doorz1 = doors[j][3] + (zn*(doors[j][1]/2));
+                             float doorx1 = doors[j][2] + (xn*(doors[j][1]/2));
+                             float doorz1 = doors[j][3] + (zn*(doors[j][1]/2));
 
-                            // //-------------------------------------------------------
+                             //-------------------------------------------------------
 
-                            // float x1 = corners[0][0] - doors[j][2];
-                            // float z1 = corners[0][1] - doors[j][3];
-                            // float dis1 = Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]);
+                             float x1 = corners[0][0] - doors[j][2];
+                             float z1 = corners[0][1] - doors[j][3];
+                             float dis1 = Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]);
 
-                            // float xn1 = x1/dis1;
-                            // float zn1 = z1/dis1;
+                             float xn1 = x1/dis1;
+                             float zn1 = z1/dis1;
 
-                            // float doorx2 = doors[j][2] + (xn1*(doors[j][1]/2));
-                            // float doorz2 = doors[j][3] + (zn1*(doors[j][1]/2));
+                             float doorx2 = doors[j][2] + (xn1*(doors[j][1]/2));
+                             float doorz2 = doors[j][3] + (zn1*(doors[j][1]/2));
 
                             // Debug.Log("new door positions: "+doorx1+","+doorz1+"   "+doorx2+","+doorz2); 
-                            
-                            //  vectorList.Add(new Vector2(doorx1, doorz1));
-                            // vectorList.Add(new Vector2(doorx2, doorz2));
-                           
-                            
-                        
-                            
-                            // intList.Add(newDoor);
-                            // intList.Add(newDoor++);
+                             vectorList.Add(new Vector2(doorx1, doorz1));
+                             vectorList.Add(new Vector2(doorx2, doorz2));
+                         
+                             intList.Add(newDoor);
+                             intList.Add(newDoor++);
                         }
-                        else
-                        {
-                            //vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
-                            //boolList.Add(false);
-                        }
-                        //Debug.Log("corner 1: "+corners[i][0]+","+corners[i][0]+" 2: "+corners[0][0]+","+corners[0][1]+" 3: "+doors[j][2]+","+doors[j][3]);
-                        //Debug.Log(floorNumber+"distance between corners "+Distance(corners[i][0], corners[i][1], corners[0][0], corners[0][1])+" = "+Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) +" + "+ Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]));
                     }
                     else
                     {
-                        if(Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + Distance(corners[i+1][0], corners[i+1][1], doors[j][2], doors[j][3]) == Distance(corners[i][0], corners[i][1], corners[i+1][0], corners[i+1][1]) )
+                    
+                        float v1 = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + Distance(corners[i + 1][0], corners[i + 1][1], doors[j][2], doors[j][3]);
+                        float v2 = Distance(corners[i][0], corners[i][1], corners[i + 1][0], corners[i + 1][1]);
+                        if (Mathf.Approximately(v1,v2))
                         {
+                     
+                           // Debug.Log("+--------------------------------------------+ " + doors[j][2] + "  " + doors[j][3]);
                             float x = corners[i][0] - doors[j][2];
                             float z = corners[i][1] - doors[j][3];
                             float dis = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]);
@@ -109,7 +105,7 @@ public class Floor : MonoBehaviour
 
                             //-------------------------------------------------------
 
-                            float x1 = corners[i+1][0] - doors[j][2] ;
+                            float x1 = corners[i+1][0] - doors[j][2];
                             float z1 = corners[i+1][1] - doors[j][3];
                             float dis1 = Distance(corners[i+1][0], corners[i+1][1], doors[j][2], doors[j][3]);
 
@@ -119,29 +115,20 @@ public class Floor : MonoBehaviour
                             float doorx2 = doors[j][2] + (xn1*(doors[j][1]/2));
                             float doorz2 = doors[j][3] + (zn1*(doors[j][1]/2));
 
-                            Debug.Log("new door positions: "+doorx1+","+doorz1+"   "+doorx2+","+doorz2); 
+                           // Debug.Log("new door positions: "+doorx1+", "+doorz1+"   "+doorx2+", "+doorz2); 
 
                             //vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
                             vectorList.Add(new Vector2(doorx1, doorz1));
                             vectorList.Add(new Vector2(doorx2, doorz2));
-                            
-                            
+
                             //boolList.Add(false);
                             intList.Add(newDoor);
                             intList.Add(newDoor++);
 
                         }
-                        else
-                        {
-                            //vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
-                           // boolList.Add(false);
-                        }
-                        //Debug.Log("corner 1: "+corners[i][0]+","+corners[i][0]+" 2: "+corners[i+1][0]+","+corners[i+1][1]+" 3: "+doors[j][2]+","+doors[j][3]);
-                        //Debug.Log(floorNumber+"distance between corners "+Distance(corners[i][0], corners[i][1], corners[i+1][0], corners[i+1][1]) +" = "+Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + " + "+Distance(corners[i+1][0], corners[i+1][1], doors[j][2], doors[j][3]));
                     }
                 }
             }
-         
         }
 
         Vector2[] verticesArray = vectorList.ToArray();
