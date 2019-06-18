@@ -80,11 +80,78 @@ public class Room {
         return ((A.x <pos[0] && pos[0] <B.x) && (A.z <pos[1] && pos[1] <B.z)) || ((A.x >pos[0] && pos[0] >B.x) && (A.z >pos[1] && pos[1] >B.z));
 
     }
+    public static boolean onSegment(Corner p, Corner q, Corner r)
+    {
+        if (q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x)
+                && q.z <= Math.max(p.z, r.z) && q.z >= Math.min(p.z, r.z))
+            return true;
+        return false;
+    }
 
+    public static int orientation(Corner p, Corner q, Corner r)
+    {
+        double val = (q.z - p.z) * (r.x - q.x) - (q.x - p.x) * (r.z - q.z);
+
+        if (val == 0)
+            return 0;
+        return (val > 0) ? 1 : 2;
+    }
+
+    public static boolean doIntersect(Corner p1, Corner q1, Corner p2, Corner q2)
+    {
+
+        int o1 = orientation(p1, q1, p2);
+        int o2 = orientation(p1, q1, q2);
+        int o3 = orientation(p2, q2, p1);
+        int o4 = orientation(p2, q2, q1);
+
+        if (o1 != o2 && o3 != o4)
+            return true;
+
+        if (o1 == 0 && onSegment(p1, p2, q1))
+            return true;
+
+        if (o2 == 0 && onSegment(p1, q2, q1))
+            return true;
+
+        if (o3 == 0 && onSegment(p2, p1, q2))
+            return true;
+
+        if (o4 == 0 && onSegment(p2, q1, q2))
+            return true;
+
+        return false;
+    }
+
+    public static boolean isInside(Corner polygon[], int n, Corner p)
+    {
+        int INF = 10000;
+        if (n < 3)
+            return false;
+
+        Corner extreme = new Corner(INF, p.z);
+
+        int count = 0, i = 0;
+        do
+        {
+            int next = (i + 1) % n;
+            if (doIntersect(polygon[i], polygon[next], p, extreme))
+            {
+                if (orientation(polygon[i], p, polygon[next]) == 0)
+                    return onSegment(polygon[i], p, polygon[next]);
+
+                count++;
+            }
+            i = next;
+        } while (i != 0);
+
+        return (count & 1) == 1 ? true : false;
+    }
     public void removePeople(){
         for (int i = 0; i < Rooms.size(); i++) {
             Rooms.get(i).removePeople();
         }
+
         while(peopleInRoom.size() != 0){
             peopleInRoom.remove(0);
         }
@@ -165,6 +232,7 @@ public class Room {
             if(getRooms(i).addPerson(p))
                 return true;
         }
+        /*
         int wallOverlaps = 0;
         for (int i = 0; i < Walls.size(); i++) {
             if(crossWall(i,p.getPosition()))
@@ -173,6 +241,16 @@ public class Room {
         if(verbose)
             System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
         if((wallOverlaps >=4)|| wallOverlaps == Walls.size() ){
+            peopleInRoom.add(p);
+            return true;
+        }
+        */
+        Corner [] poly = new Corner[Corners.size()];
+        for (int i = 0; i < poly.length; i++) {
+            poly[i] = Corners.get(i);
+        }
+        Corner Point = new Corner(p.position);
+        if(isInside(poly,poly.length,Point)){
             peopleInRoom.add(p);
             return true;
         }
@@ -209,6 +287,7 @@ public class Room {
     /**
      * @Description: Adds a corner to the room, Take Note it means nothing on its own
      * */
+
     protected void addCorner(Corner c){
         Corners.add(c);
         Walls.add(new Vector<>());
@@ -321,24 +400,38 @@ public class Room {
         for (int i = 0; i < peopleInRoom.size(); i++) {
             double Distance =  Double.POSITIVE_INFINITY;
             Person p = peopleInRoom.get(i);
-            int BestRoute = 0;
-            int BestDoor = 0;
-            for (int j = 0; j < doors.size(); j++) {
-                for (int k = 0; k < routes.size(); k++) {
-                    double temp = routes.get(k).calculateHeuristic(doors.get(j).node,p);
-                    if(temp < Distance){
-                        Distance= temp;
-                        BestDoor =j;
-                        BestRoute = k;
+            int BestRoute = -1;
+            int BestDoor = -1;
+            Door BestD = null;
+            Routes BestR = null;
+//            System.out.println("New Person:");
+            for (int j = 0; j < routes.size(); j++) {
+                for (int k = 0; k < doors.size(); k++) {
+                    Door d = doors.get(k);
+                    try {
+                        double distance = routes.get(j).calculateHeuristic(d.node, p);
+//                        System.out.println("Heuristic val: "+distance +" for Person: "+p.personID+" on Route "+routes.get(j).RouteName);
+                        if (distance < Distance) {
+//                            System.out.println("update Heuristic: "+distance);
+                            BestRoute = j;
+                            BestDoor = k;
+                            Distance = distance;
+                        }
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
                     }
                 }
             }
-            if(verbose){
-                System.out.println("Person "+p.personID+" is assigned to Route "+BestRoute +" Distance to safety is: "+Distance+ " using door " +doors.get(BestDoor).id);
-            }
+
+            if(BestRoute == -1)
+                continue;
 
             p.setAssignedRoute(routes.get(BestRoute));
             routes.get(BestRoute).addPerson(p);
+
+            if(verbose){
+                System.out.println("Person "+p.personID+" is assigned to Route "+p.AssignedRoute.RouteName +" Distance to safety is: "+Distance+ " using door " +doors.get(BestDoor).id);
+            }
         }
     }
 

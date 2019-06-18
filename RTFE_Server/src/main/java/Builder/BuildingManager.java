@@ -23,41 +23,42 @@ public class BuildingManager {// Builder design pattern - Director
             for (int i = 0; i < TempData.length() ; i++) {
                 JSONObject data = new JSONObject();
                 data.put("floor",TempData.get(i));
+                System.out.println(data.toString());
                 floors.add(new RoomBuilder(data));
             }
 
 
+            halls = new Vector<>();
             for (int i = 0; i < floors.size(); i++) {
-                halls = new Vector<>();
                 halls.add( new Vector<>());
             }
             TempData = (JSONArray)buildingData.get("halls");
 
             for (int i = 0; i < TempData.length() ; i++) {
                 JSONObject data = new JSONObject();
-                JSONObject data2 = (JSONObject)TempData.get(0);
+                JSONObject data2 = (JSONObject)TempData.get(i);
                 data.put("halls",TempData.get(i));
                 int floornum = data2.getInt("floor");
                 halls.get(floornum).add(new RoomBuilder(data));
             }
 
 
+            rooms = new Vector<>();
             for (int i = 0; i < floors.size(); i++) {
-                rooms = new Vector<>();
                 rooms.add( new Vector<>());
             }
             TempData = (JSONArray)buildingData.get("rooms");
             for (int i = 0; i < TempData.length() ; i++) {
                 JSONObject data = new JSONObject();
-                JSONObject data2 = (JSONObject)TempData.get(0);
+                JSONObject data2 = (JSONObject)TempData.get(i);
                 data.put("rooms",TempData.get(i));
                 int floornum = data2.getInt("floor");
                 rooms.get(floornum).add(new RoomBuilder(data));
             }
 
 
+            doors = new Vector<>();
             for (int i = 0; i < floors.size(); i++) {
-                doors = new Vector<>();
                 doors.add( new Vector<>());
             }
 
@@ -149,7 +150,7 @@ public class BuildingManager {// Builder design pattern - Director
 
             Vector<Node> Doors = filterDoors( floor.getAllDoors());
             for (int j = 0; j < Doors.size(); j++) {
-                if(Doors.get(j).getType() == NodeType.buildingExit){
+                if(i == 0&&(Doors.get(j).getType() == NodeType.buildingExit)){
                     Node goal = Doors.get(j);
                     Routes r = new Routes(String.valueOf(++numRoutes));
                     for (int k = 0; k < Doors.size(); k++) {
@@ -159,6 +160,19 @@ public class BuildingManager {// Builder design pattern - Director
                     }
                     r.addNode(goal);
                     building.addRoute(r);
+                    System.out.println("Route "+r.RouteName+" exit at "+r.getGoal().coordinates[0]+","+r.getGoal().coordinates[1]);
+                }
+                else if(i > 0&&(Doors.get(j).getType() == NodeType.stairs)){
+                    Node goal = Doors.get(j);
+                    Routes r = new Routes(String.valueOf(++numRoutes));
+                    for (int k = 0; k < Doors.size(); k++) {
+                        if(j!=k || Doors.get(k).getType() != NodeType.buildingExit){
+                            r.addNode(Doors.get(k));
+                        }
+                    }
+                    r.addNode(goal);
+                    building.addRoute(r);
+                    System.out.println("Route Stairs "+r.RouteName+" exit at "+r.getGoal().coordinates[0]+","+r.getGoal().coordinates[1]+" on floor "+i);
                 }
             }
         }
