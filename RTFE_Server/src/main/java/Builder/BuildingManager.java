@@ -150,7 +150,7 @@ public class BuildingManager {// Builder design pattern - Director
 
             Vector<Node> Doors = filterDoors( floor.getAllDoors());
             for (int j = 0; j < Doors.size(); j++) {
-                if(Doors.get(j).getType() == NodeType.buildingExit){
+                if(i == 0&&(Doors.get(j).getType() == NodeType.buildingExit)){
                     Node goal = Doors.get(j);
                     Routes r = new Routes(String.valueOf(++numRoutes));
                     for (int k = 0; k < Doors.size(); k++) {
@@ -161,6 +161,18 @@ public class BuildingManager {// Builder design pattern - Director
                     r.addNode(goal);
                     building.addRoute(r);
                     System.out.println("Route "+r.RouteName+" exit at "+r.getGoal().coordinates[0]+","+r.getGoal().coordinates[1]);
+                }
+                else if(i > 0&&(Doors.get(j).getType() == NodeType.stairs)){
+                    Node goal = Doors.get(j);
+                    Routes r = new Routes(String.valueOf(++numRoutes));
+                    for (int k = 0; k < Doors.size(); k++) {
+                        if(j!=k || Doors.get(k).getType() != NodeType.buildingExit){
+                            r.addNode(Doors.get(k));
+                        }
+                    }
+                    r.addNode(goal);
+                    building.addRoute(r);
+                    System.out.println("Route Stairs "+r.RouteName+" exit at "+r.getGoal().coordinates[0]+","+r.getGoal().coordinates[1]+" on floor "+i);
                 }
             }
         }

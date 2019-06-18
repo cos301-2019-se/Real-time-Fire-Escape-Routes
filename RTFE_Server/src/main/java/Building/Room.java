@@ -418,7 +418,7 @@ public class Room {
                             Distance = distance;
                         }
                     }catch (Exception e){
-//                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                 }
             }
