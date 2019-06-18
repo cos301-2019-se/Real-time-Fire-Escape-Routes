@@ -418,12 +418,13 @@ public class Room {
                             Distance = distance;
                         }
                     }catch (Exception e){
-//                        System.out.println(e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                 }
             }
 
-
+            if(BestRoute == -1)
+                continue;
 
             p.setAssignedRoute(routes.get(BestRoute));
             routes.get(BestRoute).addPerson(p);
