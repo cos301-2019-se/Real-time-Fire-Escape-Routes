@@ -58,7 +58,7 @@ public class Building : MonoBehaviour
         float test = float.Parse("0.9", System.Globalization.CultureInfo.InvariantCulture);
 
         //--------finding doors
-        Debug.Log("doors string: " + doors);//--------------splitting doors
+//        Debug.Log("doors string: " + doors);//--------------splitting doors
         doors = doors.Replace(" ", string.Empty);
         string[] doorsA = doors.Split('-');
 

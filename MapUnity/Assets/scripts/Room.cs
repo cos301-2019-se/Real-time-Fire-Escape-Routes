@@ -6,25 +6,14 @@ using UnityEngine.AI;
 public class Room : MonoBehaviour
 {
     public NavMeshSurface s;
-    //public GameObject square;
-    // Start is called before the first frame update
-    //int i, j;
-   
-
+  
     void Awake()
     {
-       // surface = GetComponent<NavMeshAgent> (); 
-       //buildFloorTop();
-       //buildFloorBottom();
-       // s.BuildNavMesh();
+
     }
 
     public void build(Vector2[] vertices2D, int[] boolList , int floorNum)
     {
-        // for(int i = 0; i <boolList.Length; i++)
-        // {
-        //     Debug.Log("floorNum: "+boolList[i]);
-        // }
         buildFloorTop(vertices2D, boolList, floorNum);
         buildWalls(vertices2D, boolList, floorNum);
     }
@@ -96,7 +85,7 @@ public class Room : MonoBehaviour
         msh.RecalculateNormals();
         msh.RecalculateBounds();
 
-        GameObject objToSpawn = new GameObject("Cool GameObject made from Code");
+        GameObject objToSpawn = new GameObject("Wall");
         objToSpawn.AddComponent(typeof(MeshRenderer));
         MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
         filter.mesh = msh;

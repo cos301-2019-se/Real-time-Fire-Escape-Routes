@@ -20,17 +20,16 @@ public class Floor : MonoBehaviour
         doors = d;
     }
 
-    public float Distance(float x1, float y1, float x2, float y2)
+    public float Distance(float x1, float y1, float x2, float y2)//simple distance between 2 points
     {
         return (float) Math.Sqrt( (Math.Pow(x1-x2,2)+Math.Pow(y1-y2,2)) );
     }
-
 
     public void addRoom(float[][] corners)
     {
         GameObject r = Instantiate(Resources.Load("Room", typeof(GameObject)) as GameObject, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 1)) as GameObject;
         rooms.Add(r);
-        //todo: check if anys doors fall between any of the corners and then put them into and array and label door indexes.
+       
 
         List<Vector2> vectorList = new List<Vector2>();
         List<int> intList = new List<int>();
@@ -38,16 +37,17 @@ public class Floor : MonoBehaviour
        
         for(int i = 0; i < corners.Length; i++)
         {
+            //check if anys doors fall between any of the corners and then put them into and array and label door indexes.
             vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
             intList.Add(0);
             for(int j = 0; j < doors.Length; j++)
             {
-                if(doors[j][0] == floorNumber)
+                if(Math.Abs(doors[j][0] - floorNumber) < Mathf.Epsilon)
                 {
                
                     if(i + 1 >= corners.Length)
                     {
-                        //todo: remmeber to use Mathf.Approximately(v1, v2) when comparing floats
+                        //todo: remmeber to use Mathf.Approximately(v1, v2) when comparing floats, Mathf.Epsilon
                         float v1 = Distance(corners[i][0], corners[i][1], doors[j][2], doors[j][3]) + Distance(corners[0][0], corners[0][1], doors[j][2], doors[j][3]);
                         float v2 = Distance(corners[i][0], corners[i][1], corners[0][0], corners[0][1]);
                         if (Mathf.Approximately(v1, v2))
