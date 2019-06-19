@@ -21,9 +21,6 @@ public class AgentController : MonoBehaviour
 
     public void goTo(int x)
     {
-
-
-
         var goArray = FindObjectsOfType<GameObject>();
        
             for (int j = 0; j < goArray.Length; j++)
@@ -36,8 +33,6 @@ public class AgentController : MonoBehaviour
                     gameObject.GetComponent<Renderer>().material.color = color;
                 }
             }
-        
-
         started = true;
     }
 
@@ -54,16 +49,15 @@ public class AgentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(started)
-      if ( Vector3.Distance( agent.destination, agent.transform.position)-0.36 <= agent.stoppingDistance)
-         {
-            // Debug.Log("diatnce: "+Vector3.Distance( agent.destination, agent.transform.position));
-            //  if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-            //  {
-                 Destroy(gameObject);
-            //  }
-         }
+        if (started)
+        {
+            if (Vector3.Distance(agent.destination, agent.transform.position) - 0.36 <= agent.stoppingDistance)
+            {
 
+                Destroy(gameObject);
+
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
