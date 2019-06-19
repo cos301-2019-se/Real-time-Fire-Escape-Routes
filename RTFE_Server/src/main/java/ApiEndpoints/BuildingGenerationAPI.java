@@ -26,7 +26,8 @@ public class BuildingGenerationAPI {
             throw new Exception("Please build a building first") ;
 
         String responseMessage = "No people to add yet";
-        response.put("numberFloors",API.building.getFloors().size());
+        int numberOfFloors = API.building.getFloors().size();
+        response.put("numberFloors",numberOfFloors);
 
         /**
          * Adding Rooms to the response
@@ -50,7 +51,7 @@ public class BuildingGenerationAPI {
         /**
          * Adding Halls to the response
          * */
-        /* //Temp fix for unity
+         //Temp fix for unity
         rooms = (JSONArray)API.lastbuild.get("halls");
         data += " - ";
         for (int i = 0; i < rooms.length() ; i++) {
@@ -68,8 +69,37 @@ public class BuildingGenerationAPI {
         }
 
         /**
+         * Adding Stairs to the response
+         * */
+        rooms = (JSONArray)API.lastbuild.get("stairs");
+        String StairData ="";
+        for (int i = 0; i < rooms.length() ; i++) {
+            JSONObject current = (JSONObject) rooms.get(i);
+            int StairsFloor = current.getInt("floor");
+            StairData += StairsFloor + " * ";
+
+            if(StairsFloor == 0)
+                StairData += "0 * ";
+            else if (StairsFloor == numberOfFloors-1)
+                StairData += "2 * ";
+            else
+                StairData += "1 * ";
+
+            JSONArray corners = (JSONArray)current.get("corners");
+            for (int j = 0; j < corners.length(); j++) {
+                JSONArray c = (JSONArray)corners.get(j);
+                StairData += c.getDouble(0)+","+c.getDouble(1);
+                if(j < corners.length()-1)
+                    StairData+=" % ";
+            }
+            if( i < rooms.length() -1)
+                StairData+= " - ";
+        }
+            response.put("stairs",StairData);
+        /**
          * Adding Floors to the response
          * */
+        /*
         rooms = (JSONArray)API.lastbuild.get("floors");
         data += " - ";
         for (int i = 0; i < rooms.length() ; i++) {
@@ -85,6 +115,7 @@ public class BuildingGenerationAPI {
             if( i < rooms.length() -1)
                 data+= " - ";
         }
+        /****/
         response.put("rooms",data);
 
         /**
@@ -94,6 +125,8 @@ public class BuildingGenerationAPI {
         JSONArray doors = (JSONArray)API.lastbuild.get("doors");
         for (int i = 0; i < doors.length() ; i++) {
             JSONObject current = (JSONObject) doors.get(i);
+            if((String)current.get("type")=="stairs")
+                continue;
             data += current.getInt("floor") + " * ";
             switch ((String)current.get("type")){
                 case "buildingExit":
@@ -106,7 +139,7 @@ public class BuildingGenerationAPI {
                     data+="0.9 * ";
                     break;
                 case "stairs":
-                    data+="0.9 * ";
+                    data+="77 * ";
                     break;
                 default:
                     data+="0.9 * ";

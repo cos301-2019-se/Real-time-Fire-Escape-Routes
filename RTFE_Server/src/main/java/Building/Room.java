@@ -40,6 +40,8 @@ public class Room {
         }
         for (int i = 0; i < Walls.size(); i++) {
             if(onWall(i,d.getCenter())){
+                if(roomType == RoomType.stairs)
+                    d.changeType(NodeType.stairs);
                 doors.add(d);
                 if(verbose)
                     System.out.println("Door Placed in "+roomType.toString());
@@ -199,11 +201,12 @@ public class Room {
 
     public Vector<Node> getAllDoors(){
         Vector<Node> currentDoors = new Vector<Node>();
-        for (int i = 0; i < Rooms.size(); i++) {
-            currentDoors.addAll(Rooms.get(i).getAllDoors());
-        }
+
         for (int i = 0; i < doors.size(); i++) {
             currentDoors.add(doors.get(i).node);
+        }
+        for (int i = 0; i < Rooms.size(); i++) {
+            currentDoors.addAll(Rooms.get(i).getAllDoors());
         }
         return currentDoors;
     }
@@ -232,19 +235,6 @@ public class Room {
             if(getRooms(i).addPerson(p))
                 return true;
         }
-        /*
-        int wallOverlaps = 0;
-        for (int i = 0; i < Walls.size(); i++) {
-            if(crossWall(i,p.getPosition()))
-                wallOverlaps++;
-        }
-        if(verbose)
-            System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
-        if((wallOverlaps >=4)|| wallOverlaps == Walls.size() ){
-            peopleInRoom.add(p);
-            return true;
-        }
-        */
         Corner [] poly = new Corner[Corners.size()];
         for (int i = 0; i < poly.length; i++) {
             poly[i] = Corners.get(i);
@@ -287,7 +277,6 @@ public class Room {
     /**
      * @Description: Adds a corner to the room, Take Note it means nothing on its own
      * */
-
     protected void addCorner(Corner c){
         Corners.add(c);
         Walls.add(new Vector<>());

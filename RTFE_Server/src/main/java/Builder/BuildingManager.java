@@ -11,6 +11,7 @@ public class BuildingManager {// Builder design pattern - Director
     Vector <Vector<Builder>> halls = new Vector<>();
     Vector <Vector<Builder>> rooms = new Vector<>();
     Vector <Vector<Builder>> doors = new Vector<>();
+    Vector <Vector<Builder>> stairs = new Vector<>();
     private static boolean verbose = true;
     JSONArray peopleData;
     JSONObject buildingData ;
@@ -26,7 +27,7 @@ public class BuildingManager {// Builder design pattern - Director
                 System.out.println(data.toString());
                 floors.add(new RoomBuilder(data));
             }
-
+            int MaxFloors = floors.size();
 
             halls = new Vector<>();
             for (int i = 0; i < floors.size(); i++) {
@@ -55,7 +56,21 @@ public class BuildingManager {// Builder design pattern - Director
                 int floornum = data2.getInt("floor");
                 rooms.get(floornum).add(new RoomBuilder(data));
             }
-
+            /**
+             * Stairs
+             * */
+            stairs = new Vector<>();
+            for (int i = 0; i < floors.size(); i++) {
+                stairs.add( new Vector<>());
+            }
+            TempData = (JSONArray)buildingData.get("stairs");
+            for (int i = 0; i < TempData.length() ; i++) {
+                JSONObject data = new JSONObject();
+                JSONObject data2 = (JSONObject)TempData.get(i);
+                data.put("stairs",TempData.get(i));
+                int floornum = data2.getInt("floor");
+                stairs.get(floornum).add(new StairsBuilder(data,floornum,MaxFloors));
+            }
 
             doors = new Vector<>();
             for (int i = 0; i < floors.size(); i++) {
@@ -112,6 +127,18 @@ public class BuildingManager {// Builder design pattern - Director
                 }
             }
 
+            for (int i = 0; i < stairs.size(); i++) {
+                for (int j = 0; j < stairs.get(i).size(); j++) {
+                    Room f =(Room)stairs.get(i).get(j).buildPart();
+                    building.getFloor(i).addRoom(f);
+                    if(verbose)
+                        System.out.println(f.isValidRoom());
+                }
+            }
+            if (stairs.size()>0)
+                building.connectStairs();
+
+
             for (int i = 0; i < doors.size(); i++) {
                 for (int j = 0; j < doors.get(i).size(); j++) {
                     boolean status =  building.getFloor(i).addDoor((Door)doors.get(i).get(j).buildPart());
@@ -141,9 +168,9 @@ public class BuildingManager {// Builder design pattern - Director
             System.out.println("Building Routes");
         }
         int numRoutes = 0;
+        boolean status =building.connectDoors();
         for (int i = 0; i < building.getNumFloors(); i++) {
             Room floor = building.getFloor(i);
-            boolean status =floor.connectDoors();
             if(verbose){
                 System.out.println("Connected doors for floor - "+i);
             }
@@ -190,4 +217,5 @@ public class BuildingManager {// Builder design pattern - Director
         }
         return a;
     }
+
 }

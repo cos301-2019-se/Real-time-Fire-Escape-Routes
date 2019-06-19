@@ -19,11 +19,16 @@ public class BuildingAPI extends API {
             case "assignPeople":{
                 building.assignPeople();
                 response = new JSONObject();
-//                response.put("msg", "Successfully assigned People");
                 response.put("people", peopleToUnity());
                 response.put("numRoutes",building.getRoutes().size());
                 response.put("status",true);
 
+                return response;
+            }
+            case "clearPeople":{
+                response = new JSONObject();
+                response.put("message", clearPeople());
+                response.put("status",true);
                 return response;
             }
         }
@@ -43,9 +48,9 @@ public class BuildingAPI extends API {
     }
 
     private static String clearPeople(){
-        return"";
+        building.clearPeople();
+        return "Removed people from building";
     }
-
     private static JSONObject getRoutes(JSONObject response) throws JSONException {
         JSONObject Response = new JSONObject();
         try{

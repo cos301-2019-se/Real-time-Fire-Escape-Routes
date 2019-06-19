@@ -1,10 +1,13 @@
 package Building;
 import java.util.Vector;
 
+import static Building.NodeType.stairs;
+
 public class Building {
       private static int numBuildings = 0;
       private Vector<Room> Floor= new Vector<>();
       private int id;
+      private double floorHeight = 3.0; //needed for connecting stairs
 
       public Vector<Routes> getRoutes() {
             return Routes;
@@ -58,7 +61,12 @@ public class Building {
       }
       public boolean connectDoors()
       {
-            return Floor.get(0).connectDoors();
+          boolean status = true;
+          for (Room floor:Floor) {
+              boolean success= floor.connectDoors();
+              status = !success? false : status;
+          }
+          return status;
       }
 
       public void addRoute(Routes r) {
@@ -69,13 +77,42 @@ public class Building {
 
       public void assignPeople(){
             try{
-            for (int i = 0; i < getNumFloors(); i++) {
-                  getFloor(i).assignPeople(Routes);
-            }
+                  for (int i = 0; i < getNumFloors(); i++) {
+                        getFloor(i).assignPeople(Routes);
+                  }
             }
             catch (Exception e){
                   System.out.println(e.getMessage());
             }
+      }
+
+      public void connectStairs(){
+            Vector<Node> stairs = getStairs();
+            for (int i = 0; i < stairs.size(); i++) {
+                  Node current = stairs.remove(0);
+                  for (int j = 0; j < stairs.size() ; j++) {
+                        Node other = stairs.get(i);
+                        if(current.coordinates[0] == other.coordinates[0] &&current.coordinates[1] == other.coordinates[1]){
+                              other.connect(current,floorHeight);
+                              System.out.println("Connecting Stairs");
+//                              current = other;
+                              break;
+                        }
+                  }
+            }
+      }
+      private Vector<Node> getStairs(){
+            Vector<Node> allNodes = new Vector<>();
+            Vector<Node> stairNodes = new Vector<>();
+            for (Room floor:Floor) {
+                  allNodes.addAll(floor.getAllDoors());
+            }
+            for (Node current:allNodes) {
+                  if (current.type == stairs){
+                        stairNodes.add(current);
+                  }
+            }
+            return stairNodes;
       }
 
 }

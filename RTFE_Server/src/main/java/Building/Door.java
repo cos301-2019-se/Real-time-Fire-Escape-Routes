@@ -23,4 +23,8 @@ public class Door {
     {
         return coordinates;
     }
+    void changeType(NodeType _type){
+        type=_type;
+        node.type=_type;
+    }
 }
