@@ -1,3 +1,25 @@
 Manifest-Version: 1.0
 Main-Class: Main
+Implementation-Title: Arquillian Test SPI
+Implementation-Version: 1.4.1.Final
+Java-Version: 1.8.0_161
+Built-By: mjobanek
+Scm-Connection: scm:git:git://git@github.com:arquillian/arquillian-core.
+ git/arquillian-build/arquillian-test-spi
+Specification-Vendor: JBoss by Red Hat
+Os-Arch: amd64
+Specification-Title: Arquillian Test SPI
+Implementation-Vendor-Id: org.jboss.arquillian.test
+Java-Vendor: Oracle Corporation
+Os-Name: Linux
+Scm-Url: git://github.com/arquillian/arquillian-core.git/arquillian-buil
+ d/arquillian-test-spi
+Implementation-Vendor: JBoss by Red Hat
+Os-Version: 4.11.12-100.fc24.x86_64
+Scm-Revision: e2df2a03a14fb4b178388626b0fe437bdb46d177
+Created-By: Apache Maven 3.5.4
+Build-Jdk: 1.8.0_161
+Specification-Version: 1.4
+Implementation-URL: http://arquillian.org/arquillian-build/arquillian-te
+ st-spi
 

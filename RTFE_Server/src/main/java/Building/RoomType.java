@@ -3,5 +3,8 @@ package Building;
 public enum RoomType{
     normal,
     floor,
-    hall
+    hall,
+//    stairsBottom,
+//    stairsTop,
+    stairs
 }

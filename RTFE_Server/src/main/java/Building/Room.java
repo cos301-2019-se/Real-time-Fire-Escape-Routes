@@ -10,8 +10,8 @@ public class Room {
     public Vector<Door> doors = new Vector<Door>();
     private Vector<Person> peopleInRoom = new Vector<>();
     private Vector<Room> Rooms = new Vector<Room>();
-    private Vector<Corner> Corners = new Vector<>();
-    private Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
+    protected Vector<Corner> Corners = new Vector<>();
+    protected Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
     Vector<Node> nodesInRooms = new Vector<Node>();
     static boolean verbose = true;
 
@@ -40,6 +40,8 @@ public class Room {
         }
         for (int i = 0; i < Walls.size(); i++) {
             if(onWall(i,d.getCenter())){
+                if(roomType == RoomType.stairs)
+                    d.changeType(NodeType.stairs);
                 doors.add(d);
                 if(verbose)
                     System.out.println("Door Placed in "+roomType.toString());
@@ -171,7 +173,6 @@ public class Room {
             {
                 return true;
             }
-
         }
         for(int j = 0; j < doors.size()-1; j++)
         {
@@ -199,11 +200,12 @@ public class Room {
 
     public Vector<Node> getAllDoors(){
         Vector<Node> currentDoors = new Vector<Node>();
-        for (int i = 0; i < Rooms.size(); i++) {
-            currentDoors.addAll(Rooms.get(i).getAllDoors());
-        }
+
         for (int i = 0; i < doors.size(); i++) {
             currentDoors.add(doors.get(i).node);
+        }
+        for (int i = 0; i < Rooms.size(); i++) {
+            currentDoors.addAll(Rooms.get(i).getAllDoors());
         }
         return currentDoors;
     }
@@ -232,19 +234,6 @@ public class Room {
             if(getRooms(i).addPerson(p))
                 return true;
         }
-        /*
-        int wallOverlaps = 0;
-        for (int i = 0; i < Walls.size(); i++) {
-            if(crossWall(i,p.getPosition()))
-                wallOverlaps++;
-        }
-        if(verbose)
-            System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
-        if((wallOverlaps >=4)|| wallOverlaps == Walls.size() ){
-            peopleInRoom.add(p);
-            return true;
-        }
-        */
         Corner [] poly = new Corner[Corners.size()];
         for (int i = 0; i < poly.length; i++) {
             poly[i] = Corners.get(i);
@@ -287,7 +276,6 @@ public class Room {
     /**
      * @Description: Adds a corner to the room, Take Note it means nothing on its own
      * */
-
     protected void addCorner(Corner c){
         Corners.add(c);
         Walls.add(new Vector<>());
@@ -398,24 +386,33 @@ public class Room {
         }
 
         for (int i = 0; i < peopleInRoom.size(); i++) {
-            double Distance =  Double.POSITIVE_INFINITY;
+            if(verbose){
+                System.out.println("============== Assigning Next Person ==============");
+            }
+            double Heuristic =  Double.POSITIVE_INFINITY;
             Person p = peopleInRoom.get(i);
             int BestRoute = -1;
             int BestDoor = -1;
             Door BestD = null;
             Routes BestR = null;
+            Vector<Node> Bestpath= new Vector<Node>();
 //            System.out.println("New Person:");
             for (int j = 0; j < routes.size(); j++) {
                 for (int k = 0; k < doors.size(); k++) {
                     Door d = doors.get(k);
                     try {
-                        double distance = routes.get(j).calculateHeuristic(d.node, p);
+//                        double distance = routes.get(j).calculateHeuristic(d.node, p);
 //                        System.out.println("Heuristic val: "+distance +" for Person: "+p.personID+" on Route "+routes.get(j).RouteName);
-                        if (distance < Distance) {
-//                            System.out.println("update Heuristic: "+distance);
+                        routes.get(j).resetVisited();
+                        Vector<Node> path = routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal());
+                        Routes.printPath(path,p);
+                        double currentHeuristic = Routes.pathHeuristic(path,p);
+                        if (currentHeuristic < Heuristic) {
                             BestRoute = j;
                             BestDoor = k;
-                            Distance = distance;
+                            Heuristic = currentHeuristic;
+                            Bestpath = path;
+//                            Routes.printPath(Bestpath);
                         }
                     }catch (Exception e){
                         System.out.println(e.getMessage());
@@ -430,7 +427,9 @@ public class Room {
             routes.get(BestRoute).addPerson(p);
 
             if(verbose){
-                System.out.println("Person "+p.personID+" is assigned to Route "+p.AssignedRoute.RouteName +" Distance to safety is: "+Distance+ " using door " +doors.get(BestDoor).id);
+                System.out.println("Person "+p.name+" is assigned to Route "+p.AssignedRoute.RouteName +" Heuristic safety value is: "+Heuristic+ " using door " +doors.get(BestDoor).id);
+                Routes.printPath(Bestpath,p);
+                System.out.println();
             }
         }
     }

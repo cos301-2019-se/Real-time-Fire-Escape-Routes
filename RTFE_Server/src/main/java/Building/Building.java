@@ -1,10 +1,13 @@
 package Building;
 import java.util.Vector;
 
+import static Building.NodeType.stairs;
+
 public class Building {
       private static int numBuildings = 0;
       private Vector<Room> Floor= new Vector<>();
       private int id;
+      private double floorHeight = 3.0; //needed for connecting stairs
 
       public Vector<Routes> getRoutes() {
             return Routes;
@@ -51,6 +54,7 @@ public class Building {
             for (int i = 0; i < Floor.size(); i++) {
                   Floor.get(i).removePeople();
             }
+            Person.numPeople = 0;
       }
 
       public int getNumFloors(){
@@ -58,7 +62,12 @@ public class Building {
       }
       public boolean connectDoors()
       {
-            return Floor.get(0).connectDoors();
+          boolean status = true;
+          for (Room floor:Floor) {
+              boolean success= floor.connectDoors();
+              status = !success? false : status;
+          }
+          return status;
       }
 
       public void addRoute(Routes r) {
@@ -69,13 +78,45 @@ public class Building {
 
       public void assignPeople(){
             try{
-            for (int i = 0; i < getNumFloors(); i++) {
-                  getFloor(i).assignPeople(Routes);
-            }
+                  for (int i = 0; i < getNumFloors(); i++) {
+                        getFloor(i).assignPeople(Routes);
+                  }
             }
             catch (Exception e){
                   System.out.println(e.getMessage());
             }
+      }
+
+      public void connectStairs(){
+            Vector<Node> stairs = getStairs();
+            Node last= stairs.remove(0);
+            int i=0;
+            while (stairs.size()>0){
+                  if(i== stairs.size()){
+                        last = stairs.remove(0);
+                        i=0;
+                  }
+                  if(last.coordinates[0] == stairs.get(i).coordinates[0] && last.coordinates[1] == stairs.get(i).coordinates[1] && last.nodeId != stairs.get(i).nodeId){
+                       last.connect(stairs.get(i), floorHeight);
+                       last = stairs.remove(i);
+                       i=0;
+                  }
+                  i++;
+            }
+
+      }
+      private Vector<Node> getStairs(){
+            Vector<Node> allNodes = new Vector<>();
+            Vector<Node> stairNodes = new Vector<>();
+            for (Room floor:Floor) {
+                  allNodes.addAll(floor.getAllDoors());
+            }
+            for (Node current:allNodes) {
+                  if (current.type == stairs){
+                        stairNodes.add(current);
+                  }
+            }
+            return stairNodes;
       }
 
 }

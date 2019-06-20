@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RTFE_server:jar2">
+    <output-path>$PROJECT_DIR$/classes/artifacts/RTFE_server_jar2</output-path>
+    <root id="archive" name="RTFE_server.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/classes/ManifestTest/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
