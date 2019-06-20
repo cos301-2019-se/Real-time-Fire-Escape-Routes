@@ -14,7 +14,7 @@ public class Room : MonoBehaviour
 
     public void build(Vector2[] vertices2D, int[] boolList , int floorNum)
     {
-        buildFloorTop(vertices2D, boolList, floorNum);
+       buildFloorTop(vertices2D, boolList, floorNum);
         buildWalls(vertices2D, boolList, floorNum);
     }
 
@@ -24,8 +24,8 @@ public class Room : MonoBehaviour
         {
             if(i + 1 >= vertices2D.Length)
             {
-                if(boolList[i] != boolList[0] || (boolList[0] == 0 || boolList[i] == 0) )
-                {
+                //if(boolList[i] != boolList[0] || boolList[0] == 0 || boolList[i] == 0)
+                //{
                     Vector3[] vertices = new Vector3[4];
                     vertices[0] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
                     vertices[1] = new Vector3(vertices2D[i].x, (floorNum*3)+3, vertices2D[i].y);
@@ -41,11 +41,12 @@ public class Room : MonoBehaviour
                     vertices1[0] = new Vector3(vertices2D[0].x, (floorNum*3), vertices2D[0].y);
 
                     buildWallFront(vertices1);
-                }
+                //}
+                //Debug.Log(i + ": " + vertices2D[i].x + " " + vertices2D[i].y);
             }
             else
             {
-                if(boolList[i] != boolList[i+1] || (boolList[i+1] == 0 || boolList[i] == 0) )
+                if(boolList[i] != boolList[i+1] || boolList[i+1] == 0 || boolList[i] == 0 )
                 {
                     Vector3[] vertices = new Vector3[4];
                     vertices[0] = new Vector3(vertices2D[i].x, (floorNum*3), vertices2D[i].y);
@@ -62,8 +63,10 @@ public class Room : MonoBehaviour
                     vertices1[3] = new Vector3(vertices2D[i+1].x, (floorNum*3), vertices2D[i+1].y);
 
                     buildWallFront(vertices1);
+
                 }
             }
+            Debug.Log(i + ": " + vertices2D[i].x + " " + vertices2D[i].y);
         }
     }
 
@@ -116,26 +119,114 @@ public class Room : MonoBehaviour
         // Use the triangulator to get indices for creating triangles
         Triangulator tr = new Triangulator(vertices2D);
         int[] indices = tr.Triangulate();
- 
+
         // Create the Vector3 vertices
         Vector3[] vertices = new Vector3[vertices2D.Length];
         for (int i=0; i<vertices.Length; i++) {
             vertices[i] = new Vector3(vertices2D[i].x, floorNum*3, vertices2D[i].y);
         }
- 
+
         // Create the mesh
         Mesh msh = new Mesh();
         msh.vertices = vertices;
         msh.triangles = indices;
         msh.RecalculateNormals();
         msh.RecalculateBounds();
- 
+
         // Set up game object with mesh;
         gameObject.AddComponent(typeof(MeshRenderer));
         MeshFilter filter = gameObject.AddComponent(typeof(MeshFilter)) as MeshFilter;
         filter.mesh = msh;
         Material myMaterial = Resources.Load("materials/routeGreen") as Material; 
-        GetComponent<Renderer>().material = myMaterial; 
+        GetComponent<Renderer>().material = myMaterial;
+
+        //----above and below are 2 seperate pieces
+
+
+        //// Use the triangulator to get indices for creating triangles
+        //Vector2[] v2 = new Vector2[vertices2D.Length];
+        //for (int i = 0; i < v2.Length; i++)
+        //{
+        //    v2[i] = vertices2D[(v2.Length - 1) - i];
+        //}
+        //vertices2D = v2;
+
+        //Triangulator tr = new Triangulator(vertices2D);
+        //int[] indices = tr.Triangulate();
+
+        //// Create the Vector3 vertices
+        //Vector3[] vertices = new Vector3[vertices2D.Length];
+        //for (int i = 0; i < vertices.Length; i++)
+        //{
+        //    vertices[i] = new Vector3(vertices2D[i].x, floorNum * 3, vertices2D[i].y);
+        //}
+
+        //// Create the mesh
+        //Mesh msh = new Mesh();
+        //msh.vertices = vertices;
+        //msh.triangles = indices;
+        //msh.RecalculateNormals();
+        //msh.RecalculateBounds();
+
+        //// Set up game object with mesh;
+        //GameObject objToSpawn = new GameObject("floor");
+        //objToSpawn.AddComponent(typeof(MeshRenderer));
+        //MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
+        //Material myMaterial = Resources.Load("materials/routeGreen") as Material;
+        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
+
+
+
+        //objToSpawn.AddComponent(typeof(MeshRenderer));
+        //filter.mesh = msh;
+
+        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
+
+        buildFloorBottom(vertices2D, boolList, floorNum);
+    }
+
+    void buildFloorBottom(Vector2[] vertices2D, int[] boolList, int floorNum)
+    {
+
+
+        //// Use the triangulator to get indices for creating triangles
+        //Vector2[] v2 = new Vector2[vertices2D.Length];
+        //for(int i = 0; i < v2.Length;i++)
+        //{
+        //    v2[i] = vertices2D[(v2.Length-1) - i];
+        //}
+        //vertices2D = v2;
+
+        //Triangulator tr = new Triangulator(vertices2D);
+        //int[] indices = tr.Triangulate();
+
+        //// Create the Vector3 vertices
+        //Vector3[] vertices = new Vector3[vertices2D.Length];
+        //for (int i = 0; i < vertices.Length; i++)
+        //{
+        //    vertices[i] = new Vector3(vertices2D[i].x, floorNum * 3, vertices2D[i].y);
+        //}
+
+        //// Create the mesh
+        //Mesh msh = new Mesh();
+        //msh.vertices = vertices;
+        //msh.triangles = indices;
+        //msh.RecalculateNormals();
+        //msh.RecalculateBounds();
+
+        //// Set up game object with mesh;
+        //GameObject objToSpawn = new GameObject("floor");
+        //objToSpawn.AddComponent(typeof(MeshRenderer));
+        //MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
+        //Material myMaterial = Resources.Load("materials/routeGreen") as Material;
+        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
+
+
+
+        //objToSpawn.AddComponent(typeof(MeshRenderer));
+        //filter.mesh = msh;
+
+        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
     }
 
 

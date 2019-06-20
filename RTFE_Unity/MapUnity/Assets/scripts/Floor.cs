@@ -40,10 +40,13 @@ public class Floor : MonoBehaviour
             //check if anys doors fall between any of the corners and then put them into and array and label door indexes.
             vectorList.Add(new Vector2(corners[i][0], corners[i][1]));
             intList.Add(0);
+            newDoor = 1;
             for(int j = 0; j < doors.Length; j++)
             {
                 if(Math.Abs(doors[j][0] - floorNumber) < Mathf.Epsilon)
                 {
+                    /*todo:you need to restart everytime you find a 
+                    new door other wize the doors will not be inserted in the correct order breaking the floor and doors*/
                
                     if(i + 1 >= corners.Length)
                     {
@@ -81,7 +84,8 @@ public class Floor : MonoBehaviour
                              vectorList.Add(new Vector2(doorx2, doorz2));
                          
                              intList.Add(newDoor);
-                             intList.Add(newDoor++);
+                            intList.Add(newDoor);
+                            newDoor++;
                         }
                     }
                     else
