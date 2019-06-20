@@ -8,10 +8,14 @@ public class Node {
     NodeType type;
     int nodeId;
     double weight;
+    boolean visited = false;
 
     Vector<Double> distanceToNodes = new Vector();
     Vector<Node> connectedTo = new Vector();
     Vector<Person> assignedPersons = new Vector();
+
+
+    Vector<Path> Paths = new Vector();
 
     Node(NodeType Type, double [] d){
         coordinates = new double[2];
@@ -25,11 +29,11 @@ public class Node {
                 break;
             }
             case singleDoor:{
-                weight = 2;
+                weight = 1.1;
                 break;
             }
             case stairs:{
-                weight = 3;
+                weight = 0.9;
                 break;
             }
             case buildingExit:{
@@ -37,7 +41,7 @@ public class Node {
                 break;
             }
             case goal:{
-                weight = 0.0001;
+                weight = 1;
                 break;
             }
         }
@@ -83,6 +87,10 @@ public class Node {
         n.connectedTo.add(this);
         n.distanceToNodes.add(distance);
         distanceToNodes.add(distance);
+
+        n.Paths.add(new Path(n,this,distance));
+        Paths.add(new Path(this,n,distance));
+
     }
 
     public void addPerson(Person p) {//Done
@@ -117,21 +125,4 @@ public class Node {
         return type;
     }
 
-    public double distanceToGoal(Node start,double d)
-    {
-        /*
-        double distance = d;
-        double TempDistance =99999999 ;
-        for(int i = 0; i < nodes.size(); i++)
-        {
-
-            double newDistance =(nodes.get(i).distanceToGoal(nodes.get(i), nodes.get(i).distanceToNode(i)+distance));
-            if(newDistance < TempDistance)
-                TempDistance = newDistance;
-        }
-        return  TempDistance;
-        */
-
-        return 0.0;
-    }
 }

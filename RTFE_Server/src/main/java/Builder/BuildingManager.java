@@ -60,18 +60,21 @@ public class BuildingManager {// Builder design pattern - Director
              * Stairs
              * */
             stairs = new Vector<>();
-            for (int i = 0; i < floors.size(); i++) {
-                stairs.add( new Vector<>());
+            try {
+                TempData = (JSONArray) buildingData.get("stairs");
+                for (int i = 0; i < floors.size(); i++) {
+                    stairs.add(new Vector<>());
+                }
+                for (int i = 0; i < TempData.length(); i++) {
+                    JSONObject data = new JSONObject();
+                    JSONObject data2 = (JSONObject) TempData.get(i);
+                    data.put("stairs", TempData.get(i));
+                    int floornum = data2.getInt("floor");
+                    stairs.get(floornum).add(new StairsBuilder(data, floornum, MaxFloors));
+                }
+            }catch (Exception e){
+                System.out.println("No stairs in JSON object, continueing build...");
             }
-            TempData = (JSONArray)buildingData.get("stairs");
-            for (int i = 0; i < TempData.length() ; i++) {
-                JSONObject data = new JSONObject();
-                JSONObject data2 = (JSONObject)TempData.get(i);
-                data.put("stairs",TempData.get(i));
-                int floornum = data2.getInt("floor");
-                stairs.get(floornum).add(new StairsBuilder(data,floornum,MaxFloors));
-            }
-
             doors = new Vector<>();
             for (int i = 0; i < floors.size(); i++) {
                 doors.add( new Vector<>());
@@ -135,10 +138,6 @@ public class BuildingManager {// Builder design pattern - Director
                         System.out.println(f.isValidRoom());
                 }
             }
-            if (stairs.size()>0)
-                building.connectStairs();
-
-
             for (int i = 0; i < doors.size(); i++) {
                 for (int j = 0; j < doors.get(i).size(); j++) {
                     boolean status =  building.getFloor(i).addDoor((Door)doors.get(i).get(j).buildPart());
@@ -146,6 +145,11 @@ public class BuildingManager {// Builder design pattern - Director
                         System.out.println("Placing door "+status);
                 }
             }
+            if (stairs.size()>0)
+                building.connectStairs();
+            building.connectDoors();
+
+
 
             if(peopleData != null){
                 PersonManager HumanResources = new PersonManager(building,peopleData);
@@ -168,41 +172,50 @@ public class BuildingManager {// Builder design pattern - Director
             System.out.println("Building Routes");
         }
         int numRoutes = 0;
-        boolean status =building.connectDoors();
-        for (int i = 0; i < building.getNumFloors(); i++) {
-            Room floor = building.getFloor(i);
-            if(verbose){
-                System.out.println("Connected doors for floor - "+i);
-            }
-
+        Vector<Node> goalStates = new Vector<>();
+        int currentFloor=0;
+        for (Room floor:building.getFloors()) {
             Vector<Node> Doors = filterDoors( floor.getAllDoors());
-            for (int j = 0; j < Doors.size(); j++) {
-                if(i == 0&&(Doors.get(j).getType() == NodeType.buildingExit)){
-                    Node goal = Doors.get(j);
-                    Routes r = new Routes(String.valueOf(++numRoutes));
-                    for (int k = 0; k < Doors.size(); k++) {
-                        if(j!=k || Doors.get(k).getType() != NodeType.buildingExit){
-                            r.addNode(Doors.get(k));
+            switch (currentFloor){
+                case 0:{ //Ground floor has the route creation option
+                    for (Node buildingExit:Doors) {
+                        if(buildingExit.getType() == NodeType.buildingExit){
+                            goalStates.add(buildingExit);
+                            Routes newRoute = new Routes(String.valueOf(numRoutes++));
+                            building.addRoute(newRoute);
+                            for (Node door:Doors) {
+                                if (door.getType() != NodeType.buildingExit)
+                                    newRoute.addNode(door);
+                            }
                         }
                     }
-                    r.addNode(goal);
-                    building.addRoute(r);
-                    System.out.println("Route "+r.RouteName+" exit at "+r.getGoal().coordinates[0]+","+r.getGoal().coordinates[1]);
+                    break;
                 }
-                else if(i > 0&&(Doors.get(j).getType() == NodeType.stairs)){
-                    Node goal = Doors.get(j);
-                    Routes r = new Routes(String.valueOf(++numRoutes));
-                    for (int k = 0; k < Doors.size(); k++) {
-                        if(j!=k || Doors.get(k).getType() != NodeType.buildingExit){
-                            r.addNode(Doors.get(k));
+                default:{// Any other Route
+                    for (Node door:Doors) {
+                        if (door.getType() == NodeType.buildingExit){
+                            goalStates.add(door);
+                            Routes newRoute = new Routes(String.valueOf(numRoutes++));
+                            building.addRoute(newRoute);
                         }
                     }
-                    r.addNode(goal);
-                    building.addRoute(r);
-                    System.out.println("Route Stairs "+r.RouteName+" exit at "+r.getGoal().coordinates[0]+","+r.getGoal().coordinates[1]+" on floor "+i);
+                    for (Routes route:building.getRoutes()) {
+                        for (Node door:Doors) {
+                            if(door.getType()!=NodeType.buildingExit)
+                                route.addNode(door);
+                        }
+                    }
                 }
             }
+            currentFloor++;
         }
+        for (Routes current:building.getRoutes()) {
+            current.addNode(goalStates.remove(0));
+        }
+
+
+
+
 
         if (verbose) {
             System.out.println("Building Routes Complete");

@@ -54,6 +54,7 @@ public class Building {
             for (int i = 0; i < Floor.size(); i++) {
                   Floor.get(i).removePeople();
             }
+            Person.numPeople = 0;
       }
 
       public int getNumFloors(){
@@ -88,18 +89,21 @@ public class Building {
 
       public void connectStairs(){
             Vector<Node> stairs = getStairs();
-            for (int i = 0; i < stairs.size(); i++) {
-                  Node current = stairs.remove(0);
-                  for (int j = 0; j < stairs.size() ; j++) {
-                        Node other = stairs.get(i);
-                        if(current.coordinates[0] == other.coordinates[0] &&current.coordinates[1] == other.coordinates[1]){
-                              other.connect(current,floorHeight);
-                              System.out.println("Connecting Stairs");
-//                              current = other;
-                              break;
-                        }
+            Node last= stairs.remove(0);
+            int i=0;
+            while (stairs.size()>0){
+                  if(i== stairs.size()){
+                        last = stairs.remove(0);
+                        i=0;
                   }
+                  if(last.coordinates[0] == stairs.get(i).coordinates[0] && last.coordinates[1] == stairs.get(i).coordinates[1] && last.nodeId != stairs.get(i).nodeId){
+                       last.connect(stairs.get(i), floorHeight);
+                       last = stairs.remove(i);
+                       i=0;
+                  }
+                  i++;
             }
+
       }
       private Vector<Node> getStairs(){
             Vector<Node> allNodes = new Vector<>();

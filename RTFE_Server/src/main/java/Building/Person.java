@@ -3,7 +3,7 @@ package Building;
 
 public class Person {
 
-    static int numPeople = 0;
+    public static int numPeople = 0;
     public String name;
     Routes AssignedRoute;
     double [] position;
