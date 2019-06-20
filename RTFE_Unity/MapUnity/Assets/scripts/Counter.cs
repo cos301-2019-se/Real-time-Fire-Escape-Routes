@@ -18,7 +18,8 @@ public class Counter : MonoBehaviour
     public GameObject buildingOb;
    // public GameObject meshOb;
      public NavMeshSurface s;
-    private string ip = "http://192.168.1.41:8080/";
+    //private string ip = "http://192.168.1.41:8080/";
+    private string ip = "http://127.0.0.1:8080/";
 
     // Start is called before the first frame update
     void Start()
