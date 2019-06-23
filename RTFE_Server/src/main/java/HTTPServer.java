@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        static final boolean verbose = false;
+        static final boolean verbose = true;
         private JSONObject lastBuild = null;
 
         public HTTPServer(Building b){
@@ -68,6 +69,10 @@ public class HTTPServer extends Server{
                 return "text/html";
             else
                 return "text/plain";
+        }
+        private String getContentType(StringBuilder request){
+            String [] reqBody = request.toString().split("\n");
+            return reqBody[0].split(" ")[1];
         }
         private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
             File file = new File(WEB_ROOT, FILE_NOT_FOUND);
@@ -139,7 +144,6 @@ public class HTTPServer extends Server{
 
                     }
                     else if(method.equals("POST")){
-
                         out.println("HTTP/1.1 200 OK");
                         out.println("Date: " + new Date());
                         out.println("Content-type: " + "application/json");
@@ -150,19 +154,30 @@ public class HTTPServer extends Server{
                             while(in.ready()){
                                 payload.append((char) in.read());
                             }
-                            String test = getJSONStr(payload);
-                            JSONObject req = new JSONObject(test);
+                            String type = getContentType(payload);
+//                            if (verbose)
+                                System.out.println("TYPE -> "+type);
+                            JSONObject req = new JSONObject();
+                            switch (type){
+                                case "multipart/form-data;":{
+                                    req = getFormData(payload);
+                                    break;
+                                }
+                                default:{
+                                    String test = getJSONStr(payload);
+                                    req = new JSONObject(test);
+                                    break;
+                                }
+                            }
                             if(verbose)
                                 System.out.println("Client -> Server: "+ req.toString());
-
-
                         /** Determining the API endpoint requested */
-
                         System.out.println(fileRequested.toString());
                         String endPoint = fileRequested.toString();
                         JSONObject response = new JSONObject();
                         endPoint = endPoint.substring(1);
                         endPoint = endPoint.toLowerCase();
+
                         switch (endPoint){
                             case "database":
                                 response = WebAPI.handleRequest(req);
@@ -242,6 +257,28 @@ public class HTTPServer extends Server{
         private String getJSONStr(StringBuilder payload) {
             return payload.substring(payload.indexOf("{"));
         }
+    }
+
+    private JSONObject getFormData(StringBuilder payload) {
+            JSONObject request = new JSONObject();
+//        System.out.println(payload);
+            String data = payload.toString();
+            String [] parsedData = data.split("Content-Disposition: ");
+//        for (String entry : parsedData) {
+//            System.out.println("==============Entry==================");
+//            System.out.println(entry);
+//        }
+        JSONObject buildingData = new JSONObject(parsedData[1].substring(parsedData[1].indexOf("{"),parsedData[1].indexOf("-------")));
+//        String Type = parsedData[2].substring(parsedData[2].indexOf("name=\""),parsedData[2].indexOf('"'));
+        String Type = parsedData[2].split("\n")[0].split(" ")[1].split("=")[1];
+        Type = Type.substring(1, Type.length()-2);
+        String BuildingName =  parsedData[3].split("\n")[0].split(" ")[1].split("=")[1];
+        BuildingName = BuildingName.substring(1, BuildingName.length()-2);
+        request.put("file",buildingData);
+        request.put("type",Type);
+        request.put("buildingName",BuildingName);
+//        System.out.println(request.toString());
+        return request;
     }
 
 
