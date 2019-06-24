@@ -1,7 +1,8 @@
 package ApiEndpoints;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.File;
 
 /**
@@ -11,7 +12,7 @@ import java.io.File;
  * */
 public class WebAPI extends API {
 
-    private static boolean verbose = false; //USED for debugging purposes
+    private static boolean verbose = true; //USED for debugging purposes
     private static Database USERDB = new Database();
 
     public static JSONObject handleRequest(JSONObject request)throws Exception {
@@ -46,6 +47,34 @@ public class WebAPI extends API {
     }
     private static  JSONObject uploadBuilding(String name, String file)
     {
+        String fileSeparator = System.getProperty("file.separator");
+        String absoluteFilePath =  name + ".json";
+        File f = new File(absoluteFilePath);
+        FileOutputStream fop = null;
+
+        try
+        {
+            if(f.createNewFile()){
+                System.out.println(absoluteFilePath+" File Created");
+            }else System.out.println("File "+absoluteFilePath+" already exists");
+        }
+        catch (Exception e)
+        {
+            System.out.println(name + ".json");
+        }
+        try
+        {
+            fop = new FileOutputStream(f);
+            byte[] contentInBytes = file.getBytes();
+            fop.write(contentInBytes);
+            fop.flush();
+            fop.close();
+        }
+        catch (Exception e)
+        {
+
+        }
+
         JSONObject Response = new JSONObject();
         Response.put("status", true);
         Response.put("msg","Building successfully uploaded");
