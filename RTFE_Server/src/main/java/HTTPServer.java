@@ -158,6 +158,7 @@ public class HTTPServer extends Server{
 //                            if (verbose)
                                 System.out.println("TYPE -> "+type);
                             JSONObject req = new JSONObject();
+
                             switch (type){
                                 case "multipart/form-data;":{
                                     req = getFormData(payload);
@@ -172,6 +173,7 @@ public class HTTPServer extends Server{
                             if(verbose)
                                 System.out.println("Client -> Server: "+ req.toString());
                         /** Determining the API endpoint requested */
+
                         System.out.println(fileRequested.toString());
                         String endPoint = fileRequested.toString();
                         JSONObject response = new JSONObject();

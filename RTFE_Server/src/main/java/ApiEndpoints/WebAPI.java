@@ -19,20 +19,37 @@ public class WebAPI extends API {
         JSONObject response;
         switch ((String)request.get("type")){
             case"login":
+            {
                 response = login((String)request.get("name"), (String)request.get("pass"));
                 return response;
+            }
             case "register":
+            {
                 response =  register((String)request.get("name"), (String)request.get("pass"));
                 return response;
-            case "getBuildings":{
+            }
+            case "getBuildings":
+            {
                 response = listDir();
+                return response;
+            }
+            case "uploadBuilding":
+            {
+                response =  uploadBuilding((String)request.get("name"), (String)request.get("file"));
                 return response;
             }
         }
 
         throw new Exception("Unsupported Request");
     }
+    private static  JSONObject uploadBuilding(String name, String file)
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Building successfully uploaded");
 
+        return Response;
+    }
     private static JSONObject register(String name, String password){
         JSONObject Response = new JSONObject();
         try{
