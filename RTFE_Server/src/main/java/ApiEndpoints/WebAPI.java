@@ -16,6 +16,8 @@ public class WebAPI extends API {
 
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         //String reqType = (String)req.get("type");
+        if(verbose)
+             System.out.println("WEBAPI -> "+request.toString());
         JSONObject response;
         switch ((String)request.get("type")){
             case"login":
@@ -35,7 +37,7 @@ public class WebAPI extends API {
             }
             case "uploadBuilding":
             {
-                response =  uploadBuilding((String)request.get("name"), (String)request.get("file"));
+                response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString());
                 return response;
             }
         }

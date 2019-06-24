@@ -272,13 +272,14 @@ public class HTTPServer extends Server{
 //        }
         JSONObject buildingData = new JSONObject(parsedData[1].substring(parsedData[1].indexOf("{"),parsedData[1].indexOf("-------")));
 //        String Type = parsedData[2].substring(parsedData[2].indexOf("name=\""),parsedData[2].indexOf('"'));
-        String Type = parsedData[2].split("\n")[0].split(" ")[1].split("=")[1];
-        Type = Type.substring(1, Type.length()-2);
-        String BuildingName =  parsedData[3].split("\n")[0].split(" ")[1].split("=")[1];
-        BuildingName = BuildingName.substring(1, BuildingName.length()-2);
+        String Type = parsedData[2].split("\n")[2];
+        Type = Type.substring(0, Type.length()-1);
+        System.out.println(Type);
+        String BuildingName = parsedData[3].split("\n")[2];
+        BuildingName = BuildingName.substring(0, BuildingName.length()-1);
         request.put("file",buildingData);
         request.put("type",Type);
-        request.put("buildingName",BuildingName);
+        request.put("name",BuildingName);
 //        System.out.println(request.toString());
         return request;
     }
