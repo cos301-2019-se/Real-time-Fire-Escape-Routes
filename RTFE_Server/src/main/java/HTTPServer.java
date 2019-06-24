@@ -19,7 +19,7 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        static final boolean verbose = true;
+        static final boolean verbose = false;
         private JSONObject lastBuild = null;
 
         public HTTPServer(Building b){
@@ -149,51 +149,59 @@ public class HTTPServer extends Server{
                         out.println("Content-type: " + "application/json");
                         out.println(); // blank line between headers and content, very important !
                         out.flush();
-                        /**Getting the req.body*/
-                            StringBuilder payload = new StringBuilder();
-                            while(in.ready()){
-                                payload.append((char) in.read());
-                            }
-                            String type = getContentType(payload);
-//                            if (verbose)
-                                System.out.println("TYPE -> "+type);
-                            JSONObject req = new JSONObject();
-
-                            switch (type){
-                                case "multipart/form-data;":{
-                                    req = getFormData(payload);
-                                    break;
-                                }
-                                default:{
-                                    String test = getJSONStr(payload);
-                                    req = new JSONObject(test);
-                                    break;
-                                }
-                            }
-                            if(verbose)
-                                System.out.println("Client -> Server: "+ req.toString());
-                        /** Determining the API endpoint requested */
-
-                        System.out.println(fileRequested.toString());
-                        String endPoint = fileRequested.toString();
                         JSONObject response = new JSONObject();
-                        endPoint = endPoint.substring(1);
-                        endPoint = endPoint.toLowerCase();
+                        try {
+                            
+                            /**Getting the req.body*/
+                                StringBuilder payload = new StringBuilder();
+                                while(in.ready()){
+                                    payload.append((char) in.read());
+                                }
+                                String type = getContentType(payload);
+                                if (verbose)
+                                    System.out.println("TYPE -> "+type);
+                                JSONObject req = new JSONObject();
 
-                        switch (endPoint){
-                            case "database":
-                                response = WebAPI.handleRequest(req);
-                                break;
-                            case "buildinggeneration":
-                                response = BuildingGenerationAPI.handleRequest(req);
-                                break;
-                            case "building":
-                                response = BuildingAPI.handleRequest(req);
-                                break;
-                            default:
-                                response = new JSONObject();
-                                response.put("status",false);
-                                response.put("msg","invalid endpoint");
+                                switch (type){
+                                    case "multipart/form-data;":{
+
+                                            req = getFormData(payload);
+
+                                        break;
+                                    }
+                                    default:{
+                                        String test = getJSONStr(payload);
+                                        req = new JSONObject(test);
+                                        break;
+                                    }
+                                }
+                                if(verbose)
+                                    System.out.println("Client -> Server: "+ req.toString());
+
+                            /** Determining the API endpoint requested */
+                            System.out.println(fileRequested.toString());
+                            String endPoint = fileRequested.toString();
+                            endPoint = endPoint.substring(1);
+                            endPoint = endPoint.toLowerCase();
+                            switch (endPoint){
+                                case "database":
+                                    response = WebAPI.handleRequest(req);
+                                    break;
+                                case "buildinggeneration":
+                                    response = BuildingGenerationAPI.handleRequest(req);
+                                    break;
+                                case "building":
+                                    response = BuildingAPI.handleRequest(req);
+                                    break;
+                                default:
+                                    response = new JSONObject();
+                                    response.put("status",false);
+                                    response.put("msg","invalid endpoint");
+                            }
+                        }
+                        catch (Exception e){
+                            response.put("status","failed");
+                            response.put("message",e.getMessage());
                         }
                         if(verbose)
                             System.out.println("Server -> Client:"+ response.toString());
@@ -261,26 +269,24 @@ public class HTTPServer extends Server{
         }
     }
 
-    private JSONObject getFormData(StringBuilder payload) {
-            JSONObject request = new JSONObject();
-//        System.out.println(payload);
-            String data = payload.toString();
-            String [] parsedData = data.split("Content-Disposition: ");
-//        for (String entry : parsedData) {
-//            System.out.println("==============Entry==================");
-//            System.out.println(entry);
-//        }
-        JSONObject buildingData = new JSONObject(parsedData[1].substring(parsedData[1].indexOf("{"),parsedData[1].indexOf("-------")));
-//        String Type = parsedData[2].substring(parsedData[2].indexOf("name=\""),parsedData[2].indexOf('"'));
+    private JSONObject getFormData(StringBuilder payload) throws Exception {
+        JSONObject request = new JSONObject();
+        String data = payload.toString();
+        String [] parsedData = data.split("Content-Disposition: ");
+        try {
+            JSONObject buildingData = new JSONObject(parsedData[1].substring(parsedData[1].indexOf("{"), parsedData[1].indexOf("-------")));
+            request.put("file",buildingData);
+        }
+        catch (Exception e){
+            throw new Exception("Building json is invalid");
+        }
         String Type = parsedData[2].split("\n")[2];
-        Type = Type.substring(0, Type.length()-1);
-        System.out.println(Type);
-        String BuildingName = parsedData[3].split("\n")[2];
-        BuildingName = BuildingName.substring(0, BuildingName.length()-1);
-        request.put("file",buildingData);
+            Type = Type.substring(0, Type.length() - 1);
+            System.out.println(Type);
+            String BuildingName = parsedData[3].split("\n")[2];
+            BuildingName = BuildingName.substring(0, BuildingName.length() - 1);
         request.put("type",Type);
         request.put("name",BuildingName);
-//        System.out.println(request.toString());
         return request;
     }
 

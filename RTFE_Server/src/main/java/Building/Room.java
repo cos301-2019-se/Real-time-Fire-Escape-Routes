@@ -82,7 +82,7 @@ public class Room {
         return ((A.x <pos[0] && pos[0] <B.x) && (A.z <pos[1] && pos[1] <B.z)) || ((A.x >pos[0] && pos[0] >B.x) && (A.z >pos[1] && pos[1] >B.z));
 
     }
-    public static boolean onSegment(Corner p, Corner q, Corner r)
+    private static boolean onSegment(Corner p, Corner q, Corner r)
     {
         if (q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x)
                 && q.z <= Math.max(p.z, r.z) && q.z >= Math.min(p.z, r.z))
@@ -90,7 +90,7 @@ public class Room {
         return false;
     }
 
-    public static int orientation(Corner p, Corner q, Corner r)
+    private static int orientation(Corner p, Corner q, Corner r)
     {
         double val = (q.z - p.z) * (r.x - q.x) - (q.x - p.x) * (r.z - q.z);
 
@@ -99,7 +99,7 @@ public class Room {
         return (val > 0) ? 1 : 2;
     }
 
-    public static boolean doIntersect(Corner p1, Corner q1, Corner p2, Corner q2)
+    private static boolean doIntersect(Corner p1, Corner q1, Corner p2, Corner q2)
     {
 
         int o1 = orientation(p1, q1, p2);
@@ -125,7 +125,7 @@ public class Room {
         return false;
     }
 
-    public static boolean isInside(Corner polygon[], int n, Corner p)
+    private static boolean isInside(Corner polygon[], int n, Corner p)
     {
         int INF = 10000;
         if (n < 3)
@@ -159,7 +159,7 @@ public class Room {
         }
     }
 
-    public double distance(double[] doorCoordinates, double[] doorCoordinates2)
+    private double distance(double[] doorCoordinates, double[] doorCoordinates2)
     {
         double total = Math.sqrt(((doorCoordinates[0] - doorCoordinates2[0])*(doorCoordinates[0] - doorCoordinates2[0]))+((doorCoordinates[1] - doorCoordinates2[1])*(doorCoordinates[1] - doorCoordinates2[1])));
         return total;
@@ -405,7 +405,8 @@ public class Room {
 //                        System.out.println("Heuristic val: "+distance +" for Person: "+p.personID+" on Route "+routes.get(j).RouteName);
                         routes.get(j).resetVisited();
                         Vector<Node> path = routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal());
-                        Routes.printPath(path,p);
+                        if(verbose)
+                            Routes.printPath(path,p);
                         double currentHeuristic = Routes.pathHeuristic(path,p);
                         if (currentHeuristic < Heuristic) {
                             BestRoute = j;
@@ -432,6 +433,30 @@ public class Room {
                 System.out.println();
             }
         }
+    }
+
+    public Vector<Person> getPeopleData(Vector<Routes> routes){
+        Vector<Person> peopleData = new Vector<>();
+        for (int i = 0; i < Rooms.size(); i++) {
+            peopleData.addAll(Rooms.get(i).getPeopleData( routes));
+        }
+        for (Person p:peopleInRoom) {
+            peopleData.add(p);
+            for (Door d:doors) {
+                p.availableDoors.add(d);
+                for (Routes r:routes) {
+                    r.resetVisited();
+                    //routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal())
+                    Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
+                    Routes.printPath(path,p);
+                    double tempD = Routes.pathHeuristic(path,p);
+                    if(tempD < p.distanceToExit){
+                        p.distanceToExit = tempD;
+                    }
+                }
+            }
+        }
+        return peopleData;
     }
 
     public static class Corner{

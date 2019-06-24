@@ -1,6 +1,8 @@
 package Building;
 
 
+import java.util.Vector;
+
 public class Person {
 
     public static int numPeople = 0;
@@ -8,6 +10,8 @@ public class Person {
     Routes AssignedRoute;
     double [] position;
     int personID= 0;
+    public Vector<Door> availableDoors = new Vector<>();
+    public double distanceToExit = Double.MAX_VALUE;
 
     public Person(String n) {
         name = n;
@@ -46,5 +50,6 @@ public class Person {
     public Routes getAssignedRoute() {
         return AssignedRoute;
     }
+
 
 }
