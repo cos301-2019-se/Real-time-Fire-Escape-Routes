@@ -7,6 +7,7 @@ public class Building {
       private static int numBuildings = 0;
       private Vector<Room> Floor= new Vector<>();
       private int id;
+      private boolean verbose = true;
       private double floorHeight = 3.0; //needed for connecting stairs
 
       public Vector<Routes> getRoutes() {
@@ -77,6 +78,8 @@ public class Building {
 
 
       public void assignPeople(){
+            //Old
+            /*
             try{
                   for (int i = 0; i < getNumFloors(); i++) {
                         getFloor(i).assignPeople(Routes);
@@ -85,6 +88,53 @@ public class Building {
             catch (Exception e){
                   System.out.println(e.getMessage());
             }
+            /** New */
+
+            Vector<Person> people = new Vector<Person>();
+            for (Room floor:Floor) {
+                  people.addAll(floor.getPeopleData(Routes));
+            }
+            if(verbose) {
+                  System.out.println("======= Before Sort =======");
+                  printPeopleData(people);
+            }
+            sort(people,0,people.size()-1);
+
+            if(verbose) {
+                  System.out.println("======= After Sort =======");
+                  printPeopleData(people);
+            }
+            /**
+             * Now Route Assignment can begin
+             * */
+
+            for (Person p : people) {
+                  Vector<Node> Bestpath= new Vector<Node>();
+                  Routes bestRoute =null;
+                  double bestDistance = Double.MAX_VALUE;
+                  for (Routes r:Routes) {
+                        for (Door d:p.availableDoors) {
+                              r.resetVisited();
+                              Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
+                              double tempD = r.pathHeuristic(path,p);
+                              if(tempD < bestDistance){
+                                    Bestpath = path;
+                                    bestDistance = tempD;
+                                    bestRoute = r;
+                              }
+                        }
+                  }
+                  p.setAssignedRoute(bestRoute);
+                  bestRoute.addPerson(p);
+                  if(verbose){
+                        System.out.println("Person "+p.name+" is assigned to Route "+p.AssignedRoute.RouteName );
+//                        System.out.println("Heuristic safety value is: "+ bestRoute.pathHeuristic(Bestpath,p));
+//                        System.out.println("Actual Distance: "+bestRoute.pathDistance(Bestpath,p));
+                        bestRoute.printPath(Bestpath,p);
+                        System.out.println();
+                  }
+            }
+            /**/
       }
 
       public void connectStairs(){
@@ -119,4 +169,53 @@ public class Building {
             return stairNodes;
       }
 
+
+      int partition(Vector<Person> arr, int low, int high)
+      {
+            double pivot = arr.get(high).distanceToExit;
+            int i = (low-1); // index of smaller element
+            for (int j=low; j<high; j++)
+            {
+                  // If current element is smaller than or
+                  // equal to pivot
+                  if (arr.get(j).distanceToExit <= pivot)
+                  {
+                        i++;
+                        // swap arr[i] and arr[j]
+                        Person temp = arr.get(i);
+                        arr.setElementAt(arr.get(j),i);;
+                        arr.setElementAt(temp,j);
+                  }
+            }
+            // swap arr[i+1] and arr[high] (or pivot)
+            Person temp = arr.get(i+1);
+            arr.setElementAt(arr.get(high),i+1);
+            arr.setElementAt(temp,high);
+            return i+1;
+      }
+
+
+      /* The main function that implements QuickSort()
+        arr[] --> Array to be sorted,
+        low  --> Starting index,
+        high  --> Ending index */
+      void sort(Vector<Person> arr, int low, int high)
+      {
+            if (low < high)
+            {
+            /* pi is partitioning index, arr[pi] is
+              now at right place */
+                  int pi = partition(arr, low, high);
+
+                  // Recursively sort elements before
+                  // partition and after partition
+                  sort(arr, low, pi-1);
+                  sort(arr, pi+1, high);
+            }
+      }
+      private void printPeopleData(Vector<Person> peopleData){
+            for (Person p:peopleData) {
+                  System.out.println("Person ID: "+p.personID +" Distance to exit: "+p.distanceToExit);
+            }
+      }
 }
