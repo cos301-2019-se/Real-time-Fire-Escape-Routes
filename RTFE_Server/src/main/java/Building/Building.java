@@ -218,4 +218,8 @@ public class Building {
                   System.out.println("Person ID: "+p.personID +" Distance to exit: "+p.distanceToExit);
             }
       }
+
+      public boolean addFire(int floor,Fire f){
+            return false;
+      }
 }

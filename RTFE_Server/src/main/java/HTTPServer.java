@@ -164,9 +164,7 @@ public class HTTPServer extends Server{
 
                                 switch (type){
                                     case "multipart/form-data;":{
-
-                                            req = getFormData(payload);
-
+                                        req = getFormData(payload);
                                         break;
                                     }
                                     default:{

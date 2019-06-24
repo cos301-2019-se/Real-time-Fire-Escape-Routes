@@ -1,6 +1,8 @@
 package ApiEndpoints;
 
+import Building.Fire;
 import Building.Person;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,9 +33,29 @@ public class BuildingAPI extends API {
                 response.put("status",true);
                 return response;
             }
+            case"fire":{
+                response = new JSONObject();
+                response.put("message", addFire(request));
+                response.put("status",true);
+                return response;
+            }
         }
         throw new Exception("Unsupported Request");
     }
+
+    private static String addFire(JSONObject request) {
+        JSONArray pos = request.getJSONArray("position");
+//        System.out.println(pos);
+//        System.out.println(pos.getDouble(0));;
+        Fire f = new Fire(pos.getDouble(0),pos.getDouble(1));
+        int floor = request.getInt("floor");
+        if(building.addFire(floor,f)){
+            return "Fire Added. Some Routes were affected";
+        }
+
+        return "Fire Added. No Routes were affected";
+    }
+
     private static JSONObject getNumRooms(JSONObject req) throws Exception {
         JSONObject Response = new JSONObject();
         try{
