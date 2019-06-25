@@ -1,5 +1,7 @@
 package Building;
 
+import java.util.Vector;
+
 public class Path {
     Node start;
     Node end;
@@ -9,4 +11,10 @@ public class Path {
         end=_end;
         Distance=distance;
     }
+    public static boolean hasGoal(Vector<Node> p){
+        if(p.lastElement().type == NodeType.buildingExit)
+            return true;
+        return false;
+    }
+
 }

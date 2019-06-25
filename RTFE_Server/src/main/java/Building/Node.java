@@ -1,5 +1,4 @@
 package Building;
-
 import java.util.Vector;
 
 public class Node {
@@ -10,11 +9,9 @@ public class Node {
     double weight;
     boolean visited = false;
 
-    Vector<Double> distanceToNodes = new Vector();
-    Vector<Node> connectedTo = new Vector();
+//    Vector<Double> distanceToNodes = new Vector();
+//    Vector<Node> connectedTo = new Vector();
     Vector<Person> assignedPersons = new Vector();
-
-
     Vector<Path> Paths = new Vector();
 
     Node(NodeType Type, double [] d){
@@ -46,6 +43,7 @@ public class Node {
             }
         }
     }
+
 
     Node(NodeType Type){
         nodeId = numNodes++;
@@ -83,10 +81,10 @@ public class Node {
         return assignedPersons.size();
     }
     void connect(Node n,double distance){// Done
-        connectedTo.add(n);
-        n.connectedTo.add(this);
-        n.distanceToNodes.add(distance);
-        distanceToNodes.add(distance);
+//        connectedTo.add(n);
+//        n.connectedTo.add(this);
+//        n.distanceToNodes.add(distance);
+//        distanceToNodes.add(distance);
 
         n.Paths.add(new Path(n,this,distance));
         Paths.add(new Path(this,n,distance));
@@ -115,14 +113,24 @@ public class Node {
         return nodeId;
     }
 
-    public double distanceToNode(Node n)
-    {
-        int index = connectedTo.indexOf(n);
-        return distanceToNodes.get(index);
-    }
+//    public double distanceToNode(Node n)
+//    {
+//        int index = connectedTo.indexOf(n);
+//        return distanceToNodes.get(index);
+//    }
 
     public NodeType getType() {
         return type;
+    }
+
+    public void disconnect(Node target){
+        Vector<Path> temp = Paths;
+        for (Path p:temp) {
+            if(p.start == target || p.end == target){
+                Paths.remove(p);
+                return;
+            }
+        }
     }
 
 }
