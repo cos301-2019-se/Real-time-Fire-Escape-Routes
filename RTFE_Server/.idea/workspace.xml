@@ -9,23 +9,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8784d2cc-6e89-443f-a1d4-0f0a888c6710" name="Default Changelist" comment="">
-<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/WebAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/WebAPI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Building/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Building/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Building/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Building/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Building/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Building/Room.java" afterDir="false" />
->>>>>>> Development
       <change beforePath="$PROJECT_DIR$/src/main/java/HTTPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HTTPServer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,153 +47,72 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="4" />
+          <entry key="JAVA" value="5" />
           <entry key="JSON" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="342" />
+          <entry key="JAVA" value="440" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+    <leaf>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="410">
+            <state relative-caret-position="132">
               <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
-=======
-            <state relative-caret-position="105">
-              <caret line="443" column="30" selection-start-line="443" selection-start-column="30" selection-end-line="443" selection-end-column="30" />
-              <folding>
-                <element signature="method#addDoor#0;class#Room#0" />
-                <element signature="method#onWall#0;class#Room#0" />
-                <element signature="method#onSegment#0;class#Room#0" />
-                <element signature="method#orientation#0;class#Room#0" />
-                <element signature="method#doIntersect#0;class#Room#0" />
-                <element signature="method#isInside#0;class#Room#0" />
-                <element signature="method#removePeople#0;class#Room#0" />
-                <element signature="method#distance#0;class#Room#0" />
-                <element signature="method#connectDoors#0;class#Room#0" />
-                <element signature="method#getAllDoors#0;class#Room#0" />
-                <element signature="method#getAllNodes#0;class#Room#0" />
-                <element signature="method#addPerson#0;class#Room#0" />
-                <element signature="method#getNumPeople#0;class#Room#0" />
-                <element signature="method#getPeople#0;class#Room#0" />
-                <element signature="method#isValidRoom#0;class#Room#0" />
-                <element signature="method#addCorner#0;class#Room#0" />
-                <element signature="method#crossWall#0;class#Room#0" />
-                <element signature="method#buildWall#0;class#Room#0" />
-                <element signature="method#buildWall#1;class#Room#0" />
-                <element signature="method#isCyclicUtil#0;class#Room#0" />
-                <element signature="method#isCyclic#0;class#Room#0" />
-                <element signature="method#assignPeople#0;class#Room#0" />
-                <element signature="method#getPeopleData#0;class#Room#0" />
-                <element signature="class#Corner#0;class#Room#0" />
-              </folding>
->>>>>>> Development
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+            <state relative-caret-position="340">
+              <caret line="59" column="36" lean-forward="true" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#Node#1;class#Node#0" />
               </folding>
-=======
-      <file leaf-file-name="Routes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Routes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="137" column="37" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="37" />
->>>>>>> Development
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2839">
+              <caret line="175" column="8" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="266" column="7" selection-start-line="266" selection-start-column="7" selection-end-line="266" selection-end-column="7" />
-=======
-      <file leaf-file-name="Building.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Building.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="63" column="33" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getPeople#0;class#Building#0" />
-                <element signature="method#getNumPeople#0;class#Building#0" />
-                <element signature="method#clearPeople#0;class#Building#0" />
-                <element signature="method#assignPeople#0;class#Building#0" />
-                <element signature="method#connectStairs#0;class#Building#0" />
-                <element signature="method#getStairs#0;class#Building#0" />
-                <element signature="method#partition#0;class#Building#0" />
-                <element signature="method#sort#0;class#Building#0" />
-                <element signature="method#printPeopleData#0;class#Building#0" />
-              </folding>
->>>>>>> Development
+            <state relative-caret-position="614">
+              <caret line="272" column="7" selection-start-line="272" selection-start-column="7" selection-end-line="272" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/Buildings/office_1/data.json">
           <provider selected="true" editor-type-id="text-editor">
             <state>
               <caret selection-end-line="55" selection-end-column="1" />
-=======
-      <file leaf-file-name="HTTPServer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
-              <folding>
-                <element signature="method#build#0;class#BuildingGenerationAPI#0" />
-              </folding>
->>>>>>> Development
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <file leaf-file-name="Path.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Path.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="6868">
-              <caret line="406" column="12" selection-start-line="406" selection-start-column="12" selection-end-line="406" selection-end-column="12" />
-=======
-            <state relative-caret-position="17">
-              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getNumRooms#0;class#BuildingAPI#0" />
-                <element signature="method#getRoutes#0;class#BuildingAPI#0" />
-                <element signature="method#peopleToUnity#0;class#BuildingAPI#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Person.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Person.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
->>>>>>> Development
+            <state relative-caret-position="2226">
+              <caret line="770" column="10" selection-start-line="770" selection-start-column="10" selection-end-line="770" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -221,15 +134,11 @@
       <find>Vertex</find>
       <find>Edge</find>
       <find>getContentType</find>
-      <find>l2.lat()</find>
-      <find>c.lat()</find>
-      <find>failed</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
       <replace>Node</replace>
       <replace>Path</replace>
-      <replace>coords[0]</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -238,7 +147,7 @@
   <component name="GradleLocalSettings">
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="6243717058584" />
+        <entry key="$PROJECT_DIR$" value="6245252068741" />
         <entry key="$PROJECT_DIR$/.gradle" value="0" />
         <entry key="$PROJECT_DIR$/build.gradle" value="3437476425" />
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="261915471" />
@@ -260,26 +169,18 @@
         <option value="$PROJECT_DIR$/src/main/java/UnitTester.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/html/Buildings/office_1/data.json" />
+        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/Building/RoomType.java" />
         <option value="$PROJECT_DIR$/src/main/java/Builder/StairsBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/Building/Door.java" />
         <option value="$PROJECT_DIR$/src/main/java/Building/Stairs.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Building/Person.java" />
         <option value="$PROJECT_DIR$/html/Buildings/office_1(2story)/data.json" />
-        <option value="$PROJECT_DIR$/src/main/java/Building/Path.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Building/Node.java" />
         <option value="$PROJECT_DIR$/src/main/java/Builder/BuildingManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingGenerationAPI.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Building/Routes.java" />
-<<<<<<< HEAD
-=======
-        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Building/Person.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Building/Room.java" />
-        <option value="$PROJECT_DIR$/src/main/java/HTTPServer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Building/Fire.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/Building/Building.java" />
->>>>>>> Development
+        <option value="$PROJECT_DIR$/src/main/java/Building/Room.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Building/Routes.java" />
         <option value="$PROJECT_DIR$/src/main/java/HTTPServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
       </list>
@@ -291,9 +192,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="296" />
-    <option name="y" value="86" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="505" />
+    <option name="y" value="-17" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -313,11 +214,6 @@
             <path>
               <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
               <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="html" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -325,6 +221,13 @@
               <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="html" type="462c0819:PsiDirectoryNode" />
               <item name="Buildings" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="html" type="462c0819:PsiDirectoryNode" />
+              <item name="Buildings" type="462c0819:PsiDirectoryNode" />
+              <item name="fire_test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
@@ -358,59 +261,28 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Builder" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="Building" type="462c0819:PsiDirectoryNode" />
             </path>
-<<<<<<< HEAD
-=======
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
->>>>>>> Development
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561373119446" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561451538815" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/classes/ManifestTest" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.2124506" />
     <property name="project.structure.side.proportion" value="0.20233919" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="xml.defaultSchemas" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -428,41 +300,57 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="RTFE_server.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="BuilderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RTFE_server.test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="BuilderTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration name="BuildingGenerationAPITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RTFE_server.test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="BuildingGenerationAPITest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration name="HTTPServerTest.testOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RTFE_server.test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="HTTPServerTest" />
       <option name="METHOD_NAME" value="testOne" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
@@ -480,7 +368,7 @@
     </recent_temporary>
   </component>
   <component name="SvnConfiguration">
-    <configuration>C:\Users\User\AppData\Roaming\Subversion</configuration>
+    <configuration>C:\Users\Pieter\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -497,60 +385,66 @@
     <history-entry file="HTTPServerTest_testOne - 2019.06.03 at 17h 58m 22s.xml">
       <configuration name="HTTPServerTest.testOne" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BuilderTest - 2019.06.24 at 09h 45m 03s.xml">
-      <configuration name="BuilderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="BuilderTest - 2019.06.24 at 10h 33m 50s.xml">
-      <configuration name="BuilderTest" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7031000" />
+    <option name="totallyTimeSpent" value="7893000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25248072" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" weight="0.32872504" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info id="Image Layers" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.39631337" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info id="Capture Tool" />
+      <window_info id="Designer" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
+      <window_info anchor="right" id="Gradle" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
-<<<<<<< HEAD
-=======
-      <window_info anchor="right" id="Capture Analysis" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="9" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31950846" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
-      <window_info id="Capture Tool" order="4" />
->>>>>>> Development
       <window_info id="Designer" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.34719336" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39784947" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Build" order="10" weight="0.32827735" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32872504" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25248072" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="9" />
       <window_info anchor="right" id="Gradle" order="5" />
-      <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Maven Projects" order="9" />
+      <window_info anchor="right" id="Database" order="10" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,20 +454,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-<<<<<<< HEAD
-=======
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/HTTPServer.java</url>
-          <line>200</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="8" />
-    </breakpoint-manager>
->>>>>>> Development
     <watches-manager>
       <configuration name="Application">
         <watch expression="otherNode" />
@@ -582,52 +462,7 @@
       </configuration>
     </watches-manager>
   </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand>
-      <path>
-        <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-        <item name="RTFE_Server" type="462c0819:PsiDirectoryNode" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="editorHistoryManager">
-<<<<<<< HEAD
-=======
-    <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Building.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="95" column="48" selection-start-line="95" selection-start-column="48" selection-end-line="95" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getPeople#0;class#Building#0" />
-            <element signature="method#getNumPeople#0;class#Building#0" />
-            <element signature="method#clearPeople#0;class#Building#0" />
-            <element signature="method#assignPeople#0;class#Building#0" />
-            <element signature="method#connectStairs#0;class#Building#0" />
-            <element signature="method#getStairs#0;class#Building#0" />
-            <element signature="method#partition#0;class#Building#0" />
-            <element signature="method#sort#0;class#Building#0" />
-            <element signature="method#printPeopleData#0;class#Building#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="175" column="8" lean-forward="true" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
->>>>>>> Development
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/API.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -642,6 +477,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/BuilderTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/simpleTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/test/BuilderTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/test.java" />
@@ -653,12 +495,10 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Saved Games/SniperGhostWarrior2/Profiles/default/attributes.xml" />
-    <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/util/Vector.java" />
     <entry file="file://G:/../Pieter/Saved Games/SniperGhostWarrior2/Profiles/default/profile.xml" />
     <entry file="file://G:/../Pieter/Saved Games/SniperGhostWarrior2/Profiles/default/actionmaps.xml" />
     <entry file="file://$USER_HOME$/Saved Games/SniperGhostWarrior2/Profiles/default/profile.xml" />
     <entry file="file://$USER_HOME$/Saved Games/SniperGhostWarrior2/Profiles/default/actionmaps.xml" />
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/test/java/HTTPServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -666,9 +506,6 @@
         </state>
       </provider>
     </entry>
-=======
-    <entry file="file://$PROJECT_DIR$/html/Buildings/office_1/data.json" />
->>>>>>> Development
     <entry file="file://$PROJECT_DIR$/src/main/java/Builder/DoorBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -706,6 +543,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/html/Buildings/office_1(2story)/data.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Path.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -724,6 +564,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -750,6 +597,13 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.3/lib/src.zip!/java.base/java/util/Vector.java" />
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20171018/b4a63d74bc32f012342173c1a1da6fbe90065d69/json-20171018-sources.jar!/org/json/JSONObject.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Routes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2380">
+          <caret line="181" column="1" selection-start-line="181" selection-start-column="1" selection-end-line="181" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
@@ -757,7 +611,6 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Room.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3383">
@@ -765,8 +618,6 @@
         </state>
       </provider>
     </entry>
-=======
->>>>>>> Development
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/NodeType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -788,140 +639,31 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Building.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
           <caret line="95" column="48" selection-start-line="95" selection-start-column="48" selection-end-line="95" selection-end-column="48" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="53" column="30" lean-forward="true" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1450">
-          <caret line="175" column="8" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="8" />
->>>>>>> Development
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/HTTPServerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/BuilderTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="63" lean-forward="true" selection-start-line="21" selection-start-column="63" selection-end-line="21" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Person.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingGenerationAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
+        <state relative-caret-position="17">
           <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Fire.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3128">
-          <caret line="200" selection-start-line="200" selection-end-line="200" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+        <state relative-caret-position="333">
+          <caret line="182" selection-start-line="182" selection-end-line="182" />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6868">
-          <caret line="406" column="12" selection-start-line="406" selection-start-column="12" selection-end-line="406" selection-end-column="12" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Room.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="480" lean-forward="true" selection-start-line="480" selection-end-line="480" />
-          <folding>
-            <element signature="method#addDoor#0;class#Room#0" />
-            <element signature="method#onWall#0;class#Room#0" />
-            <element signature="method#onSegment#0;class#Room#0" />
-            <element signature="method#orientation#0;class#Room#0" />
-            <element signature="method#doIntersect#0;class#Room#0" />
-            <element signature="method#isInside#0;class#Room#0" />
-            <element signature="method#removePeople#0;class#Room#0" />
-            <element signature="method#distance#0;class#Room#0" />
-            <element signature="method#connectDoors#0;class#Room#0" />
-            <element signature="method#getAllDoors#0;class#Room#0" />
-            <element signature="method#getAllNodes#0;class#Room#0" />
-            <element signature="method#addPerson#0;class#Room#0" />
-            <element signature="method#getNumPeople#0;class#Room#0" />
-            <element signature="method#getPeople#0;class#Room#0" />
-            <element signature="method#isValidRoom#0;class#Room#0" />
-            <element signature="method#addCorner#0;class#Room#0" />
-            <element signature="method#crossWall#0;class#Room#0" />
-            <element signature="method#buildWall#0;class#Room#0" />
-            <element signature="method#buildWall#1;class#Room#0" />
-            <element signature="method#isCyclicUtil#0;class#Room#0" />
-            <element signature="method#isCyclic#0;class#Room#0" />
-            <element signature="method#assignPeople#0;class#Room#0" />
-            <element signature="method#getPeopleData#0;class#Room#0" />
-            <element signature="class#Corner#0;class#Room#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Routes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="137" column="37" selection-start-line="137" selection-start-column="25" selection-end-line="137" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Building.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="175" column="33" selection-start-line="175" selection-start-column="33" selection-end-line="175" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2476#2484#0" expanded="true" />
-            <element signature="method#connectStairs#0;class#Building#0" />
-            <element signature="method#getStairs#0;class#Building#0" />
-          </folding>
->>>>>>> Development
+        <state relative-caret-position="2226">
+          <caret line="770" column="10" selection-start-line="770" selection-start-column="10" selection-end-line="770" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -930,39 +672,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="376">
-          <caret line="266" column="7" selection-start-line="266" selection-start-column="7" selection-end-line="266" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/Buildings/office_1/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="55" selection-end-column="1" />
+        <state relative-caret-position="614">
+          <caret line="272" column="7" selection-start-line="272" selection-start-column="7" selection-end-line="272" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
+        <state relative-caret-position="-703">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
           <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2839">
+          <caret line="175" column="8" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+        <state relative-caret-position="340">
+          <caret line="59" column="36" lean-forward="true" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-=======
-        <state relative-caret-position="-748">
-          <caret line="153" column="28" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="28" />
-          <folding>
-            <element signature="e#12160#12161#0" expanded="true" />
-            <element signature="e#12230#12231#0" expanded="true" />
->>>>>>> Development
           </folding>
         </state>
       </provider>
@@ -1024,7 +765,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.20233919" />
+                <option value="0.7298995" />
                 <option value="0.6" />
               </list>
             </option>
@@ -1049,7 +790,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.20233919" />
+                <option value="0.7298995" />
               </list>
             </option>
           </splitter-proportions>

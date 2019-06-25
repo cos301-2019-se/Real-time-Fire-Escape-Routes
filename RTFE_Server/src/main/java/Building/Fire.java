@@ -9,6 +9,11 @@ public class Fire {
         coords[0] = x;
         coords[1] = z;
     }
+    public Fire(double x,double z,double Radius){
+        coords[0] = x;
+        coords[1] = z;
+        radius = Radius;
+    }
 
 
     /**

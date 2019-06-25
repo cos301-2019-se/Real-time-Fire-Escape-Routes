@@ -45,14 +45,16 @@ public class BuildingAPI extends API {
 
     private static String addFire(JSONObject request) {
         JSONArray pos = request.getJSONArray("position");
-//        System.out.println(pos);
-//        System.out.println(pos.getDouble(0));;
-        Fire f = new Fire(pos.getDouble(0),pos.getDouble(1));
+        double radius = request.getDouble("radius");
+        Fire f = new Fire(pos.getDouble(0),pos.getDouble(1),radius);
         int floor = request.getInt("floor");
-        if(building.addFire(floor,f)){
-            return "Fire Added. Some Routes were affected";
+        try {
+            if (building.addFire(floor, f)) {
+                return "Fire Added. Some Routes were affected";
+            }
+        }catch (Exception e){
+            return e.getMessage();
         }
-
         return "Fire Added. No Routes were affected";
     }
 

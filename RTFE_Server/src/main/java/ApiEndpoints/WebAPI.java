@@ -47,8 +47,15 @@ public class WebAPI extends API {
     }
     private static  JSONObject uploadBuilding(String name, String file)
     {
-        String fileSeparator = System.getProperty("file.separator");
-        String absoluteFilePath =  name + ".json";
+        File dir = new File("./html"+ "/" + "Buildings/"  +name);
+        if (!dir.exists()) {
+            if (dir.mkdir()) {
+                System.out.println("Directory is created!");
+            } else {
+                System.out.println("Failed to create directory!");
+            }
+        }
+        String absoluteFilePath =  "./html"+ "/" + "Buildings/"  +name +"/" + name + ".json";
         File f = new File(absoluteFilePath);
         FileOutputStream fop = null;
 
@@ -60,7 +67,7 @@ public class WebAPI extends API {
         }
         catch (Exception e)
         {
-            System.out.println(name + ".json");
+            System.out.println("Error  " + absoluteFilePath);
         }
         try
         {

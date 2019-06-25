@@ -11,6 +11,8 @@ public class Room {
     private Vector<Person> peopleInRoom = new Vector<>();
     private Vector<Room> Rooms = new Vector<Room>();
     protected Vector<Corner> Corners = new Vector<>();
+    public Vector<Fire> fires = new Vector<Fire>();
+
     protected Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
     Vector<Node> nodesInRooms = new Vector<Node>();
     static boolean verbose = true;
@@ -178,14 +180,14 @@ public class Room {
         {
             for(int k = j + 1; k < doors.size(); k++)
             {
-                for(int i = 0; i < Walls.size(); i++)
-                {
-                    if(onWall(i, doors.get(j).getCenter()) && onWall(i, doors.get(k).getCenter()))
-                    {
-                        // DO NOT CONNECT
-                        connect = false;
-                    }
-                }
+//                for(int i = 0; i < Walls.size(); i++)
+//                {
+//                    if(onWall(i, doors.get(j).getCenter()) && onWall(i, doors.get(k).getCenter()))
+//                    {
+//                        // DO NOT CONNECT
+//                        connect = false;
+//                    }
+//                }
                 if(connect)
                 {
                     doors.get(j).node.connect(doors.get(k).node, distance(doors.get(j).getCenter(), doors.get(k).getCenter()));
@@ -448,10 +450,12 @@ public class Room {
                     r.resetVisited();
                     //routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal())
                     Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
-                    Routes.printPath(path,p);
-                    double tempD = Routes.pathHeuristic(path,p);
-                    if(tempD < p.distanceToExit){
-                        p.distanceToExit = tempD;
+                    if(Path.hasGoal(path)) {
+                        Routes.printPath(path,p);
+                        double tempD = Routes.pathHeuristic(path, p);
+                        if (tempD < p.distanceToExit) {
+                            p.distanceToExit = tempD;
+                        }
                     }
                 }
             }
