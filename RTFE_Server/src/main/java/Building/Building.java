@@ -13,9 +13,7 @@ public class Building {
       public Vector<Routes> getRoutes() {
             return Routes;
       }
-
       private Vector<Routes> Routes = new Vector<Routes>();
-
       public Building() {
             id = numBuildings++;
       }
@@ -112,25 +110,35 @@ public class Building {
                   Vector<Node> Bestpath= new Vector<Node>();
                   Routes bestRoute =null;
                   double bestDistance = Double.MAX_VALUE;
+                  boolean valid = false;
                   for (Routes r:Routes) {
                         for (Door d:p.availableDoors) {
                               r.resetVisited();
                               Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
                               double tempD = r.pathHeuristic(path,p);
                               if(tempD < bestDistance){
+                                    valid = Path.hasGoal(path);
                                     Bestpath = path;
                                     bestDistance = tempD;
                                     bestRoute = r;
                               }
                         }
                   }
-                  p.setAssignedRoute(bestRoute);
-                  bestRoute.addPerson(p);
+                  if(valid){
+                        p.setAssignedRoute(bestRoute);
+                        bestRoute.addPerson(p);
+                  }
                   if(verbose){
-                        System.out.println("Person "+p.name+" is assigned to Route "+p.AssignedRoute.RouteName );
+                        if(p.getAssignedRoute() != null) {
+                              System.out.println("Person " + p.name + " is assigned to Route " + p.AssignedRoute.RouteName);
+                        }
+                        else {
+                              System.out.println("Person " + p.name + " is Trapped!");
+                        }
 //                        System.out.println("Heuristic safety value is: "+ bestRoute.pathHeuristic(Bestpath,p));
 //                        System.out.println("Actual Distance: "+bestRoute.pathDistance(Bestpath,p));
-                        bestRoute.printPath(Bestpath,p);
+                        if(valid)
+                              bestRoute.printPath(Bestpath,p);
                         System.out.println();
                   }
             }
@@ -219,7 +227,45 @@ public class Building {
             }
       }
 
-      public boolean addFire(int floor,Fire f){
+      public boolean addFire(int floor,Fire f) throws Exception {
+            if(floor>=Floor.size()){
+                  throw new Exception("Invalid floor");
+            }
+            Floor.get(floor).fires.add(f);
+
+            if(destroyRoutes()>0){
+                  return true;
+            }
+
             return false;
+      }
+      private int destroyRoutes(){
+            int numPathsAffected = 0;
+            for (Room f:Floor) {
+//                  System.out.println("Floor loop");
+                  Vector<Node> doors = f.getAllDoors();
+                  for (Node d :doors) {
+//                        System.out.println("    Door loop");
+                        for (Fire fire:f.fires) {
+//                              System.out.println("          Fire loop");
+                              Vector<Path> tempPaths = new Vector<Path>();
+                              tempPaths.addAll(d.Paths);
+                              for (Path p:tempPaths) {
+//                                    System.out.println("                Path loop");
+                                    if(fire.intersect(p.start,p.end)){
+                                          System.out.println("Disconnecting Nodes: "+p.start.nodeId+" - "+p.end.nodeId);
+                                          Node start = p.start;
+                                          Node end = p.end;
+                                          numPathsAffected++;
+                                          start.disconnect(end);
+                                          end.disconnect(start);
+                                    }
+                              }
+                        }
+                  }
+
+            }
+
+            return numPathsAffected;
       }
 }
