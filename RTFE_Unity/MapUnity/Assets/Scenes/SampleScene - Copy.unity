@@ -538,6 +538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingOb: {fileID: 222109079}
   s: {fileID: 1690057787}
+  ip: http://127.0.0.1:8080/
 --- !u!4 &1611823374
 Transform:
   m_ObjectHideFlags: 0
@@ -575,6 +576,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: navMesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806628894717347409, guid: 143b6dc3e022b6c45b0dc820117354cd,
+        type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: e4436fbf68226314c99f68fe40417518,
+        type: 2}
+    - target: {fileID: 2806628894717347409, guid: 143b6dc3e022b6c45b0dc820117354cd,
+        type: 3}
+      propertyPath: m_OverrideTileSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2806628894717347409, guid: 143b6dc3e022b6c45b0dc820117354cd,
+        type: 3}
+      propertyPath: m_TileSize
+      value: 734
       objectReference: {fileID: 0}
     - target: {fileID: 2806628894717347408, guid: 143b6dc3e022b6c45b0dc820117354cd,
         type: 3}
@@ -630,17 +647,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806628894717347409, guid: 143b6dc3e022b6c45b0dc820117354cd,
-        type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 23800000, guid: e4436fbf68226314c99f68fe40417518,
-        type: 2}
-    - target: {fileID: 2806628894717347409, guid: 143b6dc3e022b6c45b0dc820117354cd,
-        type: 3}
-      propertyPath: m_OverrideTileSize
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 143b6dc3e022b6c45b0dc820117354cd, type: 3}
