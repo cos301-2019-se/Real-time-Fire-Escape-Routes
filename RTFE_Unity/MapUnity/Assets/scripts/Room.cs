@@ -28,8 +28,8 @@ public class Room : MonoBehaviour
         float xn = x / dis;
         float zn = z / dis;
 
-        float thirdx = x1 + (xn * 0.9f);
-        float thirdy = y1 + (zn * 0.9f);
+        float thirdx = x1 + (xn * distanceCloser);
+        float thirdy = y1 + (zn * distanceCloser);
 
         return new Vector2(thirdx, thirdy);
     }
@@ -49,7 +49,7 @@ public class Room : MonoBehaviour
         float secondy = cornerss[1].y;
         Debug.Log("second: " + secondx + " " + secondy);
         //third
-        Vector2 n = moveCloser(cornerss[1].x, cornerss[1].y, cornerss[2].x, cornerss[2].y, 0.9f);//moves closer to second x,y set
+        Vector2 n = moveCloser(cornerss[1].x, cornerss[1].y, cornerss[2].x, cornerss[2].y, 0.1f);//moves closer to second x,y set
         float thirdx = n.x;
         float thirdy = n.y;
         Debug.Log("third: " + thirdx + " " + thirdy);
@@ -76,7 +76,7 @@ public class Room : MonoBehaviour
         verticess[2] = new Vector3(thirdx, (floorNum * 3), thirdy);
         verticess[3] = new Vector3(fourthx, (floorNum * 3), fourthy);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         verticess = new Vector3[4];
         verticess[3] = new Vector3(firstx, (floorNum * 3), firsty);
@@ -84,7 +84,7 @@ public class Room : MonoBehaviour
         verticess[1] = new Vector3(thirdx, (floorNum * 3), thirdy);
         verticess[0] = new Vector3(fourthx, (floorNum * 3), fourthy);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
         //building first ramp
 
         //first1
@@ -97,7 +97,7 @@ public class Room : MonoBehaviour
         float secondy1 = thirdy;
 
         //third1
-        Vector2 n1 = moveCloser(cornerss[2].x, cornerss[2].y, cornerss[1].x, cornerss[1].y, 0.9f);//moves closer to second x,y set
+        Vector2 n1 = moveCloser(cornerss[2].x, cornerss[2].y, cornerss[1].x, cornerss[1].y, 1.6f);//moves closer to second x,y set
         float thirdx1 = n1.x;
         float thirdy1 = n1.y;
 
@@ -122,7 +122,7 @@ public class Room : MonoBehaviour
         verticess[2] = new Vector3(thirdx1, (floorNum * 3)+1.5f, thirdy1);
         verticess[3] = new Vector3(fourthx1, (floorNum * 3)+1.5f, fourthy1);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         verticess = new Vector3[4];
         verticess[3] = new Vector3(firstx1, (floorNum * 3), firsty1);
@@ -130,7 +130,7 @@ public class Room : MonoBehaviour
         verticess[1] = new Vector3(thirdx1, (floorNum * 3)+1.5f, thirdy1);
         verticess[0] = new Vector3(fourthx1, (floorNum * 3)+1.5f, fourthy1);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         //building inbetween floor
         //first2
@@ -167,7 +167,7 @@ public class Room : MonoBehaviour
         verticess[2] = new Vector3(thirdx2, (floorNum * 3) + 1.5f, thirdy2);
         verticess[3] = new Vector3(fourthx2, (floorNum * 3) + 1.5f, fourthy2);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         verticess = new Vector3[4];
         verticess[3] = new Vector3(firstx2, (floorNum * 3) + 1.5f, firsty2);
@@ -175,7 +175,7 @@ public class Room : MonoBehaviour
         verticess[1] = new Vector3(thirdx2, (floorNum * 3) + 1.5f, thirdy2);
         verticess[0] = new Vector3(fourthx2, (floorNum * 3) + 1.5f, fourthy2);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         //building second ramp
         //first
@@ -211,7 +211,7 @@ public class Room : MonoBehaviour
         verticess[2] = new Vector3(thirdx3, (floorNum * 3) + 3f, thirdy3);
         verticess[3] = new Vector3(fourthx3, (floorNum * 3) + 3f, fourthy3);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         verticess = new Vector3[4];
         verticess[3] = new Vector3(firstx3, (floorNum * 3) + 1.5f, firsty3);
@@ -219,7 +219,7 @@ public class Room : MonoBehaviour
         verticess[1] = new Vector3(thirdx3, (floorNum * 3) + 3f, thirdy3);
         verticess[0] = new Vector3(fourthx3, (floorNum * 3) + 3f, fourthy3);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         //last flat piece
 
@@ -246,7 +246,7 @@ public class Room : MonoBehaviour
         verticess[2] = new Vector3(thirdx4, (floorNum * 3) + 3f, thirdy4);
         verticess[3] = new Vector3(fourthx4, (floorNum * 3) + 3f, fourthy4);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
         verticess = new Vector3[4];
         verticess[3] = new Vector3(firstx4, (floorNum * 3) + 3f, firsty4);
@@ -254,7 +254,7 @@ public class Room : MonoBehaviour
         verticess[1] = new Vector3(thirdx4, (floorNum * 3) + 3f, thirdy4);
         verticess[0] = new Vector3(fourthx4, (floorNum * 3) + 3f, fourthy4);
 
-        buildWallFront(verticess);
+        buildstair(verticess);
 
 
 
@@ -348,6 +348,34 @@ public class Room : MonoBehaviour
 
         Material myMaterial = Resources.Load("materials/glass") as Material; 
         objToSpawn.GetComponent<Renderer>().material = myMaterial; 
+    }
+
+    void buildstair(Vector3[] vertices3D)
+    {
+        int[] tri = new int[6];
+
+        tri[0] = 0;
+        tri[1] = 1;
+        tri[2] = 2;
+
+        tri[3] = 2;
+        tri[4] = 3;
+        tri[5] = 0;
+
+        Mesh msh = new Mesh();
+        msh.vertices = vertices3D;
+        msh.triangles = tri;
+        msh.RecalculateNormals();
+        msh.RecalculateBounds();
+
+        GameObject objToSpawn = new GameObject("Wall");
+        objToSpawn.AddComponent(typeof(MeshRenderer));
+        MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
+        filter.mesh = msh;
+
+
+        Material myMaterial = Resources.Load("materials/routeGreen") as Material;
+        objToSpawn.GetComponent<Renderer>().material = myMaterial;
     }
 
 
