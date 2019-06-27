@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class Room : MonoBehaviour
 {
@@ -12,9 +13,260 @@ public class Room : MonoBehaviour
 
     }
 
-    public void build(Vector2[] vertices2D, int[] boolList , int floorNum)
+    public float Distance(float x1, float y1, float x2, float y2)//simple distance between 2 points
     {
-       buildFloorTop(vertices2D, boolList, floorNum);
+        return (float)Math.Sqrt((Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2)));
+    }
+
+  
+    public Vector2 moveCloser(float x1, float y1, float x2, float y2, float distanceCloser)//moves close to x2,y2
+    {
+        float x = x2 - x1;
+        float z = y2 - y1;
+        float dis = Distance(x2, y2, x1, y1);
+
+        float xn = x / dis;
+        float zn = z / dis;
+
+        float thirdx = x1 + (xn * 0.9f);
+        float thirdy = y1 + (zn * 0.9f);
+
+        return new Vector2(thirdx, thirdy);
+    }
+
+
+    public void buildStairs(Vector2[] cornerss, int floorNum, bool dontBuildFloors)
+    {
+
+        //building first floor
+        Vector3[] vertices = new Vector3[4];
+        //first
+        float firstx = (cornerss[0].x + cornerss[1].x) / 2;
+        float firsty = (cornerss[0].y + cornerss[1].y) / 2;
+        Debug.Log("first: " + firstx + " " + firsty);
+        //second
+        float secondx = cornerss[1].x;
+        float secondy = cornerss[1].y;
+        Debug.Log("second: " + secondx + " " + secondy);
+        //third
+        Vector2 n = moveCloser(cornerss[1].x, cornerss[1].y, cornerss[2].x, cornerss[2].y, 0.9f);//moves closer to second x,y set
+        float thirdx = n.x;
+        float thirdy = n.y;
+        Debug.Log("third: " + thirdx + " " + thirdy);
+        //fourth
+        float fourthx = 0.0f;
+        float fourthy = 0.0f;
+
+        if (firstx != secondx)
+            fourthx = firstx;
+        else
+            fourthx = thirdx;
+
+
+        if (firsty != secondy)
+            fourthy = firsty;
+        else
+            fourthy = thirdy;
+
+        Debug.Log("forth: " + fourthx + " " + fourthy);
+
+        Vector3[] verticess = new Vector3[4];
+        verticess[0] = new Vector3(firstx, (floorNum * 3), firsty);
+        verticess[1] = new Vector3(secondx, (floorNum * 3), secondy);
+        verticess[2] = new Vector3(thirdx, (floorNum * 3), thirdy);
+        verticess[3] = new Vector3(fourthx, (floorNum * 3), fourthy);
+
+        buildWallFront(verticess);
+
+        verticess = new Vector3[4];
+        verticess[3] = new Vector3(firstx, (floorNum * 3), firsty);
+        verticess[2] = new Vector3(secondx, (floorNum * 3), secondy);
+        verticess[1] = new Vector3(thirdx, (floorNum * 3), thirdy);
+        verticess[0] = new Vector3(fourthx, (floorNum * 3), fourthy);
+
+        buildWallFront(verticess);
+        //building first ramp
+
+        //first1
+        float firstx1 = fourthx;
+        float firsty1 = fourthy;
+
+        //second1
+
+        float secondx1 = thirdx;
+        float secondy1 = thirdy;
+
+        //third1
+        Vector2 n1 = moveCloser(cornerss[2].x, cornerss[2].y, cornerss[1].x, cornerss[1].y, 0.9f);//moves closer to second x,y set
+        float thirdx1 = n1.x;
+        float thirdy1 = n1.y;
+
+        //fourth1
+        float fourthx1 = 0.0f;
+        float fourthy1 = 0.0f;
+
+        if (firstx1 != secondx1)
+            fourthx1 = firstx1;
+        else
+            fourthx1 = thirdx1;
+
+
+        if (firsty1 != secondy1)
+            fourthy1 = firsty1;
+        else
+            fourthy1 = thirdy1;
+
+        verticess = new Vector3[4];
+        verticess[0] = new Vector3(firstx1, (floorNum * 3), firsty1);
+        verticess[1] = new Vector3(secondx1, (floorNum * 3), secondy1);
+        verticess[2] = new Vector3(thirdx1, (floorNum * 3)+1.5f, thirdy1);
+        verticess[3] = new Vector3(fourthx1, (floorNum * 3)+1.5f, fourthy1);
+
+        buildWallFront(verticess);
+
+        verticess = new Vector3[4];
+        verticess[3] = new Vector3(firstx1, (floorNum * 3), firsty1);
+        verticess[2] = new Vector3(secondx1, (floorNum * 3), secondy1);
+        verticess[1] = new Vector3(thirdx1, (floorNum * 3)+1.5f, thirdy1);
+        verticess[0] = new Vector3(fourthx1, (floorNum * 3)+1.5f, fourthy1);
+
+        buildWallFront(verticess);
+
+        //building inbetween floor
+        //first2
+        float firstx2 = thirdx1;
+        float firsty2 = thirdy1;
+
+        //second2
+        float secondx2 = cornerss[2].x;
+        float secondy2 = cornerss[2].y;
+
+        //third2
+        float thirdx2 = cornerss[3].x;
+        float thirdy2 = cornerss[3].y;
+
+        //fourth2
+
+        float fourthx2 = 0.0f;
+        float fourthy2 = 0.0f;
+
+        if (firstx2 != secondx2)
+            fourthx2 = firstx2;
+        else
+            fourthx2 = thirdx2;
+
+
+        if (firsty2 != secondy2)
+            fourthy2 = firsty2;
+        else
+            fourthy2 = thirdy2;
+
+        verticess = new Vector3[4];
+        verticess[0] = new Vector3(firstx2, (floorNum * 3) + 1.5f, firsty2);
+        verticess[1] = new Vector3(secondx2, (floorNum * 3) + 1.5f, secondy2);
+        verticess[2] = new Vector3(thirdx2, (floorNum * 3) + 1.5f, thirdy2);
+        verticess[3] = new Vector3(fourthx2, (floorNum * 3) + 1.5f, fourthy2);
+
+        buildWallFront(verticess);
+
+        verticess = new Vector3[4];
+        verticess[3] = new Vector3(firstx2, (floorNum * 3) + 1.5f, firsty2);
+        verticess[2] = new Vector3(secondx2, (floorNum * 3) + 1.5f, secondy2);
+        verticess[1] = new Vector3(thirdx2, (floorNum * 3) + 1.5f, thirdy2);
+        verticess[0] = new Vector3(fourthx2, (floorNum * 3) + 1.5f, fourthy2);
+
+        buildWallFront(verticess);
+
+        //building second ramp
+        //first
+        float firstx3 = fourthx2;
+        float firsty3 = fourthy2;
+
+        //second
+        float secondx3 = fourthx1;
+        float secondy3 = fourthy1;
+
+        //third
+        float thirdx3 = firstx1;
+        float thirdy3 = firsty1;
+
+        //fourth
+        float fourthx3 = 0.0f;
+        float fourthy3 = 0.0f;
+
+        if (firstx3 != secondx3)
+            fourthx3 = firstx3;
+        else
+            fourthx3 = thirdx3;
+
+
+        if (firsty3 != secondy3)
+            fourthy3 = firsty3;
+        else
+            fourthy3 = thirdy3;
+
+        verticess = new Vector3[4];
+        verticess[0] = new Vector3(firstx3, (floorNum * 3) + 1.5f, firsty3);
+        verticess[1] = new Vector3(secondx3, (floorNum * 3) + 1.5f, secondy3);
+        verticess[2] = new Vector3(thirdx3, (floorNum * 3) + 3f, thirdy3);
+        verticess[3] = new Vector3(fourthx3, (floorNum * 3) + 3f, fourthy3);
+
+        buildWallFront(verticess);
+
+        verticess = new Vector3[4];
+        verticess[3] = new Vector3(firstx3, (floorNum * 3) + 1.5f, firsty3);
+        verticess[2] = new Vector3(secondx3, (floorNum * 3) + 1.5f, secondy3);
+        verticess[1] = new Vector3(thirdx3, (floorNum * 3) + 3f, thirdy3);
+        verticess[0] = new Vector3(fourthx3, (floorNum * 3) + 3f, fourthy3);
+
+        buildWallFront(verticess);
+
+        //last flat piece
+
+        //first
+        float firstx4 = thirdx3;
+        float firsty4 = thirdy3;
+
+        //second
+        float secondx4 = fourthx3;
+        float secondy4 = fourthy3;
+
+        //third
+        float thirdx4 = cornerss[0].x;
+        float thirdy4 = cornerss[0].y;
+
+        //fourth
+
+        float fourthx4 = firstx;
+        float fourthy4 = firsty;
+
+        verticess = new Vector3[4];
+        verticess[0] = new Vector3(firstx4, (floorNum * 3) + 3f, firsty4);
+        verticess[1] = new Vector3(secondx4, (floorNum * 3) + 3f, secondy4);
+        verticess[2] = new Vector3(thirdx4, (floorNum * 3) + 3f, thirdy4);
+        verticess[3] = new Vector3(fourthx4, (floorNum * 3) + 3f, fourthy4);
+
+        buildWallFront(verticess);
+
+        verticess = new Vector3[4];
+        verticess[3] = new Vector3(firstx4, (floorNum * 3) + 3f, firsty4);
+        verticess[2] = new Vector3(secondx4, (floorNum * 3) + 3f, secondy4);
+        verticess[1] = new Vector3(thirdx4, (floorNum * 3) + 3f, thirdy4);
+        verticess[0] = new Vector3(fourthx4, (floorNum * 3) + 3f, fourthy4);
+
+        buildWallFront(verticess);
+
+
+
+
+    }
+
+
+    public void build(Vector2[] vertices2D, int[] boolList , int floorNum, bool dontBuildFloors)
+    {
+        if(!dontBuildFloors)
+            buildFloorTop(vertices2D, boolList, floorNum);
+
         buildWalls(vertices2D, boolList, floorNum);
     }
 
@@ -66,7 +318,7 @@ public class Room : MonoBehaviour
 
                 }
             }
-            Debug.Log(i + ": " + vertices2D[i].x + " " + vertices2D[i].y);
+            //Debug.Log(i + ": " + vertices2D[i].x + " " + vertices2D[i].y);
         }
     }
 

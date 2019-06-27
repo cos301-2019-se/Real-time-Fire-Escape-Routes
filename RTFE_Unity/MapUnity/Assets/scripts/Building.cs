@@ -92,60 +92,63 @@ public class Building : MonoBehaviour
 
 
         //---------finding stairs and adding the new door to stair room
-        //stairs = stairs.Replace(" ", string.Empty);
-        //string[] stairsA = stairs.Split('-');
-        //float[][] stairsArr = new float[stairsA.Length][];
-        //for(int i = 0; i < stairsA.Length; i++)
-        //{
-        //    stairsArr[i] = new float[10];
-        //    string[] stairsA1 = stairsA[i].Split('*');
-        //    stairsArr[i][0] = float.Parse(stairsA1[0], System.Globalization.CultureInfo.InvariantCulture);
-        //    stairsArr[i][1] = float.Parse(stairsA1[1], System.Globalization.CultureInfo.InvariantCulture);
+        stairs = stairs.Replace(" ", string.Empty);
+        string[] stairsA = stairs.Split('-');
+        float[][] stairsArr = new float[stairsA.Length][];
+        for(int i = 0; i < stairsA.Length; i++)
+        {
+            stairsArr[i] = new float[10];
+            string[] stairsA1 = stairsA[i].Split('*');
+            stairsArr[i][0] = float.Parse(stairsA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor?
+            stairsArr[i][1] = float.Parse(stairsA1[1], System.Globalization.CultureInfo.InvariantCulture);//type?check this sometime
 
-        //    string[] stairsA2 = stairsA1[2].Split('%');
-        //    string[] temp = stairsA2[0].Split(',');
-        //    stairsArr[i][2] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-        //    stairsArr[i][3] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);temp = stairsA2[0].Split(',');
-        //    stairsArr[i][4] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-        //    stairsArr[i][5] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);temp = stairsA2[0].Split(',');
-        //    stairsArr[i][6] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-        //    stairsArr[i][7] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);temp = stairsA2[0].Split(',');
-        //    stairsArr[i][8] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-        //    stairsArr[i][9] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
-        //}
+            string[] stairsA2 = stairsA1[2].Split('%');
+            string[] temp = stairsA2[0].Split(',');
+            stairsArr[i][2] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+            stairsArr[i][3] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
+            temp = stairsA2[1].Split(',');
+            stairsArr[i][4] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+            stairsArr[i][5] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
+            temp = stairsA2[2].Split(',');
+            stairsArr[i][6] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+            stairsArr[i][7] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
+            temp = stairsA2[3].Split(',');
+            stairsArr[i][8] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+            stairsArr[i][9] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
+        }
         //-------------------------------------------------
 
         //----------putting stairs doors into doors array
-        //float[][] doorsArr2 = new float[doorsA.Length + stairsA.Length][];
-        //for (int i = 0; i < stairsA.Length; i++)
-        //{
-        //    doorsArr2[i] = new float[4];
-        //    for(int j = 0; j < 4; j++)
-        //    {
-        //        doorsArr2[i][j] = doorsArr[i][j];
-        //    }
-        //}
+        float[][] doorsArr2 = new float[doorsA.Length + stairsA.Length][];
+        for (int i = 0; i < doorsArr.Length; i++)
+        {
+            doorsArr2[i] = new float[4];
+            for(int j = 0; j < 4; j++)
+            {
+                doorsArr2[i][j] = doorsArr[i][j];
+            }
+        }
 
-        //for(int i = 0; i < stairsA.Length; i++)
-        //{
-        //    float x1 = stairsArr[i][2];
-        //    float y1 = stairsArr[i][3];
-        //    float x2 = stairsArr[i][4];
-        //    float y2 = stairsArr[i][5];
+        for(int i = 0; i < stairsA.Length; i++)
+        {
+            float x1 = stairsArr[i][2];
+            float y1 = stairsArr[i][3];
+            float x2 = stairsArr[i][4];
+            float y2 = stairsArr[i][5];
 
-        //    float dist = Distance(x1, y1, x2, y2);
+            float dist = Distance(x1, y1, x2, y2);
 
-        //    float newX = (x1+x2)/2;
-        //    float newY = (y1+y2)/2;
-        //    Debug.Log(stairsA.Length);
-        //    doorsArr2[doorsA.Length + i] = new float[4];
-        //    doorsArr2[doorsA.Length + i][0] = (float)stairsArr[i][0];
-        //    doorsArr2[doorsA.Length + i][1] = 0.8f;//dist;
-        //    doorsArr2[doorsA.Length + i][2] = newX;//x
-        //    doorsArr2[doorsA.Length + i][3] = newY;//should be z
-        //}
+            float newX = (x1+x2)/2;
+            float newY = (y1+y2)/2;
+           // Debug.Log(stairsA.Length);
+            doorsArr2[doorsA.Length + i] = new float[4];
+            doorsArr2[doorsA.Length + i][0] = (float)stairsArr[i][0];
+            doorsArr2[doorsA.Length + i][1] = dist-0.2f;
+            doorsArr2[doorsA.Length + i][2] = newX;//x
+            doorsArr2[doorsA.Length + i][3] = newY;//should be z not y just using z cause vector 2 has xy and not xz
+        }
 
-        //doorsArr = doorsArr2;
+        doorsArr = doorsArr2;
         //---------------------------------------
         //--------creating floors
         rooms = rooms.Replace(" ", string.Empty);
@@ -158,28 +161,8 @@ public class Building : MonoBehaviour
         }
 
 
-
-        //for (int i = 0; i < stairsA.Length; i++)//building stairs rooms
-        //{
-        //    float[][] cornersFloat = new float[4][];
-        //    for(int j = 0; j < 4; j++)
-        //    {
-        //        cornersFloat[j] = new float[2];
-        //    }
-
-        //    cornersFloat[0][0] = stairsArr[i][2];
-        //    cornersFloat[0][1] = stairsArr[i][3];
-
-        //    cornersFloat[1][0] = stairsArr[i][4];
-        //    cornersFloat[1][1] = stairsArr[i][5];
-
-        //    cornersFloat[2][0] = stairsArr[i][6];
-        //    cornersFloat[2][1] = stairsArr[i][7];
-
-        //    cornersFloat[3][0] = stairsArr[i][8];
-        //    cornersFloat[3][1] = stairsArr[i][9];
-        //    //floorList[(int)stairsArr[i][0]].addRoom(cornersFloat);
-        //}
+        //todo: add the rooms corners
+    
         //--------creating floors end
 
 
@@ -187,6 +170,7 @@ public class Building : MonoBehaviour
 
         //--------adding rooms to floors
         string[] roomsArr = rooms.Split('-');
+      
 
         for (int i = 0; i < roomsArr.Length; i++)
         {
@@ -215,10 +199,46 @@ public class Building : MonoBehaviour
                 }
             }
 
-            floorList[floorNo].addRoom(cornersFloat);
+            floorList[floorNo].addRoom(cornersFloat,false);
         }
-        //--------adding rooms to floors end
 
+        //-----building stairs rooms
+        for (int i = 0; i < stairsArr.Length; i++)
+        {
+            //stairsArr[i][9]
+            float[][] corn = new float[4][];
+            corn[0] = new float[2];
+            corn[0][0] = stairsArr[i][2];
+            corn[0][1] = stairsArr[i][3];
+
+            corn[1] = new float[2];
+            corn[1][0] = stairsArr[i][4];
+            corn[1][1] = stairsArr[i][5];
+
+            corn[2] = new float[2];
+            corn[2][0] = stairsArr[i][6];
+            corn[2][1] = stairsArr[i][7];
+
+            corn[3] = new float[2];
+            corn[3][0] = stairsArr[i][8];
+            corn[3][1] = stairsArr[i][9];
+            //Debug.Log("+"+stairsArr[i][9]+ " "+stairsArr[i][8]);
+            if((int)stairsArr[i][0] == 0)
+            {
+                floorList[(int)stairsArr[i][0]].addRoom(corn, false);
+                floorList[(int)stairsArr[i][0]].addStairs(corn, false);
+            }
+            else
+            {
+                floorList[(int)stairsArr[i][0]].addRoom(corn, true);
+                floorList[(int)stairsArr[i][0]].addStairs(corn, true);
+            }
+
+
+        }
+
+        //--------adding rooms to f0oors end
+        
         //--------placing people
 
         people = people.Replace(" ", string.Empty);
