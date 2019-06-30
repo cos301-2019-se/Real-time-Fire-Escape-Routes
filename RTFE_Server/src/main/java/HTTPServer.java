@@ -1,3 +1,16 @@
+/**
+ * @file HTTPServer.java
+ * @brief This file contains the main Server code which handles the incoming server requests
+ *
+ * @author Louw, Matthew Jason
+ * @author Bresler,  Mathilda Anna
+ * @author Braak, Pieter Albert
+ * @author Reva, Kateryna
+ * @author  Li, Xiao Jian
+ *
+ * @date 28/05/2019
+ */
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.ServerSocket;
@@ -28,6 +41,15 @@ public class HTTPServer extends Server{
         @Override
         void start(){}
 
+    /**
+     * Run function
+     * @brief This function opens a new socket and starts a new thread for the server to run
+     *
+     ** The run procedure. It can do the following:
+     *   - wait for incoming requests
+     *   - throw an exception if a socket cannot be opened
+     * @date 28/05/2019
+     */
         @Override
         public void run() {
             System.out.println("--------------------------");
@@ -50,6 +72,14 @@ public class HTTPServer extends Server{
             }
         }
 
+    /**
+     * readFileData function
+     * @brief This function takes in a file opbject and it's length and returns a bytestream of the file content
+     * @param file
+     * @param fileLength
+     * @return a bytestream containing the file data
+     * @date 28/05/2019
+     */
         private byte[] readFileData(File file, int fileLength) throws IOException {
             FileInputStream fileIn = null;
             byte[] fileData = new byte[fileLength];
@@ -64,16 +94,45 @@ public class HTTPServer extends Server{
 
             return fileData;
         }
+
+    /**
+     * getContentType function
+     * @brief This function determines the expected format of the data and returns the expected format in
+     * a standard format
+     * @param fileRequested describing the expected code format
+     * @return a String in the expected MEME type format
+     * @date 28/05/2019
+     */
         private String getContentType(String fileRequested) {
             if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
                 return "text/html";
             else
                 return "text/plain";
         }
+
+    /**
+     * getContentType function
+     * @brief This function determines the expected format of the data and returns the expected format in
+     * a standard format
+     * @param request describing the expected code format
+     * @return a String in the expected format
+     * @date 28/05/2019
+     */
         private String getContentType(StringBuilder request){
             String [] reqBody = request.toString().split("\n");
             return reqBody[0].split(" ")[1];
         }
+
+    /**
+     * fileNotFound function
+     * @brief
+     *
+     * @param out as the printWriter to be used in the function
+     * @param dataOut as the OutputStream used in the function
+     * @param fileRequested containing the requested file name
+     * @return no return value
+     * @date 28/05/2019
+     */
         private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
             File file = new File(WEB_ROOT, FILE_NOT_FOUND);
             int fileLength = (int) file.length();
@@ -95,12 +154,25 @@ public class HTTPServer extends Server{
                 System.out.println("File " + fileRequested + " not found");
             }
         }
-
+    /**
+     * @class HTTPClientConnection
+     * @brief Handles multiple threads and redirects requests to the appropriate classes
+     *
+     * @date 28/05/2019
+     */
     class HTTPClientConnection implements Runnable {
         private Socket connect;
         HTTPClientConnection(Socket c) {
             connect = c;
         }
+
+        /**
+         * run function
+         * @brief handles multiple clients as threads and redirects requests
+         *
+         * @return no return value
+         * @date 28/05/2019
+         */
         @Override
         public void run() {
             if(connect != null) {
@@ -267,6 +339,14 @@ public class HTTPServer extends Server{
         }
     }
 
+    /**
+     * getFormData function
+     * @brief Converts the provided payload into a format used by the rest of the system
+     *
+     * @param payload
+     * @return a JSONObject used by the rest of the system to execute the requests
+     * @date 28/05/2019
+     */
     private JSONObject getFormData(StringBuilder payload) throws Exception {
         JSONObject request = new JSONObject();
         String data = payload.toString();
