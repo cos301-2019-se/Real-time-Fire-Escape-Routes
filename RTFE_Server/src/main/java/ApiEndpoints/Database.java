@@ -34,7 +34,10 @@ public class Database {
         }
         createTable();
     }
-    //DATABASE CODE
+    //DATABASE CODE @Kinson
+    /**
+     * function is currently static and only creates table users if no table users exists
+     */
     public void createTable(){
         try{
             query = con.createStatement();
@@ -45,6 +48,10 @@ public class Database {
         }
     }
 
+    /**
+     * function can be used to insert new users to the users table
+     * @param name: is a string of user name
+     */
     public void insert(String name){
         try{
             query = con.createStatement();
@@ -55,6 +62,11 @@ public class Database {
         }
     }
 
+    /**
+     * function works as a means to create sql queries to the database and will return a bool to determine if query was successful
+     * @param sql: is an sql query
+     * @return boolean: true - query is successful, false - query failed
+     */
     public boolean execute(String sql){
         try{
             query = con.createStatement();
@@ -67,6 +79,11 @@ public class Database {
         return  false;
     }
 
+    /**
+     * function can be used to make selections to the db
+     * @param sql: is a sql selection query
+     * @return ResultSet: which holds all the data returned from the select query
+     */
     public ResultSet select(String sql){
         try{
             query = con.createStatement();
@@ -79,9 +96,10 @@ public class Database {
 
         return null;
     }
-    private void printError(Exception e, String sql){
-        System.out.println("Error in " + sql + ": " + e.getMessage() );
-    }
+
+    /**
+     * function will close the connection to the db
+     */
     public void close(){
         try{
             con.close();
@@ -89,6 +107,16 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * function prints errors from any query
+     * @param e: is the error which was caught
+     * @param sql: is the sql which caused the error
+     */
+    private void printError(Exception e, String sql){
+        System.out.println("Error in " + sql + ": " + e.getMessage() );
+    }
+
     //DATABSE CODE
     public String outputFile()
     {
