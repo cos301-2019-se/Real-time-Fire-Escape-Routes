@@ -15,6 +15,8 @@ public class Database {
     public String fileName;
     File f;
     Lock lock;
+    Connection con = null;
+    Statement query = null;
     public Database()
     {
         fileName = "../../database.txt";
@@ -22,8 +24,72 @@ public class Database {
         lock = new ReentrantLock();
 
 
-       
+        //NEW CODE
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:database.db");
+            System.out.println("Connected to DB!!");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        createTable();
     }
+    //DATABASE CODE
+    public void createTable(){
+        try{
+            query = con.createStatement();
+            query.execute("create table if not exists users(id integer primary key, name varchar(250));");
+            query = null;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void insert(String name){
+        try{
+            query = con.createStatement();
+            query.execute("insert into users(name) values('"+name+"')");
+            query = null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public boolean execute(String sql){
+        try{
+            query = con.createStatement();
+            query.execute(sql);
+            query = null;
+            return true;
+        }catch(Exception e){
+            printError(e,sql);
+        }
+        return  false;
+    }
+
+    public ResultSet select(String sql){
+        try{
+            query = con.createStatement();
+            ResultSet result = query.executeQuery(sql);
+            query = null;
+            return result;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+    private void printError(Exception e, String sql){
+        System.out.println("Error in " + sql + ": " + e.getMessage() );
+    }
+    public void close(){
+        try{
+            con.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    //DATABSE CODE
     public String outputFile()
     {
         String line = null;
