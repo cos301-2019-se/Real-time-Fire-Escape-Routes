@@ -89,6 +89,7 @@ public class WebAPI extends API {
         return Response;
     }
     private static JSONObject register(String name, String password){
+        System.out.println("registering");
         JSONObject Response = new JSONObject();
         try{
             boolean exist = USERDB.search(name, "");
