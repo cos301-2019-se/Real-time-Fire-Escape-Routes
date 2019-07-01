@@ -25,7 +25,108 @@ public class Database {
 
 
     }
+    //DATABASE CODE @Kinson
+    /**
+     * function is currently static and only creates table users if no table users exists
+     */
+    public void createTable(){
 
+        try{
+            query = con.createStatement();
+            query.execute("create table if not exists users(id integer primary key, name varchar(250), password varchar(250));");
+            query = null;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    /**
+     * function can be used to insert new users to the users table
+     * @param name: is a string of user name
+     * @param pass: is a string of user password
+     */
+    public void insert(String name, String pass){
+        try{
+            query = con.createStatement();
+            query.execute("insert into users(name, password) values(\'"+name+"\'"+", " + "\'"+pass+"\')");
+            query = null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void output()
+    {
+        ResultSet result = select("select * from users order by id desc");
+        try{
+            while(result.next()){
+                System.out.print("|id : " + result.getInt("id"));
+                System.out.print("|name : " + result.getString("name"));
+                System.out.print("|password : " + result.getString("password"));
+                System.out.println("");
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * function works as a means to create sql queries to the database and will return a bool to determine if query was successful
+     * @param sql: is an sql query
+     * @return boolean: true - query is successful, false - query failed
+     */
+    public boolean execute(String sql){
+        try{
+            query = con.createStatement();
+            query.execute(sql);
+            query = null;
+            return true;
+        }catch(Exception e){
+            printError(e,sql);
+        }
+        return  false;
+    }
+
+    /**
+     * function can be used to make selections to the db
+     * @param sql: is a sql selection query
+     * @return ResultSet: which holds all the data returned from the select query
+     */
+    public ResultSet select(String sql){
+        try{
+            query = con.createStatement();
+            ResultSet result = query.executeQuery(sql);
+            query = null;
+            return result;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * function will close the connection to the db
+     */
+    public void close(){
+        try{
+            con.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * function prints errors from any query
+     * @param e: is the error which was caught
+     * @param sql: is the sql which caused the error
+     */
+    private void printError(Exception e, String sql){
+        System.out.println("Error in " + sql + ": " + e.getMessage() );
+    }
+
+    //DATABSE CODE
     public String outputFile()
     {
         String line = null;
@@ -60,6 +161,7 @@ public class Database {
     public void write(String name, String pass)
     {
         lock.lock();
+        insert(name, pass);
         try {
 
             FileWriter fileWriter =
