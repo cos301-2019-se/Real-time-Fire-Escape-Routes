@@ -1,3 +1,17 @@
+/**
+ * @file Building.java
+ * @brief This file contains the structure of the building and the objects that the building consists of.
+ * This is used by the system as a representation of the real building and to perform relevant calculations.
+ *
+ * @author Louw, Matthew Jason
+ * @author Bresler,  Mathilda Anna
+ * @author Braak, Pieter Albert
+ * @author Reva, Kateryna
+ * @author  Li, Xiao Jian
+ *
+ * @date 02/05/2019
+ */
+
 package Building;
 import java.util.Vector;
 
@@ -38,6 +52,13 @@ public class Building {
             return PeopleList;
       }
 
+    /**
+     * getNumPeople function
+     * @brief This function return the amount of people contained in the building
+     *
+     * @return an integer of the amount of people left in the buidling
+     * @date 28/04/2019
+     */
       public int getNumPeople(){
             int total = 0;
             for (int i = 0; i < Floor.size(); i++) {
@@ -45,10 +66,29 @@ public class Building {
             }
             return total;
       }
+
+    /**
+     * addPerson function
+     * @brief This function inserts a Person object on a specified floor in the building
+     *
+     * @param p as a specified Person object
+     * @param floor as an integer indicating which level the Person object should be placed
+     * @return - true if the placement was successful
+     *         - false if an error occurred during placement
+     * @date 28/04/2019
+     */
       public boolean addPerson(Person p,int floor){
             return Floor.get(floor).addPerson(p);
       }
 
+
+    /**
+     * clearPeople function
+     * @brief This function removes all the Person objects from the current building
+     *
+     * @return no return value
+     * @date 28/04/2019
+     */
       public void clearPeople(){
             for (int i = 0; i < Floor.size(); i++) {
                   Floor.get(i).removePeople();
@@ -56,9 +96,26 @@ public class Building {
             Person.numPeople = 0;
       }
 
-      public int getNumFloors(){
+    /**
+     * getNumFloors function
+     * @brief this function calculates the amount of floors contained in the current building object
+     *
+     * @return an integer value of the amount of floor in the current building object
+     * @date 12/05/2019
+     */
+      public int getNumFloors()
+      {
             return Floor.size();
       }
+
+    /**
+     * connectDoors function
+     * @brief this function connect the doors that are on the same paths
+     *
+     * @return - true if the placement was successful
+     *         - false if an error occurred during placement
+     * @date 21/05/2019
+     */
       public boolean connectDoors()
       {
           boolean status = true;
@@ -69,23 +126,29 @@ public class Building {
           return status;
       }
 
+    /**
+     * addRoute function
+     * @brief this function adds routes to the current building object
+     *
+     * @return no return value
+     * @date 21/05/2019
+     */
       public void addRoute(Routes r) {
             Routes.add(r);
       }
 
 
 
+    /**
+     * assignPeople function
+     * @brief this function calculates the best routes for each Person object
+     * in the current building and assigns them to said route
+     *
+     * @return no return value
+     * @date 27/06/2019
+     */
       public void assignPeople(){
-            //Old
-            /*
-            try{
-                  for (int i = 0; i < getNumFloors(); i++) {
-                        getFloor(i).assignPeople(Routes);
-                  }
-            }
-            catch (Exception e){
-                  System.out.println(e.getMessage());
-            }
+
             /** New */
 
             Vector<Person> people = new Vector<Person>();
@@ -145,6 +208,14 @@ public class Building {
             /**/
       }
 
+
+    /**
+     * connectStairs function
+     * @brief this function connects the stairs in the building in a logical manner from one floor to the next
+     *
+     * @return no return value
+     * @date 22/06/2019
+     */
       public void connectStairs(){
             Vector<Node> stairs = getStairs();
             Node last= stairs.remove(0);
@@ -163,6 +234,14 @@ public class Building {
             }
 
       }
+
+    /**
+     * getStairs function
+     * @brief this function returns all the stair objects in the current building object
+     *
+     * @return a Vector<Node> containing all the nodes linked to stair objects
+     * @date 22/06/2019
+     */
       private Vector<Node> getStairs(){
             Vector<Node> allNodes = new Vector<>();
             Vector<Node> stairNodes = new Vector<>();

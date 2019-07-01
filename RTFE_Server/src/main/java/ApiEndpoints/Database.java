@@ -15,6 +15,8 @@ public class Database {
     public String fileName;
     File f;
     Lock lock;
+    Connection con = null;
+    Statement query = null;
     public Database()
     {
         fileName = "../../database.txt";
@@ -22,8 +24,8 @@ public class Database {
         lock = new ReentrantLock();
 
 
-       
     }
+
     public String outputFile()
     {
         String line = null;

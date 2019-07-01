@@ -1,3 +1,16 @@
+/**
+ * @file Main.java
+ * @brief This is the Main java file executed to run the Server
+ *
+ * @author Louw, Matthew Jason
+ * @author Bresler,  Mathilda Anna
+ * @author Braak, Pieter Albert
+ * @author Reva, Kateryna
+ * @author  Li, Xiao Jian
+ *
+ * @date 28/05/2019
+ */
+
 import Building.*;
 //import com.mashape.unirest.http.HttpResponse;
 //import com.mashape.unirest.http.Unirest;
