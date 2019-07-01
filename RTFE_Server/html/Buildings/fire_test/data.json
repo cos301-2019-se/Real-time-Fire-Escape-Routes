@@ -21,7 +21,7 @@
 		{"floor":0,"type":"singleDoor","position":[2,2]},
 		{"floor":0,"type":"singleDoor","position":[2,6]},
 		{"floor":0,"type":"singleDoor","position":[8,2]},
-		{"floor":0,"type":"singleDoor","position":[8,8]}
+		{"floor":0,"type":"singleDoor","position":[8,6]}
 	],
 	"people":[
 		{"id":0,"floor":0,"position":[5,9]}
