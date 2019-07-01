@@ -115,13 +115,18 @@ public class WebAPI extends API {
         return Response;
     }
 
-    private static JSONObject remove(String name)
-    {
+    private static JSONObject remove(String name) {
         JSONObject Response = new JSONObject();
-       USERDB.delete(name);
-        Response.put("status", true); //change here
-        Response.put("msg","removal success");
+        boolean exist = USERDB.delete(name);
+        if (exist) {
+            Response.put("status", true);
+            Response.put("msg", "User successfully removed");
+        } else {
+            Response.put("status", false);
+            Response.put("msg", "User does not exist");
 
+
+        }
         return Response;
     }
     private static JSONObject login(String name, String password){
