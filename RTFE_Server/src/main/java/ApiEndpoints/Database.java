@@ -39,25 +39,43 @@ public class Database {
      * function is currently static and only creates table users if no table users exists
      */
     public void createTable(){
+
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer primary key, name varchar(250));");
+            query.execute("create table if not exists users(id integer primary key, name varchar(250), password varchar(250));");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+
     }
 
     /**
      * function can be used to insert new users to the users table
      * @param name: is a string of user name
+     * @param pass: is a string of user password
      */
-    public void insert(String name){
+    public void insert(String name, String pass){
         try{
             query = con.createStatement();
-            query.execute("insert into users(name) values('"+name+"')");
+            query.execute("insert into users(name, password) values(\'"+name+"\'"+", " + "\'"+pass+"\')");
             query = null;
         }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void output()
+    {
+        ResultSet result = select("select * from users order by id desc");
+        try{
+            while(result.next()){
+                System.out.print("|id : " + result.getInt("id"));
+                System.out.print("|name : " + result.getString("name"));
+                System.out.print("|password : " + result.getString("password"));
+                System.out.println("");
+            }
+        }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
@@ -152,6 +170,7 @@ public class Database {
     public void write(String name, String pass)
     {
         lock.lock();
+        insert(name, pass);
         try {
 
             FileWriter fileWriter =
