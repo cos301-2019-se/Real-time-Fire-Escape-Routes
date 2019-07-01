@@ -23,7 +23,14 @@ public class Database {
         f = new File(fileName);
         lock = new ReentrantLock();
 
-
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:database.db");
+            System.out.println("Connected to DB!!");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        createTable();
     }
     //DATABASE CODE @Kinson
     /**
