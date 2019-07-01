@@ -54,6 +54,7 @@ public class Database {
      * @param pass: is a string of user password
      */
     public void insert(String name, String pass){
+
         try{
             query = con.createStatement();
             query.execute("insert into users(name, password) values(\'"+name+"\'"+", " + "\'"+pass+"\')");
@@ -63,6 +64,21 @@ public class Database {
         }
     }
 
+    /**
+     * function can be used to REMOVE a user from the users table
+     * @param name: is a string of user name
+     */
+    public void delete(String name){
+        try{
+
+            query = con.createStatement();
+            query.execute("delete from users WHERE name = " + "\'" + name + "\'");
+            query = null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
     public void output()
     {
         ResultSet result = select("select * from users order by id desc");

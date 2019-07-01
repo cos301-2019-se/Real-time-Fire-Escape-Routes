@@ -21,6 +21,11 @@ public class WebAPI extends API {
              System.out.println("WEBAPI -> "+request.toString());
         JSONObject response;
         switch ((String)request.get("type")){
+            case "remove":
+            {
+                response = remove((String)request.get("name"));
+                return response;
+            }
             case"login":
             {
                 response = login((String)request.get("name"), (String)request.get("pass"));
@@ -106,6 +111,16 @@ public class WebAPI extends API {
             if(verbose)
                 System.out.println("CRITICAL - REGISTER FAILED");
         }
+
+        return Response;
+    }
+
+    private static JSONObject remove(String name)
+    {
+        JSONObject Response = new JSONObject();
+       USERDB.delete(name);
+        Response.put("status", true); //change here
+        Response.put("msg","removal success");
 
         return Response;
     }
