@@ -16,5 +16,6 @@ jobs:
       name: Building
       language: java
     - stage: Integration-Testing
+      before_install: cd src\it\java
       name: Web-API
       language: java
