@@ -1,6 +1,7 @@
 package ApiEndpoints;
 
 import Building.Fire;
+import Building.Node;
 import Building.Person;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,16 +97,23 @@ public class BuildingAPI extends API {
             Person c = people.get(i);
             if(c.getAssignedRoute()!=null) {
                 double[] pos = c.getAssignedRoute().getGoal().coordinates;
-                data += c.getPersonID() + " * " + pos[0] + "," + pos[1];
+                data += c.getPersonID() + " *" ;
+                for (int j = 0; j < c.pathToFollow.size(); j++) {
+                    data+= " "+c.pathToFollow.get(j).coordinates[0]+","+c.pathToFollow.get(j).coordinates[1];
+                    if(j!= c.pathToFollow.size()-1){
+                        data +=" % ";
+                    }
+                }
+
                 if (i < people.size() - 1) {
-                    if(people.get(i+1).getAssignedRoute()!=null)
-                        data += " % ";
+                    if(people.get(i+1).getAssignedRoute()!=null) {
+
+                        data += " - ";
+                    }
                 }
             }
 //            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
         }
-
-
         return data ;
     }
 
