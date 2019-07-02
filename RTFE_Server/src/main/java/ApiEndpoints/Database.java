@@ -40,7 +40,7 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer primary key, name varchar(250), password varchar(250));");
+            query.execute("create table if not exists users(id integer, name varchar(250) primary key, password varchar(250));");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -53,15 +53,18 @@ public class Database {
      * @param name: is a string of user name
      * @param pass: is a string of user password
      */
-    public void insert(String name, String pass){
-
+    public boolean insert(String name, String pass){
+        boolean val = true;
         try{
             query = con.createStatement();
-            query.execute("insert into users(name, password) values(\'"+name+"\'"+", " + "\'"+pass+"\')");
+            val = query.execute("insert into users(name, password) values(\'"+name+"\'"+", " + "\'"+pass+"\')");
+            val = false;
             query = null;
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        System.out.println("val: " + val);
+        return val;
     }
 
     /**
@@ -214,52 +217,64 @@ public class Database {
     * */
     public boolean search(String name,String pass)
     {
-        boolean found = false;
-        String line = null;
-        String [] currentLine = new String[2];
-        try {
-            FileReader fileReader =
-                    new FileReader(f);
+        output();
+        boolean val = false;
+        try{
 
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null && !found) {
-                currentLine = line.split(",");
-//                System.out.println(currentLine[0]);
-                if(currentLine[0].equals(name) )
-                {
-//                    System.out.println("found user");
-                    found = true;
-                    break;
-                }
-
-            }
-
-            bufferedReader.close();
-//            System.out.println("Found:"+found);
-//            System.out.println("pass match:"+currentLine[1].equals(pass));
-            if(pass.equals("") || found == false){//normal search
-                return found;
-            }else{  // Login Attempt
-                if(currentLine[1].equals(pass))
-                    return true; // Pass match
-                else
-                    return false; // Pass failed
-            }
-
+            query = con.createStatement();
+            val = query.execute("SELECT * FROM users WHERE name="+"\'" + name + "\'");
+            query = null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            fileName + "'");
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + fileName + "'");
-        }
-        return false;
+        return !val;
+
+//        boolean found = false;
+//        String line = null;
+//        String [] currentLine = new String[2];
+//        try {
+//            FileReader fileReader =
+//                    new FileReader(f);
+//
+//            BufferedReader bufferedReader =
+//                    new BufferedReader(fileReader);
+//
+//            while((line = bufferedReader.readLine()) != null && !found) {
+//                currentLine = line.split(",");
+////                System.out.println(currentLine[0]);
+//                if(currentLine[0].equals(name) )
+//                {
+////                    System.out.println("found user");
+//                    found = true;
+//                    break;
+//                }
+//
+//            }
+//
+//            bufferedReader.close();
+////            System.out.println("Found:"+found);
+////            System.out.println("pass match:"+currentLine[1].equals(pass));
+//            if(pass.equals("") || found == false){//normal search
+//                return found;
+//            }else{  // Login Attempt
+//                if(currentLine[1].equals(pass))
+//                    return true; // Pass match
+//                else
+//                    return false; // Pass failed
+//            }
+//
+//        }
+//        catch(FileNotFoundException ex) {
+//            System.out.println(
+//                    "Unable to open file '" +
+//                            fileName + "'");
+//        }
+//        catch(IOException ex) {
+//            System.out.println(
+//                    "Error reading file '"
+//                            + fileName + "'");
+//        }
+//        return false;
     }
 
     public String remove(String name)

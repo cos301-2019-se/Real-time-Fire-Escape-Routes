@@ -94,15 +94,14 @@ public class WebAPI extends API {
         return Response;
     }
     private static JSONObject register(String name, String password){
-        System.out.println("registering");
         JSONObject Response = new JSONObject();
         try{
-            boolean exist = USERDB.search(name, "");
+            boolean exist = USERDB.insert(name, "");
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");
             }else{
-                USERDB.write(name, password);
+//                USERDB.insert(name, password);
                 Response.put("status", true);
                 Response.put("msg","User Successfully created");
 
