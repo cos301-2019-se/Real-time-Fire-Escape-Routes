@@ -247,6 +247,49 @@ public class Room {
         }
         return false;
     }
+    public boolean addFire(Fire f){
+        for (int i = 0; i <getRooms().size() ; i++) {
+            if(getRooms(i).addFire(f))
+                return true;
+        }
+        Corner [] poly = new Corner[Corners.size()];
+        for (int i = 0; i < poly.length; i++) {
+            poly[i] = Corners.get(i);
+        }
+        Corner Point = new Corner(f.coords);
+        if(isInside(poly,poly.length,Point)){
+            fires.add(f);
+            if(verbose){
+                System.out.println("Fire added in Room Type: "+this.roomType);
+            }
+            return true;
+        }
+        return false;
+    }
+    public int destroyRoutes(){
+        int numPathsAffected = 0;
+        for (Room r:Rooms) {
+            numPathsAffected += r.destroyRoutes();
+        }
+        Vector<Node> doors = getAllDoors();
+        for (Node d :doors) {
+            for (Fire fire:fires) {
+                Vector<Path> tempPaths = new Vector<Path>();
+                tempPaths.addAll(d.Paths);
+                for (Path p:tempPaths) {
+                    if(fire.intersect(p.start,p.end)){
+                        System.out.println("Disconnecting Nodes: "+p.start.nodeId+" - "+p.end.nodeId);
+                        Node start = p.start;
+                        Node end = p.end;
+                        numPathsAffected++;
+                        start.disconnect(end);
+                        end.disconnect(start);
+                    }
+                }
+            }
+        }
+        return numPathsAffected;
+    }
 
     public int getNumPeople(){
         int total = 0;
