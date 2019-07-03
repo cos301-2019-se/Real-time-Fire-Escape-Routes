@@ -11,6 +11,7 @@ public class Person {
     double [] position;
     int personID= 0;
     public Vector<Door> availableDoors = new Vector<>();
+    public Vector <Node> pathToFollow;
     public double distanceToExit = Double.MAX_VALUE;
 
     public Person(String n) {

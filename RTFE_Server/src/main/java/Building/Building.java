@@ -188,6 +188,7 @@ public class Building {
                         }
                   }
                   if(valid){
+                        p.pathToFollow = Bestpath;
                         p.setAssignedRoute(bestRoute);
                         bestRoute.addPerson(p);
                   }
@@ -310,7 +311,7 @@ public class Building {
             if(floor>=Floor.size()){
                   throw new Exception("Invalid floor");
             }
-            Floor.get(floor).fires.add(f);
+            Floor.get(floor).addFire(f);
 
             if(destroyRoutes()>0){
                   return true;
@@ -322,27 +323,7 @@ public class Building {
             int numPathsAffected = 0;
             for (Room f:Floor) {
 //                  System.out.println("Floor loop");
-                  Vector<Node> doors = f.getAllDoors();
-                  for (Node d :doors) {
-//                        System.out.println("    Door loop");
-                        for (Fire fire:f.fires) {
-//                              System.out.println("          Fire loop");
-                              Vector<Path> tempPaths = new Vector<Path>();
-                              tempPaths.addAll(d.Paths);
-                              for (Path p:tempPaths) {
-//                                    System.out.println("                Path loop");
-                                    if(fire.intersect(p.start,p.end)){
-                                          System.out.println("Disconnecting Nodes: "+p.start.nodeId+" - "+p.end.nodeId);
-                                          Node start = p.start;
-                                          Node end = p.end;
-                                          numPathsAffected++;
-                                          start.disconnect(end);
-                                          end.disconnect(start);
-                                    }
-                              }
-                        }
-                  }
-
+                numPathsAffected+= f.destroyRoutes();
             }
 
             return numPathsAffected;

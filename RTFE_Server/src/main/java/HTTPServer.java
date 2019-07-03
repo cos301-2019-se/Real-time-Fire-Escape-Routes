@@ -245,8 +245,9 @@ public class HTTPServer extends Server{
                                         break;
                                     }
                                 }
-                                if(verbose)
+                                if(verbose) {
                                     System.out.println("Client -> Server: "+ req.toString());
+                                }
 
                             /** Determining the API endpoint requested */
                             System.out.println(fileRequested.toString());

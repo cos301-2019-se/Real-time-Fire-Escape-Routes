@@ -21,6 +21,11 @@ public class WebAPI extends API {
              System.out.println("WEBAPI -> "+request.toString());
         JSONObject response;
         switch ((String)request.get("type")){
+            case "remove":
+            {
+                response = remove((String)request.get("name"));
+                return response;
+            }
             case"login":
             {
                 response = login((String)request.get("name"), (String)request.get("pass"));
@@ -91,12 +96,12 @@ public class WebAPI extends API {
     private static JSONObject register(String name, String password){
         JSONObject Response = new JSONObject();
         try{
-            boolean exist = USERDB.search(name, "");
+            boolean exist = USERDB.insert(name, "");
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");
             }else{
-                USERDB.write(name, password);
+//                USERDB.insert(name, password);
                 Response.put("status", true);
                 Response.put("msg","User Successfully created");
 
@@ -106,6 +111,21 @@ public class WebAPI extends API {
                 System.out.println("CRITICAL - REGISTER FAILED");
         }
 
+        return Response;
+    }
+
+    private static JSONObject remove(String name) {
+        JSONObject Response = new JSONObject();
+        boolean exist = USERDB.delete(name);
+        if (exist) {
+            Response.put("status", true);
+            Response.put("msg", "User successfully removed");
+        } else {
+            Response.put("status", false);
+            Response.put("msg", "User does not exist");
+
+
+        }
         return Response;
     }
     private static JSONObject login(String name, String password){
