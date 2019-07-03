@@ -231,7 +231,8 @@ public class Building : MonoBehaviour
             else
             {
                 floorList[(int)stairsArr[i][0]].addRoom(corn, true);
-                floorList[(int)stairsArr[i][0]].addStairs(corn, true);
+                if((int)stairsArr[i][0] == 3)//stops top floor stairs from building
+                    floorList[(int)stairsArr[i][0]].addStairs(corn, true);
             }
 
 

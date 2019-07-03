@@ -7,6 +7,7 @@ public class AgentController : MonoBehaviour
 {
     public NavMeshAgent agent;
     bool started = false;
+    List<Vector3> listRoute;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,18 @@ public class AgentController : MonoBehaviour
         started = true;
     }
 
+    public void goTo(List<Vector3> list)
+    {
+        agent.SetDestination(list[0]);
+        list.RemoveAt(0);
+        listRoute = list;
+
+        //Color color = x.GetComponent<Renderer>().material.color;
+        //gameObject.GetComponent<Renderer>().material.color = color;
+    
+        started = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -54,7 +67,14 @@ public class AgentController : MonoBehaviour
             if (Vector3.Distance(agent.destination, agent.transform.position) - 0.36 <= agent.stoppingDistance)
             {
 
-                Destroy(gameObject);
+                if(listRoute.Count == 0)
+                    Destroy(gameObject);
+                else
+                {
+                    Debug.Log("route size-> " + listRoute.Count);
+                    agent.SetDestination(listRoute[0]);
+                    listRoute.RemoveAt(0);
+                }
 
             }
         }

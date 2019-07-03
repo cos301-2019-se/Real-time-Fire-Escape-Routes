@@ -79,12 +79,53 @@ public class Counter : MonoBehaviour
             {
                 //Debug.Log("Received: " + uwr.downloadHandler.text);
                 routes myObject = JsonUtility.FromJson<routes>(uwr.downloadHandler.text);
-               // Debug.Log("numRoutes: "+myObject.numRoutes);
-//                Debug.Log("People: "+myObject.people);
+                // Debug.Log("numRoutes: "+myObject.numRoutes);
+                //Debug.Log("People: "+myObject.people);
+                // myObject.people = "15 * 29.0,10.2 % 30 * 29.0,10.2 % 32 * 29.0,10.2 % 13* 17.6,-5.0 % 0 * 29.0,10.2 % 13 * 29.0,10.2 % 20 * 29.0,10.2 % 31 * 29.0,10.2 % 6 * 29.0,10.2 % 11 * 29.0,10.2 % 28 * 29.0,10.2 % 2 * 29.0,10.2 % 7 * 29.0,10.2 % 9 * 29.0,10.2 % 27 * 29.0,10.2 % 12 * 29.0,10.2 % 14 * 29.0,10.2 % 21 * 29.0,10.2 % 25 * 26.0,10.2 % 23 * 29.0,10.2 % 17 * 29.0,10.2 % 24 * 29.0,10.2 % 22 * 29.0,10.2 % 35 * 29.0,10.2 % 29 * 29.0,10.2 % 34 * 29.0,10.2 % 8 * 29.0,10.2 % 5 * 29.0,10.2 % 33 * 29.0,10.2 % 10 * 29.0,10.2 % 18 * 29.0,10.2 % 19 * 29.0,10.2 % 1 * 17.6,-5.0 % 4 * 17.6,-5.0 % 26 * 17.6,-5.0 % 36 * 17.6,-5.0";
+                // myObject.numRoutes = 3;
 
-               // myObject.people = "15 * 29.0,10.2 % 30 * 29.0,10.2 % 32 * 29.0,10.2 % 13* 17.6,-5.0 % 0 * 29.0,10.2 % 13 * 29.0,10.2 % 20 * 29.0,10.2 % 31 * 29.0,10.2 % 6 * 29.0,10.2 % 11 * 29.0,10.2 % 28 * 29.0,10.2 % 2 * 29.0,10.2 % 7 * 29.0,10.2 % 9 * 29.0,10.2 % 27 * 29.0,10.2 % 12 * 29.0,10.2 % 14 * 29.0,10.2 % 21 * 29.0,10.2 % 25 * 26.0,10.2 % 23 * 29.0,10.2 % 17 * 29.0,10.2 % 24 * 29.0,10.2 % 22 * 29.0,10.2 % 35 * 29.0,10.2 % 29 * 29.0,10.2 % 34 * 29.0,10.2 % 8 * 29.0,10.2 % 5 * 29.0,10.2 % 33 * 29.0,10.2 % 10 * 29.0,10.2 % 18 * 29.0,10.2 % 19 * 29.0,10.2 % 1 * 17.6,-5.0 % 4 * 17.6,-5.0 % 26 * 17.6,-5.0 % 36 * 17.6,-5.0";
-              // myObject.numRoutes = 3;
 
+                //1*0,12.6,0.0 - 4*0,12.6,0.0 - 15*0,24.0,5.2 - 6*0,6.0,4.5%0,0.0,5.2
+                myObject.people = myObject.people.Replace(" ", string.Empty);
+                Debug.Log("people to assign: "+myObject.people);
+                string[] x = myObject.people.Split('-');
+                var values = new float[x.Length][];
+                for (int i = 0; i < x.Length; i++)
+                {
+                    string[] x1 = x[i].Split('*');
+                    float personNumber = float.Parse(x1[0], System.Globalization.CultureInfo.InvariantCulture);//getting person number
+                    string[] x2 = x1[1].Split('%');
+                    List<Vector3> pointList = new List<Vector3>();
+                    for (int j = 0; j < x2.Length; j++)
+                    {
+                        string[] x3 = x2[j].Split(',');
+                        float yfloor = float.Parse(x3[0], System.Globalization.CultureInfo.InvariantCulture);
+                        float xpos = float.Parse(x3[1], System.Globalization.CultureInfo.InvariantCulture);
+                        float zpos = float.Parse(x3[2], System.Globalization.CultureInfo.InvariantCulture);
+                        pointList.Add(new Vector3(xpos, yfloor, zpos));
+                    }
+
+                    var goArray = FindObjectsOfType<GameObject>();
+
+                    for (int j = 0; j < goArray.Length; j++)
+                    {
+                        if (goArray[j].GetComponent<number>() != null)
+                        {
+                            if (goArray[j].GetComponent<number>().objectNumber == personNumber)
+                            {
+                                if (goArray[j].GetComponent<AgentController>() != null)
+                                {
+                                //Debug.Log("x: "+gotoExit.GetComponent<number>().x+" y: "+gotoExit.GetComponent<number>().y + " z: " + gotoExit.GetComponent<number>().z);
+                                    goArray[j].GetComponent<AgentController>().goTo(pointList);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+                /*
                 myObject.people = myObject.people.Replace(" ", string.Empty);
                 string [] x = myObject.people.Split('%');
                 var values = new float[x.Length][];
@@ -153,6 +194,7 @@ public class Counter : MonoBehaviour
                         }
                     }
                 }
+                */
             }
         }
     }
