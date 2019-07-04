@@ -218,16 +218,16 @@ public class Database {
     public boolean search(String name,String pass)
     {
         output();
-        boolean val = false;
         try{
 
             query = con.createStatement();
-            val = query.execute("SELECT * FROM users WHERE name="+"\'" + name + "\'");
+            ResultSet result = select("select count(*) as rowcount from users where name = '"+name+"' and password = '"+pass+"'");
             query = null;
+            if (result.getInt("rowcount") > 0) return true;
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return !val;
+        return false;
 
 //        boolean found = false;
 //        String line = null;
