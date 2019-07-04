@@ -90,6 +90,9 @@ public class Counter : MonoBehaviour
                 Debug.Log("people to assign: "+myObject.people);
                 string[] x = myObject.people.Split('-');
                 var values = new float[x.Length][];
+
+                List<GameObject> Exits = new List<GameObject>();
+
                 for (int i = 0; i < x.Length; i++)
                 {
                     string[] x1 = x[i].Split('*');
@@ -105,6 +108,59 @@ public class Counter : MonoBehaviour
                         pointList.Add(new Vector3(xpos, yfloor, zpos));
                     }
 
+                    Vector3 go;
+                    GameObject g = null; ;
+                    if (Exits.Count == 0)
+                    {
+                        Exits.Add(Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(pointList[pointList.Count-1].x, pointList[pointList.Count-1].y+1.5f, pointList[pointList.Count-1].z), new Quaternion(0, 0, 0, 1)) as GameObject);
+                        Exits[Exits.Count - 1].GetComponent<number>().x = pointList[pointList.Count - 1].x;
+                        Exits[Exits.Count - 1].GetComponent<number>().y = pointList[pointList.Count - 1].y;
+                        Exits[Exits.Count - 1].GetComponent<number>().z = pointList[pointList.Count - 1].z;
+                        go = pointList[pointList.Count - 1];
+                        g = Exits[Exits.Count - 1];
+                        string r = "route" + Exits.Count;
+                        Material myMaterial = Resources.Load("materials/" + r) as Material;
+                        g.GetComponent<Renderer>().material = myMaterial;
+                        Debug.Log("one" + r);
+                    }
+                    else
+                    {
+                        bool f = false;
+                        for(int j = 0; j < Exits.Count;j++)
+                        {
+                            if(Exits[j].GetComponent<number>().x == pointList[pointList.Count - 1].x 
+                            && Exits[j].GetComponent<number>().y == pointList[pointList.Count - 1].y 
+                            && Exits[j].GetComponent<number>().z == pointList[pointList.Count - 1].z) 
+                            {
+                                go = new Vector3(Exits[j].GetComponent<number>().x, Exits[j].GetComponent<number>().y, Exits[j].GetComponent<number>().z);
+                                f = true;
+                                g = Exits[j];
+                                Debug.Log("two");
+                            }
+                        }
+                        if(!f)
+                        {
+                            //Exits.Add(Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(pointList[pointList.Count - 1].x, pointList[pointList.Count - 1].y+1.5f, pointList[pointList.Count - 1].z), new Quaternion(0, 0, 0, 1)) as GameObject);
+
+                            //go = pointList[pointList.Count - 1];
+                            //g = Exits[Exits.Count-1];
+                            //string r = "route" + Exits.Count;
+                            //Material myMaterial = Resources.Load("materials/" + r) as Material;
+                            //g.GetComponent<Renderer>().material = myMaterial;
+                            //Debug.Log("three"+r);
+                            Exits.Add(Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(pointList[pointList.Count - 1].x, pointList[pointList.Count - 1].y + 1.5f, pointList[pointList.Count - 1].z), new Quaternion(0, 0, 0, 1)) as GameObject);
+                            Exits[Exits.Count - 1].GetComponent<number>().x = pointList[pointList.Count - 1].x;
+                            Exits[Exits.Count - 1].GetComponent<number>().y = pointList[pointList.Count - 1].y;
+                            Exits[Exits.Count - 1].GetComponent<number>().z = pointList[pointList.Count - 1].z;
+                            go = pointList[pointList.Count - 1];
+                            g = Exits[Exits.Count - 1];
+                            string r = "route" + Exits.Count;
+                            Material myMaterial = Resources.Load("materials/" + r) as Material;
+                            g.GetComponent<Renderer>().material = myMaterial;
+                            Debug.Log("one" + r);
+                        }
+                    }
+                 
                     var goArray = FindObjectsOfType<GameObject>();
 
                     for (int j = 0; j < goArray.Length; j++)
@@ -117,6 +173,10 @@ public class Counter : MonoBehaviour
                                 {
                                 //Debug.Log("x: "+gotoExit.GetComponent<number>().x+" y: "+gotoExit.GetComponent<number>().y + " z: " + gotoExit.GetComponent<number>().z);
                                     goArray[j].GetComponent<AgentController>().goTo(pointList);
+                                    if (g != null)
+                                        goArray[j].GetComponent<AgentController>().Setcolor(g);
+                                    else
+                                        Debug.Log("whaaaat");
                                 }
                             }
                         }

@@ -37,6 +37,12 @@ public class AgentController : MonoBehaviour
         started = true;
     }
 
+    public void Setcolor(GameObject g)
+    {
+        Color color = g.GetComponent<Renderer>().material.color;
+        gameObject.GetComponent<Renderer>().material.color = color;
+    }
+
     public void goTo(GameObject x)
     {
        // Debug.Log("going to: "+x.transform.position.x +" "+x.transform.position.y);
@@ -71,7 +77,7 @@ public class AgentController : MonoBehaviour
                     Destroy(gameObject);
                 else
                 {
-                    Debug.Log("route size-> " + listRoute.Count);
+                  //  Debug.Log("route size-> " + listRoute.Count);
                     agent.SetDestination(listRoute[0]);
                     listRoute.RemoveAt(0);
                 }
