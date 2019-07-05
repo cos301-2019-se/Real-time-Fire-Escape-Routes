@@ -40,7 +40,7 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer, name varchar(250) primary key, password varchar(250));");
+            query.execute("create table if not exists users(id integer, name varchar(250), email varchar(250) primary key, password varchar(250), deviceID integer, userType varchar(250), userDate date);");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -215,6 +215,7 @@ public class Database {
     *
     * if a password is provided it will check if that password matches the one in the db
     * */
+
     public boolean search(String name,String pass)
     {
         output();
