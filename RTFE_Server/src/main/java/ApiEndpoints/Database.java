@@ -40,7 +40,7 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
+            query.execute("create table if not exists users(id integer, name varchar(250), email varchar(250) primary key, password varchar(250), deviceID integer, userType varchar(250), userDate date);");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
