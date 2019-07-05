@@ -33,7 +33,7 @@ public class WebAPI extends API {
             }
             case "register":
             {
-                response =  register((String)request.get("name"), (String)request.get("pass"));
+                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("pass"),(String)request.get("userType"));
                 return response;
             }
             case "getBuildings":
@@ -93,10 +93,10 @@ public class WebAPI extends API {
 
         return Response;
     }
-    private static JSONObject register(String name, String password){
+    private static JSONObject register(String name, String email, String password, String type){
         JSONObject Response = new JSONObject();
         try{
-            boolean exist = USERDB.insert(name, "");
+            boolean exist = USERDB.insert(name, "","","");
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");

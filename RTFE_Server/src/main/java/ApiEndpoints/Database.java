@@ -40,7 +40,7 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer, name varchar(250), email varchar(250) primary key, password varchar(250), deviceID integer, userType varchar(250), userDate date);");
+            query.execute("create table if not exists users(id integer, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -53,11 +53,11 @@ public class Database {
      * @param name: is a string of user name
      * @param pass: is a string of user password
      */
-    public boolean insert(String name, String pass){
+    public boolean insert(String name, String email, String pass, String type){
         boolean val = true;
         try{
             query = con.createStatement();
-            val = query.execute("insert into users(name, password) values(\'"+name+"\'"+", " + "\'"+pass+"\')");
+            val = query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+pass+"\'"+", " + "\'"+type+"\')");
             val = false;
             query = null;
         }catch(Exception e){
@@ -185,10 +185,10 @@ public class Database {
         return ret;
     }
 
-    public void write(String name, String pass)
+    public void write(String name, String email, String pass, String type)
     {
         lock.lock();
-        insert(name, pass);
+        insert(name, email, pass, type);
         try {
 
             FileWriter fileWriter =
@@ -280,60 +280,62 @@ public class Database {
 
     public String remove(String name)
     {
-        lock.lock();
-        Vector<String> tempData = new Vector<String>();
-        boolean found = false;
-        String line = null;
-        String ret = "";
-        try {
-            FileReader fileReader =
-                    new FileReader(f);
-
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
-
-                if(line.equals(name))
-                {
-                    found = true;
-                    bufferedReader.readLine();
-                }
-                else
-                {
-                    tempData.add(line);
-                }
-            }
-            if(found)
-            {
-                FileWriter fileWriter =
-                        new FileWriter(f, false);
-                fileWriter.close();
-                for(int i = 0; i < (tempData.size()- 1) ; i += 2)
-                {
-                    write(tempData.get(i), tempData.get(i+1));
-                }
-                ret += "Found and removed ";
-                ret += name += "\n\r";
-                ret += "\n\t";
-            }
-            else
-            {
-                ret += "Name " + name + " not found" + "\n\r";
-            }
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            fileName + "'");
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + fileName + "'");
-        }
-        lock.unlock();
-        return ret;
+//        lock.lock();
+//        Vector<String> tempData = new Vector<String>();
+//        boolean found = false;
+//        String line = null;
+//        String ret = "";
+//        try {
+//            FileReader fileReader =
+//                    new FileReader(f);
+//
+//            BufferedReader bufferedReader =
+//                    new BufferedReader(fileReader);
+//
+//            while((line = bufferedReader.readLine()) != null) {
+//
+//                if(line.equals(name))
+//                {
+//                    found = true;
+//                    bufferedReader.readLine();
+//                }
+//                else
+//                {
+//                    tempData.add(line);
+//                }
+//            }
+//            if(found)
+//            {
+//                FileWriter fileWriter =
+//                        new FileWriter(f, false);
+//                fileWriter.close();
+//                for(int i = 0; i < (tempData.size()- 1) ; i += 2)
+//                {
+//                    write(tempData.get(i), tempData.get(i+1));
+//                }
+//                ret += "Found and removed ";
+//                ret += name += "\n\r";
+//                ret += "\n\t";
+//            }
+//            else
+//            {
+//                ret += "Name " + name + " not found" + "\n\r";
+//            }
+//            bufferedReader.close();
+//        }
+//        catch(FileNotFoundException ex) {
+//            System.out.println(
+//                    "Unable to open file '" +
+//                            fileName + "'");
+//        }
+//        catch(IOException ex) {
+//            System.out.println(
+//                    "Error reading file '"
+//                            + fileName + "'");
+//        }
+//        lock.unlock();
+//        return ret;
+        return null;
     }
+
 }
