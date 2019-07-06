@@ -6,6 +6,7 @@ public class Node {
     static int numNodes = 0;
     NodeType type;
     int nodeId;
+    public int floor;
     double weight;
     boolean visited = false;
 
@@ -14,7 +15,8 @@ public class Node {
     Vector<Person> assignedPersons = new Vector();
     Vector<Path> Paths = new Vector();
 
-    Node(NodeType Type, double [] d){
+    Node(NodeType Type, double [] d,int Floor){
+        floor=Floor;
         coordinates = new double[2];
         coordinates[0] = d[0];
         coordinates[1] = d[1];
