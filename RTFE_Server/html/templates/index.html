@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="style.css" crossorigin="anonymous">
+    <title>Real-time FER</title>
+  </head>
+  <body>
+  	<div class="container-fluid" id="page">
+  		<div class="row">
+  			<div class="col-12" id="top-menu">
+  				<div class="row">
+  					<div class="col-4" id="top-stat" data-stat="superUser">
+  						<button style="margin: 0; padding: 0; display: inline;" class="btn" id="toggle-but"><img id="img-toggle" src="icons/greyToggleOff.png"></button>
+  						<span id="cur-stat">Super user</span>
+  					</div>
+  					<div class="col-4">
+  						<h1 id="sys-name">
+	  					<img id="img-logo" src="img/grey.png">
+	  					Real-time FER
+	  					</h1>
+  					</div>
+  					<div class="col-4">
+  					</div>
+  				</div>
+  				
+  			</div>
+  			
+  		</div>
+  		<!-- <div class="row" id="main-body" >
+  			
+  		</div> -->
+  		<div class="row" id="main-body-superuser">
+  			<div class="col-md-5" id="left" >
+  				
+	  			<div class="row">
+	  				<div class="col-12" id="building-drop">
+		  				<h1>Building name
+		  				<button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button>
+		  				</h1>
+	  				</div>
+	  			</div>
+	  				<div class="rtferCard">
+	  					<div class="row">
+	  					<div class="col-5"><h3>User Table</h3></div>
+	  					<div class="col-7" id="search-input-div">
+	  						<img id="img-drop" src="icons/baseline_search_black_18dp.png">
+	  						<input id="search-input" class="form-control" type="search" placeholder="Search" aria-label="Search">
+	  					</div>
+	  				</div>
+	  				<table class="table">
+					  <thead>
+					    <tr>
+					      <th scope="col">Name</th>
+					      <th scope="col">Email</th>
+					      <th scope="col">Device_ID</th>
+					      <th scope="col">Type</th>
+					      <th scope="col">Status</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td scope="row">John Doe</td>
+					      <td>doe@gmail.com</td>
+					      <td>123456789</td>
+					      <td>Admin</td>
+					      <td>Online <span class="online-off-indicator"><img src="icons/online.png"/></span></td>
+					      
+					    </tr>
+					    <tr>
+					      <td scope="row">John Moe</td>
+					      <td>moe@gmail.com</td>
+					      <td>123456789</td>
+					      <td>Agent</td>
+					      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
+					      
+					    </tr>
+					    <tr>
+					      <td scope="row">Larry the Bird</td>
+					      <td>theBird@gmail.com</td>
+					      <td>123456789</td>
+					      <td>Agent</td>
+					      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
+					      
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+  			<div class="col-md" id="right">
+  				<div id="simulation-window" class="rtferCard">
+  					Simulation
+  				</div>
+  				<div id="add-bot-window" class="row rtferCard">
+  					<!--<div class="col-sm-6">
+  						Add bot
+  					</div>
+  					<div class="col-sm-6">
+  						<img id="img-drop" src="icons/grey_small_arrow.png">
+  					</div>-->
+  					<span style="margin-bottom: 2%;">Add bot</span>
+  					<span class="arrow-span" style="margin-bottom: 2%;"><button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
+  				</div>
+  				<div id="add-fire-window" class="row rtferCard">
+  					<span style="margin-bottom: 2%;">Add fire</span>
+  					<span class="arrow-span" style="margin-bottom: 2%;"><button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
+  				</div>
+  			</div>
+  		</div>
+	  		<div id="main-body-admin" style="display : none;">
+	  			<div class="row">
+	  				<div class="col-7" style="text-align: right; padding-bottom: 1%;">
+	  				<h1>Building name
+	  				<button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button>
+	  				</h1>
+  					</div>
+  					<div class="col-5" style="text-align: right; padding-top: 1%;">
+  						<button class="btn btn-light">
+  							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
+  						</button>
+  					</div>
+	  			</div>
+	  			<div class="rtferCard">
+  				<div class="row">
+  					<div class="col-6"><h3>User Table</h3></div>
+  					<div class="col-6" id="search-input-div">
+  						<img id="img-drop" src="icons/baseline_search_black_18dp.png">
+  						<input id="search-input" class="form-control" type="search" placeholder="Search" aria-label="Search">
+  					</div>
+  				</div>
+  				
+  				
+  				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Name</th>
+				      <th scope="col">Email</th>
+				      <th scope="col">Device_ID</th>
+				      <th scope="col">Type</th>
+				      <th scope="col">Status</th>
+				      <th scope="col">Edit</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td scope="row">John Doe</td>
+				      <td>doe@gmail.com</td>
+				      <td>123456789</td>
+				      <td>Admin</td>
+				      <td>Online <span class="online-off-indicator"><img src="icons/online.png"/></span></td>
+				      <td ><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
+				    </tr>
+				    <tr>
+				      <td scope="row">John Moe</td>
+				      <td>moe@gmail.com</td>
+				      <td>123456789</td>
+				      <td>Agent</td>
+				      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
+				      <td ><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
+				    </tr>
+				    <tr>
+				      <td scope="row">Larry the Bird</td>
+				      <td>theBird@gmail.com</td>
+				      <td>123456789</td>
+				      <td>Agent</td>
+				      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
+				      <td><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
+				    </tr>
+				  </tbody>
+				</table>
+				<div class="row">
+	  				<div class="col-7" style="text-align: right; padding-bottom: 1%;">
+	  				
+  					</div>
+  					<div class="col-5" style="text-align: right; padding-top: 1%;">
+  						<button class="btn btn-light">
+  							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add user 
+  						</button>
+  					</div>
+	  			</div>
+			</div>
+	  		</div>
+		</div>
+	</div>
+
+	
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+   <!--  <script src="bootstrap/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="bootstrap/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="bootstrap/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+
+
+    <script type="text/javascript" src="jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+
+    <script type="text/javascript">
+    	function onlineOffline(elem)
+    	{
+    		if($(elem).val() === "Offline")
+    		{
+
+    		}
+    		else
+    		{
+
+    		}
+    	}
+    </script>
+  </body>
+</html>
