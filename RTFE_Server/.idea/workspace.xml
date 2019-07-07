@@ -326,7 +326,7 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="main" />
+      <module name="RTFE_server.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
