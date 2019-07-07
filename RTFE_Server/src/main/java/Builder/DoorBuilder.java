@@ -17,24 +17,22 @@ public class DoorBuilder extends Builder{
             JSONArray posData =(JSONArray)data.get("position");
             pos[0]= posData.getDouble(0);
             pos[1]= posData.getDouble(1);
-            int floor = data.getInt("floor");
-
             String type = data.get("type").toString();
             switch (type){
                 case "stairs":{
-                    return new Door(NodeType.stairs,pos,floor);
+                    return new Door(NodeType.stairs,pos);
                 }
                 case "singleDoor":{
-                    return new Door(NodeType.singleDoor,pos,floor);
+                    return new Door(NodeType.singleDoor,pos);
                 }
                 case "doubleDoor":{
-                    return new Door(NodeType.doubleDoor,pos,floor);
+                    return new Door(NodeType.doubleDoor,pos);
                 }
                 case "buildingExit":{
-                    return new Door(NodeType.buildingExit,pos,floor);
+                    return new Door(NodeType.buildingExit,pos);
                 }
                 case "goal":{
-                    return new Door(NodeType.goal,pos,floor);
+                    return new Door(NodeType.goal,pos);
                 }
             }
             throw new Exception();
