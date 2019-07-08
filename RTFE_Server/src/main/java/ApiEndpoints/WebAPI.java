@@ -18,7 +18,7 @@ public class WebAPI extends API {
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         //String reqType = (String)req.get("type");
         if(verbose)
-             System.out.println("WEBAPI -> "+request.toString());
+            System.out.println("WEBAPI -> "+request.toString());
         JSONObject response;
         switch ((String)request.get("type")){
             case "remove":
@@ -30,6 +30,42 @@ public class WebAPI extends API {
             {
                 response = login((String)request.get("name"), (String)request.get("pass"));
                 return response;
+            }
+            case"update":
+            {
+                String typeOfUpdate = (String)request.get("typeOfUpdate");
+                if(typeOfUpdate.compareTo("userType") == 0)
+                {
+                    response = updateType((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("name") == 0)
+                {
+                    response = updateName((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("deviceID") == 0)
+                {
+                    response = updateDeviceID((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("password") == 0)
+                {
+                    response = updatePassword((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("email") == 0)
+                {
+                    response = updateEmail((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                else
+                {
+                    response = new JSONObject();
+                    response.put("status", false);
+                    response.put("msg","Error in update");
+                    return response;
+                }
             }
             case "register":
             {
@@ -50,6 +86,107 @@ public class WebAPI extends API {
 
         throw new Exception("Unsupported Request");
     }
+    private static JSONObject updateEmail(String email, String newEmail){
+        JSONObject Response = new JSONObject();
+        try{
+            boolean exist = USERDB.updateName(email, newEmail);
+            if(exist){
+                Response.put("status", true);
+                Response.put("msg","User email successfully updated");
+            }else{
+//                USERDB.insert(name, password);
+                Response.put("status", false);
+                Response.put("msg","Could not update user email");
+
+            }
+        }catch (Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - REGISTER FAILED");
+        }
+
+        return Response;
+    }
+    private static JSONObject updatePassword(String email, String password){
+        JSONObject Response = new JSONObject();
+        try{
+            boolean exist = USERDB.updateName(email, password);
+            if(exist){
+                Response.put("status", true);
+                Response.put("msg","password successfully updated");
+            }else{
+//                USERDB.insert(name, password);
+                Response.put("status", false);
+                Response.put("msg","Could not update user password");
+
+            }
+        }catch (Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - REGISTER FAILED");
+        }
+
+        return Response;
+    }
+    private static JSONObject updateDeviceID(String email, String deviceID){
+        JSONObject Response = new JSONObject();
+        try{
+            boolean exist = USERDB.updateDeviceID(email, deviceID);
+            if(exist){
+                Response.put("status", true);
+                Response.put("msg","deviceID successfully updated");
+            }else{
+//                USERDB.insert(name, password);
+                Response.put("status", false);
+                Response.put("msg","Could not update deviceID");
+
+            }
+        }catch (Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - REGISTER FAILED");
+        }
+
+        return Response;
+    }
+    private static JSONObject updateName(String email, String name){
+        JSONObject Response = new JSONObject();
+        try{
+            boolean exist = USERDB.updateName(email, name);
+            if(exist){
+                Response.put("status", true);
+                Response.put("msg","User name successfully updated");
+            }else{
+//                USERDB.insert(name, password);
+                Response.put("status", false);
+                Response.put("msg","Could not update user name");
+
+            }
+        }catch (Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - REGISTER FAILED");
+        }
+
+        return Response;
+    }
+    private static JSONObject updateType(String email, String type){
+        JSONObject Response = new JSONObject();
+        try{
+            boolean exist = USERDB.updateType(email, type);
+            if(exist){
+                Response.put("status", true);
+                Response.put("msg","User type successfully updated");
+            }else{
+
+                Response.put("status", false);
+                Response.put("msg","Could not update user type");
+
+            }
+        }catch (Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - REGISTER FAILED");
+        }
+
+        return Response;
+    }
+
     private static  JSONObject uploadBuilding(String name, String file)
     {
         File dir = new File("./html"+ "/" + "Buildings/"  +name);
@@ -96,12 +233,12 @@ public class WebAPI extends API {
     private static JSONObject register(String name, String email, String password, String type){
         JSONObject Response = new JSONObject();
         try{
-            boolean exist = USERDB.insert(name, "","","");
+            boolean exist =  USERDB.insert(name, email,password,type);
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");
             }else{
-//                USERDB.insert(name, password);
+
                 Response.put("status", true);
                 Response.put("msg","User Successfully created");
 

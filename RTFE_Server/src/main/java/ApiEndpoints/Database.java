@@ -40,7 +40,7 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer, name varchar(250), email varchar(250) primary key, password varchar(250), deviceID integer, userType varchar(250), userDate date);");
+            query.execute("create table if not exists users(id integer AUTO_INCREMENT, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -54,19 +54,117 @@ public class Database {
      * @param pass: is a string of user password
      */
     public boolean insert(String name, String email, String pass, String type){
+        output();
+
         boolean val = true;
         try{
             query = con.createStatement();
-            val = query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+pass+"\'"+", " + "\'"+type+"\')");
-            val = false;
+            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+pass+"\'"+", " + "\'"+type+"\')");
+
             query = null;
         }catch(Exception e){
+            val = false;
+
             System.out.println(e.getMessage());
         }
-        System.out.println("val: " + val);
+        return !val;
+    }
+    /**
+     * function can be used to edit user email
+     * @param email: is a string of user email for identification to find row to update
+     * @param newEmail: is a string of new email
+     */
+    public boolean updateEmail(String email, String newEmail)
+    {
+        boolean val;
+        try{
+            query = con.createStatement();
+            query.execute("update users set email = " + "\'" + newEmail + "\' where email = " + "\'" +email +"\'");
+            val = true;
+            query = null;
+        }catch(Exception e){
+            val = false;
+            System.out.println(e.getMessage());
+        }
         return val;
     }
-
+    /**
+     * function can be used to edit deviceID
+     * @param email: is a string of user email for identification to find row to update
+     * @param deviceID: is a string of devide ID to change to
+     */
+    public boolean updateDeviceID(String email, String deviceID)
+    {
+        output();
+        boolean val;
+        try{
+            query = con.createStatement();
+            query.execute("update users set deviceID = " + "\'" + deviceID + "\' where email = " + "\'" +email+"\'");
+            val = true;
+            query = null;
+        }catch(Exception e){
+            val = false;
+            System.out.println(e.getMessage());
+        }
+        return val;
+    }
+    /**
+     * function can be used to edit duser password
+     * @param email: is a string of user email for identification to find row to update
+     * @param password: is a string of devide ID to change to
+     */
+    public boolean updatePassword(String email, String password)
+    {
+        boolean val;
+        try{
+            query = con.createStatement();
+            query.execute("update users set password = " + "\'" + password + "\' where email = " + "\'"+email+"\'");
+            val = true;
+            query = null;
+        }catch(Exception e){
+            val = false;
+            System.out.println(e.getMessage());
+        }
+        return val;
+    }
+    /**
+     * function can be used to edit user type
+     * @param email: is a string of user email for identification to find row to update
+     * @param type: is a string of user type to change to
+     */
+    public boolean updateType(String email, String type)
+    {
+        boolean val;
+        try{
+            query = con.createStatement();
+            query.execute("update users set userType = " + "\'" + type + "\' where email = " + "\'"+email+"\'");
+            val = true;
+            query = null;
+        }catch(Exception e){
+            val = false;
+            System.out.println(e.getMessage());
+        }
+        return val;
+    }
+    /**
+     * function can be used to edit uder name
+     * @param email: is a string of user email for identification to find row to update
+     * @param name: is a string of user name to change to
+     */
+    public boolean updateName(String email, String name)
+    {
+        boolean val;
+        try{
+            query = con.createStatement();
+            query.execute("update users set name = " + "\'" + name + "\' where email = " + "\'"+email+"\'");
+            val = true;
+            query = null;
+        }catch(Exception e){
+            val = false;
+            System.out.println(e.getMessage());
+        }
+        return val;
+    }
     /**
      * function can be used to REMOVE a user from the users table
      * @param name: is a string of user name
@@ -89,8 +187,11 @@ public class Database {
         try{
             while(result.next()){
                 System.out.print("|id : " + result.getInt("id"));
-                System.out.print("|name : " + result.getString("name"));
-                System.out.print("|password : " + result.getString("password"));
+                System.out.print("    |email : " + result.getString("email"));
+                System.out.print("    |name : " + result.getString("name"));
+                System.out.print("    |password : " + result.getString("password"));
+                System.out.print("    |userType : " + result.getString("userType"));
+                System.out.print("    |deviceID : " + result.getString("deviceID"));
                 System.out.println("");
             }
         }catch (Exception e){
@@ -112,6 +213,7 @@ public class Database {
         }catch(Exception e){
             printError(e,sql);
         }
+
         return  false;
     }
 
@@ -188,7 +290,7 @@ public class Database {
     public void write(String name, String email, String pass, String type)
     {
         lock.lock();
-        insert(name, email, pass, type);
+//        insert(name, email, pass, type);
         try {
 
             FileWriter fileWriter =
@@ -211,18 +313,17 @@ public class Database {
     }
 
     /*
-    * If ONLY a name is provided it will check if that name exists in the database
-    *
-    * if a password is provided it will check if that password matches the one in the db
-    * */
+     * If ONLY a name is provided it will check if that name exists in the database
+     *
+     * if a password is provided it will check if that password matches the one in the db
+     * */
 
-    public boolean search(String name,String pass)
+    public boolean search(String email,String pass)
     {
-        output();
         try{
 
             query = con.createStatement();
-            ResultSet result = select("select count(*) as rowcount from users where name = '"+name+"' and password = '"+pass+"'");
+            ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"'");
             query = null;
             if (result.getInt("rowcount") > 0) return true;
         }catch(Exception e){
