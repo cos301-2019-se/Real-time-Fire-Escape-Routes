@@ -54,7 +54,7 @@ public class Database {
      * @param pass: is a string of user password
      */
     public boolean insert(String name, String email, String pass, String type){
-        output();
+        lock.lock();
 
         boolean val = true;
         try{
@@ -67,6 +67,7 @@ public class Database {
 
             System.out.println(e.getMessage());
         }
+        lock.unlock();
         return !val;
     }
     /**
@@ -76,6 +77,7 @@ public class Database {
      */
     public boolean updateEmail(String email, String newEmail)
     {
+        lock.lock();
         boolean val;
         try{
             query = con.createStatement();
@@ -86,6 +88,7 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
+        lock.unlock();
         return val;
     }
     /**
@@ -95,6 +98,7 @@ public class Database {
      */
     public boolean updateDeviceID(String email, String deviceID)
     {
+        lock.lock();
         output();
         boolean val;
         try{
@@ -106,6 +110,7 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
+        lock.unlock();
         return val;
     }
     /**
@@ -115,6 +120,7 @@ public class Database {
      */
     public boolean updatePassword(String email, String password)
     {
+        lock.lock();
         boolean val;
         try{
             query = con.createStatement();
@@ -125,6 +131,7 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
+        lock.unlock();
         return val;
     }
     /**
@@ -134,6 +141,7 @@ public class Database {
      */
     public boolean updateType(String email, String type)
     {
+        lock.lock();
         boolean val;
         try{
             query = con.createStatement();
@@ -144,6 +152,7 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
+        lock.unlock();
         return val;
     }
     /**
@@ -153,6 +162,7 @@ public class Database {
      */
     public boolean updateName(String email, String name)
     {
+        lock.lock();
         boolean val;
         try{
             query = con.createStatement();
@@ -163,6 +173,7 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
+        lock.unlock();
         return val;
     }
     /**
@@ -170,6 +181,7 @@ public class Database {
      * @param name: is a string of user name
      */
     public boolean delete(String name){
+        lock.lock();
         boolean val = false;
         try{
 
@@ -179,6 +191,7 @@ public class Database {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        lock.unlock();
         return val;
     }
     public void output()
