@@ -41,8 +41,8 @@ public class DatabaseTest {
         String type = "admin";
         d.insert(name,email, pass,type);
         System.out.println("Databse user insertion --  passed");
-        boolean actual = d.search(name, pass);
-        boolean expected = false;
+        boolean actual = d.search(email, pass);
+        boolean expected = true;
 
         Assert.assertEquals(actual, expected);
         System.out.println("Databse searching  --  passed");
@@ -53,9 +53,9 @@ public class DatabaseTest {
     {
         Database d = new Database();
 
-        String name = "testEmail@gmail.com";
-        boolean actual = d.delete(name);
-        boolean expected = false;
+        String email = "testEmail@gmail.com";
+        boolean actual = d.delete(email);
+        boolean expected = true;
         Assert.assertEquals(actual, expected);
         System.out.println("Databse record removal  --  passed");
         d.close();

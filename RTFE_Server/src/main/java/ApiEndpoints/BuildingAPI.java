@@ -71,6 +71,9 @@ public class BuildingAPI extends API {
     }
 
     private static String getPersonInfo(JSONObject request) {
+        if(building== null){
+            return "Person is not in building";
+        }
         Vector<Person> people = building.getPeople();
         String id = (String)request.get("device_id");
         Person person = null;
