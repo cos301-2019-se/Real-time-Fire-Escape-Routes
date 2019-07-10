@@ -31,7 +31,7 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        static final boolean verbose = false;
+        static final boolean verbose = true;
         private JSONObject lastBuild = null;
 
         public HTTPServer(Building b){
