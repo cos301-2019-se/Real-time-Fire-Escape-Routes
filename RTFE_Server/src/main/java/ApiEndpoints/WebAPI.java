@@ -28,7 +28,7 @@ public class WebAPI extends API {
             }
             case"login":
             {
-                response = login((String)request.get("name"), (String)request.get("pass"));
+                response = login((String)request.get("email"), (String)request.get("pass"));
                 return response;
             }
             case "getUsersInBuilding":
@@ -291,11 +291,11 @@ public class WebAPI extends API {
         }
         return Response;
     }
-    private static JSONObject login(String name, String password){
+    private static JSONObject login(String email, String password){
 
         JSONObject Response = new JSONObject();
         try{
-            boolean status= USERDB.search(name, password);
+            boolean status= USERDB.search(email, password);
             Response.put("status", status);
             if(status)
                 Response.put("msg","Login success");
