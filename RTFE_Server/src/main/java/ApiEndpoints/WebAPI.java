@@ -31,6 +31,11 @@ public class WebAPI extends API {
                 response = login((String)request.get("name"), (String)request.get("pass"));
                 return response;
             }
+            case "getUsersInBuilding":
+            {
+                response = getUsersInBuilding((int)request.get("building_id"));
+                return response;
+            }
             case"update":
             {
                 String typeOfUpdate = (String)request.get("typeOfUpdate");
@@ -90,6 +95,14 @@ public class WebAPI extends API {
         }
 
         throw new Exception("Unsupported Request");
+    }
+    private static  JSONObject getUsersInBuilding(int building_id)
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Users in building returned");
+        Response.put("data", USERDB.getUsersInBuilding(building_id));
+        return Response;
     }
     private static JSONObject getUsers()
     {

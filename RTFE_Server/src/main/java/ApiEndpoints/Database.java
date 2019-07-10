@@ -48,7 +48,22 @@ public class Database {
         }
 
     }
-
+    public String getUsersInBuilding(int building_id)
+    {
+        ResultSet result = select("select ub_user_id from user_building where ub_building_id = " + building_id);
+        Vector<String> ret = new Vector<String>();
+        try{
+            while(result.next()){
+                ret.add(String.valueOf(result.getInt("ub_user_id")));
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return ret.toString();
+    }
+    /**
+     * function used to return all users in users table
+     */
     public String getUsers() {
         ResultSet result = select("select * from users order by id desc");
         Vector<String> ret = new Vector<String>();
