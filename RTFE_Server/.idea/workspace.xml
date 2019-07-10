@@ -7,7 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8784d2cc-6e89-443f-a1d4-0f0a888c6710" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/classes/DatabaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/classes/DatabaseTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -118,11 +121,17 @@
       <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
+            <state relative-caret-position="-3244">
               <caret line="91" column="18" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
               <folding>
                 <element signature="method#Database#0;class#Database#0" />
                 <element signature="method#createTable#0;class#Database#0" />
+                <element signature="method#getUsersInBuilding#0;class#Database#0" />
+                <element signature="method#getUsers#0;class#Database#0" />
+                <element signature="method#updateEmail#0;class#Database#0" />
+                <element signature="method#updateDeviceID#0;class#Database#0" />
+                <element signature="method#updatePassword#0;class#Database#0" />
+                <element signature="method#updateType#0;class#Database#0" />
               </folding>
             </state>
           </provider>
@@ -159,11 +168,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DatabaseTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/DatabaseTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+            <state relative-caret-position="157">
+              <caret line="41" column="59" lean-forward="true" selection-start-line="41" selection-start-column="59" selection-end-line="41" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -177,10 +186,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BuildingAPI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BuildingAPI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
+            <state relative-caret-position="174">
               <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
               <folding>
                 <element signature="method#handleRequest#0;class#BuildingAPI#0" />
@@ -552,10 +561,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Building/Person.java" />
         <option value="$PROJECT_DIR$/src/main/java/Building/Building.java" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/DatabaseTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" />
+        <option value="$PROJECT_DIR$/src/test/java/DatabaseTest.java" />
       </list>
     </option>
   </component>
@@ -805,11 +814,11 @@
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067115" side_tool="true" weight="0.32719547" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.34562212" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.516129" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32936078" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3001464" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.3001464" />
       <window_info anchor="right" id="Gradle" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -850,6 +859,40 @@
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
       <window_info id="Designer" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" id="Maven" order="0" />
+      <window_info anchor="bottom" id="Build" order="11" sideWeight="0.49932885" weight="0.32719547" />
+      <window_info id="Designer" order="3" />
+      <window_info anchor="right" id="Palette" order="10" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34942287" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32936078" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Commander" order="1" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067115" side_tool="true" weight="0.32719547" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32719547" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+      <window_info anchor="right" id="Gradle" order="4" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2808607" />
+      <window_info anchor="right" id="Database" order="9" visible="true" weight="0.0" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.39784947" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -1110,13 +1153,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/DatabaseTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/WebAPITest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1143,20 +1179,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="91" column="18" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
-          <folding>
-            <element signature="method#Database#0;class#Database#0" />
-            <element signature="method#createTable#0;class#Database#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
+        <state relative-caret-position="174">
           <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
           <folding>
             <element signature="method#handleRequest#0;class#BuildingAPI#0" />
@@ -1167,6 +1192,30 @@
             <element signature="method#getRoutes#0;class#BuildingAPI#0" />
             <element signature="method#peopleToUnity#0;class#BuildingAPI#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3244">
+          <caret line="91" column="18" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
+          <folding>
+            <element signature="method#Database#0;class#Database#0" />
+            <element signature="method#createTable#0;class#Database#0" />
+            <element signature="method#getUsersInBuilding#0;class#Database#0" />
+            <element signature="method#getUsers#0;class#Database#0" />
+            <element signature="method#updateEmail#0;class#Database#0" />
+            <element signature="method#updateDeviceID#0;class#Database#0" />
+            <element signature="method#updatePassword#0;class#Database#0" />
+            <element signature="method#updateType#0;class#Database#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/DatabaseTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="41" column="59" lean-forward="true" selection-start-line="41" selection-start-column="59" selection-end-line="41" selection-end-column="59" />
         </state>
       </provider>
     </entry>

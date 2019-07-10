@@ -39,13 +39,10 @@ public class DatabaseTest {
         String email = "testEmail@gmail.com";
         String pass = "pass";
         String type = "admin";
-        d.insert(name,email, pass,type);
-        System.out.println("Databse user insertion --  passed");
-        boolean actual = d.search(email, pass);
-        boolean expected = true;
-
+        boolean actual =   d.insert(name,email, pass,type);
+        boolean expected = false;
         Assert.assertEquals(actual, expected);
-        System.out.println("Databse searching  --  passed");
+        System.out.println("Databse user insertion --  passed");
         d.close();
     }
     @Test
