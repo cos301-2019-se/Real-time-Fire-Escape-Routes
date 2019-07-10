@@ -78,18 +78,34 @@
 		
 
 		#content{height: 90%; padding-right: 2%; padding-left: 2%; }
-		#main-body-admin{padding-top: 2%; padding-right: 5%; padding-left: 5%; padding-bottom: 2%; height: 75%; width: 70%;
+		#main-body-admin{padding-top: 2%; padding-right: 5%; padding-left: 5%; padding-bottom: 2%; height: 85%; width: 70%;
 			background-color: #303e47;
 			padding-right: 4%;
 			padding-left: 4%;
             margin-top: 2%;
             margin-bottom: 2%;
             margin-left: 16%;
-        	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);}
+        	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);
+        	}
 
         #adminView-table{
         	margin-top: 1%;
         }
+
+        .fixed_header tbody{
+        	display: block;
+        	overflow: auto;
+        	max-height: 200px;
+        	width: 100%;
+        	padding-bottom: 2%;
+        }
+
+	.fixed_header tbody tr td{
+        	width: fit-content;
+        }
+
+        .fixed_header thead tr{display: block; }
+        .fixed_header thead tr th{padding-left: 5%;}
 
 		#building-drop{margin-top: 2%;
 					margin-bottom: 2%;}
@@ -295,10 +311,11 @@
 	<div id="overlay-window" class="container-fluid" style="display: none;">
   			
   		</div>
-  	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  	<script type="text/javascript" src="jquery-3.4.1.js"></script>
+  	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="jquery-3.4.1.js"></script>
+    <!-- v -->
     <script type="text/javascript" src="script1.js"></script>
   </body>
 
