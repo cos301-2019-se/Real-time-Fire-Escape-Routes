@@ -7,51 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8784d2cc-6e89-443f-a1d4-0f0a888c6710" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/Real-time-Fire-Escape-Routes.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/RTFE_server.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/RTFE_server.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/ApiEndpoints/API.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/ApiEndpoints/BuildingAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/ApiEndpoints/BuildingGenerationAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/ApiEndpoints/Database.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/ApiEndpoints/WebAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Builder/Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Builder/BuildingManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Builder/DoorBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Builder/PersonManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Builder/RoomBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Builder/StairsBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Building.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Door.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Fire.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Node$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/NodeType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Path.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Person.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Room$Corner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Room.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/RoomType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Routes.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Building/Stairs.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/HTTPServer$HTTPClientConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/HTTPServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/production/main/Server.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/test/test/BuilderTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/test/test/BuildingAPITest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/test/test/BuildingGenerationAPITest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/test/test/DatabaseTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/test/test/HTTPServerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/test/test/WebAPITest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/HTTPServer$HTTPClientConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/HTTPServer$HTTPClientConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/HTTPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/HTTPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -93,6 +57,21 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="963220511">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.29" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="876" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -116,8 +95,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
-              <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
+            <state relative-caret-position="459">
+              <caret line="63" column="19" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="19" />
+              <folding>
+                <element signature="e#1686#1694#0" expanded="true" />
+                <element signature="e#1911#1919#0" expanded="true" />
+                <element signature="e#8887#8888#0" expanded="true" />
+                <element signature="e#8965#8966#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -125,15 +110,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+            <state relative-caret-position="-4">
+              <caret line="95" column="5" lean-forward="true" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1017902e-e812-4b6a-a7b6-9f8b1865597e/console.sql">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -148,7 +131,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5814">
+            <state relative-caret-position="5831">
               <caret line="371" selection-start-line="371" selection-end-line="371" />
             </state>
           </provider>
@@ -571,10 +554,16 @@
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="55" />
-    <option name="width" value="1464" />
-    <option name="height" value="1088" />
+    <option name="x" value="56" />
+    <option name="width" value="943" />
+    <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -582,6 +571,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -623,16 +613,10 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="Builder" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="sqlite-jdbc-3.27.2.1.jar" type="ab9368bb:PsiFileNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -641,9 +625,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562681932776" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562749505943" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.2124506" />
     <property name="project.structure.side.proportion" value="0.20233919" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -666,7 +650,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.sqlite-jdbc-3.27.2.1.jar">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="RTFE_server.main" />
@@ -743,6 +727,7 @@
       <workItem from="1561367338341" duration="4255000" />
       <workItem from="1562237599651" duration="3238000" />
       <workItem from="1562671828788" duration="1663000" />
+      <workItem from="1562747011515" duration="2531000" />
     </task>
     <servers />
   </component>
@@ -752,22 +737,22 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37599000" />
+    <option name="totallyTimeSpent" value="40130000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29731545" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30044103" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34615386" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34615386" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.39784947" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -777,7 +762,8 @@
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067115" side_tool="true" weight="0.32719547" />
       <window_info anchor="bottom" id="Build" order="11" sideWeight="0.49932885" weight="0.32719547" />
-      <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.32719547" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32719547" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
       <window_info anchor="right" id="Maven" order="0" />
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -787,7 +773,7 @@
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info active="true" anchor="right" id="Database" order="9" visible="true" weight="0.20604026" />
+      <window_info anchor="right" id="Database" order="9" visible="true" weight="0.20562293" />
       <window_info anchor="right" id="Palette" order="10" />
     </layout>
   </component>
@@ -997,13 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/API.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1013,7 +992,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5814">
+        <state relative-caret-position="5831">
           <caret line="371" selection-start-line="371" selection-end-line="371" />
         </state>
       </provider>
@@ -1077,8 +1056,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+        <state relative-caret-position="-4">
+          <caret line="95" column="5" lean-forward="true" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="63" column="19" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="19" />
+          <folding>
+            <element signature="e#1686#1694#0" expanded="true" />
+            <element signature="e#1911#1919#0" expanded="true" />
+            <element signature="e#8887#8888#0" expanded="true" />
+            <element signature="e#8965#8966#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1124,7 +1119,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>10.0.1</last-edited>
+          <last-edited>11</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1141,7 +1136,6 @@
             <option name="proportions">
               <list>
                 <option value="0.20233919" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

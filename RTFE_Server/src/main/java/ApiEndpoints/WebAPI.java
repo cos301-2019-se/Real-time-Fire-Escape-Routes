@@ -67,6 +67,11 @@ public class WebAPI extends API {
                     return response;
                 }
             }
+            case "getUsers":
+            {
+                response = getUsers();
+                return response;
+            }
             case "register":
             {
                 response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("pass"),(String)request.get("userType"));
@@ -85,6 +90,14 @@ public class WebAPI extends API {
         }
 
         throw new Exception("Unsupported Request");
+    }
+    private static JSONObject getUsers()
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Users returned");
+        Response.put("data", USERDB.getUsers());
+        return Response;
     }
     private static JSONObject updateEmail(String email, String newEmail){
         JSONObject Response = new JSONObject();

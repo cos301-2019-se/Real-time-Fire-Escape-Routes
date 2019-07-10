@@ -1,15 +1,14 @@
 package ApiEndpoints;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.*;
-import java.util.Vector;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Scanner;
+import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.sql.*;
 
 public class Database {
     public String fileName;
@@ -41,6 +40,7 @@ public class Database {
         try{
             query = con.createStatement();
             query.execute("create table if not exists users(id integer AUTO_INCREMENT, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
+            query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250), building_data longtext);");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -48,6 +48,26 @@ public class Database {
 
     }
 
+    public String getUsers() {
+        ResultSet result = select("select * from users order by id desc");
+        Vector<String> ret = new Vector<String>();
+        try{
+            while(result.next()){
+                Vector<String> current = new Vector<String>();
+
+                current.add(String.valueOf(result.getInt("id")));
+                current.add(result.getString("email"));
+                current.add(result.getString("name"));
+                current.add(result.getString("password"));
+                current.add(result.getString("userType"));
+                current.add(result.getString("deviceID"));
+                ret.add(current.toString());
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return ret.toString();
+    }
     /**
      * function can be used to insert new users to the users table
      * @param name: is a string of user name
