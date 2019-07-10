@@ -10,214 +10,296 @@
 
 	<link rel="stylesheet" href="style.css" crossorigin="anonymous">
     <title>Real-time FER</title>
+    <style>
+    	.selector-for-some-widget {
+		  box-sizing: content-box;
+		}
+
+    	/*LAYOUT*/
+    	body{background-color: #243139;}
+    	#top-bar{background-color: #303e47;
+    				position: absolute;
+    				width: 100%;
+    				height: 10%;
+                    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);}
+    	#content{background-color: #243139;
+    				width: 100%;
+    				height: 90%;
+    				position: absolute;
+    				top: 10%;
+    			}
+
+    	/*TOP MENU*/
+    	#sys-name{text-align: left;
+				color: white;
+                margin-top: 0.5%;
+				font-size: 25pt;}
+				#top-stat{color:white;}
+		#img-logo{width: 30px;}
+		#img-toggle{width: 50px;}
+		/*#admin-super-choice{text-align: center;}*/
+		#admin-super-choice{
+			margin: 0.5%;
+		}
+		 button#super-user-view, button#admin-view{ margin-left: 5%;
+									height: 100%;
+									font-size: 16px;
+                                    color: aliceblue;}
+        button.active{ background-color: #261d1d;
+					color: aliceblue;}
+		.btn:hover{ background-color: #261d1d;
+			color: aliceblue;}
+
+			/************************************TABLE***************************************/
+		th{text-align: center;
+            color: white;}
+		td{text-align: center;
+            color: grey;}
+		.online-off-indicator img{
+
+
+			border-color: grey;
+			border-style: solid;
+			border-width: 1px;
+			border-radius: 50%;
+		}
+		.online-off-indicator img{
+			width: 10px;
+			
+		}
+		table {border-bottom-style: solid;
+				border-bottom-width: 2px;
+				border-bottom-color: grey;
+			border-top-style: solid;
+				border-top-width: 2px;
+				border-top-color: grey;}
+		/********************************MAIN BODY*********************************/
+
+		
+
+		#content{height: 90%; padding-right: 2%; padding-left: 2%; }
+		#main-body-admin{padding-top: 2%; padding-right: 5%; padding-left: 5%; padding-bottom: 2%; height: 75%; width: 70%;
+			background-color: #303e47;
+			padding-right: 4%;
+			padding-left: 4%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            margin-left: 16%;
+        	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);}
+
+        #adminView-table{
+        	margin-top: 1%;
+        }
+
+		#building-drop{margin-top: 2%;
+					margin-bottom: 2%;}
+		#building-drop h1{text-align: center;}
+		#img-drop{width: 30px;}
+		.img-edit{border-radius: 50%;
+					width: 30px;
+					padding: 1%;
+					margin-left: 1%;
+					border-width: 1px;
+					border-color: grey;
+		}
+		button.img-edit img{width: 20px;}
+		    #SU-table{background-color: #303e47;
+	        padding-right: 1%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+                box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);
+             }
+		#SU-simulation{background-color: #303e47;
+                margin-top: 2%;
+                margin-bottom: 2%;
+				 min-height: 650px;
+                width: 900px;
+				text-align: center;
+				padding-left: 0;
+                margin-left: 2%;
+            box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);}
+		#search-input{display: inline;
+						border-top:none;
+						border-left:none;
+						border-right:none;
+						border-radius: 0;
+						width: 200px;}
+
+		#search-input:enabled{
+				border-top-color: transparent;
+				border-left-color: transparent;
+				border-right-color: transparent;
+		}
+
+
+		#search-input-div{
+			text-align: right;
+			padding-right: 20px;
+			margin-bottom: 10px;
+		}
+
+		.rtferCard{
+							border-radius: 8px;
+							border-style: solid;
+							border-width: 1px;
+							border-color: #707070;
+							padding: 2%;
+                            box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);
+		}
+
+		#simulation-window{width: 75%;
+							height: 75%;
+							margin-top: 2%;
+							text-align: center;
+							display: inline-block;
+							background-color:white;
+							}
+		#add-bot-window, #add-fire-window{width: 75%;
+									margin-top: 2%;
+									height: 6%;	
+									text-align: left;
+									padding-left: 2%;
+									padding-right: 2%;
+									padding-top: 1%;
+									padding-bottom: 2%;
+									display: inline-block;
+									background-color:white;}
+
+
+		/*OVERLAY Window*/
+		#overlay-window{
+			position: absolute;
+			background-color: rgba(0,0,0, 0.7);
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		#contentCard{
+			width: 60%;
+			margin: 2%;
+			margin-left: 20%;
+			height: 80%;
+		}
+
+
+		@media only screen and (min-width: 298px) {
+		.arrow-span{margin-left: 35%;} 
+		} 
+
+		@media only screen and (min-width: 300px) {
+		.arrow-span{margin-left: 45%;} 
+		} 
+
+		@media only screen and (min-width: 350px) {
+		.arrow-span{margin-left: 50%;} 
+		}
+
+		@media only screen and (min-width: 400px) {
+		.arrow-span{margin-left: 58%;} 
+		}
+
+		@media only screen and (min-width: 450px) {
+		.arrow-span{margin-left: 60%;} 
+		}
+
+		@media only screen and (min-width: 500px) {
+		.arrow-span{margin-left: 66%;} 
+		} 
+
+		@media only screen and (min-width: 550px) {
+		.arrow-span{margin-left: 70%;} 
+		} 
+
+		@media only screen and (min-width: 600px) {
+		.arrow-span{margin-left: 74%;} 
+		} 
+
+		@media only screen and (min-width: 630px) {
+		.arrow-span{margin-left: 10%;} 
+		} 
+
+		@media only screen and (min-width: 650px) {
+		.arrow-span{margin-left: 20%;} 
+		} 
+
+
+		@media only screen and (min-width: 768px) {
+		.arrow-span{margin-left: 65%;} 
+		} 
+
+		@media only screen and (min-width: 800px) {
+		.arrow-span{margin-left: 65%;} 
+		} 
+
+		@media only screen and (min-width: 850px) {
+		.arrow-span{margin-left: 67%;} 
+		} 
+
+		@media only screen and (min-width: 900px) {
+		.arrow-span{margin-left: 70%;} 
+		} 
+
+		@media only screen and (min-width: 950px) {
+		.arrow-span{margin-left: 70%;}
+		 
+		} 
+
+		@media only screen and(min-width: 298px)
+		{
+			#SU-table .rtferCard{overflow-x: scroll;
+					overflow-y: scroll;}
+		}
+		
+		@media only screen and(min-width: 999px)
+		{
+			#SU-table .rtferCard{overflow-x: hidden;
+					overflow-y: hidden;}
+		}
+
+		@media only screen and (min-width: 1000px) {
+		.arrow-span{margin-left: 75%;} 
+		}
+
+		@media only screen and (min-width: 1100px) {
+		.arrow-span{margin-left: 77%;} 
+		}
+
+		@media only screen and (min-width: 1146px) {
+		.arrow-span{margin-left: 79%;} 
+		}
+
+		@media only screen and (min-width: 1250px) {
+		.arrow-span{margin-left: 80%;} 
+		}
+
+		@media only screen and (min-width: 1500px) {
+		.arrow-span{margin-left: 82%;} 
+		}
+
+/*****************************************************************/
+    </style>
   </head>
   <body>
-  	<div class="container-fluid" id="page">
-  		<div class="row">
-  			<div class="col-12" id="top-menu">
-  				<div class="row">
-  					<div class="col-4" id="top-stat" data-stat="superUser">
-  						<button style="margin: 0; padding: 0; display: inline;" class="btn" id="toggle-but"><img id="img-toggle" src="icons/greyToggleOff.png"></button>
-  						<span id="cur-stat">Super user</span>
-  					</div>
-  					<div class="col-4">
-  						<h1 id="sys-name">
-	  					<img id="img-logo" src="img/grey.png">
-	  					Real-time FER
-	  					</h1>
-  					</div>
-  					<div class="col-4">
-  					</div>
-  				</div>
-  				
-  			</div>
+
+  	<div class="container-fluid">
+  		<div class="row" id="top-bar">
   			
   		</div>
-  		<!-- <div class="row" id="main-body" >
+  		<div class="row" id="content">
   			
-  		</div> -->
-  		<div class="row" id="main-body-superuser">
-  			<div class="col-md-5" id="left" >
-  				
-	  			<div class="row">
-	  				<div class="col-12" id="building-drop">
-		  				<h1>Building name
-		  				<button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button>
-		  				</h1>
-	  				</div>
-	  			</div>
-	  				<div class="rtferCard">
-	  					<div class="row">
-	  					<div class="col-5"><h3>User Table</h3></div>
-	  					<div class="col-7" id="search-input-div">
-	  						<img id="img-drop" src="icons/baseline_search_black_18dp.png">
-	  						<input id="search-input" class="form-control" type="search" placeholder="Search" aria-label="Search">
-	  					</div>
-	  				</div>
-	  				<table class="table">
-					  <thead>
-					    <tr>
-					      <th scope="col">Name</th>
-					      <th scope="col">Email</th>
-					      <th scope="col">Device_ID</th>
-					      <th scope="col">Type</th>
-					      <th scope="col">Status</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr>
-					      <td scope="row">John Doe</td>
-					      <td>doe@gmail.com</td>
-					      <td>123456789</td>
-					      <td>Admin</td>
-					      <td>Online <span class="online-off-indicator"><img src="icons/online.png"/></span></td>
-					      
-					    </tr>
-					    <tr>
-					      <td scope="row">John Moe</td>
-					      <td>moe@gmail.com</td>
-					      <td>123456789</td>
-					      <td>Agent</td>
-					      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
-					      
-					    </tr>
-					    <tr>
-					      <td scope="row">Larry the Bird</td>
-					      <td>theBird@gmail.com</td>
-					      <td>123456789</td>
-					      <td>Agent</td>
-					      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
-					      
-					    </tr>
-					  </tbody>
-					</table>
-				</div>
-			</div>
-  			<div class="col-md" id="right">
-  				<div id="simulation-window" class="rtferCard">
-  					Simulation
-  				</div>
-  				<div id="add-bot-window" class="row rtferCard">
-  					<!--<div class="col-sm-6">
-  						Add bot
-  					</div>
-  					<div class="col-sm-6">
-  						<img id="img-drop" src="icons/grey_small_arrow.png">
-  					</div>-->
-  					<span style="margin-bottom: 2%;">Add bot</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
-  				</div>
-  				<div id="add-fire-window" class="row rtferCard">
-  					<span style="margin-bottom: 2%;">Add fire</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
-  				</div>
-  			</div>
   		</div>
-	  		<div id="main-body-admin" style="display : none;">
-	  			<div class="row">
-	  				<div class="col-7" style="text-align: right; padding-bottom: 1%;">
-	  				<h1>Building name
-	  				<button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button>
-	  				</h1>
-  					</div>
-  					<div class="col-5" style="text-align: right; padding-top: 1%;">
-  						<button class="btn btn-light">
-  							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
-  						</button>
-  					</div>
-	  			</div>
-	  			<div class="rtferCard">
-  				<div class="row">
-  					<div class="col-6"><h3>User Table</h3></div>
-  					<div class="col-6" id="search-input-div">
-  						<img id="img-drop" src="icons/baseline_search_black_18dp.png">
-  						<input id="search-input" class="form-control" type="search" placeholder="Search" aria-label="Search">
-  					</div>
-  				</div>
-  				
-  				
-  				<table class="table">
-				  <thead>
-				    <tr>
-				      <th scope="col">Name</th>
-				      <th scope="col">Email</th>
-				      <th scope="col">Device_ID</th>
-				      <th scope="col">Type</th>
-				      <th scope="col">Status</th>
-				      <th scope="col">Edit</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				    <tr>
-				      <td scope="row">John Doe</td>
-				      <td>doe@gmail.com</td>
-				      <td>123456789</td>
-				      <td>Admin</td>
-				      <td>Online <span class="online-off-indicator"><img src="icons/online.png"/></span></td>
-				      <td ><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
-				    </tr>
-				    <tr>
-				      <td scope="row">John Moe</td>
-				      <td>moe@gmail.com</td>
-				      <td>123456789</td>
-				      <td>Agent</td>
-				      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
-				      <td ><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
-				    </tr>
-				    <tr>
-				      <td scope="row">Larry the Bird</td>
-				      <td>theBird@gmail.com</td>
-				      <td>123456789</td>
-				      <td>Agent</td>
-				      <td>Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span></td>
-				      <td><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
-				    </tr>
-				  </tbody>
-				</table>
-				<div class="row">
-	  				<div class="col-7" style="text-align: right; padding-bottom: 1%;">
-	  				
-  					</div>
-  					<div class="col-5" style="text-align: right; padding-top: 1%;">
-  						<button class="btn btn-light">
-  							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add user 
-  						</button>
-  					</div>
-	  			</div>
-			</div>
-	  		</div>
-		</div>
-	</div>
-
-	
-    
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  		
+  	</div>
+	<div id="overlay-window" class="container-fluid" style="display: none;">
+  			
+  		</div>
+  	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-   <!--  <script src="bootstrap/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="bootstrap/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="bootstrap/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
-
-
     <script type="text/javascript" src="jquery-3.4.1.js"></script>
-    <script type="text/javascript" src="script.js"></script>
-
-    <script type="text/javascript">
-    	function onlineOffline(elem)
-    	{
-    		if($(elem).val() === "Offline")
-    		{
-
-    		}
-    		else
-    		{
-
-    		}
-    	}
-    </script>
+    <script type="text/javascript" src="script1.js"></script>
   </body>
-</html>
+
+  </html>
