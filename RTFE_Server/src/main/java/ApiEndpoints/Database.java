@@ -135,7 +135,6 @@ public class Database {
     public boolean updateDeviceID(String email, String deviceID)
     {
         lock.lock();
-        output();
         boolean val;
         try{
             query = con.createStatement();
