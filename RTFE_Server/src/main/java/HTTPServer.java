@@ -11,19 +11,18 @@
  * @date 28/05/2019
  */
 
+import ApiEndpoints.BuildingAPI;
+import ApiEndpoints.BuildingGenerationAPI;
+import ApiEndpoints.WebAPI;
+import Building.Building;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
-
-import ApiEndpoints.*;
-import Building.*;
-import Builder.BuildingManager;
-import org.json.*;
-
-import static ApiEndpoints.WebAPI.*;
 
 
 public class HTTPServer extends Server{
@@ -305,6 +304,7 @@ public class HTTPServer extends Server{
                     }
                 } catch (FileNotFoundException fnfe) {
                     try {
+                        System.out.println("Attemping to send "+fileRequested);
                         fileNotFound(out, dataOut, fileRequested);
                     } catch (IOException ioe) {
                         System.err.println("Error with file not found exception : " + ioe.getMessage());
