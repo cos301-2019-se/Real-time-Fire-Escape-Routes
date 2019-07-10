@@ -1,6 +1,5 @@
 package Building;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 public class Room {
@@ -305,7 +304,7 @@ public class Room {
         for (int i = 0; i < getRooms().size(); i++) {
             ListOfPeople.addAll(getRooms(i).getPeople());
         }
-        System.out.println("People In Room "+roomType.toString() +" is "+peopleInRoom.size());
+//        System.out.println("People In Room "+roomType.toString() +" is "+peopleInRoom.size());
         ListOfPeople.addAll(peopleInRoom);
         return ListOfPeople;
     }

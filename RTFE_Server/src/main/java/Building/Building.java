@@ -22,6 +22,7 @@ public class Building {
       private Vector<Room> Floor= new Vector<>();
       private int id;
       private boolean verbose = true;
+      public boolean emergancy = false;
       private double floorHeight = 3.0; //needed for connecting stairs
 
       public Vector<Routes> getRoutes() {
@@ -50,6 +51,17 @@ public class Building {
                   PeopleList.addAll(Floor.get(i).getPeople());
             }
             return PeopleList;
+      }
+
+      public boolean bindPerson(int id, String deviceID){
+          Vector<Person> people =getPeople();
+          for (Person p :people) {
+              if(p.personID == id){
+                  p.deviceID = deviceID;
+                  return true;
+              }
+          }
+          return false;
       }
 
     /**
