@@ -23,12 +23,17 @@ public class WebAPI extends API {
         switch ((String)request.get("type")){
             case "remove":
             {
-                response = remove((String)request.get("name"));
+                response = remove((String)request.get("email"));
                 return response;
             }
             case"login":
             {
-                response = login((String)request.get("name"), (String)request.get("pass"));
+                response = login((String)request.get("email"), (String)request.get("pass"));
+                return response;
+            }
+            case "getUsersInBuilding":
+            {
+                response = getUsersInBuilding((int)request.get("building_id"));
                 return response;
             }
             case"update":
@@ -90,6 +95,14 @@ public class WebAPI extends API {
         }
 
         throw new Exception("Unsupported Request");
+    }
+    private static  JSONObject getUsersInBuilding(int building_id)
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Users in building returned");
+        Response.put("data", USERDB.getUsersInBuilding(building_id));
+        return Response;
     }
     private static JSONObject getUsers()
     {
@@ -264,9 +277,9 @@ public class WebAPI extends API {
         return Response;
     }
 
-    private static JSONObject remove(String name) {
+    private static JSONObject remove(String email) {
         JSONObject Response = new JSONObject();
-        boolean exist = USERDB.delete(name);
+        boolean exist = USERDB.delete(email);
         if (exist) {
             Response.put("status", true);
             Response.put("msg", "User successfully removed");
@@ -278,11 +291,11 @@ public class WebAPI extends API {
         }
         return Response;
     }
-    private static JSONObject login(String name, String password){
+    private static JSONObject login(String email, String password){
 
         JSONObject Response = new JSONObject();
         try{
-            boolean status= USERDB.search(name, password);
+            boolean status= USERDB.search(email, password);
             Response.put("status", status);
             if(status)
                 Response.put("msg","Login success");
