@@ -34,13 +34,14 @@ public class DatabaseTest {
     {
         Database d = new Database();
         //TEST FILE WRITING AND READING
-        String name = "Json";
-        String pass = "12345";
-        d.write(name, pass);
-        System.out.println("Databse file writing  --  passed");
-        boolean actual = d.search(name, pass);
-        boolean expected = true;
-        Assert.assertEquals(actual, expected);
+        String name = "TestingUserAccount";
+        String pass = "testingPassword123";
+        String email = "TestingUserAccount@gmail.com";
+        String type = "admin";
+
+
+        boolean actual =  d.insert(name, email,pass,type);
+        Assert.assertEquals(actual, true);
         System.out.println("Databse file searching  --  passed");
     }
     @Test
@@ -48,8 +49,8 @@ public class DatabaseTest {
     {
         Database d = new Database();
 
-        String name = "Json";
-        d.remove(name);
+        String name = "TestingUserAccount";
+        d.delete(name);
         String expected = "Found and removed" + name + "\n\r" + "\n\t";
         String actual = d.remove(name);
         System.out.println(actual);
