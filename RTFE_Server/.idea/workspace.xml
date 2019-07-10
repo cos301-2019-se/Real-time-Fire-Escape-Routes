@@ -7,11 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8784d2cc-6e89-443f-a1d4-0f0a888c6710" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/RTFE_server.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/RTFE_server.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/classes/DatabaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/classes/DatabaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -62,7 +61,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1693" />
+          <entry key="JAVA" value="1728" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -86,8 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="134" column="19" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="64" />
+            <state relative-caret-position="146">
+              <caret line="215" column="19" selection-start-line="215" selection-start-column="19" selection-end-line="215" selection-end-column="19" />
               <folding>
                 <element signature="e#2043#2051#0" expanded="true" />
                 <element signature="e#1686#1694#0" expanded="true" />
@@ -102,8 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-17">
-              <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+            <state relative-caret-position="197">
+              <caret line="25" column="60" selection-start-line="25" selection-start-column="60" selection-end-line="25" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -227,12 +226,12 @@
       <find>Database</find>
       <find>WebAPI</find>
       <find>Da</find>
-      <find>remove</find>
       <find>sel</find>
       <find>insert</find>
       <find>sea</find>
-      <find>delete</find>
       <find>updateDe</find>
+      <find>delete</find>
+      <find>remove</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -562,9 +561,9 @@
         <option value="$PROJECT_DIR$/src/main/java/Building/Building.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/DatabaseTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
-        <option value="$PROJECT_DIR$/src/test/java/DatabaseTest.java" />
       </list>
     </option>
   </component>
@@ -574,8 +573,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="56" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="55" />
     <option name="width" value="943" />
     <option name="height" value="1087" />
   </component>
@@ -652,7 +651,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562753841560" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1562754649363" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.2124506" />
@@ -677,7 +676,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DatabaseTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="RTFE_server.main" />
@@ -729,8 +728,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DatabaseTest" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.DatabaseTest" />
         <item itemvalue="JAR Application.sqlite-jdbc-3.27.2.1.jar" />
         <item itemvalue="JUnit.BuilderTest" />
         <item itemvalue="JUnit.BuildingGenerationAPITest" />
@@ -755,12 +754,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HTTPServerTest_testOne - 2019.06.03 at 17h 58m 22s.xml">
-      <configuration name="HTTPServerTest.testOne" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DatabaseTest - 2019.07.10 at 12h 03m 47s.xml">
-      <configuration name="DatabaseTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="DatabaseTest - 2019.07.10 at 12h 04m 20s.xml">
       <configuration name="DatabaseTest" configurationId="JUnit" />
     </history-entry>
@@ -782,15 +775,24 @@
     <history-entry file="DatabaseTest - 2019.07.10 at 12h 11m 19s.xml">
       <configuration name="DatabaseTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="DatabaseTest - 2019.07.10 at 12h 17m 09s.xml">
+      <configuration name="DatabaseTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DatabaseTest - 2019.07.10 at 12h 17m 24s.xml">
+      <configuration name="DatabaseTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DatabaseTest - 2019.07.10 at 12h 29m 00s.xml">
+      <configuration name="DatabaseTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42995000" />
+    <option name="totallyTimeSpent" value="43765000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
+    <frame x="55" y="0" width="943" height="1087" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30044103" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2808607" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -799,7 +801,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34615386" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34942287" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.39784947" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -820,7 +822,7 @@
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" id="Database" order="9" visible="true" weight="0.20562293" />
+      <window_info anchor="right" id="Database" order="9" visible="true" weight="0.0" />
       <window_info anchor="right" id="Palette" order="10" />
     </layout>
   </component>
@@ -1104,16 +1106,6 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1017902e-e812-4b6a-a7b6-9f8b1865597e/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/WebAPITest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1123,14 +1115,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="134" column="19" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="64" />
+        <state relative-caret-position="146">
+          <caret line="215" column="19" selection-start-line="215" selection-start-column="19" selection-end-line="215" selection-end-column="19" />
           <folding>
             <element signature="e#2043#2051#0" expanded="true" />
             <element signature="e#1686#1694#0" expanded="true" />
             <element signature="e#1911#1919#0" expanded="true" />
             <element signature="e#8887#8888#0" expanded="true" />
             <element signature="e#8965#8966#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="25" column="60" selection-start-line="25" selection-start-column="60" selection-end-line="25" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -23,7 +23,7 @@ public class WebAPI extends API {
         switch ((String)request.get("type")){
             case "remove":
             {
-                response = remove((String)request.get("name"));
+                response = remove((String)request.get("email"));
                 return response;
             }
             case"login":
@@ -277,9 +277,9 @@ public class WebAPI extends API {
         return Response;
     }
 
-    private static JSONObject remove(String name) {
+    private static JSONObject remove(String email) {
         JSONObject Response = new JSONObject();
-        boolean exist = USERDB.delete(name);
+        boolean exist = USERDB.delete(email);
         if (exist) {
             Response.put("status", true);
             Response.put("msg", "User successfully removed");

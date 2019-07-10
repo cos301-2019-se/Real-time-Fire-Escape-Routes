@@ -213,16 +213,16 @@ public class Database {
     }
     /**
      * function can be used to REMOVE a user from the users table
-     * @param name: is a string of user name
+     * @param email: is a string of user name
      */
-    public boolean delete(String name){
+    public boolean delete(String email){
         lock.lock();
         boolean val = false;
         try{
 
             query = con.createStatement();
-            val = query.execute("delete from users WHERE name = " + "\'" + name + "\'");
-            query = null;
+            query.execute("delete from users WHERE email = " + "\'" + email + "\'");
+            val = true;
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
