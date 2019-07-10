@@ -23,6 +23,13 @@ API calls
 	"password": "<password>"
 }
 
+(searching for user)
+{
+	"type": "login",
+	"email": "<email>",
+	"password": "" <-- this for password specifically
+}
+
 (getting users in certain building)
 {
 	"type": "getUsersInBuilding",
