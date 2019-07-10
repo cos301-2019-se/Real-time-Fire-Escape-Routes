@@ -368,123 +368,35 @@ public class Database {
 
     public boolean search(String email,String pass)
     {
-        try{
+        if(pass.compareTo("") == 0)
+        {
+            try{
 
-            query = con.createStatement();
-            ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"'");
-            query = null;
-            if (result.getInt("rowcount") > 0) return true;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+                query = con.createStatement();
+                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"'");
+                query = null;
+                if (result.getInt("rowcount") > 0) return true;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+            return false;
         }
-        return false;
+        else
+        {
+            try{
 
-//        boolean found = false;
-//        String line = null;
-//        String [] currentLine = new String[2];
-//        try {
-//            FileReader fileReader =
-//                    new FileReader(f);
-//
-//            BufferedReader bufferedReader =
-//                    new BufferedReader(fileReader);
-//
-//            while((line = bufferedReader.readLine()) != null && !found) {
-//                currentLine = line.split(",");
-////                System.out.println(currentLine[0]);
-//                if(currentLine[0].equals(name) )
-//                {
-////                    System.out.println("found user");
-//                    found = true;
-//                    break;
-//                }
-//
-//            }
-//
-//            bufferedReader.close();
-////            System.out.println("Found:"+found);
-////            System.out.println("pass match:"+currentLine[1].equals(pass));
-//            if(pass.equals("") || found == false){//normal search
-//                return found;
-//            }else{  // Login Attempt
-//                if(currentLine[1].equals(pass))
-//                    return true; // Pass match
-//                else
-//                    return false; // Pass failed
-//            }
-//
-//        }
-//        catch(FileNotFoundException ex) {
-//            System.out.println(
-//                    "Unable to open file '" +
-//                            fileName + "'");
-//        }
-//        catch(IOException ex) {
-//            System.out.println(
-//                    "Error reading file '"
-//                            + fileName + "'");
-//        }
-//        return false;
+                query = con.createStatement();
+                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + pass + "'");
+                query = null;
+                if (result.getInt("rowcount") > 0) return true;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+            return false;
+        }
+
     }
 
-    public String remove(String name)
-    {
-//        lock.lock();
-//        Vector<String> tempData = new Vector<String>();
-//        boolean found = false;
-//        String line = null;
-//        String ret = "";
-//        try {
-//            FileReader fileReader =
-//                    new FileReader(f);
-//
-//            BufferedReader bufferedReader =
-//                    new BufferedReader(fileReader);
-//
-//            while((line = bufferedReader.readLine()) != null) {
-//
-//                if(line.equals(name))
-//                {
-//                    found = true;
-//                    bufferedReader.readLine();
-//                }
-//                else
-//                {
-//                    tempData.add(line);
-//                }
-//            }
-//            if(found)
-//            {
-//                FileWriter fileWriter =
-//                        new FileWriter(f, false);
-//                fileWriter.close();
-//                for(int i = 0; i < (tempData.size()- 1) ; i += 2)
-//                {
-//                    write(tempData.get(i), tempData.get(i+1));
-//                }
-//                ret += "Found and removed ";
-//                ret += name += "\n\r";
-//                ret += "\n\t";
-//            }
-//            else
-//            {
-//                ret += "Name " + name + " not found" + "\n\r";
-//            }
-//            bufferedReader.close();
-//        }
-//        catch(FileNotFoundException ex) {
-//            System.out.println(
-//                    "Unable to open file '" +
-//                            fileName + "'");
-//        }
-//        catch(IOException ex) {
-//            System.out.println(
-//                    "Error reading file '"
-//                            + fileName + "'");
-//        }
-//        lock.unlock();
-//        return ret;
-        return null;
-    }
+
 
 }

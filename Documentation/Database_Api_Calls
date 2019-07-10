@@ -1,6 +1,14 @@
 API calls
 
 -- Database --
+(registering user)
+{
+	"type": "register",
+	"name": "<name>",
+	"email": "<email>",
+	"pass": "<password>",
+	"userType": "<userType>"
+}
 
 (removing user)
 {
