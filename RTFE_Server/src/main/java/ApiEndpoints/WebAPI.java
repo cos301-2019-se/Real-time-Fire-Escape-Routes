@@ -1,9 +1,9 @@
 package ApiEndpoints;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * @Description: The purpose of this Class is to simplify the HTTP server by
