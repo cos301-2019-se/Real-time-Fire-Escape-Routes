@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Scanner;
 import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -48,6 +47,11 @@ public class Database {
         }
 
     }
+    /**
+     * function returns all the users in a specific building
+     * @param building_id: an integer of the building ID
+     * @return String of users in building with their data
+     */
     public String getUsersInBuilding(int building_id)
     {
         ResultSet result = select("select ub_user_id from user_building where ub_building_id = " + building_id);
@@ -229,6 +233,9 @@ public class Database {
         lock.unlock();
         return val;
     }
+    /**
+     * function outputs all the values in the users table
+     */
     public void output()
     {
         ResultSet result = select("select * from users order by id desc");
@@ -335,37 +342,18 @@ public class Database {
         return ret;
     }
 
-    public void write(String name, String email, String pass, String type)
-    {
-        lock.lock();
-//        insert(name, email, pass, type);
-        try {
 
-            FileWriter fileWriter =
-                    new FileWriter(f, true);
-            BufferedWriter bufferedWriter =
-                    new BufferedWriter(fileWriter);
-
-            Scanner input = new Scanner(System.in);
-            bufferedWriter.write(name+","+pass);
-//            bufferedWriter.write(pass);
-            bufferedWriter.newLine();
-            bufferedWriter.close();
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error writing to file '"
-                            + fileName + "'");
-        }
-        lock.unlock();
-    }
 
     /*
      * If ONLY a name is provided it will check if that name exists in the database
      *
      * if a password is provided it will check if that password matches the one in the db
      * */
-
+    /**
+     * function searches user table for user, or logs in the user if password is provided
+     * @param email: the email for the user
+     * @param pass: the password for the user, or empty if just using function to search
+     */
     public boolean search(String email,String pass)
     {
         if(pass.compareTo("") == 0)

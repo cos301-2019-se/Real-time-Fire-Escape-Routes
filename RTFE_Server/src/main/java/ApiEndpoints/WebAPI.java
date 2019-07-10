@@ -14,7 +14,11 @@ public class WebAPI extends API {
 
     private static boolean verbose = true; //USED for debugging purposes
     private static Database USERDB = new Database();
-
+    /**
+     * function handles the requests made to the server
+     * @param request: the request object
+     * @return a JSONObject with the relevant information
+     */
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         //String reqType = (String)req.get("type");
         if(verbose)
@@ -96,6 +100,12 @@ public class WebAPI extends API {
 
         throw new Exception("Unsupported Request");
     }
+
+    /**
+     * function returns all the users in a specified building
+     * @param building_id: and int used to identify the building
+     * @return a JSONObject with the relevant information
+     */
     private static  JSONObject getUsersInBuilding(int building_id)
     {
         JSONObject Response = new JSONObject();
@@ -104,6 +114,11 @@ public class WebAPI extends API {
         Response.put("data", USERDB.getUsersInBuilding(building_id));
         return Response;
     }
+
+    /**
+     * function returns all the users registered on the system
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject getUsers()
     {
         JSONObject Response = new JSONObject();
@@ -112,6 +127,13 @@ public class WebAPI extends API {
         Response.put("data", USERDB.getUsers());
         return Response;
     }
+
+    /**
+     * function updates an email of a registered user
+     * @param email: the current email, used to identify the user
+     * @param newEmail: the new email for the user
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject updateEmail(String email, String newEmail){
         JSONObject Response = new JSONObject();
         try{
@@ -132,6 +154,13 @@ public class WebAPI extends API {
 
         return Response;
     }
+
+    /**
+     * function updates the password for a registered user
+     * @param email: the current email, used to identify the user
+     * @param password: the new password for the user
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject updatePassword(String email, String password){
         JSONObject Response = new JSONObject();
         try{
@@ -152,6 +181,13 @@ public class WebAPI extends API {
 
         return Response;
     }
+
+    /**
+     * function updates the deviceID for a registered user
+     * @param email: the current email, used to identify the user
+     * @param deviceID: the new deviceID for the user
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject updateDeviceID(String email, String deviceID){
         JSONObject Response = new JSONObject();
         try{
@@ -172,6 +208,13 @@ public class WebAPI extends API {
 
         return Response;
     }
+
+    /**
+     * function updates the name for a registered user
+     * @param email: the current email, used to identify the user
+     * @param name: the new name for the user
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject updateName(String email, String name){
         JSONObject Response = new JSONObject();
         try{
@@ -192,6 +235,13 @@ public class WebAPI extends API {
 
         return Response;
     }
+
+    /**
+     * function updates the userType for a registered user
+     * @param email: the current email, used to identify the user
+     * @param type: the new userType for the user
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject updateType(String email, String type){
         JSONObject Response = new JSONObject();
         try{
@@ -213,6 +263,12 @@ public class WebAPI extends API {
         return Response;
     }
 
+    /**
+     * function upload a new building to the system
+     * @param name: the building name
+     * @param file: the file containing the JSON data for the building
+     * @return a JSONObject with the relevant information
+     */
     private static  JSONObject uploadBuilding(String name, String file)
     {
         File dir = new File("./html"+ "/" + "Buildings/"  +name);
@@ -256,6 +312,15 @@ public class WebAPI extends API {
 
         return Response;
     }
+
+    /**
+     * function that adds a new user to the system
+     * @param name: the name for the user
+     * @param email: the email for the user
+     * @param password: the password for the new user
+     * @param type: the userType for the new user
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject register(String name, String email, String password, String type){
         JSONObject Response = new JSONObject();
         try{
@@ -277,6 +342,11 @@ public class WebAPI extends API {
         return Response;
     }
 
+    /**
+     * function that adds a new user to the system
+     * @param email: used to identify the user that will be removed
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject remove(String email) {
         JSONObject Response = new JSONObject();
         boolean exist = USERDB.delete(email);
@@ -291,6 +361,13 @@ public class WebAPI extends API {
         }
         return Response;
     }
+
+    /**
+     * function that adds a new user to the system
+     * @param email: used to identify the user that will be removed
+     * @param password: the password for the user
+     * @return a JSONObject with the relevant information
+     */
     private static JSONObject login(String email, String password){
 
         JSONObject Response = new JSONObject();
