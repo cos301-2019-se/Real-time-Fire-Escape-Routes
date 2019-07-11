@@ -1,12 +1,10 @@
-var activeSide = true; // true for super user view false for admin
-
 $(()=>{
 	/*if($("#top-stat").attr("data-stat") ==="superUser")
 	{
 		$('#main-body-superuser').show();
 	}*/
 	let rowForBar = $("#top-bar");
-
+	//fetchFromDb("getUsers");
 	rowForBar.append(echoTopBar);
 
 	let rowForContent = $("#content");
@@ -104,30 +102,7 @@ function echoContentTable_SuperUser()
 					    </tr>
 					  </thead>
 					  <tbody id="table-body-SU">
-					    <tr>
-					      <td scope="row">John Doe</td>
-					      <td>doe@gmail.com</td>
-					      <td>123456789</td>
-					      <td>Admin</td>
-					      <td>${statusIdentifier("Offline")}</td>
-					      
-					    </tr>
-					    <tr>
-					      <td scope="row">John Moe</td>
-					      <td>moe@gmail.com</td>
-					      <td>123456789</td>
-					      <td>Agent</td>
-					      <td>${statusIdentifier("Offline")}</td>
-					      
-					    </tr>
-					    <tr>
-					      <td scope="row">Larry the Bird</td>
-					      <td>theBird@gmail.com</td>
-					      <td>123456789</td>
-					      <td>Agent</td>
-					      <td>${statusIdentifier("Online")}</td>
-					      
-					    </tr>
+					    ${fetchFromDb("getUsers", "table-body-SU")}
 					  </tbody>
 					</table>
 				</div>
@@ -148,11 +123,12 @@ function echoSimulationWindow()
   						<img id="img-drop" src="icons/grey_small_arrow.png">
   					</div>-->
   					<span style="margin-bottom: 2%;">Add bot</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-bot" style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
   				</div>
+  				
   				<div id="add-fire-window" class="row rtferCard">
   					<span style="margin-bottom: 2%;">Add fire</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" class="btn"><img id="img-drop" src="icons/grey_small_arrow.png"></button></span>
   				</div>
   			</div>
   		</div>`;
@@ -183,8 +159,7 @@ function echoAdminTableView()
   					</div>
   				</div>
   				
-  				
-  				<table class="table">
+  				<table class="table fixed_header">
 				  <thead>
 				    <tr>
 				      <th scope="col">Name</th>
@@ -196,32 +171,10 @@ function echoAdminTableView()
 				    </tr>
 				  </thead>
 				  <tbody id="table-body-A">
-				    <tr>
-				      <td scope="row">John Doe</td>
-				      <td>doe@gmail.com</td>
-				      <td>123456789</td>
-				      <td>Admin</td>
-				      <td>${statusIdentifier("Offline")}</td>
-				      <td ><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
-				    </tr>
-				    <tr>
-				      <td scope="row">John Moe</td>
-				      <td>moe@gmail.com</td>
-				      <td>123456789</td>
-				      <td>Agent</td>
-				      <td>${statusIdentifier("Offline")}</td>
-				      <td ><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
-				    </tr>
-				    <tr>
-				      <td scope="row">Larry the Bird</td>
-				      <td>theBird@gmail.com</td>
-				      <td>123456789</td>
-				      <td>Agent</td>
-				      <td>${statusIdentifier("Online")}</td>
-				      <td><button class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" src="icons/grey_duspan.png"></button></td>
-				    </tr>
+				    ${fetchFromDb("getUsers", "table-body-A")}
 				  </tbody>
 				</table>
+				
 				<div class="row">
 	  				<div class="col-7" style="text-align: right; padding-bottom: 1%;">
 	  				
@@ -235,21 +188,63 @@ function echoAdminTableView()
 			</div>`;
 }
 
-function fetchFromDb(dataType)
+function fetchFromDb(dataType, id)
 {
+	//console.log('over here')
+	$.ajax({
+            url: "http://192.168.0.88:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: dataType
+            }),
+            success: function(data){
+                if (data.status){
+                	//console.log(data.data);
+                    //console.log(createObject(data.data));
+                    $(`#${id}`).append(createObject(data.data));
+                }else{
+                   /*SOMETHING TO BE ADDED*/
+                }
+            }
+        });
 
 }
 
-function tablePopulation(data)
+function populateTable(data)
 {
+	let str = "";
 	if($("#table-body-SU").length)
 	{
+		data.forEach((element, index)=>{
+			str += `<tr>
+				<td scope ="row">${element.name}</td>
+				<td>${element.email}</td>
+				<td>${element.mac}</td>
+				<td>${element.type}</td>
+				<td>${statusIdentifier("Offline")}</td>
+				
+			</tr>`;
 
+		});
+		return str;
 	}
 
 	else if($("#table-body-A").length)
 	{
-		
+		data.forEach((element, index)=>{
+			str += `<tr>
+				<td scope ="row">${element.name}</td>
+				<td>${element.email}</td>
+				<td>${element.mac}</td>
+				<td>${element.type}</td>
+				<td>${statusIdentifier("Offline")}</td>
+				<td><button id="${element.email}-edit" onclick="editUser(${element.email})" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="removeUser(${element.email})" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
+			</tr>`;
+
+		});
+		return str;
 	}
 }
 
@@ -366,3 +361,89 @@ function clearWindow()
 	$("#overlay-window").empty();
 	$("#overlay-window").attr("style", "display: none;");
 }
+
+function droppingWindow()
+{
+
+}
+
+function createObject(data)
+{
+	
+
+	let data1 = data.split("],");
+	//console.log(data1);
+	let objArray = new Array();
+
+	data1.forEach((element, index)=>{
+		element = element.replace(/(\[|\])/g, "");
+		//console.log(element + ", "+index);
+		let arr1 = new Array();
+		let arr = new Array();
+		arr1 = element.split(", ");
+
+		//console.log(arr);
+		arr1.forEach((e, i)=>{
+			if(i === 0)
+			{
+				arr.id = e;
+			}
+
+			else if(i === 1)
+			{
+				arr.email = e;
+			}
+
+			else if(i === 2)
+			{
+				arr.name = e;
+			}
+
+			else if(i === 3)
+			{
+				arr.password = e;
+			}
+
+			else if(i === 4)
+			{
+				arr.type = e;
+			}
+
+			else if(i === 5)
+			{
+				arr.mac = e;
+			}
+
+		});
+
+		
+		objArray[index] = arr;
+	});
+	
+	return populateTable(objArray);
+}
+
+function editUser(user)
+{
+
+}
+
+function removeUser(user)
+{
+
+}
+
+
+/*
+{
+	"type": "register",
+    "name" : "John Little",
+    "email" : "little@gmail.com",
+    "pass" : "pass57",
+    "userType" : "admin"
+}
+
+{
+	"type": "getUsers",
+    
+}*/
