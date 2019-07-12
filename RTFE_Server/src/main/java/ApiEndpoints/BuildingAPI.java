@@ -8,9 +8,18 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Vector;
-
+/**
+ * BuildingAPI class is used by the '/building' endpoint in the HTTPServer
+ * and handles all requests related to the Building itself and the people
+ * within it.
+ * */
 public class BuildingAPI extends API {
     private static boolean verbose = true;
+    /**
+     * This function will be used to process the request handed over to the API
+     * @param request: Contains the JSON data that was sent to the server
+     * @return returns a JSON object with the appropriate response messages for the initial request
+     * */
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         if(verbose){
             System.out.println("BuildingAPI: "+ request.toString());
@@ -64,12 +73,31 @@ public class BuildingAPI extends API {
         throw new Exception("Unsupported Request");
     }
 
+    /**
+     * This function will be used to process the request handed over to the API
+     * @param request: Contains 2 fields, the DEVICE that needs to be linked a ID
+     * @return returns a JSON object that contains a success or fail message
+     * */
     private static boolean bindPerson(JSONObject request) {
         int id = request.getInt("id");
         String deviceId = request.getString("device_id");
         return building.bindPerson(id,deviceId);
     }
 
+    /**
+     * This function will be used to retrieve all the information for a specific person
+     * @param request: Contains the ID of the person who's info is requested
+     * @return Returns a JSONObject containing the following information.
+     * ID
+     * Name
+     * Position within building
+     * the status of the building
+     * Assigned Route
+     *
+     * OR
+     *
+     * Returns a different message if not inside the building
+     * */
     private static String getPersonInfo(JSONObject request) {
         if(building== null){
             return "Person is not in building";
@@ -104,6 +132,11 @@ public class BuildingAPI extends API {
         return status;
     }
 
+    /**
+     * This function adds a fire inside the building
+     * @param request: Contains the relevant information to create a fire in the building
+     * @return Returns a JSONObject specifying if routes were affected or not.
+     * */
     private static String addFire(JSONObject request) {
         JSONArray pos = request.getJSONArray("position");
         double radius = request.getDouble("radius");
@@ -118,19 +151,33 @@ public class BuildingAPI extends API {
         }
         return "Fire Added. No Routes were affected";
     }
-
+    /**
+     * This function counts the number of rooms within a building
+     * @param req: Contains the relevant information to create a fire in the building
+     * @return Returns the number of differnt rooms within the building
+     * */
     private static JSONObject getNumRooms(JSONObject req) throws Exception {
         JSONObject Response = new JSONObject();
+        int size = 0;
+        for (int i = 0; i < building.getFloors().size(); i++) {
+            size += building.getFloor(i).getRooms().size();
+        }
         try{
             Response.put("status", true);
-            Response.put("msg","There are "+ building.getFloor(0).getRooms().size()+" rooms");
+            Response.put("msg","There are "+size+" rooms");
             boolean status= false;
         }catch(Exception e){
+            Response.put("status", false);
+            Response.put("msg","An Error occured trying to fetch the Rooms of a building: "+e.getMessage());
             throw e;
         }
         return Response;
     }
 
+    /**
+     * This function removes all the people from the building
+     * @return Returns the number of differnt rooms within the building
+     * */
     private static String clearPeople(){
         building.clearPeople();
         return "Removed people from building";
@@ -148,6 +195,12 @@ public class BuildingAPI extends API {
         }
         return Response;
     }
+
+    /**
+     * This function converts all the people data from the building into a string that is used by the simulation subsystem
+     * it contains the people's initial location, as well as the path they need to follow to evacuate the building
+     * @return a very long string formatted in a specific way
+     * */
     private static String peopleToUnity(){
         building.emergancy = true;
         Vector<Person> people = building.getPeople();

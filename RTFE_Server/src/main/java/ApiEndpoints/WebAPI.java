@@ -6,15 +6,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * @Description: The purpose of this Class is to simplify the HTTP server by
- * seperating functions related ONLY to the web related content here so that
- * it can be easily called by the HTTP server
+ * WebAPI class is used by the '/database' endpoint in the HTTPServer
+ * and handles all requests related to the database and basic administration
  * */
 public class WebAPI extends API {
 
     private static boolean verbose = true; //USED for debugging purposes
     private static Database USERDB = new Database();
 
+    /**
+     * This function will be used to process the request handed over to the API
+     * @param request: Contains the JSON data that was sent to the server
+     * @return returns a JSON object with the appropriate response messages for the initial request
+     * */
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         //String reqType = (String)req.get("type");
         if(verbose)
@@ -212,7 +216,13 @@ public class WebAPI extends API {
 
         return Response;
     }
-
+    
+    /**
+     * This function is used to upload buildings to the server's file system
+     * @param name: The name of the building being uploaded
+     * @param file: A JSON file that contains all the building data
+     * @return returns success or fail depending on outcome
+     * */
     private static  JSONObject uploadBuilding(String name, String file)
     {
         File dir = new File("./html"+ "/" + "Buildings/"  +name);
@@ -256,6 +266,14 @@ public class WebAPI extends API {
 
         return Response;
     }
+    /**
+     * This function is used to add a user to the database
+     * @param name: The name of the user to be registered
+     * @param email: The email of the user to be registered
+     * @param password: The password of the user to be registered
+     * @param type: The role that will be assigned to the user
+     * @return returns success or fail depending on outcome
+     * */
     private static JSONObject register(String name, String email, String password, String type){
         JSONObject Response = new JSONObject();
         try{
@@ -277,6 +295,11 @@ public class WebAPI extends API {
         return Response;
     }
 
+    /**
+     * This function is used to remove a user from the system
+     * @param email: The email of the user to be removed
+     * @return returns success or fail depending on outcome
+     * */
     private static JSONObject remove(String email) {
         JSONObject Response = new JSONObject();
         boolean exist = USERDB.delete(email);
@@ -291,6 +314,12 @@ public class WebAPI extends API {
         }
         return Response;
     }
+    /**
+     * This function is used to log a user into the system
+     * @param email: The email of the user to be logged in
+     * @param password: The password of the user to be logged in
+     * @return returns success or fail depending on outcome
+     * */
     private static JSONObject login(String email, String password){
 
         JSONObject Response = new JSONObject();
@@ -307,6 +336,11 @@ public class WebAPI extends API {
         }
         return Response;
     }
+
+    /**
+     * This function is used to show all the buildings stored in the server's file system
+     * @return returns a JSON object containing the names of all the buildings
+     * */
     private static JSONObject listDir()throws Exception{
         File folder = new File("Buildings/");
         JSONArray buildings = new JSONArray();
@@ -316,7 +350,7 @@ public class WebAPI extends API {
             if(file.isDirectory())
                 buildings.put(file.getName());;
         }
-        response.put("status",false);
+        response.put("status",true);
         response.put("msg",buildings);
         return response;
     }
