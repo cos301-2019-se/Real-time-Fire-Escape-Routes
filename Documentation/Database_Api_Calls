@@ -1,0 +1,91 @@
+API calls
+
+-- Database --
+(registering user)
+{
+	"type": "register",
+	"name": "<name>",
+	"email": "<email>",
+	"pass": "<password>",
+	"userType": "<userType>"
+}
+
+(removing user)
+{
+	"type": "remove",
+	"email": "<email>"
+}
+
+(loging in)
+{
+	"type": "login",
+	"email": "<email>",
+	"password": "<password>"
+}
+
+(searching for user)
+{
+	"type": "login",
+	"email": "<email>",
+	"password": "" <-- this for password specifically
+}
+
+(getting users in certain building)
+{
+	"type": "getUsersInBuilding",
+	"building_id", <1>
+}
+
+(updating values)
+[usertype]
+{
+	"type": "update",
+	"typeOfUpdate": "userType",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[name]
+{
+	"type": "update",
+	"typeOfUpdate": "name",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[deviceID]
+{
+	"type": "update",
+	"typeOfUpdate": "deviceID",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[password]
+{
+	"type": "update",
+	"typeOfUpdate": "password",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[email]
+{
+	"type": "update",
+	"typeOfUpdate": "email",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+(get Users(gets all users in db))
+{
+	"type": "getUsers"
+}
+
+(get buildings)
+{
+	"type": "getBuildings"
+}
+
+(upload building)
+-- form data -- needs to be completed

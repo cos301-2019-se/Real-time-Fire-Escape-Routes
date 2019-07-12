@@ -7,8 +7,10 @@ public class Door {
     private double size;
     private NodeType type;
     public int id;
-    public Door(NodeType Type,double[] c)
+    public int floor;
+    public Door(NodeType Type,double[] c,int Floor)
     {
+        floor=Floor;
         id= numDoors++;
         type = Type;
         coordinates = new double[2];
@@ -17,10 +19,14 @@ public class Door {
             coordinates[0] = c[0];
             coordinates[1] = c[1];
         }
-        node = new Node(type, coordinates);
+        node = new Node(type, coordinates,floor);
     }
     public double[] getCenter()
     {
         return coordinates;
+    }
+    void changeType(NodeType _type){
+        type=_type;
+        node.type=_type;
     }
 }

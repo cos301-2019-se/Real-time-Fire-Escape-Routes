@@ -1,0 +1,29 @@
+{
+	"type":"build",
+	"floors":[
+		{"floor":0,"corners":[[0,0],[10,0],[10,8],[8,8],[8,10],[2,10],[2,8],[0,8]]}
+	],
+	"halls":[
+		{"floor":0,"corners":[[2,0],[8,0],[8,8],[2,8]]}
+	],
+	"rooms":[
+		{"floor":0,"corners":[[0,0],[2,0],[2,8],[0,8]]},
+		{"floor":0,"corners":[[8,0],[10,0],[10,8],[8,8]]},
+		{"floor":0,"corners":[[2,8],[8,8],[8,10],[2,10]]}
+	],
+	"doors":[
+		{"floor":0,"type":"buildingExit","position":[3.5,0]},
+		{"floor":0,"type":"buildingExit","position":[6.5,0]},
+
+		{"floor":0,"type":"singleDoor","position":[3.5,8]},
+		{"floor":0,"type":"singleDoor","position":[6.5,8]},
+
+		{"floor":0,"type":"singleDoor","position":[2,2]},
+		{"floor":0,"type":"singleDoor","position":[2,6]},
+		{"floor":0,"type":"singleDoor","position":[8,2]},
+		{"floor":0,"type":"singleDoor","position":[8,6]}
+	],
+	"people":[
+		{"id":0,"floor":0,"position":[5,9]}
+	]
+}
