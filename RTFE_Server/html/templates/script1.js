@@ -192,7 +192,7 @@ function fetchFromDb(dataType, id)
 {
 	//console.log('over here')
 	$.ajax({
-            url: "http://192.168.0.88:8080/database",
+            url: "http://127.0.0.1:8080/database",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -201,8 +201,6 @@ function fetchFromDb(dataType, id)
             }),
             success: function(data){
                 if (data.status){
-                	//console.log(data.data);
-                    //console.log(createObject(data.data));
                     $(`#${id}`).append(createObject(data.data));
                 }else{
                    /*SOMETHING TO BE ADDED*/
@@ -223,7 +221,7 @@ function populateTable(data)
 				<td>${element.email}</td>
 				<td>${element.mac}</td>
 				<td>${element.type}</td>
-				<td>${statusIdentifier("Offline")}</td>
+				<td id="${element.name+element.type}"> `+fetchStatus(element.mac,element.name+element.type);+`</td>
 				
 			</tr>`;
 
@@ -239,7 +237,7 @@ function populateTable(data)
 				<td>${element.email}</td>
 				<td>${element.mac}</td>
 				<td>${element.type}</td>
-				<td>${statusIdentifier("Offline")}</td>
+				<td id="${element.name+element.type}"> `+fetchStatus(element.mac,element.name+element.type);+`</td>
 				<td><button id="${element.email}-edit" onclick="editUser(${element.email})" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="removeUser(${element.email})" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
 			</tr>`;
 
@@ -247,6 +245,33 @@ function populateTable(data)
 		return str;
 	}
 }
+
+function fetchStatus(mac,identify)
+{
+	$.ajax({
+        url: "http://127.0.0.1:8080/building",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            type: "personInfo",
+            device_id: mac
+        }),
+        success:function(res){
+        	var result= false;
+        	if (res.message!="Person is not in building")
+        		result = true;
+        	if(result){
+        		result= statusIdentifier("Online")
+        	}
+        	else{
+        		result= statusIdentifier("Offline")
+        	}
+        	$("#"+identify).html(result);
+        }
+    }); 
+}
+	
 
 function statusIdentifier(status)
 {
