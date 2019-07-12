@@ -2,8 +2,16 @@ package ApiEndpoints;
 
 import Builder.BuildingManager;
 import org.json.*;
-
+/**
+ * BuildingAPI class is used by the '/buildingGeneration' endpoint in the HTTPServer
+ * and handles all requests related to creating the Building
+ * */
 public class BuildingGenerationAPI {
+    /**
+     * This function will be used to process the request handed over to the API
+     * @param request: Contains the JSON data that was sent to the server
+     * @return returns a JSON object with the appropriate response messages for the initial request
+     * */
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         JSONObject Response = new JSONObject();
         switch ( (String)request.get("type")){
@@ -21,6 +29,12 @@ public class BuildingGenerationAPI {
 
         throw new Exception("Unsupported Request");
     }
+    /**
+     * This function is used to convert the current Building information to a usable
+     * JSONObject for Unity to create a visual representation of the building
+     * @param response: Initial repsonse created by the "handleRequest" to which it will also attach additional information
+     * @return returns a JSON object with the appropriate response messages for the initial request
+     * */
     private static String BuildingToUnityString(JSONObject response)throws Exception {
         if (API.lastbuild == null)
             throw new Exception("Please build a building first") ;
@@ -176,6 +190,11 @@ public class BuildingGenerationAPI {
         return responseMessage;
     }
 
+    /**
+     * This function is used to 'Load' a building into the server upon which all actions take place
+     * @param data: Contains various coordinate information about the building, stairs, dummy people
+     * @return returns a JSON object with the appropriate response messages for the initial request
+     * */
     private static String build(JSONObject data){
         String temp="Building built successfully";
         API.lastbuild = data;
