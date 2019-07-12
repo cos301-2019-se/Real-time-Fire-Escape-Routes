@@ -62,7 +62,7 @@ $(()=>{
 
 		}); // done on click func
 	}
-
+	
 });
 
 function echoTopBar()
@@ -82,7 +82,7 @@ function echoTopBar()
 function echoBuildingCard()
 {
 	return `
-				<div class="card" id="building-card" style="cursor: pointer;">
+				<div class="card1" id="building-card" style="cursor: pointer;">
 		  				<h1 class="heading">Building name <img class="icons_small" src="icons/white_arrow_down.png">
 		  				</h1>
 	  				</div>`;
@@ -90,8 +90,37 @@ function echoBuildingCard()
 
 function echoContentTable_SuperUser()
 {
-	return `			
-	  				<div class="card" id="inner-table-card" style="display: block;">
+	let info = fetchFromDb("getUsers", "table-body-SU");
+	console.log(info);
+	if(info != undefined)
+	{
+		return `			
+	  				<div class="card1" id="inner-table-card" style="display: block;">
+	  					
+	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left:45%;"><img class="icons" src="icons/baseline_search_black_18dp.png">
+  						<input id="search-input" class="searcher" type="search" placeholder="Search..."  aria-label="Search"></span></div>
+			  			<div  style="max-height: 350px; overflow-y: auto; display: block;">
+	  				
+			  				<table style="fit-content" id="tbh">
+							   <thead>
+								    <tr>
+								      <th scope="col">Name</th>
+								      <th scope="col">Email</th>
+								      <th scope="col">Device_ID</th>
+								      <th scope="col">Type</th>
+								      <th scope="col">Status</th>
+								    </tr>
+								</thead>
+							  <tbody id="table-body-SU">
+							    ${info}
+							  </tbody>
+							</table>
+						</div>
+					</div>
+			</div>`;
+	}
+	else return `			
+	  				<div class="card1" id="inner-table-card" style="display: block;">
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; "><img class="icons" src="icons/baseline_search_black_18dp.png">
   						<input id="search-input" class="searcher" type="search" placeholder="Search" aria-label="Search"></span></div>
@@ -108,17 +137,18 @@ function echoContentTable_SuperUser()
 								    </tr>
 								</thead>
 							  <tbody id="table-body-SU">
-							    ${fetchFromDb("getUsers", "table-body-SU")}
+							    
 							  </tbody>
 							</table>
 						</div>
 					</div>
 			</div>`;
+	
 }
 
 function echoSimulationWindow()
 {
-	return `<div class="card" id="SU-simulation">
+	return `<div class="card1" id="SU-simulation">
   					Simulation
   			</div>
   		</div>`;
@@ -126,29 +156,28 @@ function echoSimulationWindow()
 
 function echoBotCreator()
 {
-	return `<div id="add-bot-window" class="card">
+	return `<div id="add-bot-window" class="card1">
   					<span style="margin-bottom: 2%;">Add bot</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-bot" style="margin: 0; padding: 0; display: inline;" class="btn"><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-bot" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
   				</div>`;
 }
 
 function echoFireEditor()
 {
-	return `<div id="add-fire-window" class="card">
+	return `<div id="add-fire-window" class="card1">
   					<span style="margin-bottom: 2%;">Add fire</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" class="btn"><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
   				</div>`;
 }
 
 
 function echoAdminTableView()
 {
-	return `<div id="main-body-admin" class="card">
-					<div class="col-5" style="text-align: right; padding-top: 1%;">
-  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding)">
-  							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
-  						</button>
-  					</div>
+	let info = fetchFromDb("getUsers", "table-body-A");
+	if(info != undefined)
+	{
+		return `<div id="main-body-admin" class="card1">
+					
 	  			<div id="inner-table-card" style="display: block;">
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 75%;"><img class="icons" src="icons/baseline_search_black_18dp.png">
@@ -167,7 +196,7 @@ function echoAdminTableView()
 				    </tr>
 				  </thead>
 				  <tbody id="table-body-A">
-				    ${fetchFromDb("getUsers", "table-body-A")}
+				    ${info}
 				  </tbody>
 				</table>
 	  			</div>
@@ -176,12 +205,56 @@ function echoAdminTableView()
   						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser)">
   							<img style=" width: 10px;" id="img-drop"  src="icons/baseline_add_black_48dp.png"> Add user 
   						</button>
+  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding)">
+  							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
+  						</button>
+  					</div>
+  					
+			</div>`;
+	}
+	else
+		return `<div id="main-body-admin" class="card1">
+					
+	  			<div id="inner-table-card" style="display: block;">
+	  					
+	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 75%;"><img class="icons" src="icons/baseline_search_black_18dp.png">
+  						<input id="search-input" class="searcher" type="search" placeholder="Search" aria-label="Search"></span></div>
+			  			<div  style="max-height: 350px; overflow-y: auto; display: block;">
+	  				
+			  	<table style="fit-content" id="tbh">
+				  <thead>
+				    <tr>
+				      <th scope="col">Name</th>
+				      <th scope="col">Email</th>
+				      <th scope="col">Device_ID</th>
+				      <th scope="col">Type</th>
+				      <th scope="col">Status</th>
+				      <th scope="col">Edit</th>
+				    </tr>
+				  </thead>
+				  <tbody id="table-body-A">
+				    
+				  </tbody>
+				</table>
+	  			</div>
+
+  					<div style="text-align: right; padding-top: 1%; width: 100%;">
+  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser)">
+  							<img style=" width: 10px;" id="img-drop"  src="icons/baseline_add_black_48dp.png"> Add user 
+  						</button>
+
+  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding)">
+  							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
+  						</button>
+  					
   					</div>
 			</div>`;
+	
 }
 
 function fetchFromDb(dataType, id)
 {
+	//debugger;
 	console.log('over here')
 	$.ajax({
             url: "http://127.0.0.1:8080/database",
@@ -205,11 +278,12 @@ function fetchFromDb(dataType, id)
                     
                 }else{
                    /*SOMETHING TO BE ADDED*/
-                   console.log("here");
+                   
                    $(`#${id}`).append("");
                 }
             }, fail: function(){
 				$(`#${id}`).append("");
+				console.log("here");
             }
         });
 
