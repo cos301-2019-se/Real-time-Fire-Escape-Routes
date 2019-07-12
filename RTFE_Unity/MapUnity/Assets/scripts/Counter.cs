@@ -20,6 +20,7 @@ public class Counter : MonoBehaviour
      public NavMeshSurface s;
 
    public string ip = "http://127.0.0.1:8080/";
+  // public string ip = "https://6c53bafd-db31-4e2e-aac4-49c2a447c8ad.mock.pstmn.io/";
 
 
     // Start is called before the first frame update

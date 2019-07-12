@@ -9,19 +9,26 @@ public class number : MonoBehaviour
     public int[][] array;
     public string type = "";
     public float x, y ,z;
+    public int showBelow = -1;
 
-    private void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-        if(type == "")
-        if (collision.gameObject.tag == "Player")
+
+        if (showBelow != -1)
         {
-
-
-            Destroy(this.gameObject);
-            Debug.Log("here");
+            double currentHeight = gameObject.transform.position.y;
+            if (currentHeight < showBelow * 3)
+            {
+                gameObject.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
         }
-        Debug.Log("here1");
     }
+
+
 }
 
 

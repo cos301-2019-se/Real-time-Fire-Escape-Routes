@@ -9,6 +9,32 @@ public class Floor : MonoBehaviour
     public float[][] doors;
     public int floorNumber;
     public GameObject[] people;
+    public bool showFloor = true;
+
+    void Update()
+    {
+        if (showFloor)
+            showRooms();
+        else
+            hideRooms();
+    }
+
+    void hideRooms()
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            rooms[i].GetComponent<Room>().show = false;
+        }
+    }
+
+    void showRooms()
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            rooms[i].GetComponent<Room>().show = true;
+        }
+    }
+
 
     private void Awake()
     {

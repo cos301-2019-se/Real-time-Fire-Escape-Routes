@@ -6,11 +6,40 @@ using System;
 
 public class Room : MonoBehaviour
 {
+    public bool show= true;
+    List<GameObject> roomParts;
     public NavMeshSurface s;
   
     void Awake()
     {
+        roomParts = new List<GameObject>();
+        //int x = roomParts.Count;
+        hideRoom();
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (show)
+            ShowRoom();
+        else
+            hideRoom();
+    }
+
+    void hideRoom()
+    {
+         for(int i = 0; i < roomParts.Count; i++)
+         {
+             roomParts[i].GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
+
+    void ShowRoom()
+    {
+        for (int i = 0; i < roomParts.Count; i++)
+        {
+            roomParts[i].GetComponent<MeshRenderer>().enabled = true;
+        }
     }
 
     public float Distance(float x1, float y1, float x2, float y2)//simple distance between 2 points
@@ -43,16 +72,16 @@ public class Room : MonoBehaviour
         //first
         float firstx = (cornerss[0].x + cornerss[1].x) / 2;
         float firsty = (cornerss[0].y + cornerss[1].y) / 2;
-        Debug.Log("first: " + firstx + " " + firsty);
+      //  Debug.Log("first: " + firstx + " " + firsty);
         //second
         float secondx = cornerss[1].x;
         float secondy = cornerss[1].y;
-        Debug.Log("second: " + secondx + " " + secondy);
+      //  Debug.Log("second: " + secondx + " " + secondy);
         //third
         Vector2 n = moveCloser(cornerss[1].x, cornerss[1].y, cornerss[2].x, cornerss[2].y, 0.1f);//moves closer to second x,y set
         float thirdx = n.x;
         float thirdy = n.y;
-        Debug.Log("third: " + thirdx + " " + thirdy);
+//        Debug.Log("third: " + thirdx + " " + thirdy);
         //fourth
         float fourthx = 0.0f;
         float fourthy = 0.0f;
@@ -68,7 +97,7 @@ public class Room : MonoBehaviour
         else
             fourthy = thirdy;
 
-        Debug.Log("forth: " + fourthx + " " + fourthy);
+      // Debug.Log("forth: " + fourthx + " " + fourthy);
 
         Vector3[] verticess = new Vector3[4];
         verticess[0] = new Vector3(firstx, (floorNum * 3), firsty);
@@ -268,6 +297,8 @@ public class Room : MonoBehaviour
             buildFloorTop(vertices2D, boolList, floorNum);
 
         buildWalls(vertices2D, boolList, floorNum);
+
+       //hideRoom();
     }
 
     void buildWalls(Vector2[] vertices2D, int[] boolList , int floorNum)
@@ -348,6 +379,7 @@ public class Room : MonoBehaviour
 
         Material myMaterial = Resources.Load("materials/glass") as Material; 
         objToSpawn.GetComponent<Renderer>().material = myMaterial; 
+        roomParts.Add(objToSpawn);
     }
 
     void buildstair(Vector3[] vertices3D)
@@ -376,7 +408,9 @@ public class Room : MonoBehaviour
 
         Material myMaterial = Resources.Load("materials/routeGreen") as Material;
         objToSpawn.GetComponent<Renderer>().material = myMaterial;
+        roomParts.Add(objToSpawn);
     }
+
 
 
     void buildFloorTop(Vector2[] vertices2D, int[] boolList , int floorNum)
@@ -419,100 +453,9 @@ public class Room : MonoBehaviour
         filter.mesh = msh;
         Material myMaterial = Resources.Load("materials/routeGreen") as Material; 
         GetComponent<Renderer>().material = myMaterial;
-
-        //----above and below are 2 seperate pieces
-
-
-        //// Use the triangulator to get indices for creating triangles
-        //Vector2[] v2 = new Vector2[vertices2D.Length];
-        //for (int i = 0; i < v2.Length; i++)
-        //{
-        //    v2[i] = vertices2D[(v2.Length - 1) - i];
-        //}
-        //vertices2D = v2;
-
-        //Triangulator tr = new Triangulator(vertices2D);
-        //int[] indices = tr.Triangulate();
-
-        //// Create the Vector3 vertices
-        //Vector3[] vertices = new Vector3[vertices2D.Length];
-        //for (int i = 0; i < vertices.Length; i++)
-        //{
-        //    vertices[i] = new Vector3(vertices2D[i].x, floorNum * 3, vertices2D[i].y);
-        //}
-
-        //// Create the mesh
-        //Mesh msh = new Mesh();
-        //msh.vertices = vertices;
-        //msh.triangles = indices;
-        //msh.RecalculateNormals();
-        //msh.RecalculateBounds();
-
-        //// Set up game object with mesh;
-        //GameObject objToSpawn = new GameObject("floor");
-        //objToSpawn.AddComponent(typeof(MeshRenderer));
-        //MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
-        //Material myMaterial = Resources.Load("materials/routeGreen") as Material;
-        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
-
-
-
-        //objToSpawn.AddComponent(typeof(MeshRenderer));
-        //filter.mesh = msh;
-
-        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
-
-        buildFloorBottom(vertices2D, boolList, floorNum);
-    }
-
-    void buildFloorBottom(Vector2[] vertices2D, int[] boolList, int floorNum)
-    {
-
-
-        //// Use the triangulator to get indices for creating triangles
-        //Vector2[] v2 = new Vector2[vertices2D.Length];
-        //for(int i = 0; i < v2.Length;i++)
-        //{
-        //    v2[i] = vertices2D[(v2.Length-1) - i];
-        //}
-        //vertices2D = v2;
-
-        //Triangulator tr = new Triangulator(vertices2D);
-        //int[] indices = tr.Triangulate();
-
-        //// Create the Vector3 vertices
-        //Vector3[] vertices = new Vector3[vertices2D.Length];
-        //for (int i = 0; i < vertices.Length; i++)
-        //{
-        //    vertices[i] = new Vector3(vertices2D[i].x, floorNum * 3, vertices2D[i].y);
-        //}
-
-        //// Create the mesh
-        //Mesh msh = new Mesh();
-        //msh.vertices = vertices;
-        //msh.triangles = indices;
-        //msh.RecalculateNormals();
-        //msh.RecalculateBounds();
-
-        //// Set up game object with mesh;
-        //GameObject objToSpawn = new GameObject("floor");
-        //objToSpawn.AddComponent(typeof(MeshRenderer));
-        //MeshFilter filter = objToSpawn.AddComponent(typeof(MeshFilter)) as MeshFilter;
-        //Material myMaterial = Resources.Load("materials/routeGreen") as Material;
-        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
-
-
-
-        //objToSpawn.AddComponent(typeof(MeshRenderer));
-        //filter.mesh = msh;
-
-        //objToSpawn.GetComponent<Renderer>().material = myMaterial;
+        roomParts.Add(gameObject);
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
- 
-    }
+   
 }

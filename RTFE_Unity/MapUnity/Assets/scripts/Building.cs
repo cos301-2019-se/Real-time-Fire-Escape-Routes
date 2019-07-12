@@ -24,13 +24,64 @@ public class Building : MonoBehaviour
     private string people;
     private string status;
     public string stairs;
+    private int showFloorsBelow;
     //above will be used to convert from json
     List<Floor> floorList = new List<Floor>();
+    List<GameObject> peopleList = new List<GameObject>();
 
     void Start()
     {
+        numberFloors = -1;
         //createArrays();
 
+    }
+
+    private void Update()
+    {
+        if(numberFloors != -1)
+        {
+            if (Input.GetKeyDown("down"))
+            {
+                if(showFloorsBelow <= 0)
+                {
+
+                }
+                else
+                {
+                    showFloorsBelow--;
+                }
+            }
+
+            if (Input.GetKeyDown("up"))
+            {
+                if (showFloorsBelow >= numberFloors)
+                {
+
+                }
+                else
+                {
+                    showFloorsBelow++;
+                }
+            }
+        }
+
+        for(int i = 0; i < floorList.Count; i++)
+        {
+            if(floorList[i].floorNumber < showFloorsBelow)
+            {
+                floorList[i].showFloor = true;
+            }
+            else
+            {
+                floorList[i].showFloor = false;
+            }
+        }
+
+        for (int i = 0; i < peopleList.Count; i++)
+        {
+            if(peopleList[i] != null)
+                peopleList[i].GetComponent<number>().showBelow = showFloorsBelow;
+        }
     }
 
     public void addStrings(buildingString s)
@@ -63,7 +114,7 @@ public class Building : MonoBehaviour
         // people = "0 * 0 * 7,7 - 1 * 1  * 7,7 - 2 * 2 * 7,7";
         Debug.Log(stairs);
 
-
+        showFloorsBelow = numberFloors;
 
         float test = float.Parse("0.9", System.Globalization.CultureInfo.InvariantCulture);
 
@@ -263,10 +314,11 @@ public class Building : MonoBehaviour
 
         for(int i = 0; i < peopleArr.Length; i++)
         {
-          //  Instantiate(Resources.Load("Capsule"), new Vector3(peopleArr[i][2],peopleArr[i][1]*3,peopleArr[i][3]));
-         // Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
-          GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][3], (peopleArr[i][0]*3)+1.2f,peopleArr[i][2]), new Quaternion(0, 0, 0, 1)) as GameObject;
-          r.GetComponent<number>().objectNumber = peopleArr[i][1];
+            //  Instantiate(Resources.Load("Capsule"), new Vector3(peopleArr[i][2],peopleArr[i][1]*3,peopleArr[i][3]));
+            // Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
+            GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][3], (peopleArr[i][0]*3)+1.2f,peopleArr[i][2]), new Quaternion(0, 0, 0, 1)) as GameObject;
+            r.GetComponent<number>().objectNumber = peopleArr[i][1];
+            peopleList.Add(r);
         }
         //--------placing people end
 
