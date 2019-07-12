@@ -62,7 +62,7 @@ $(()=>{
 
 		}); // done on click func
 	}
-	
+
 });
 
 function echoTopBar()
