@@ -3,7 +3,10 @@ package Builder;
 import Building.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+/**
+ * Concrete Class that will create various parts that will be used in the building.
+ * Also seen as the "Concrete Builder" part of the Builder design pattern
+ * */
 public class StairsBuilder extends Builder {
     RoomType StairType;
     public StairsBuilder(Object _data,int _floor,int _maxFloor) {

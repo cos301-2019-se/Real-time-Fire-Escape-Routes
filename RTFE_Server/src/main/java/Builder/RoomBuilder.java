@@ -1,10 +1,13 @@
 package Builder; //Builder design pattern - Concrete Builder
 
-import Building.*;
+import Building.Room;
+import Building.RoomType;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * Concrete Class that will create various parts that will be used in the building.
+ * Also seen as the "Concrete Builder" part of the Builder design pattern
+ * */
 public class RoomBuilder extends Builder {
     public RoomBuilder(Object data) {
         super(data);
