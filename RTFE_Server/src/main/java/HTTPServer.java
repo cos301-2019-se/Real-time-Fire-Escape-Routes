@@ -31,7 +31,7 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        static final boolean verbose = false;
+        static final boolean verbose = true;
         private JSONObject lastBuild = null;
 
         public HTTPServer(Building b){
@@ -192,7 +192,7 @@ public class HTTPServer extends Server{
                     fileRequested = parse.nextToken().toLowerCase();
 
                     // we support only GET and HEAD methods, we check
-                    if (!method.equals("GET")  && !method.equals("HEAD") && !method.equals("POST")) {
+                    if (!method.equals("GET")  && !method.equals("HEAD") && !method.equals("POST") && !method.equals("OPTIONS")) {
                         if (verbose) {
                             System.out.println("501 Not Implemented : " + method + " method.");
                         }
@@ -214,7 +214,7 @@ public class HTTPServer extends Server{
                         dataOut.flush();
 
                     }
-                    else if(method.equals("POST")){
+                    else if(method.equals("POST") || method.equals("OPTIONS")){
                         out.println("HTTP/1.1 200 OK");
                         out.println("Date: " + new Date());
                         out.println("Content-type: " + "application/json");
@@ -299,7 +299,8 @@ public class HTTPServer extends Server{
                             dataOut.flush();
                         }
                         if (verbose) {
-                            System.out.println("File " + fileRequested + " of type " + content + " returned");
+
+                            System.out.println("File " + fileRequested + " of type " + content + " returned method: "+method);
                         }
                     }
                 } catch (FileNotFoundException fnfe) {
