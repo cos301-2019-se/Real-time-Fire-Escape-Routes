@@ -106,14 +106,14 @@ public class Counter : MonoBehaviour
                         float yfloor = float.Parse(x3[0], System.Globalization.CultureInfo.InvariantCulture);
                         float xpos = float.Parse(x3[1], System.Globalization.CultureInfo.InvariantCulture);
                         float zpos = float.Parse(x3[2], System.Globalization.CultureInfo.InvariantCulture);
-                        pointList.Add(new Vector3(xpos, yfloor, zpos));
+                        pointList.Add(new Vector3(xpos, (yfloor*3f)+1.5f, zpos));
                     }
 
                     Vector3 go;
                     GameObject g = null; ;
                     if (Exits.Count == 0)
                     {
-                        Exits.Add(Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(pointList[pointList.Count-1].x, pointList[pointList.Count-1].y+1.5f, pointList[pointList.Count-1].z), new Quaternion(0, 0, 0, 1)) as GameObject);
+                        Exits.Add(Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(pointList[pointList.Count-1].x, pointList[pointList.Count-1].y, pointList[pointList.Count-1].z), new Quaternion(0, 0, 0, 1)) as GameObject);
                         Exits[Exits.Count - 1].GetComponent<number>().x = pointList[pointList.Count - 1].x;
                         Exits[Exits.Count - 1].GetComponent<number>().y = pointList[pointList.Count - 1].y;
                         Exits[Exits.Count - 1].GetComponent<number>().z = pointList[pointList.Count - 1].z;
@@ -136,7 +136,7 @@ public class Counter : MonoBehaviour
                                 go = new Vector3(Exits[j].GetComponent<number>().x, Exits[j].GetComponent<number>().y, Exits[j].GetComponent<number>().z);
                                 f = true;
                                 g = Exits[j];
-                                Debug.Log("two");
+                               // Debug.Log("two");
                             }
                         }
                         if(!f)
@@ -149,7 +149,7 @@ public class Counter : MonoBehaviour
                             //Material myMaterial = Resources.Load("materials/" + r) as Material;
                             //g.GetComponent<Renderer>().material = myMaterial;
                             //Debug.Log("three"+r);
-                            Exits.Add(Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(pointList[pointList.Count - 1].x, pointList[pointList.Count - 1].y + 1.5f, pointList[pointList.Count - 1].z), new Quaternion(0, 0, 0, 1)) as GameObject);
+                            Exits.Add(Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(pointList[pointList.Count - 1].x, pointList[pointList.Count - 1].y, pointList[pointList.Count - 1].z), new Quaternion(0, 0, 0, 1)) as GameObject);
                             Exits[Exits.Count - 1].GetComponent<number>().x = pointList[pointList.Count - 1].x;
                             Exits[Exits.Count - 1].GetComponent<number>().y = pointList[pointList.Count - 1].y;
                             Exits[Exits.Count - 1].GetComponent<number>().z = pointList[pointList.Count - 1].z;
@@ -183,79 +183,6 @@ public class Counter : MonoBehaviour
                         }
                     }
                 }
-
-
-
-                /*
-                myObject.people = myObject.people.Replace(" ", string.Empty);
-                string [] x = myObject.people.Split('%');
-                var values = new float[x.Length][];
-                for(int i = 0; i < x.Length; i++)
-                {
-                    values[i] = new float[3];
-                    string[] x1 = x[i].Split('*');
-                    values[i][0] = float.Parse(x1[0], System.Globalization.CultureInfo.InvariantCulture);
-                    string[] x2 = x1[1].Split(',');
-                   
-                    values[i][1] = float.Parse(x2[0], System.Globalization.CultureInfo.InvariantCulture);
-                    values[i][2] = float.Parse(x2[1], System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                GameObject[] Exits = new GameObject[myObject.numRoutes];
-                for(int i = 0; i < myObject.numRoutes; i++)
-                    Exits[i] = null;
-
-                for(int i = 0; i < values.Length; i++)//people
-                {
-                    GameObject gotoExit = null;
-                    for(int j = 0; j < myObject.numRoutes; j++)//exits
-                    {
-                        if(Exits[j] != null)
-                        {
-                            if(Exits[j].GetComponent<number>().x== values[i][1] && Exits[j].GetComponent<number>().z == values[i][2])
-                            {
-                                gotoExit = Exits[j];
-                                break;
-                            } 
-                        }
-                        else
-                        {
-                            Exits[j] = Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(values[i][1], 1,values[i][2]), new Quaternion(0, 0, 0, 1)) as GameObject;
-                            
-                            Exits[j].GetComponent<number>().x = values[i][1];
-                            Exits[j].GetComponent<number>().y = 1;
-                            Exits[j].GetComponent<number>().z = values[i][2];
-                            
-                            gotoExit = Exits[j];
-                            string r = "route"+(i+1);
-                            //Debug.Log(r);
-                            Material myMaterial = Resources.Load("materials/"+r) as Material; 
-                            gotoExit.GetComponent<Renderer>().material = myMaterial; 
-                            break;
-                        }
-                    }
-
-                    var goArray = FindObjectsOfType<GameObject>();
-
-                    for (int j = 0; j < goArray.Length; j++)
-                    {
-                        if(goArray[j].GetComponent<number>() != null)
-                        {
-                            if (goArray[j].GetComponent<number>().objectNumber == values[i][0])
-                            {
-                                if(goArray[j].GetComponent<AgentController>() != null)
-                                {
-                                    if(gotoExit != null)
-                                    {
-                                        //Debug.Log("x: "+gotoExit.GetComponent<number>().x+" y: "+gotoExit.GetComponent<number>().y + " z: " + gotoExit.GetComponent<number>().z);
-                                        goArray[j].GetComponent<AgentController>().goTo(gotoExit);
-                                    }
-                                } 
-                            }
-                        }
-                    }
-                }
-                */
             }
         }
     }

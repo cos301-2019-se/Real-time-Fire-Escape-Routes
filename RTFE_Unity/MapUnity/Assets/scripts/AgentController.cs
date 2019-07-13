@@ -55,9 +55,17 @@ public class AgentController : MonoBehaviour
 
     public void goTo(List<Vector3> list)
     {
+        Debug.Log("person no-------------------: "+GetComponent<number>().objectNumber);
+        for (int i = 0; i < list.Count; i++)
+        {
+           
+            Debug.Log(i+") "+list[i].x +" "+ list[i].y + " "+ list[i].z + " ");
+        }
         agent.SetDestination(list[0]);
         list.RemoveAt(0);
         listRoute = list;
+
+        
 
         //Color color = x.GetComponent<Renderer>().material.color;
         //gameObject.GetComponent<Renderer>().material.color = color;
