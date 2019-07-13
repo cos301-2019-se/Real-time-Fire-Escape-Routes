@@ -3,8 +3,10 @@ package Builder;
 import Building.Door;
 import Building.NodeType;
 import org.json.JSONArray;
-import org.json.JSONException;
-
+/**
+ * Concrete Class that will create various parts that will be used in the building.
+ * Also seen as the "Concrete Builder" part of the Builder design pattern
+ * */
 public class DoorBuilder extends Builder{
 
     public DoorBuilder(Object _data) {

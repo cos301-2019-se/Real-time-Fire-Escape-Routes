@@ -4,21 +4,30 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Arrays;
 
 /**
- * @Description: The purpose of this Class is to simplify the HTTP server by
- * seperating functions related ONLY to the web related content here so that
- * it can be easily called by the HTTP server
+ * WebAPI class is used by the '/database' endpoint in the HTTPServer
+ * and handles all requests related to the database and basic administration
  * */
 public class WebAPI extends API {
 
     private static boolean verbose = true; //USED for debugging purposes
     private static Database USERDB = new Database();
+<<<<<<< HEAD
     /**
      * function handles the requests made to the server
      * @param request: the request object
      * @return a JSONObject with the relevant information
      */
+=======
+
+    /**
+     * This function will be used to process the request handed over to the API
+     * @param request: Contains the JSON data that was sent to the server
+     * @return returns a JSON object with the appropriate response messages for the initial request
+     * */
+>>>>>>> Development
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         //String reqType = (String)req.get("type");
         if(verbose)
@@ -96,6 +105,19 @@ public class WebAPI extends API {
                 response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString());
                 return response;
             }
+            case "currentBuilding":
+            {
+                response = new JSONObject();
+                try {
+                    response.put("name", lastbuild.get("name"));
+                    response.put("status", true);
+                }
+                catch (Exception e){
+                    response.put("status", false);
+                }
+                return response;
+            }
+
         }
 
         throw new Exception("Unsupported Request");
@@ -262,6 +284,7 @@ public class WebAPI extends API {
 
         return Response;
     }
+<<<<<<< HEAD
 
     /**
      * function upload a new building to the system
@@ -269,6 +292,15 @@ public class WebAPI extends API {
      * @param file: the file containing the JSON data for the building
      * @return a JSONObject with the relevant information
      */
+=======
+    
+    /**
+     * This function is used to upload buildings to the server's file system
+     * @param name: The name of the building being uploaded
+     * @param file: A JSON file that contains all the building data
+     * @return returns success or fail depending on outcome
+     * */
+>>>>>>> Development
     private static  JSONObject uploadBuilding(String name, String file)
     {
         File dir = new File("./html"+ "/" + "Buildings/"  +name);
@@ -312,6 +344,7 @@ public class WebAPI extends API {
 
         return Response;
     }
+<<<<<<< HEAD
 
     /**
      * function that adds a new user to the system
@@ -321,6 +354,16 @@ public class WebAPI extends API {
      * @param type: the userType for the new user
      * @return a JSONObject with the relevant information
      */
+=======
+    /**
+     * This function is used to add a user to the database
+     * @param name: The name of the user to be registered
+     * @param email: The email of the user to be registered
+     * @param password: The password of the user to be registered
+     * @param type: The role that will be assigned to the user
+     * @return returns success or fail depending on outcome
+     * */
+>>>>>>> Development
     private static JSONObject register(String name, String email, String password, String type){
         JSONObject Response = new JSONObject();
         try{
@@ -343,10 +386,17 @@ public class WebAPI extends API {
     }
 
     /**
+<<<<<<< HEAD
      * function that adds a new user to the system
      * @param email: used to identify the user that will be removed
      * @return a JSONObject with the relevant information
      */
+=======
+     * This function is used to remove a user from the system
+     * @param email: The email of the user to be removed
+     * @return returns success or fail depending on outcome
+     * */
+>>>>>>> Development
     private static JSONObject remove(String email) {
         JSONObject Response = new JSONObject();
         boolean exist = USERDB.delete(email);
@@ -361,6 +411,7 @@ public class WebAPI extends API {
         }
         return Response;
     }
+<<<<<<< HEAD
 
     /**
      * function that adds a new user to the system
@@ -368,6 +419,14 @@ public class WebAPI extends API {
      * @param password: the password for the user
      * @return a JSONObject with the relevant information
      */
+=======
+    /**
+     * This function is used to log a user into the system
+     * @param email: The email of the user to be logged in
+     * @param password: The password of the user to be logged in
+     * @return returns success or fail depending on outcome
+     * */
+>>>>>>> Development
     private static JSONObject login(String email, String password){
 
         JSONObject Response = new JSONObject();
@@ -384,16 +443,23 @@ public class WebAPI extends API {
         }
         return Response;
     }
+
+    /**
+     * This function is used to show all the buildings stored in the server's file system
+     * @return returns a JSON object containing the names of all the buildings
+     * */
     private static JSONObject listDir()throws Exception{
-        File folder = new File("Buildings/");
+        File folder = new File("html/Buildings/");
         JSONArray buildings = new JSONArray();
         JSONObject response = new JSONObject();
         File[] listOfFiles = folder.listFiles();
         for (File file : listOfFiles) {
             if(file.isDirectory())
-                buildings.put(file.getName());;
+                buildings.put(file.getName());
         }
-        response.put("status",false);
+        if(verbose)
+            System.out.println(Arrays.toString(listOfFiles));
+        response.put("status",true);
         response.put("msg",buildings);
         return response;
     }

@@ -8,7 +8,10 @@ import java.sql.Statement;
 import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
+/**
+ * The Database class is used for administration of information that doesn't directly affect the building.
+ * The Database makes use of sqlite to accomplish fast, secure and reliable access
+ * */
 public class Database {
     public String fileName;
     File f;

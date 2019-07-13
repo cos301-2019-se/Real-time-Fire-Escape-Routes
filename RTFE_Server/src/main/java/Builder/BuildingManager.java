@@ -5,7 +5,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Vector;
-
+/**
+ * The BuildingManager part is used to create the buildings that will
+ * be stored in memory. It makes use of various concrete builders to accomplish this.
+ * Also seen as the "Director" part of the Builder design pattern
+ * */
 public class BuildingManager {// Builder design pattern - Director
     Vector <Builder> floors = new Vector<Builder>();
     Vector <Vector<Builder>> halls = new Vector<>();
@@ -15,6 +19,11 @@ public class BuildingManager {// Builder design pattern - Director
     private static boolean verbose = true;
     JSONArray peopleData;
     JSONObject buildingData ;
+
+    /**
+     * The constructor is used to split the data into smaller pieces creating Concrete Builders where needed
+     * @param BuildingData: Contains the full building details that needs to be constructed
+     * */
     public BuildingManager(JSONObject BuildingData){
         buildingData =BuildingData;
         try {
@@ -100,6 +109,10 @@ public class BuildingManager {// Builder design pattern - Director
         }
     }
 
+    /**
+     * Calls 'buildPart()' from all the concrete builders and adds the part to the Building
+     * @return Returns a newly created Building
+     * */
     public Building construct() {
         if(verbose)
             System.out.println("Creating new building");
@@ -167,6 +180,10 @@ public class BuildingManager {// Builder design pattern - Director
         return building;
     }
 
+    /**
+     * This function iterates over a given building creating paths to the exit points creates a route for each possible Exit point
+     * @param building: The building that needs to create routes
+     * */
     private void constructRoutes(Building building)throws Exception{
         if (verbose){
             System.out.println("Building Routes");
@@ -222,6 +239,7 @@ public class BuildingManager {// Builder design pattern - Director
         }
     }
 
+    /**This function removes duplicate objects from a given Vector*/
     private Vector<Node> filterDoors (Vector<Node> b){
         Vector<Node> a = new Vector<Node>();
         for (int i = 0; i < b.size(); i++) {

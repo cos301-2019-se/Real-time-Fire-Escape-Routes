@@ -5,7 +5,10 @@ import Building.Person;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * Concrete Class that will create various parts that will be used in the building.
+ * Also seen as the "Concrete Builder" part of the Builder design pattern
+ * */
 public class PersonManager {
 
     JSONArray peopleData;
