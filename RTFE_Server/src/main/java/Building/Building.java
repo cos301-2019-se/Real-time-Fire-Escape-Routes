@@ -188,15 +188,20 @@ public class Building {
                   boolean valid = false;
                   for (Routes r:Routes) {
                         for (Door d:p.availableDoors) {
-                              r.resetVisited();
-                              Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
-                              double tempD = r.pathHeuristic(path,p);
-                              if(tempD < bestDistance){
+                            for (Path c:d.node.Paths) {
+                                r.resetVisited();
+                                Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
+                                double tempD = r.pathHeuristic(path,p);
+                                if(tempD < bestDistance){
                                     valid = Path.hasGoal(path);
                                     Bestpath = path;
                                     bestDistance = tempD;
                                     bestRoute = r;
-                              }
+                                }
+                            }
+
+
+
                         }
                   }
                   if(valid){
@@ -334,10 +339,8 @@ public class Building {
       private int destroyRoutes(){
             int numPathsAffected = 0;
             for (Room f:Floor) {
-//                  System.out.println("Floor loop");
                 numPathsAffected+= f.destroyRoutes();
             }
-
             return numPathsAffected;
       }
 }

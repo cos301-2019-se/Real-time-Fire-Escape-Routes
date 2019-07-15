@@ -15,11 +15,6 @@ public class Person {
     public Vector <Node> pathToFollow;
     public double distanceToExit = Double.MAX_VALUE;
 
-    public Person(String n) {
-        name = n;
-        personID =numPeople++;
-
-    }
     public Person(String n,double [] pos) {
         name = n;
         personID =numPeople++;
