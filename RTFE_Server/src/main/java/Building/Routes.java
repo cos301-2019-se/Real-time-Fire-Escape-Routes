@@ -1,7 +1,5 @@
 package Building;
 
-import Building.*;
-
 import java.util.Vector;
 
 public class Routes {
@@ -177,6 +175,12 @@ public class Routes {
     public void resetVisited(){
         for (Node v: nodes) {
             v.visited=false;
+        }
+    }
+    private void resetStairs(){
+        for (Node v: nodes) {
+            if(v.type == NodeType.stairs)
+             v.visited=false;
         }
     }
 

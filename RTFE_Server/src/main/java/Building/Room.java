@@ -423,7 +423,7 @@ public class Room {
                     return true;
         return false;
     }
-
+/*
     public void assignPeople(Vector<Routes> routes){
         for (int i = 0; i < Rooms.size(); i++) {
             Rooms.get(i).assignPeople(routes);
@@ -478,7 +478,7 @@ public class Room {
             }
         }
     }
-
+/**/
     public Vector<Person> getPeopleData(Vector<Routes> routes){
         Vector<Person> peopleData = new Vector<>();
         for (int i = 0; i < Rooms.size(); i++) {
@@ -490,6 +490,21 @@ public class Room {
                 p.availableDoors.add(d);
                 for (Routes r:routes) {
                     r.resetVisited();
+                    /*
+                    for (Path c:d.node.Paths) {
+                                r.resetVisited();
+                                Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
+                                double tempD = r.pathHeuristic(path,p);
+                                if(tempD < bestDistance){
+                                    valid = Path.hasGoal(path);
+                                    Bestpath = path;
+                                    bestDistance = tempD;
+                                    bestRoute = r;
+                                }
+                            }
+
+                    */
+
                     //routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal())
                     Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
                     if(Path.hasGoal(path)) {
