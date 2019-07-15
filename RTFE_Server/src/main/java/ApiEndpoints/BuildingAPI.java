@@ -209,7 +209,7 @@ public class BuildingAPI extends API {
             Person c = people.get(i);
             if(c.getAssignedRoute()!=null) {
                 double[] pos = c.getAssignedRoute().getGoal().coordinates;
-                data += c.getPersonID() + " *" ;
+                data += c.getName() + " *" ;
                 for (int j = 0; j < c.pathToFollow.size(); j++) {
                     data+= " "+c.pathToFollow.get(j).floor+","+c.pathToFollow.get(j).coordinates[0]+","+c.pathToFollow.get(j).coordinates[1];
                     if(j!= c.pathToFollow.size()-1){
