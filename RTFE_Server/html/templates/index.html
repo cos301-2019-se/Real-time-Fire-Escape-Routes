@@ -31,6 +31,8 @@
 				/* Assign grid instructions to our parent grid container */
 				body{background-color: $background-body;
 					width: fit-content; margin: 0;}
+				.container-fluid{margin: 0;
+					padding: 0;}
 				.grid-container {
 				  display: grid;
 				  grid-template-columns: 0px 1fr;
@@ -72,20 +74,24 @@
 				    background-color: #fc9575;
 				  }
 				  .heading{color: #6a6a6a;
-				   font-family: "Ubuntu";}
+				   font-family: "Ubuntu";
+					font-size: 2vw;}
 				  .nav__list {
 				    padding: 0;
 				    list-style-type: none;
+
 				  }
 				  .nav__list-item {
 				    padding: 20px 20px 20px 40px;
 				    color: #ddd;
 				    display: inline;
+				    font-size: 1.5vw;
 				  }
 				  .nav__list-item:hover {
 				    background-color: rgba(255, 255, 255, 0.2);
 				    box-shadow:20px 20px 50px 10px #ff7775 inset; 
 				    cursor: pointer;
+
 				  }
 				  .header__avatar{color: white;}
 				   .main-overview {
@@ -276,12 +282,98 @@
                             box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);
 		}
 
+		/*some arrow margin regulation*/
+
+		@media only screen and (min-width: 298px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 300px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 350px) {
+		.arrow-span{margin-left: 87%;} 
+		}
+
+		@media only screen and (min-width: 400px) {
+		.arrow-span{margin-left: 87%;} 
+		}
+
+		@media only screen and (min-width: 450px) {
+		.arrow-span{margin-left: 87%;} 
+		}
+
+		@media only screen and (min-width: 500px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 550px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 600px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 630px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 650px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+
+		@media only screen and (min-width: 768px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 800px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 850px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 900px) {
+		.arrow-span{margin-left: 87%;} 
+		} 
+
+		@media only screen and (min-width: 950px) {
+		.arrow-span{margin-left: 87%;}
+		 
+		} 
+
+	
+		@media only screen and (min-width: 1000px) {
+		.arrow-span{margin-left: 87%;} 
+		}
+
+		@media only screen and (min-width: 1100px) {
+		.arrow-span{margin-left: 87%;} 
+		}
+
+		@media only screen and (min-width: 1146px) {
+		.arrow-span{margin-left: 87%;} 
+		}
+
+		@media only screen and (min-width: 1250px) {
+		.arrow-span{margin-left: 87%;} 
+		}
+
+		@media only screen and (min-width: 1500px) {
+		.arrow-span{margin-left: 89%;} 
+		}
+
+
 
     </style>
   </head>
   <body>
 
-  	<div class="grid-container">
+  	<div class="grid-container container-fluid">
   		<header class="header" id="top-bar">
   			
   		</header>

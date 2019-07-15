@@ -15,6 +15,10 @@ $(()=>{
 	main.append(echoBotCreator());
 	main.append(echoFireEditor());
 
+	$("form div div button").on("click", (e)=>{
+		e.preventDefault();
+	});
+
 	if($("#admin-super-choice").length)
 	{
 		$('#super-user-view').on('click', ()=>{
@@ -71,10 +75,10 @@ function echoTopBar()
 		  		<h1 id="name-of-system" class="heading"><img class="icons" src="img/grey.png">
 	  					Real-time FER</h1></div>
 	  					<ul class="nav__list" id="admin-super-choice">
-						    <li id="super-user-view" class="active nav__list-item">Super-user view</li>
+						    <li  id="super-user-view" class="active nav__list-item">Super-user view</li>
 						    <li id="admin-view" class="nav__list-item">Admin view</li>
 					  	</ul>
-  			<div class="header__avatar"><img id="icons" src="icons/white_person.png"> User Name</div>
+  			<div class="header__avatar"><img id="icons"  style="width: 2vw;" src="icons/white_person.png"> <span style="width: 1.5vw;">User Name</span></div>
   					`;
 
 }
@@ -158,7 +162,7 @@ function echoBotCreator()
 {
 	return `<div id="add-bot-window" class="card1">
   					<span style="margin-bottom: 2%;">Add bot</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-bot" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button id="btn-add-bot" class= "btn btn-light" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
   				</div>`;
 }
 
@@ -166,7 +170,7 @@ function echoFireEditor()
 {
 	return `<div id="add-fire-window" class="card1">
   					<span style="margin-bottom: 2%;">Add fire</span>
-  					<span class="arrow-span" style="margin-bottom: 2%;"><button id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button class="btn btn-light" id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
   				</div>`;
 }
 
@@ -202,13 +206,13 @@ function echoAdminTableView()
 	  			</div>
 
   					<div style="text-align: right; padding-top: 1%; width: 100%;">
-  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser)">
+  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser, null, null, null)">
   							<img style=" width: 10px;" id="img-drop"  src="icons/baseline_add_black_48dp.png"> Add user 
   						</button>
-  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding)">
+
+  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding, null, null, null)">
   							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
   						</button>
-  					</div>
   					
 			</div>`;
 	}
@@ -239,11 +243,11 @@ function echoAdminTableView()
 	  			</div>
 
   					<div style="text-align: right; padding-top: 1%; width: 100%;">
-  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser)">
+  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser, null, null, null)">
   							<img style=" width: 10px;" id="img-drop"  src="icons/baseline_add_black_48dp.png"> Add user 
   						</button>
 
-  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding)">
+  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding, null, null, null)">
   							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
   						</button>
   					
@@ -317,7 +321,7 @@ function populateTable(data)
 				<td data-label="Device_ID">${element.mac}</td>
 				<td data-label="Type">${element.type}</td>
 				<td data-label="Status" id="${element.name+element.type}">${fetchStatus(element.mac,element.name+element.type)}</td>
-				<td data-label="Edit" ><button id="${element.email}-edit" onclick="editUser(${element.email})" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="removeUser(${element.email})" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
+				<td data-label="Edit" ><button id="${element.email}-edit" onclick="displayOverlayWindow(editUser,'${element.email}', '${element.name}', '${element.type}', '${element.mac}')" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="displayOverlayWindow(removeUser,'${element.email}', '${element.name}', '${element.type}', '${element.mac}')" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
 			</tr>`;
 
 		});
@@ -364,13 +368,26 @@ function statusIdentifier(status)
 	}
 }
 
-function displayOverlayWindow(contentFunc)
+function displayOverlayWindow(contentFunc, user, name, type, device)
 {
-	$("#overlay-window").removeAttr("style");
+	//debugger;
+	if(user != null)
+	{
+		$("#overlay-window").removeAttr("style");
 
-	$("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+		$("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+  				${contentFunc(user, name, type, device)}
+  			</div>`);
+	}
+	else
+	{
+		$("#overlay-window").removeAttr("style");
+
+		$("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
   				${contentFunc()}
   			</div>`);
+	}
+	
 	
 }
 
@@ -382,33 +399,34 @@ function windowForNewUser()
 		</div>
 	</div>
 	<div>
-		<form>
+		<div id="addUser">
 		  <div class="form-group">
-		    <label for="fullName">Full name</label>
-		    <input type="text" class="form-control" id="fullName" placeholder="Full Name">
+		    <label for="fullName-addUser">Full name</label>
+		    <input type="text" class="form-control" id="fullName-addUser" placeholder="Full Name" required>
 		  </div>
 		  <div class="form-group">
-		    <label for="email">Email</label>
-		    <input type="text" class="form-control" id="email" placeholder="Email">
+		    <label for="email-addUser">Email</label>
+		    <input type="email" class="form-control" id="email-addUser" placeholder="Email" required>
 		  </div>
 		  <div class="form-group">
-		    <label for="setPassword">Set password</label>
-		    <input type="password" class="form-control" id="setPassword" placeholder="password">
+		    <label for="setPassword-addUser">Set password</label>
+		    <input type="password" class="form-control" id="setPassword-addUser" placeholder="password" required>
 		  </div>
 		  <div class="form-group">
-		    <label for="type">Set type</label>
-		    <select class="custom-select mr-sm-2" id="type">
+		    <label for="type-addUser">Set type</label>
+		    <select class="custom-select mr-sm-2" id="type-addUser">
+
 		        <option selected>Agent</option>
 		        <option value="1">Admin</option>
 		    </select>
 		  </div>
 		  <div class="form-group row">
 		    <div class="col-sm-12" style="text-align: right;">
-		      <button type="submit" id="submit-new-user" class="btn btn-info">Send request</button>
+		      <button onclick="getInfoFromInput('addUser')" id="submit-new-user" class="btn btn-info">Send request</button>
 		      <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
 		    </div>
 		  </div>
-		</form>
+		</div>
 	</div>
 	`;
 }
@@ -421,7 +439,7 @@ function windowForNewBuilding()
 		</div>
 	</div>
 	<div>
-		<form>
+		<div>
 		  <div class="form-group">
 		    <label for="buildingName">Building name</label>
 		    <input type="text" class="form-control" id="buildingName" placeholder="Building1">
@@ -454,7 +472,7 @@ function windowForNewBuilding()
 		      <button id="cancel-new-building" class="btn btn-danger"  onclick="clearWindow()">Cancel</button>
 		    </div>
 		  </div>
-		</form>
+		</div>
 	</div>
 	`;
 }
@@ -527,13 +545,146 @@ function createObject(data)
 	return populateTable(objArray);
 }
 
-function editUser(user)
+function editUser(user, name, type, device)
 {
-
+	console.log(name);
+	return `<div class="row">
+		<div style="text-align: center;" class="col-sm-12">
+			<h1>Eddit user ${name}</h1>
+		</div>
+	</div>
+	<div>
+		<form>
+		  <div class="form-group">
+		    <label for="fullName">Change name</label>
+		    <input type="text" class="form-control" id="fullName" placeholder="${name}">
+		  </div>
+		  <div class="form-group">
+		    <label for="email">Change email</label>
+		    <input type="text" class="form-control" id="email" placeholder="${user}">
+		  </div>
+		  <div class="form-group">
+		    <label for="setPassword">Change password</label>
+		    <input type="password" class="form-control" id="setPassword" placeholder="password">
+		  </div>
+		  <div class="form-group">
+		    <label for="type">Change type</label>
+		    <select class="custom-select mr-sm-2" id="type">
+		    	${selectType(type)}
+		    </select>
+		  </div>
+		  <div class="form-group row">
+		    <div class="col-sm-12" style="text-align: right;">
+		      <button type="submit" id="submit-new-user" class="btn btn-info">Change info</button>
+		      <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+	`;
 }
 
-function removeUser(user)
+function removeUser(user, name, type, device)
 {
+		return `<div class="row">
+				<div style="text-align: center;" class="col-sm-12">
+					<h1>Do you want to remove ${name} from your system?</h1>
+				</div>
+			</div>
+			<div>
+				  <div class="form-group">
+				    <h3>Full name:</h3>
+				    <p>${name}</p>
+				  </div>
+				  <div class="form-group">
+				    <h3>Email:</h3>
+				    <p>${user}</p>
+				  </div>
+				  <div class="form-group">
+				    <h3>Device_ID:</h3>
+				    <p>${device}</p>
+				  </div>
+				  <div class="form-group">
+				    <h3>Type:</h3>
+				    <p>${type}</p>
+				  </div>
+				  <div class="form-group row">
+				    <div class="col-sm-12" style="text-align: right;">
+				      <button type="submit" class="btn btn-info" onclick="">Delete user</button>
+				      <button onclick="clearWindow()" id="cancel-delete" class="btn btn-danger">Cancel delete</button>
+				    </div>
+				  </div>
+			</div>
+			`;
+}
+
+function selectType(type)
+{
+	if(type === "Agent")
+		{return `
+		        <option selected>Agent</option>
+		        <option value="1">Admin</option>
+		        `} 
+		else{ return `
+		        	<option>Agent</option>
+		        	<option value="1" selected>Admin</option>
+		        	`}
+}
+
+function getInfoFromInput(callFunc)
+{	
+	if(callFunc === "addUser")
+	{
+		let dataType = "register";
+		let name = $("#fullName-addUser").val();
+		let email = $("#email-addUser").val();
+		let pass = $("#setPassword-addUser").val();
+		let userType = $("#type-addUser option:selected").val();
+		console.log(dataType);
+		console.log(name);
+		console.log(email);
+		console.log(pass);
+		console.log(userType);
+		addUser(dataType, name, email, pass, userType);
+	}
+
+	else if(callFunc === "addBuilding")
+	{
+	}
+
+		clearWindow();
+}
+
+function addUser(dataType, name, email, pass, userType)
+{
+	//debugger;
+	console.log('over here')
+	$.ajax({
+            url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: dataType,
+                name: name,
+                email: email,
+                pass: pass,
+                userType: userType
+            }),
+            success: function(data){
+                if (data.status){
+                	console.log('Successfully added a new User');
+                    
+                }else{
+                	console.log("Failed to add a user");
+                	console.log(data.message);
+                   
+                   
+                }
+            }, fail: function(){
+				console.log('fail');
+            }
+        });
 
 }
 
