@@ -15,9 +15,9 @@ $(()=>{
 	main.append(echoBotCreator());
 	main.append(echoFireEditor());
 
-	$("form div div button").on("click", (e)=>{
+	/*$("form div div button").on("click", (e)=>{
 		e.preventDefault();
-	});
+	});*/
 
 	if($("#admin-super-choice").length)
 	{
@@ -72,24 +72,81 @@ $(()=>{
 function echoTopBar()
 {
 	return `<div class="header__name">
-		  		<h1 id="name-of-system" class="heading"><img class="icons" src="img/grey.png">
+		  		<h1 id="name-of-system" class="heading"><img class="icons" src="img/fire.png">
 	  					Real-time FER</h1></div>
 	  					<ul class="nav__list" id="admin-super-choice">
 						    <li  id="super-user-view" class="active nav__list-item">Super-user view</li>
 						    <li id="admin-view" class="nav__list-item">Admin view</li>
 					  	</ul>
-  			<div class="header__avatar"><img id="icons"  style="width: 2vw;" src="icons/white_person.png"> <span style="width: 1.5vw;">User Name</span></div>
+  			<div class="header__avatar"><img id="icons" src="icons/white_person.png"> <span>User Name</span></div>
   					`;
 
 }
 
 function echoBuildingCard()
 {
-	return `
+	let name = getBuildingInfo("name");
+	if(name != undefined)
+	{
+		return `
 				<div class="card1" id="building-card" style="cursor: pointer;">
-		  				<h1 class="heading">Building name <img class="icons_small" src="icons/white_arrow_down.png">
-		  				</h1>
+		  				<h1 class="heading" id="building-name">${name}</h1>
 	  				</div>`;
+	}
+	else
+	{
+		return `
+				<div class="card1" id="building-card" style="cursor: pointer;">
+		  				<h1 class="heading" id="building-name"></h1>
+	  				</div>`;
+	}
+	
+}
+
+function getBuildingInfo(name)
+{
+	let objData;
+	$.ajax({
+		            url: "http://127.0.0.1:8080/database",
+		            type: "POST",
+		            contentType: "application/json; charset=utf-8",
+		            dataType: "json",
+		            data: JSON.stringify({
+		                type:"currentBuilding"
+		            }),
+		            success: function(data){
+		                if (data.status){
+		                	
+		                	objData = data;
+		                	console.log(objData.msg);
+
+		                	if(name === "name")
+							{
+								$("#building-name").text(objData.name);
+							}
+							else if(name === "img")
+							{
+								$("#building-name").text(objData.name);
+								$("#SU-simulation").append(`<img src="../Buildings/${objData.name}/building.jpeg" style="width:100%;"/>`);
+							}
+		                	
+		                    
+		                }else{
+		                   $("#building-name").text("No buildings to display");
+		                   return;
+		                }
+		            }, fail: function(){
+						$("#building-name").text("Failed to load building");
+						return;
+		            }
+		        });
+
+	
+}
+
+function setNewBuilding()
+{
+
 }
 
 function echoContentTable_SuperUser()
@@ -101,8 +158,11 @@ function echoContentTable_SuperUser()
 		return `			
 	  				<div class="card1" id="inner-table-card" style="display: block;">
 	  					
-	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left:45%;"><img class="icons" src="icons/baseline_search_black_18dp.png">
-  						<input id="search-input" class="searcher" type="search" placeholder="Search..."  aria-label="Search"></span></div>
+	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 65%;">
+	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
+     						<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
+     						</span>
+     						</div>
 			  			<div  style="max-height: 350px; overflow-y: auto; display: block;">
 	  				
 			  				<table style="fit-content" id="tbh">
@@ -126,8 +186,12 @@ function echoContentTable_SuperUser()
 	else return `			
 	  				<div class="card1" id="inner-table-card" style="display: block;">
 	  					
-	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; "><img class="icons" src="icons/baseline_search_black_18dp.png">
-  						<input id="search-input" class="searcher" type="search" placeholder="Search" aria-label="Search"></span></div>
+	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
+	  					<span class="search-span" style="text-align: right; margin-left: 65%;">
+	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
+     						<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
+     						</span>
+     						</div>
 			  			<div  style="max-height: 350px; overflow-y: auto; display: block;">
 	  				
 			  				<table style="fit-content" id="tbh">
@@ -152,17 +216,29 @@ function echoContentTable_SuperUser()
 
 function echoSimulationWindow()
 {
-	return `<div class="card1" id="SU-simulation">
-  					Simulation
+	let img = getBuildingInfo("img");
+
+	if(img != undefined)
+	{
+		return `<div class="card1" id="SU-simulation">
+  					${img}
   			</div>
   		</div>`;
+	}
+	else
+	{
+		return `<div class="card1" id="SU-simulation">
+  					
+  			</div>
+  		</div>`;
+	}
 }
 
 function echoBotCreator()
 {
 	return `<div id="add-bot-window" class="card1">
   					<span style="margin-bottom: 2%;">Add bot</span>
-  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button id="btn-add-bot" class= "btn btn-light" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button id="btn-add-bot" class= "btn btn-light" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/baseline_add_black_48dp.png"></button></span>
   				</div>`;
 }
 
@@ -170,7 +246,7 @@ function echoFireEditor()
 {
 	return `<div id="add-fire-window" class="card1">
   					<span style="margin-bottom: 2%;">Add fire</span>
-  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button class="btn btn-light" id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/grey_small_arrow.png"></button></span>
+  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button class="btn btn-light" id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/baseline_add_black_48dp.png"></button></span>
   				</div>`;
 }
 
@@ -184,8 +260,12 @@ function echoAdminTableView()
 					
 	  			<div id="inner-table-card" style="display: block;">
 	  					
-	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 75%;"><img class="icons" src="icons/baseline_search_black_18dp.png">
-  						<input id="search-input" class="searcher" type="search" placeholder="Search" aria-label="Search"></span></div>
+	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
+	  						<span class="search-span" style="text-align: right; margin-left: 70%;">
+	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
+     						<button class="btn btn-light" type="submit"><i class="fa fa-search"></i></button>
+     						</span>
+     						</div>
 			  			<div  style="max-height: 350px; overflow-y: auto; display: block;">
 	  				
 			  	<table style="fit-content" id="tbh">
@@ -221,8 +301,12 @@ function echoAdminTableView()
 					
 	  			<div id="inner-table-card" style="display: block;">
 	  					
-	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 75%;"><img class="icons" src="icons/baseline_search_black_18dp.png">
-  						<input id="search-input" class="searcher" type="search" placeholder="Search" aria-label="Search"></span></div>
+	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
+	  					<span class="search-span" style="text-align: right; margin-left: 70%;">
+	  						<input id="search-input" class="searcher" type="text" placeholder="Search.." name="search">
+     						<button class="btn btn-light" type="submit"><i class="fa fa-search" ></i></button>
+     						</span>
+     						</div>
 			  			<div  style="max-height: 350px; overflow-y: auto; display: block;">
 	  				
 			  	<table style="fit-content" id="tbh">
@@ -422,7 +506,7 @@ function windowForNewUser()
 		  </div>
 		  <div class="form-group row">
 		    <div class="col-sm-12" style="text-align: right;">
-		      <button onclick="getInfoFromInput('addUser')" id="submit-new-user" class="btn btn-info">Send request</button>
+		      <button onclick="getInfoFromInput('addUser', null)" id="submit-new-user" class="btn btn-info">Send request</button>
 		      <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
 		    </div>
 		  </div>
@@ -482,11 +566,6 @@ function clearWindow()
 {
 	$("#overlay-window").empty();
 	$("#overlay-window").attr("style", "display: none;");
-}
-
-function droppingWindow()
-{
-
 }
 
 function createObject(data)
@@ -554,32 +633,32 @@ function editUser(user, name, type, device)
 		</div>
 	</div>
 	<div>
-		<form>
+		<div>
 		  <div class="form-group">
-		    <label for="fullName">Change name</label>
-		    <input type="text" class="form-control" id="fullName" placeholder="${name}">
+		    <label for="fullName-edditUser">Change name</label>
+		    <input type="text" class="form-control" id="fullName-edditUser" value="${name}">
 		  </div>
 		  <div class="form-group">
-		    <label for="email">Change email</label>
-		    <input type="text" class="form-control" id="email" placeholder="${user}">
+		    <label for="email-edditUser">Change email</label>
+		    <input type="email" class="form-control" id="email-edditUser" value="${user}">
 		  </div>
 		  <div class="form-group">
-		    <label for="setPassword">Change password</label>
-		    <input type="password" class="form-control" id="setPassword" placeholder="password">
+		    <label for="setPassword-edditUser">Change password</label>
+		    <input type="password" class="form-control" id="setPassword-edditUser" placeholder="Do not fill in to keep it same">
 		  </div>
 		  <div class="form-group">
-		    <label for="type">Change type</label>
-		    <select class="custom-select mr-sm-2" id="type">
+		    <label for="type-edditUser">Change type</label>
+		    <select class="custom-select mr-sm-2" id="type-edditUser">
 		    	${selectType(type)}
 		    </select>
 		  </div>
 		  <div class="form-group row">
 		    <div class="col-sm-12" style="text-align: right;">
-		      <button type="submit" id="submit-new-user" class="btn btn-info">Change info</button>
+		      <button onclick="getInfoFromInput('addInfo', '${user}')" id="submit-new-user" class="btn btn-info">Change info</button>
 		      <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
 		    </div>
 		  </div>
-		</form>
+		</div>
 	</div>
 	`;
 }
@@ -587,7 +666,7 @@ function editUser(user, name, type, device)
 function removeUser(user, name, type, device)
 {
 		return `<div class="row">
-				<div style="text-align: center;" class="col-sm-12">
+				<div style="text-align: center; margin-bottom: 3%; margin-top: 3%;" class="col-sm-12">
 					<h1>Do you want to remove ${name} from your system?</h1>
 				</div>
 			</div>
@@ -610,7 +689,7 @@ function removeUser(user, name, type, device)
 				  </div>
 				  <div class="form-group row">
 				    <div class="col-sm-12" style="text-align: right;">
-				      <button type="submit" class="btn btn-info" onclick="">Delete user</button>
+				      <button type="submit" class="btn btn-info" onclick="deleteUser('${user}', '${name}')">Delete user</button>
 				      <button onclick="clearWindow()" id="cancel-delete" class="btn btn-danger">Cancel delete</button>
 				    </div>
 				  </div>
@@ -631,7 +710,7 @@ function selectType(type)
 		        	`}
 }
 
-function getInfoFromInput(callFunc)
+function getInfoFromInput(callFunc, email1)
 {	
 	if(callFunc === "addUser")
 	{
@@ -648,6 +727,70 @@ function getInfoFromInput(callFunc)
 		addUser(dataType, name, email, pass, userType);
 	}
 
+
+/////////////////////////////////////////////////////////////////////////
+	else if(callFunc === "addInfo")
+	{
+		let dataType = "update";
+		let updateName, updateEmail, updatePass, updateType;
+		let name = $("#fullName-edditUser").val();
+		console.log(name+ " the name");
+		if(name != undefined && name != "" && name != null && name != " ")
+		{
+			console.log("I am here");
+			updateName = updateInfo(dataType, 'name', email1, name);
+			if(updateName === "false")
+			{
+				notify("Failed to update user name", 'red');
+				clearWindow();
+				return;
+			}
+		}
+
+		
+		let pass = $("#setPassword-edditUser").val();
+		if(pass != undefined || pass === "Do not fill in to keep it same" || pass != " " || pass != null)
+		{
+			updatePass = updateInfo(dataType, 'pass', email1, name);
+			if(updatePass === "false")
+			{
+				notify("Failed to update user password", 'red');
+				clearWindow();
+				return;
+			}
+		}
+		let userType = $("#type-edditUser option:selected").val();
+		if(userType != undefined)
+		{
+			updateType = updateInfo(dataType, 'usertype', email1, name);
+			if(updateType === "false")
+			{
+				notify("Failed to update user type", 'red');
+				clearWindow();
+				return;
+			}
+		}
+
+		let email = $("#email-edditUser").val();
+		if(email != undefined || email != " " || email != null)
+		{
+			updateEmail = updateInfo(dataType, 'email', email1, name);
+			if(updateEmail === "false")
+			{
+				notify("Failed to update user email", 'red');
+				clearWindow();
+				return;
+			}
+		}
+
+		notify("User's information was successfully changed", 'green');
+
+		updateTable();
+        clearWindow();
+
+		//addInfo(dataType, name, email, pass, userType);
+	}
+///////////////////////////////////////////////////////////////////////////
 	else if(callFunc === "addBuilding")
 	{
 	}
@@ -674,9 +817,11 @@ function addUser(dataType, name, email, pass, userType)
             success: function(data){
                 if (data.status){
                 	console.log('Successfully added a new User');
+                	updateTable();
+                	notify("The user was successfully added!", 'green')
                     
                 }else{
-                	console.log("Failed to add a user");
+                	notify("Failed to add a user", 'red');
                 	console.log(data.message);
                    
                    
@@ -688,6 +833,156 @@ function addUser(dataType, name, email, pass, userType)
 
 }
 
+
+function deleteUser(email, name)
+{
+	$.ajax({
+            url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: "remove",
+                email: email
+            }),
+            success: function(data){
+                if (data.status){
+                	console.log('Successfully added a new User');
+                	updateTable();
+                	clearWindow();
+                	notify("The user "+name+" was succesfully removed from the system", 'green');
+                    
+                }else{
+                	notify("Failed to remove the user", 'red');
+                	
+                   
+                   
+                }
+            }, fail: function(){
+				console.log('fail');
+            }
+        });
+
+}
+
+function updateTable()
+{
+	$(".main").empty();
+	$(".main").append(`<div class="dependant-card" id="dep"></div>`);
+	$("#dep").append(echoBuildingCard());
+	$("#dep").append(echoAdminTableView());
+
+}
+
+/*[usertype]
+{
+	"type": "update",
+	"typeOfUpdate": "userType",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[name]
+{
+	"type": "update",
+	"typeOfUpdate": "name",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[deviceID]
+{
+	"type": "update",
+	"typeOfUpdate": "deviceID",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[password]
+{
+	"type": "update",
+	"typeOfUpdate": "password",
+	"email": "<email>",
+	"value": "<new value>"
+}
+
+[email]
+{
+	"type": "update",
+	"typeOfUpdate": "email",
+	"email": "<email>",
+	"value": "<new value>"
+}
+*/
+
+function updateInfo(type, typeOfUpdate, email, value)
+{
+	$.ajax({
+            url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: "update",
+                typeOfUpdate: typeOfUpdate,
+                email: email,
+                value: value
+            }),
+            success: function(data){
+                if (data.status){
+                	return "true";
+                    
+                }else{
+                	return "false";
+                	
+                   
+                   
+                }
+            }, fail: function(){
+				console.log('fail');
+            }
+        });
+}
+
+
+
+
+
+
+
+
+/*Function notify*/
+
+function notify(msg, color){
+        $('body').append($('<div></div>')
+            .css({
+                'position' : 'fixed',
+                'margin' : '0 auto',
+                'top' : '-50px',
+                'left' : '0',
+                'right' : '0',
+                'text-align' : 'center',
+            })
+            .append($('<span></span>')
+                .css({
+                    'font-family' : 'Ubuntu',
+                    'padding' : '10px 20px',
+                    'background-color' : color,
+                    'color' : 'white',
+                    'border-radius' : '7px',
+                    'box-shadow' : '0px 2px 3px 1px rgba(0,0,0,0.27)'
+                })
+                .text(msg)
+            )
+            .animate({
+                top: "+=80px"
+            }).delay(3000).animate({
+                top: "-=80px"
+            }, function(){
+                $(this).remove();
+            })
+        )
+    }
 
 /*
 {
