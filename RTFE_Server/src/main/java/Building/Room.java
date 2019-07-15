@@ -11,7 +11,6 @@ public class Room {
     private Vector<Room> Rooms = new Vector<Room>();
     protected Vector<Corner> Corners = new Vector<>();
     public Vector<Fire> fires = new Vector<Fire>();
-
     protected Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
     Vector<Node> nodesInRooms = new Vector<Node>();
     static boolean verbose = true;
@@ -44,8 +43,6 @@ public class Room {
                 if(roomType == RoomType.stairs)
                     d.changeType(NodeType.stairs);
                 doors.add(d);
-                if(verbose)
-                    System.out.println("Door Placed in "+roomType.toString());
                 return true;
             }
         }
@@ -211,25 +208,6 @@ public class Room {
         return currentDoors;
     }
 
-    /**
-     * @Tilanie:
-     * What is the purpose of this function?
-     * */
-    public boolean getAllNodes()
-    {
-        for (int i = 0; i < getRooms().size(); i++) {
-            if(getRooms(i).getAllNodes())
-                return true;
-        }
-        for(int i = 0; i < doors.size(); i++)
-        {
-            if(!nodesInRooms.contains(doors.get(i).node))
-            {
-                nodesInRooms.add(doors.get(i).node);
-            }
-        }
-        return true;
-    }
     public boolean addPerson(Person p){
         for (int i = 0; i <getRooms().size() ; i++) {
             if(getRooms(i).addPerson(p))
@@ -389,7 +367,7 @@ public class Room {
     /**
      * @info : See the function "isCyclic()" for more details
      * */
-    Boolean isCyclicUtil(Corner v, Boolean visited[], Corner parent) {
+    private Boolean isCyclicUtil(Corner v, Boolean visited[], Corner parent) {
         int _v = Corners.indexOf(v);
         visited[_v] = true;
         Corner i;
@@ -411,7 +389,7 @@ public class Room {
      *  true - Returns true if it contains a cycle
      *  false - Returns false if it still needs walls
      * */
-    Boolean isCyclic() {
+    private Boolean isCyclic() {
         if(Walls.lastElement().size() == 0)
             Walls.remove(Walls.size()-1);
         Boolean visited[] = new Boolean[Corners.size()];
@@ -520,7 +498,7 @@ public class Room {
         return peopleData;
     }
 
-    public static class Corner{
+    protected static class Corner{
         double x;
         double z;
 
