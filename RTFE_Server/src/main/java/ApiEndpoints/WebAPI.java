@@ -14,20 +14,20 @@ public class WebAPI extends API {
 
     private static boolean verbose = true; //USED for debugging purposes
     private static Database USERDB = new Database();
-<<<<<<< HEAD
+
     /**
      * function handles the requests made to the server
      * @param request: the request object
      * @return a JSONObject with the relevant information
      */
-=======
+
 
     /**
      * This function will be used to process the request handed over to the API
      * @param request: Contains the JSON data that was sent to the server
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
->>>>>>> Development
+
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         //String reqType = (String)req.get("type");
         if(verbose)
@@ -284,15 +284,7 @@ public class WebAPI extends API {
 
         return Response;
     }
-<<<<<<< HEAD
 
-    /**
-     * function upload a new building to the system
-     * @param name: the building name
-     * @param file: the file containing the JSON data for the building
-     * @return a JSONObject with the relevant information
-     */
-=======
     
     /**
      * This function is used to upload buildings to the server's file system
@@ -300,7 +292,7 @@ public class WebAPI extends API {
      * @param file: A JSON file that contains all the building data
      * @return returns success or fail depending on outcome
      * */
->>>>>>> Development
+
     private static  JSONObject uploadBuilding(String name, String file)
     {
         File dir = new File("./html"+ "/" + "Buildings/"  +name);
@@ -344,17 +336,7 @@ public class WebAPI extends API {
 
         return Response;
     }
-<<<<<<< HEAD
 
-    /**
-     * function that adds a new user to the system
-     * @param name: the name for the user
-     * @param email: the email for the user
-     * @param password: the password for the new user
-     * @param type: the userType for the new user
-     * @return a JSONObject with the relevant information
-     */
-=======
     /**
      * This function is used to add a user to the database
      * @param name: The name of the user to be registered
@@ -363,7 +345,6 @@ public class WebAPI extends API {
      * @param type: The role that will be assigned to the user
      * @return returns success or fail depending on outcome
      * */
->>>>>>> Development
     private static JSONObject register(String name, String email, String password, String type){
         JSONObject Response = new JSONObject();
         try{
@@ -386,17 +367,12 @@ public class WebAPI extends API {
     }
 
     /**
-<<<<<<< HEAD
-     * function that adds a new user to the system
-     * @param email: used to identify the user that will be removed
-     * @return a JSONObject with the relevant information
-     */
-=======
+
+
      * This function is used to remove a user from the system
      * @param email: The email of the user to be removed
      * @return returns success or fail depending on outcome
      * */
->>>>>>> Development
     private static JSONObject remove(String email) {
         JSONObject Response = new JSONObject();
         boolean exist = USERDB.delete(email);
@@ -411,22 +387,13 @@ public class WebAPI extends API {
         }
         return Response;
     }
-<<<<<<< HEAD
 
-    /**
-     * function that adds a new user to the system
-     * @param email: used to identify the user that will be removed
-     * @param password: the password for the user
-     * @return a JSONObject with the relevant information
-     */
-=======
     /**
      * This function is used to log a user into the system
      * @param email: The email of the user to be logged in
      * @param password: The password of the user to be logged in
      * @return returns success or fail depending on outcome
      * */
->>>>>>> Development
     private static JSONObject login(String email, String password){
 
         JSONObject Response = new JSONObject();
