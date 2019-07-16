@@ -27,6 +27,8 @@
     				padding: 5px;
     				font-family: "Ubuntu";
     				 }
+
+    			a{font-family: "Ubuntu";}
     	/* Simple dashboard grid CSS */
 
 				/* Assign grid instructions to our parent grid container */
@@ -47,14 +49,21 @@
 
 				.icons{width: 30px;}
 				.icons_small{width: 10px;}
+				#navbarSupportedContent{
+					background-color:#fc9575;
+ 
+				}
 
 				/* Give every child element its grid name */
 				.header {
 				  grid-area: header;
 				  background-color: $header-footer;
+				  height: 100%;
 				}
 				.active{ background-color: rgba(255, 255, 255, 0.2);
 					color: #ddd;
+					height: 70%;
+					border-radius: 4px;
 				}
 
 				.main {
@@ -82,13 +91,15 @@
 
 				  }
 				  .nav__list-item {
-				    padding: 20px 20px 20px 40px;
-				    color: #ddd;
+				    padding: 13px 40px 13px 40px;
+				    color: #6a6a6a;
+				    margin-left: 40px;
 				    display: inline;
 				  }
 				  .nav__list-item:hover {
 				    background-color: rgba(255, 255, 255, 0.2);
-				    box-shadow:20px 20px 50px 10px #ff7775 inset; 
+				    box-shadow:20px 20px 50px 10px #ff7775 inset;
+				    border-radius: 8px; 
 				    cursor: pointer;
 
 				  }
@@ -100,6 +111,8 @@
 				    grid-gap: 20px;
 				    margin: 20px;
 				  }
+
+				  #top-bar{ 			padding: 0;}
 				  
 				   .main-cards, .dependant-card{
 					    column-count: 1;
@@ -379,6 +392,8 @@
 
 
 		#fire-head{text-align: center;}
+
+		#nav2{width: 100%;}
 
     </style>
   </head>
