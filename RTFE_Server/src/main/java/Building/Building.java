@@ -53,6 +53,11 @@ public class Building {
             return PeopleList;
       }
 
+      /**
+       * Takes a Device ID and binds it to a person inside the building
+       * @param id: ID of a person to be bound
+       * @param deviceID: The Device ID of the phone to be bound
+       * */
       public boolean bindPerson(int id, String deviceID){
           Vector<Person> people =getPeople();
           for (Person p :people) {
