@@ -3,6 +3,8 @@ $(()=>{
 	{
 		$('#main-body-superuser').show();
 	}*/
+	$global_building_info = getInfoAboutCurrentBuilding(); // global variables
+
 	let rowForBar = $("#top-bar");
 	//fetchFromDb("getUsers");
 	rowForBar.append(echoTopBar);
@@ -118,7 +120,7 @@ function getBuildingInfo(name)
 		                if (data.status){
 		                	
 		                	objData = data;
-		                	console.log(objData.msg);
+		                	
 
 		                	if(name === "name")
 							{
@@ -152,7 +154,7 @@ function setNewBuilding()
 function echoContentTable_SuperUser()
 {
 	let info = fetchFromDb("getUsers", "table-body-SU");
-	console.log(info);
+	
 	if(info != undefined)
 	{
 		return `			
@@ -237,16 +239,17 @@ function echoSimulationWindow()
 function echoBotCreator()
 {
 	return `<div id="add-bot-window" class="card1">
-  					<span style="margin-bottom: 2%;">Add bot</span>
-  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button id="btn-add-bot" class= "btn btn-light" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/baseline_add_black_48dp.png"></button></span>
+  					<button class="btn" id="btn-add-fire" style="margin: 0; padding: 0; display: inline; width: 100%;" ><span style="margin-bottom: 2%;">Add bot</span>
+  					<span class="arrow-span" style="margin-bottom: 0.5%;"><img class="icons_small" src="icons/baseline_add_black_48dp.png"></span></button>
   				</div>`;
 }
-
+//onclick="displayOverlayWindow(${fireWindow})"
 function echoFireEditor()
 {
-	return `<div id="add-fire-window" class="card1">
-  					<span style="margin-bottom: 2%;">Add fire</span>
-  					<span class="arrow-span" style="margin-bottom: 0.5%;"><button class="btn btn-light" id="btn-add-fire" style="margin: 0; padding: 0; display: inline;" ><img class="icons_small" src="icons/baseline_add_black_48dp.png"></button></span>
+	return `<div id="add-fire-window" class="card1" onclick="displayOverlayWindow(${fireWindow})">
+  					<button  class="btn" id="btn-add-fire" style="margin: 0; padding: 0; display: inline; width: 100%;">
+  						<span style="margin-bottom: 2%;">Add fire</span>
+  						<span class="arrow-span" style="margin-bottom: 0.5%;"><img class="icons_small" src="icons/baseline_add_black_48dp.png"></span></button>
   				</div>`;
 }
 
@@ -261,7 +264,7 @@ function echoAdminTableView()
 	  			<div id="inner-table-card" style="display: block;">
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
-	  						<span class="search-span" style="text-align: right; margin-left: 70%;">
+	  						<span class="search-span" style="text-align: right; margin-left: 76%;">
 	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
      						<button class="btn btn-light" type="submit"><i class="fa fa-search"></i></button>
      						</span>
@@ -302,7 +305,7 @@ function echoAdminTableView()
 	  			<div id="inner-table-card" style="display: block;">
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
-	  					<span class="search-span" style="text-align: right; margin-left: 70%;">
+	  					<span class="search-span" style="text-align: right; margin-left: 76%;">
 	  						<input id="search-input" class="searcher" type="text" placeholder="Search.." name="search">
      						<button class="btn btn-light" type="submit"><i class="fa fa-search" ></i></button>
      						</span>
@@ -343,7 +346,7 @@ function echoAdminTableView()
 function fetchFromDb(dataType, id)
 {
 	//debugger;
-	console.log('over here')
+	
 	$.ajax({
             url: "http://127.0.0.1:8080/database",
             type: "POST",
@@ -471,8 +474,6 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
   				${contentFunc()}
   			</div>`);
 	}
-	
-	
 }
 
 function windowForNewUser()
@@ -504,7 +505,7 @@ function windowForNewUser()
 		        <option value="1">Admin</option>
 		    </select>
 		  </div>
-		  <div class="form-group row">
+		  <div class="form-group row button-line">
 		    <div class="col-sm-12" style="text-align: right;">
 		      <button onclick="getInfoFromInput('addUser', null)" id="submit-new-user" class="btn btn-info">Send request</button>
 		      <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
@@ -550,9 +551,9 @@ function windowForNewBuilding()
 		  	</div>
 		   
 		  </div>
-		  <div class="form-group row" style="margin-top: 2%;">
+		  <div class="form-group row button-line" style="margin-top: 2%;">
 		    <div class="col-sm-12" style="text-align: right;">
-		      <button type="submit" id="submit-new-building" class="btn btn-info">Save</button>
+		      <button type="submit" onclick="getInfoFromInput('addBuilding', null)"  id="submit-new-building" class="btn btn-info">Save</button>
 		      <button id="cancel-new-building" class="btn btn-danger"  onclick="clearWindow()">Cancel</button>
 		    </div>
 		  </div>
@@ -652,7 +653,7 @@ function editUser(user, name, type, device)
 		    	${selectType(type)}
 		    </select>
 		  </div>
-		  <div class="form-group row">
+		  <div class="form-group row button-line">
 		    <div class="col-sm-12" style="text-align: right;">
 		      <button onclick="getInfoFromInput('addInfo', '${user}')" id="submit-new-user" class="btn btn-info">Change info</button>
 		      <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
@@ -687,10 +688,10 @@ function removeUser(user, name, type, device)
 				    <h3>Type:</h3>
 				    <p>${type}</p>
 				  </div>
-				  <div class="form-group row">
+				  <div class="form-group row button-line">
 				    <div class="col-sm-12" style="text-align: right;">
 				      <button type="submit" class="btn btn-info" onclick="deleteUser('${user}', '${name}')">Delete user</button>
-				      <button onclick="clearWindow()" id="cancel-delete" class="btn btn-danger">Cancel delete</button>
+				      <button onclick="clearWindow()" id="cancel-delete" class="btn btn-danger">Cancel</button>
 				    </div>
 				  </div>
 			</div>
@@ -793,6 +794,19 @@ function getInfoFromInput(callFunc, email1)
 ///////////////////////////////////////////////////////////////////////////
 	else if(callFunc === "addBuilding")
 	{
+		let name = $("#buildingName").val();
+		let img = null;
+		let file = null;
+		addBuilding(file, name, img);
+	}
+
+	else if(callFunc === addFire)
+	{
+		let x = $("#x-coordinate").val();
+		let y = $("#y-coordinate").val();
+		let rad = $("#rad-number").val();
+		let floor = $("#floor-number").val();
+		addFire(x, y, rad, floor);
 	}
 
 		clearWindow();
@@ -831,6 +845,35 @@ function addUser(dataType, name, email, pass, userType)
             }
         });
 
+}
+
+function addBuilding(file, BuildingName, image)
+{
+	$.ajax({
+            url: "http://127.0.0.1:8080/dababase",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                file: file,
+                type: "upload",
+                BuildingName: BuildingName,
+                image: image
+            }),
+            success: function(data){
+                if (data.status){
+                	notify(data.message, "blue");
+                    
+                }else{
+                	
+                	notify("Failed to add new building", "red");
+                   
+                   
+                }
+            }, fail: function(){
+				notify("Failed to add new building", "red");
+            }
+        });
 }
 
 
@@ -874,46 +917,6 @@ function updateTable()
 
 }
 
-/*[usertype]
-{
-	"type": "update",
-	"typeOfUpdate": "userType",
-	"email": "<email>",
-	"value": "<new value>"
-}
-
-[name]
-{
-	"type": "update",
-	"typeOfUpdate": "name",
-	"email": "<email>",
-	"value": "<new value>"
-}
-
-[deviceID]
-{
-	"type": "update",
-	"typeOfUpdate": "deviceID",
-	"email": "<email>",
-	"value": "<new value>"
-}
-
-[password]
-{
-	"type": "update",
-	"typeOfUpdate": "password",
-	"email": "<email>",
-	"value": "<new value>"
-}
-
-[email]
-{
-	"type": "update",
-	"typeOfUpdate": "email",
-	"email": "<email>",
-	"value": "<new value>"
-}
-*/
 
 function updateInfo(type, typeOfUpdate, email, value)
 {
@@ -944,11 +947,112 @@ function updateInfo(type, typeOfUpdate, email, value)
         });
 }
 
+function fireWindow()
+{
+	let maxX = 100;
+	let maxY= 100;
+	let maxFloor;
+	console.log($global_building_info);
+	if($global_building_info != null && $global_building_info != 'No buildings found')
+	{
+		maxFloor = $global_building_info.numberFloors-1;
+	}
+	else
+	{
+		maxFloor = 1;
+	}
+	
+	console.log(maxFloor);
+	let maxRad = 360;
+	// question how to get largest x, y, radius
+	return `<div> 
+				<h1 id='fire-head'>Simulate fire in the building</h1>
+			</div>
+			<div class='card-content'>
+				<div class='form-group'>
+					<label for='x-coordinate'>X</label>
+		    		<input type='number' min='0' max='${maxX}' class='form-control' id='x-coordinate' value='0'>
+				</div>
+				<div class='form-group'>
+					<label for='y-coordinate'>Y</label>
+		    		<input type='number' min='0' max='${maxY}' class='form-control' id='y-coordinate' value='0'>
+				</div>
+				<div class='form-group'>
+					<label for='rad-number'>Radius</label>
+		    		<input type='number' min='0' max='${maxRad}' class='form-control' id='rad-number' value='0'>
+				</div>
+				<div class='form-group'>
+					<div class='form-group'>
+						<label for='floor-number'>Floors</label>
+		    			<input type='number' min='0' max='${maxFloor}' class='form-control' id='floor-number' value='0'>
+					</div>
+				</div>
+			</div>
+			<div class='form-group row button-line'>
+				    <div class='col-sm-12' style='text-align: right;'>
+				      <button type= 'submit' class='btn btn-info' onclick='getInfoFromInput(addFire, null)'>Add fire</button>
+				      <button onclick='clearWindow()' id='cancel-delete ' class='btn btn-danger'>Cancel</button>
+				    </div>
+				  </div>
+		`;
+}
 
+function addFire(x, y, rad, floor)
+{
+	$.ajax({
+            url: "http://127.0.0.1:8080/building",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: "fire",
+				position: [x,y],
+				radius: rad,
+				floor: floor
+            }),
+            success: function(data){
+                if (data.status){
+                	notify(data.message, "blue");
+                    
+                }else{
+                	
+                	notify("Failed to add fire simulation", "red");
+                   
+                   
+                }
+            }, fail: function(){
+				console.log('fail to add fire');
+            }
+        });
+}
 
-
-
-
+function getInfoAboutCurrentBuilding()
+{
+	$.ajax({
+            url: "http://127.0.0.1:8080/buildingGeneration",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: "buildingData"
+            }),
+            success: function(data){
+                if (data.status){
+                	//console.log(data);
+                	return data;
+                    
+                }else{
+                	
+                	return "No buildings found"
+                   
+                   
+                }
+            }, fail: function(){
+				console.log('fail to get buildings');
+				return null;
+            }
+        });
+}
 
 
 /*Function notify*/
@@ -983,6 +1087,47 @@ function notify(msg, color){
             })
         )
     }
+
+
+
+
+
+
+
+
+
+
+
+
+ function handleFileSelect(id)
+  {               
+    if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+      alert('The File APIs are not fully supported in this browser.');
+      return;
+    }   
+
+    input = document.getElementById(id);
+    if (!input) {
+      alert("Could not find the file.");
+    }
+    else if (!input.files) {
+      alert("This browser doesn't seem to support the `files` property of file inputs.");
+    }
+    else if (!input.files[0]) {
+      alert("Please select a file before clicking 'Save'");               
+    }
+    else {
+      file = input.files[0];
+      fr = new FileReader();
+      //fr.onload = receivedText;
+     // fr.readAsDataURL(file);
+    }
+  }
+
+ /* function receivedText() {
+    document.getElementById('editor').appendChild(document.createTextNode(fr.result));
+  }  */         
+
 
 /*
 {
