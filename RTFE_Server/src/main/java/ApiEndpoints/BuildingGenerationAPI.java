@@ -65,7 +65,7 @@ public class BuildingGenerationAPI {
         /**
          * Adding Halls to the response
          * */
-        /* //Temp fix for unity
+         //Temp fix for unity
         rooms = (JSONArray)API.lastbuild.get("halls");
         data += " - ";
         for (int i = 0; i < rooms.length() ; i++) {
@@ -117,7 +117,7 @@ public class BuildingGenerationAPI {
         /**
          * Adding Floors to the response
          * */
-
+        /*
         rooms = (JSONArray)API.lastbuild.get("floors");
         data += " - ";
         for (int i = 0; i < rooms.length() ; i++) {

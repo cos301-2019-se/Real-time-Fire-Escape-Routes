@@ -1,7 +1,5 @@
 package Building;
 
-import Building.*;
-
 import java.util.Vector;
 
 public class Routes {
@@ -51,41 +49,7 @@ public class Routes {
     {
         nodes.add(n);
     }
-//
-//    public double distanceToGoal(Node n) throws Exception {
-//        double dist = 0;
-//        Node temp = n;
-//        int position = nodes.indexOf(n);
-//        if(nodes.contains(n)== false){
-//            throw new Exception("Route does not contain Node");
-//        }
-//        while(position < nodes.size() - 1)
-//        {
-//            temp = nodes.get(position);
-//            if(nodes.get(position).connectedTo.contains(nodes.get(position+1)))
-//            dist += temp.distanceToNode(nodes.get(position+1));
-//            position++;
-//        }
-//        return dist;
-//    }
 
-//    public double distanceToGoal(Node n) throws Exception {
-//        double Distance = 0;
-//        Node goal = this.getGoal();
-//        /**
-//         * Base Case if this node is directly connected to the goal then return the distance to the goal
-//         * */
-//        if(n.connectedTo.contains(goal)) {
-//            Distance = n.distanceToNodes.get(n.connectedTo.indexOf(goal));
-//            return Distance;
-//        }
-//        else{
-//            /**
-//             * Rooms are nested thus node needs to find a door which is connected to the goal
-//             * */
-//        }
-//        return Distance;
-//    }
 
     public Node getGoal(){
         return nodes.lastElement();
@@ -177,6 +141,12 @@ public class Routes {
     public void resetVisited(){
         for (Node v: nodes) {
             v.visited=false;
+        }
+    }
+    private void resetStairs(){
+        for (Node v: nodes) {
+            if(v.type == NodeType.stairs)
+             v.visited=false;
         }
     }
 

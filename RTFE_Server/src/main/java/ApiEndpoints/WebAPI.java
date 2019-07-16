@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Arrays;
 
 /**
  * WebAPI class is used by the '/database' endpoint in the HTTPServer
@@ -96,6 +97,19 @@ public class WebAPI extends API {
                 response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString());
                 return response;
             }
+            case "currentBuilding":
+            {
+                response = new JSONObject();
+                try {
+                    response.put("name", lastbuild.get("name"));
+                    response.put("status", true);
+                }
+                catch (Exception e){
+                    response.put("status", false);
+                }
+                return response;
+            }
+
         }
 
         throw new Exception("Unsupported Request");
@@ -342,14 +356,16 @@ public class WebAPI extends API {
      * @return returns a JSON object containing the names of all the buildings
      * */
     private static JSONObject listDir()throws Exception{
-        File folder = new File("Buildings/");
+        File folder = new File("html/Buildings/");
         JSONArray buildings = new JSONArray();
         JSONObject response = new JSONObject();
         File[] listOfFiles = folder.listFiles();
         for (File file : listOfFiles) {
             if(file.isDirectory())
-                buildings.put(file.getName());;
+                buildings.put(file.getName());
         }
+        if(verbose)
+            System.out.println(Arrays.toString(listOfFiles));
         response.put("status",true);
         response.put("msg",buildings);
         return response;
