@@ -83,6 +83,15 @@ $(()=>{
 		}); // done on click func
 	}
 	
+	var button = '<select id="building-change" style="margin-left:50px;max-height:40px" class="btn btn-default btn-sm"><span style="margin-right:3px" class="glyphicon glyphicon-arrow-down"></span>Change</select>'
+	$("#building-card").append(button);
+	$("#building-change").change(function(){
+		var name = $( this ).val();
+		console.log("new val: "+name);
+		changeBuilding(name);
+	})
+	addDropDown();
+
 });
 
 function echoTopBar()
@@ -144,47 +153,42 @@ function getBuildingInfo(name)
 {
 	let objData;
 	$.ajax({
-		            url: "http://127.0.0.1:8080/database",
-		            type: "POST",
-		            contentType: "application/json; charset=utf-8",
-		            dataType: "json",
-		            data: JSON.stringify({
-		                type:"currentBuilding"
-		            }),
-		            success: function(data){
-		                if (data.status){
-		                	
-		                	objData = data;
-		                	
-
-		                	if(name === "name")
-							{
-								$("#building-name").text(objData.name);
-							}
-							else if(name === "img")
-							{
-								$("#building-name").text(objData.name);
-								$("#SU-simulation").append(`<img src="../Buildings/${objData.name}/building.jpeg" style="width:100%;"/>`);
-							}
-		                	
-		                    
-		                }else{
-		                   $("#building-name").text("No buildings to display");
-		                   return;
-		                }
-		            }, fail: function(){
-						$("#building-name").text("Failed to load building");
-						return;
-		            }
-		        });
+            url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type:"currentBuilding"
+            }),
+            success: function(data){
+                if (data.status){
+                	
+                	objData = data;
+                
+                	if(name === "name")
+					{
+						$("#building-name").html(objData.name);
+					}
+					else if(name === "img")
+					{
+						$("#building-name").html(objData.name);
+						$("#SU-simulation").append(`<img src="../Buildings/${objData.name}/building.jpeg" style="width:100%;"/>`);
+					}
+                	
+                    
+                }else{
+                   $("#building-name").html("No buildings to display");
+                   return;
+                }
+            }, fail: function(){
+				$("#building-name").text("Failed to load building");
+				return;
+            }
+        });
 
 	
 }
 
-function setNewBuilding()
-{
-
-}
 
 function echoContentTable_SuperUser()
 {
