@@ -33,6 +33,16 @@
         android:layout_marginBottom="29dp"
         android:text="login" />
 
+    <Button
+        android:id="@+id/button_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:visibility="gone"
+        android:text="check status" />
+
     <EditText
         android:id="@+id/input_url"
         android:layout_width="1000dp"
