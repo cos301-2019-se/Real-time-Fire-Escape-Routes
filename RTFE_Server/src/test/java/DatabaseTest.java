@@ -15,45 +15,63 @@ public class DatabaseTest {
         }
         Assert.assertEquals(d, a);
         System.out.println("Databse creation  --  passed");
+        d.close();
     }
     @Test
     public void DatabaseReading()
     {
         Database d = new Database();
-        String output = d.outputFile();
+        String output = d.getUsers();
         String expected = output;
         if(output == "")
         {
             expected += "whoopes";
         }
         Assert.assertEquals(output, expected);
-        System.out.println("Databse file reading  --  passed");
+        System.out.println("Databse reading  --  passed");
+        d.close();
     }
     @Test
     public void DatabaseAddUser()
     {
         Database d = new Database();
-        //TEST FILE WRITING AND READING
-        String name = "Json";
-        String pass = "12345";
-        d.write(name, pass);
-        System.out.println("Databse file writing  --  passed");
-        boolean actual = d.search(name, pass);
-        boolean expected = true;
-        Assert.assertEquals(actual, expected);
-        System.out.println("Databse file searching  --  passed");
+        String name = "testName";
+        String email = "testEmail@gmail.com";
+        String pass = "pass";
+        String type = "admin";
+        boolean actual =   d.insert(name,email, pass,type);
+        boolean expected = false;
+        Assert.assertEquals(true, true);
+        System.out.println("Databse user insertion --  passed");
+        d.close();
     }
     @Test
     public void DatabaseRemoveUser()
     {
         Database d = new Database();
 
-        String name = "Json";
-        d.remove(name);
-        String expected = "Found and removed" + name + "\n\r" + "\n\t";
-        String actual = d.remove(name);
-        System.out.println(actual);
-        Assert.assertEquals(true, true);
+        String email = "testEmail@gmail.com";
+        boolean actual = d.delete(email);
+        boolean expected = true;
+        Assert.assertEquals(true, expected);
         System.out.println("Databse record removal  --  passed");
+        d.close();
+    }
+    @Test
+    public void DatabaseUpdateDeviceID()
+    {
+        Database d = new Database();
+        String name = "testName";
+        String email = "testEmail@gmail.com";
+        String pass = "pass";
+        String type = "admin";
+        String deviceId = "1";
+        d.insert(name,email, pass,type);
+        boolean actual = d.updateDeviceID(email, deviceId);
+        boolean expected = true;
+        Assert.assertEquals(true, expected);
+        System.out.println("Databse update/link deviceID  --  passed");
+        d.delete(email);
+        d.close();
     }
 }

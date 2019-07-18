@@ -1,19 +1,20 @@
 package Building;
 
 
+import java.util.Vector;
+
 public class Person {
 
-    static int numPeople = 0;
+    public static int numPeople = 0;
     public String name;
     Routes AssignedRoute;
     double [] position;
-    int personID= 0;
+    int personID = 0;
+    public String deviceID = "";
+    public Vector<Door> availableDoors = new Vector<>();
+    public Vector <Node> pathToFollow;
+    public double distanceToExit = Double.MAX_VALUE;
 
-    public Person(String n) {
-        name = n;
-        personID =numPeople++;
-
-    }
     public Person(String n,double [] pos) {
         name = n;
         personID =numPeople++;
@@ -46,5 +47,6 @@ public class Person {
     public Routes getAssignedRoute() {
         return AssignedRoute;
     }
+
 
 }

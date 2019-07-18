@@ -1,15 +1,28 @@
+/**
+ * @file HTTPServer.java
+ * @brief This file contains the main Server code which handles the incoming server requests
+ *
+ * @author Louw, Matthew Jason
+ * @author Bresler,  Mathilda Anna
+ * @author Braak, Pieter Albert
+ * @author Reva, Kateryna
+ * @author  Li, Xiao Jian
+ *
+ * @date 28/05/2019
+ */
+
+import ApiEndpoints.BuildingAPI;
+import ApiEndpoints.BuildingGenerationAPI;
+import ApiEndpoints.WebAPI;
+import Building.Building;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
-
-import ApiEndpoints.*;
-import Building.*;
-import Builder.BuildingManager;
-import org.json.*;
-
-import static ApiEndpoints.WebAPI.*;
 
 
 public class HTTPServer extends Server{
@@ -18,7 +31,7 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        static final boolean verbose = false;
+        static final boolean verbose = true;
         private JSONObject lastBuild = null;
 
         public HTTPServer(Building b){
@@ -27,6 +40,15 @@ public class HTTPServer extends Server{
         @Override
         void start(){}
 
+    /**
+     * Run function
+     * @brief This function opens a new socket and starts a new thread for the server to run
+     *
+     ** The run procedure. It can do the following:
+     *   - wait for incoming requests
+     *   - throw an exception if a socket cannot be opened
+     * @date 28/05/2019
+     */
         @Override
         public void run() {
             System.out.println("--------------------------");
@@ -49,6 +71,14 @@ public class HTTPServer extends Server{
             }
         }
 
+    /**
+     * readFileData function
+     * @brief This function takes in a file opbject and it's length and returns a bytestream of the file content
+     * @param file
+     * @param fileLength
+     * @return a bytestream containing the file data
+     * @date 28/05/2019
+     */
         private byte[] readFileData(File file, int fileLength) throws IOException {
             FileInputStream fileIn = null;
             byte[] fileData = new byte[fileLength];
@@ -63,12 +93,45 @@ public class HTTPServer extends Server{
 
             return fileData;
         }
+
+    /**
+     * getContentType function
+     * @brief This function determines the expected format of the data and returns the expected format in
+     * a standard format
+     * @param fileRequested describing the expected code format
+     * @return a String in the expected MEME type format
+     * @date 28/05/2019
+     */
         private String getContentType(String fileRequested) {
             if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
                 return "text/html";
             else
                 return "text/plain";
         }
+
+    /**
+     * getContentType function
+     * @brief This function determines the expected format of the data and returns the expected format in
+     * a standard format
+     * @param request describing the expected code format
+     * @return a String in the expected format
+     * @date 28/05/2019
+     */
+        private String getContentType(StringBuilder request){
+            String [] reqBody = request.toString().split("\n");
+            return reqBody[0].split(" ")[1];
+        }
+
+    /**
+     * fileNotFound function
+     * @brief
+     *
+     * @param out as the printWriter to be used in the function
+     * @param dataOut as the OutputStream used in the function
+     * @param fileRequested containing the requested file name
+     * @return no return value
+     * @date 28/05/2019
+     */
         private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
             File file = new File(WEB_ROOT, FILE_NOT_FOUND);
             int fileLength = (int) file.length();
@@ -90,12 +153,25 @@ public class HTTPServer extends Server{
                 System.out.println("File " + fileRequested + " not found");
             }
         }
-
+    /**
+     * @class HTTPClientConnection
+     * @brief Handles multiple threads and redirects requests to the appropriate classes
+     *
+     * @date 28/05/2019
+     */
     class HTTPClientConnection implements Runnable {
         private Socket connect;
         HTTPClientConnection(Socket c) {
             connect = c;
         }
+
+        /**
+         * run function
+         * @brief handles multiple clients as threads and redirects requests
+         *
+         * @return no return value
+         * @date 28/05/2019
+         */
         @Override
         public void run() {
             if(connect != null) {
@@ -116,7 +192,7 @@ public class HTTPServer extends Server{
                     fileRequested = parse.nextToken().toLowerCase();
 
                     // we support only GET and HEAD methods, we check
-                    if (!method.equals("GET")  && !method.equals("HEAD") && !method.equals("POST")) {
+                    if (!method.equals("GET")  && !method.equals("HEAD") && !method.equals("POST") && !method.equals("OPTIONS")) {
                         if (verbose) {
                             System.out.println("501 Not Implemented : " + method + " method.");
                         }
@@ -138,45 +214,64 @@ public class HTTPServer extends Server{
                         dataOut.flush();
 
                     }
-                    else if(method.equals("POST")){
-
+                    else if(method.equals("POST") || method.equals("OPTIONS")){
                         out.println("HTTP/1.1 200 OK");
                         out.println("Date: " + new Date());
                         out.println("Content-type: " + "application/json");
                         out.println(); // blank line between headers and content, very important !
                         out.flush();
-                        /**Getting the req.body*/
-                            StringBuilder payload = new StringBuilder();
-                            while(in.ready()){
-                                payload.append((char) in.read());
-                            }
-                            String test = getJSONStr(payload);
-                            JSONObject req = new JSONObject(test);
-                            if(verbose)
-                                System.out.println("Client -> Server: "+ req.toString());
-
-
-                        /** Determining the API endpoint requested */
-
-                        System.out.println(fileRequested.toString());
-                        String endPoint = fileRequested.toString();
                         JSONObject response = new JSONObject();
-                        endPoint = endPoint.substring(1);
-                        endPoint = endPoint.toLowerCase();
-                        switch (endPoint){
-                            case "database":
-                                response = WebAPI.handleRequest(req);
-                                break;
-                            case "buildinggeneration":
-                                response = BuildingGenerationAPI.handleRequest(req);
-                                break;
-                            case "building":
-                                response = BuildingAPI.handleRequest(req);
-                                break;
-                            default:
-                                response = new JSONObject();
-                                response.put("status",false);
-                                response.put("msg","invalid endpoint");
+                        try {
+                            
+                            /**Getting the req.body*/
+                                StringBuilder payload = new StringBuilder();
+                                while(in.ready()){
+                                    payload.append((char) in.read());
+                                }
+                                String type = getContentType(payload);
+                                if (verbose)
+                                    System.out.println("TYPE -> "+type);
+                                JSONObject req = new JSONObject();
+
+                                switch (type){
+                                    case "multipart/form-data;":{
+                                        req = getFormData(payload);
+                                        break;
+                                    }
+                                    default:{
+                                        String test = getJSONStr(payload);
+                                        req = new JSONObject(test);
+                                        break;
+                                    }
+                                }
+                                if(verbose) {
+                                    System.out.println("Client -> Server: "+ req.toString());
+                                }
+
+                            /** Determining the API endpoint requested */
+                            System.out.println(fileRequested.toString());
+                            String endPoint = fileRequested.toString();
+                            endPoint = endPoint.substring(1);
+                            endPoint = endPoint.toLowerCase();
+                            switch (endPoint){
+                                case "database":
+                                    response = WebAPI.handleRequest(req);
+                                    break;
+                                case "buildinggeneration":
+                                    response = BuildingGenerationAPI.handleRequest(req);
+                                    break;
+                                case "building":
+                                    response = BuildingAPI.handleRequest(req);
+                                    break;
+                                default:
+                                    response = new JSONObject();
+                                    response.put("status",false);
+                                    response.put("msg","invalid endpoint");
+                            }
+                        }
+                        catch (Exception e){
+                            response.put("status","failed");
+                            response.put("message",e.getMessage());
                         }
                         if(verbose)
                             System.out.println("Server -> Client:"+ response.toString());
@@ -204,11 +299,13 @@ public class HTTPServer extends Server{
                             dataOut.flush();
                         }
                         if (verbose) {
-                            System.out.println("File " + fileRequested + " of type " + content + " returned");
+
+                            System.out.println("File " + fileRequested + " of type " + content + " returned method: "+method);
                         }
                     }
                 } catch (FileNotFoundException fnfe) {
                     try {
+                        System.out.println("Attemping to send "+fileRequested);
                         fileNotFound(out, dataOut, fileRequested);
                     } catch (IOException ioe) {
                         System.err.println("Error with file not found exception : " + ioe.getMessage());
@@ -242,6 +339,35 @@ public class HTTPServer extends Server{
         private String getJSONStr(StringBuilder payload) {
             return payload.substring(payload.indexOf("{"));
         }
+    }
+
+    /**
+     * getFormData function
+     * @brief Converts the provided payload into a format used by the rest of the system
+     *
+     * @param payload
+     * @return a JSONObject used by the rest of the system to execute the requests
+     * @date 28/05/2019
+     */
+    private JSONObject getFormData(StringBuilder payload) throws Exception {
+        JSONObject request = new JSONObject();
+        String data = payload.toString();
+        String [] parsedData = data.split("Content-Disposition: ");
+        try {
+            JSONObject buildingData = new JSONObject(parsedData[1].substring(parsedData[1].indexOf("{"), parsedData[1].indexOf("-------")));
+            request.put("file",buildingData);
+        }
+        catch (Exception e){
+            throw new Exception("Building json is invalid");
+        }
+        String Type = parsedData[2].split("\n")[2];
+            Type = Type.substring(0, Type.length() - 1);
+            System.out.println(Type);
+            String BuildingName = parsedData[3].split("\n")[2];
+            BuildingName = BuildingName.substring(0, BuildingName.length() - 1);
+        request.put("type",Type);
+        request.put("name",BuildingName);
+        return request;
     }
 
 

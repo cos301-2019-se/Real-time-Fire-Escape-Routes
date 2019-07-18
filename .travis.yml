@@ -2,8 +2,19 @@ language: java
 install: true
 
 jdk:
-  - oraclejdk11
+  - openjdk11
 
 before_install:
   - cd RTFE_Server
   - chmod +x gradlew
+stages:
+  - Unit-Testing
+  - Integration-Testing
+jobs:
+  include:
+    - stage: Unit-Testing
+      name: Building
+      language: java
+    - stage: Integration-Testing
+      name: Web-API
+      language: java

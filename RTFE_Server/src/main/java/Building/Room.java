@@ -1,6 +1,5 @@
 package Building;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 public class Room {
@@ -10,8 +9,9 @@ public class Room {
     public Vector<Door> doors = new Vector<Door>();
     private Vector<Person> peopleInRoom = new Vector<>();
     private Vector<Room> Rooms = new Vector<Room>();
-    private Vector<Corner> Corners = new Vector<>();
-    private Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
+    protected Vector<Corner> Corners = new Vector<>();
+    public Vector<Fire> fires = new Vector<Fire>();
+    protected Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
     Vector<Node> nodesInRooms = new Vector<Node>();
     static boolean verbose = true;
 
@@ -40,9 +40,9 @@ public class Room {
         }
         for (int i = 0; i < Walls.size(); i++) {
             if(onWall(i,d.getCenter())){
+                if(roomType == RoomType.stairs)
+                    d.changeType(NodeType.stairs);
                 doors.add(d);
-                if(verbose)
-                    System.out.println("Door Placed in "+roomType.toString());
                 return true;
             }
         }
@@ -80,7 +80,7 @@ public class Room {
         return ((A.x <pos[0] && pos[0] <B.x) && (A.z <pos[1] && pos[1] <B.z)) || ((A.x >pos[0] && pos[0] >B.x) && (A.z >pos[1] && pos[1] >B.z));
 
     }
-    public static boolean onSegment(Corner p, Corner q, Corner r)
+    private static boolean onSegment(Corner p, Corner q, Corner r)
     {
         if (q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x)
                 && q.z <= Math.max(p.z, r.z) && q.z >= Math.min(p.z, r.z))
@@ -88,7 +88,7 @@ public class Room {
         return false;
     }
 
-    public static int orientation(Corner p, Corner q, Corner r)
+    private static int orientation(Corner p, Corner q, Corner r)
     {
         double val = (q.z - p.z) * (r.x - q.x) - (q.x - p.x) * (r.z - q.z);
 
@@ -97,7 +97,7 @@ public class Room {
         return (val > 0) ? 1 : 2;
     }
 
-    public static boolean doIntersect(Corner p1, Corner q1, Corner p2, Corner q2)
+    private static boolean doIntersect(Corner p1, Corner q1, Corner p2, Corner q2)
     {
 
         int o1 = orientation(p1, q1, p2);
@@ -123,7 +123,7 @@ public class Room {
         return false;
     }
 
-    public static boolean isInside(Corner polygon[], int n, Corner p)
+    private static boolean isInside(Corner polygon[], int n, Corner p)
     {
         int INF = 10000;
         if (n < 3)
@@ -157,7 +157,7 @@ public class Room {
         }
     }
 
-    public double distance(double[] doorCoordinates, double[] doorCoordinates2)
+    private double distance(double[] doorCoordinates, double[] doorCoordinates2)
     {
         double total = Math.sqrt(((doorCoordinates[0] - doorCoordinates2[0])*(doorCoordinates[0] - doorCoordinates2[0]))+((doorCoordinates[1] - doorCoordinates2[1])*(doorCoordinates[1] - doorCoordinates2[1])));
         return total;
@@ -171,20 +171,19 @@ public class Room {
             {
                 return true;
             }
-
         }
         for(int j = 0; j < doors.size()-1; j++)
         {
             for(int k = j + 1; k < doors.size(); k++)
             {
-                for(int i = 0; i < Walls.size(); i++)
-                {
-                    if(onWall(i, doors.get(j).getCenter()) && onWall(i, doors.get(k).getCenter()))
-                    {
-                        // DO NOT CONNECT
-                        connect = false;
-                    }
-                }
+//                for(int i = 0; i < Walls.size(); i++)
+//                {
+//                    if(onWall(i, doors.get(j).getCenter()) && onWall(i, doors.get(k).getCenter()))
+//                    {
+//                        // DO NOT CONNECT
+//                        connect = false;
+//                    }
+//                }
                 if(connect)
                 {
                     doors.get(j).node.connect(doors.get(k).node, distance(doors.get(j).getCenter(), doors.get(k).getCenter()));
@@ -199,52 +198,21 @@ public class Room {
 
     public Vector<Node> getAllDoors(){
         Vector<Node> currentDoors = new Vector<Node>();
-        for (int i = 0; i < Rooms.size(); i++) {
-            currentDoors.addAll(Rooms.get(i).getAllDoors());
-        }
+
         for (int i = 0; i < doors.size(); i++) {
             currentDoors.add(doors.get(i).node);
+        }
+        for (int i = 0; i < Rooms.size(); i++) {
+            currentDoors.addAll(Rooms.get(i).getAllDoors());
         }
         return currentDoors;
     }
 
-    /**
-     * @Tilanie:
-     * What is the purpose of this function?
-     * */
-    public boolean getAllNodes()
-    {
-        for (int i = 0; i < getRooms().size(); i++) {
-            if(getRooms(i).getAllNodes())
-                return true;
-        }
-        for(int i = 0; i < doors.size(); i++)
-        {
-            if(!nodesInRooms.contains(doors.get(i).node))
-            {
-                nodesInRooms.add(doors.get(i).node);
-            }
-        }
-        return true;
-    }
     public boolean addPerson(Person p){
         for (int i = 0; i <getRooms().size() ; i++) {
             if(getRooms(i).addPerson(p))
                 return true;
         }
-        /*
-        int wallOverlaps = 0;
-        for (int i = 0; i < Walls.size(); i++) {
-            if(crossWall(i,p.getPosition()))
-                wallOverlaps++;
-        }
-        if(verbose)
-            System.out.println("Wall overlaps with "+roomType+": "+wallOverlaps);
-        if((wallOverlaps >=4)|| wallOverlaps == Walls.size() ){
-            peopleInRoom.add(p);
-            return true;
-        }
-        */
         Corner [] poly = new Corner[Corners.size()];
         for (int i = 0; i < poly.length; i++) {
             poly[i] = Corners.get(i);
@@ -255,6 +223,49 @@ public class Room {
             return true;
         }
         return false;
+    }
+    public boolean addFire(Fire f){
+        for (int i = 0; i <getRooms().size() ; i++) {
+            if(getRooms(i).addFire(f))
+                return true;
+        }
+        Corner [] poly = new Corner[Corners.size()];
+        for (int i = 0; i < poly.length; i++) {
+            poly[i] = Corners.get(i);
+        }
+        Corner Point = new Corner(f.coords);
+        if(isInside(poly,poly.length,Point)){
+            fires.add(f);
+            if(verbose){
+                System.out.println("Fire added in Room Type: "+this.roomType);
+            }
+            return true;
+        }
+        return false;
+    }
+    public int destroyRoutes(){
+        int numPathsAffected = 0;
+        for (Room r:Rooms) {
+            numPathsAffected += r.destroyRoutes();
+        }
+        Vector<Node> doors = getAllDoors();
+        for (Node d :doors) {
+            for (Fire fire:fires) {
+                Vector<Path> tempPaths = new Vector<Path>();
+                tempPaths.addAll(d.Paths);
+                for (Path p:tempPaths) {
+                    if(fire.intersect(p.start,p.end)){
+                        System.out.println("Disconnecting Nodes: "+p.start.nodeId+" - "+p.end.nodeId);
+                        Node start = p.start;
+                        Node end = p.end;
+                        numPathsAffected++;
+                        start.disconnect(end);
+                        end.disconnect(start);
+                    }
+                }
+            }
+        }
+        return numPathsAffected;
     }
 
     public int getNumPeople(){
@@ -271,7 +282,7 @@ public class Room {
         for (int i = 0; i < getRooms().size(); i++) {
             ListOfPeople.addAll(getRooms(i).getPeople());
         }
-        System.out.println("People In Room "+roomType.toString() +" is "+peopleInRoom.size());
+//        System.out.println("People In Room "+roomType.toString() +" is "+peopleInRoom.size());
         ListOfPeople.addAll(peopleInRoom);
         return ListOfPeople;
     }
@@ -287,7 +298,6 @@ public class Room {
     /**
      * @Description: Adds a corner to the room, Take Note it means nothing on its own
      * */
-
     protected void addCorner(Corner c){
         Corners.add(c);
         Walls.add(new Vector<>());
@@ -357,7 +367,7 @@ public class Room {
     /**
      * @info : See the function "isCyclic()" for more details
      * */
-    Boolean isCyclicUtil(Corner v, Boolean visited[], Corner parent) {
+    private Boolean isCyclicUtil(Corner v, Boolean visited[], Corner parent) {
         int _v = Corners.indexOf(v);
         visited[_v] = true;
         Corner i;
@@ -379,7 +389,7 @@ public class Room {
      *  true - Returns true if it contains a cycle
      *  false - Returns false if it still needs walls
      * */
-    Boolean isCyclic() {
+    private Boolean isCyclic() {
         if(Walls.lastElement().size() == 0)
             Walls.remove(Walls.size()-1);
         Boolean visited[] = new Boolean[Corners.size()];
@@ -391,31 +401,41 @@ public class Room {
                     return true;
         return false;
     }
-
+/*
     public void assignPeople(Vector<Routes> routes){
         for (int i = 0; i < Rooms.size(); i++) {
             Rooms.get(i).assignPeople(routes);
         }
 
         for (int i = 0; i < peopleInRoom.size(); i++) {
-            double Distance =  Double.POSITIVE_INFINITY;
+            if(verbose){
+                System.out.println("============== Assigning Next Person ==============");
+            }
+            double Heuristic =  Double.POSITIVE_INFINITY;
             Person p = peopleInRoom.get(i);
             int BestRoute = -1;
             int BestDoor = -1;
             Door BestD = null;
             Routes BestR = null;
+            Vector<Node> Bestpath= new Vector<Node>();
 //            System.out.println("New Person:");
             for (int j = 0; j < routes.size(); j++) {
                 for (int k = 0; k < doors.size(); k++) {
                     Door d = doors.get(k);
                     try {
-                        double distance = routes.get(j).calculateHeuristic(d.node, p);
+//                        double distance = routes.get(j).calculateHeuristic(d.node, p);
 //                        System.out.println("Heuristic val: "+distance +" for Person: "+p.personID+" on Route "+routes.get(j).RouteName);
-                        if (distance < Distance) {
-//                            System.out.println("update Heuristic: "+distance);
+                        routes.get(j).resetVisited();
+                        Vector<Node> path = routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal());
+                        if(verbose)
+                            Routes.printPath(path,p);
+                        double currentHeuristic = Routes.pathHeuristic(path,p);
+                        if (currentHeuristic < Heuristic) {
                             BestRoute = j;
                             BestDoor = k;
-                            Distance = distance;
+                            Heuristic = currentHeuristic;
+                            Bestpath = path;
+//                            Routes.printPath(Bestpath);
                         }
                     }catch (Exception e){
                         System.out.println(e.getMessage());
@@ -430,12 +450,55 @@ public class Room {
             routes.get(BestRoute).addPerson(p);
 
             if(verbose){
-                System.out.println("Person "+p.personID+" is assigned to Route "+p.AssignedRoute.RouteName +" Distance to safety is: "+Distance+ " using door " +doors.get(BestDoor).id);
+                System.out.println("Person "+p.name+" is assigned to Route "+p.AssignedRoute.RouteName +" Heuristic safety value is: "+Heuristic+ " using door " +doors.get(BestDoor).id);
+                Routes.printPath(Bestpath,p);
+                System.out.println();
             }
         }
     }
+/**/
+    public Vector<Person> getPeopleData(Vector<Routes> routes){
+        Vector<Person> peopleData = new Vector<>();
+        for (int i = 0; i < Rooms.size(); i++) {
+            peopleData.addAll(Rooms.get(i).getPeopleData( routes));
+        }
+        for (Person p:peopleInRoom) {
+            peopleData.add(p);
+            for (Door d:doors) {
+                p.availableDoors.add(d);
+                for (Routes r:routes) {
+                    r.resetVisited();
+                    /*
+                    for (Path c:d.node.Paths) {
+                                r.resetVisited();
+                                Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
+                                double tempD = r.pathHeuristic(path,p);
+                                if(tempD < bestDistance){
+                                    valid = Path.hasGoal(path);
+                                    Bestpath = path;
+                                    bestDistance = tempD;
+                                    bestRoute = r;
+                                }
+                            }
 
-    public static class Corner{
+                    */
+
+                    //routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal())
+                    Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
+                    if(Path.hasGoal(path)) {
+                        Routes.printPath(path,p);
+                        double tempD = Routes.pathHeuristic(path, p);
+                        if (tempD < p.distanceToExit) {
+                            p.distanceToExit = tempD;
+                        }
+                    }
+                }
+            }
+        }
+        return peopleData;
+    }
+
+    protected static class Corner{
         double x;
         double z;
 
