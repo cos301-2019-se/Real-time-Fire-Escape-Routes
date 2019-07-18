@@ -848,6 +848,7 @@ function getInfoFromInput(callFunc, email1)
 		addFire(x, y, rad, floor);
 	}
 
+
 		clearWindow();
 }
 
@@ -1052,6 +1053,19 @@ function addFire(x, y, rad, floor)
             success: function(data){
                 if (data.status){
                 	notify(data.message, "blue");
+                		$.ajax({
+				            url: "http://127.0.0.1:8080/building",
+				            type: "POST",
+				            contentType: "application/json; charset=utf-8",
+				            dataType: "json",
+				            data: JSON.stringify({
+				                type: "assignPeople"
+				            }),
+				            success: function(data){
+				            	$("body").delay(1500);
+				                notify("Affected people were notified","green")
+				            }
+				        });
                     
                 }else{
                 	
