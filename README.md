@@ -3,6 +3,7 @@
 
 <p>The Real-time Fire Escape Routes (Real-time FER) System is a new approach to solve an age-old problem. The main goal of the Real-time FER is to indicate to the agent using the application what the most efficient route in a specific building one should take in the case of a fire emergency. Each agent in the building will be sent a push notification to his/her phone indicating what escape path to follow in such extreme situation.</p>
 <p>
+  <h3> Previous Demo's </h3>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes" target = "_blank">GitHub</a> <br/>
   <a href="https://trello.com/sandwicodevelopmentteam" target = "_blank">Trello</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%201/SRS%20Demo%201.pdf" target = "_blank">SRS_Demo 1</a> <br/>
@@ -10,10 +11,24 @@
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/CodingStandardsDocumentation.pdf" target = "_blank">Coding Standarts Document</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/Testing_policy_document.pdf" target = "_blank">Testing Policy Document</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/UserManual.pdf" target = "_blank">User Manual</a> <br/> <br/>
+
+  <h3> Latest Demo </h3>
+    <a href="linkherePlease">SRS demo 3 - (Architectural Requirements and design documentation)</a>
+    <a href="linkherePlease">Trello</a>
+    <a href="linkherePlease">Coding Standards Document</a>
+    <a href="linkherePlease">Testing Policy Document</a>
+    <a href="linkherePlease">User Manual</a>
+    <h4>Extra</h4>
+    <a href="linkherePlease">Fire Escape Regulations South Africa</a>
+    <a href="linkherePlease">Hardware Research</a>
+    <a href="linkherePlease">Website Prototype 1 (User testing)</a>
+    <a href="linkherePlease">Website Prototype 2 (User testing)</a>
+    <a href="linkherePlease">Doxygen</a>
+    <a href="linkherePlease">Postman API documentation</a>
+    
 </p>
 
- 
-<h2>Meat Great sandwico Team</h2>
+<h2>Meet the Sandwico Team</h2>
 <img src ="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/images/groupPhoto.jpeg?raw=true" width ="100%"/>
 <p><i>From left to right: Pieter Braak, Xaio Jian Li, Kateryna Reva, Mathilda Bresler, Jason Louw</i></p>
 <ul>
