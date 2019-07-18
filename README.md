@@ -13,18 +13,18 @@
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/UserManual.pdf" target = "_blank">User Manual</a> <br/> <br/>
 
   <h3> Latest Demo </h3>
-    <a href="linkherePlease">SRS demo 3 - (Architectural Requirements and design documentation)</a>
-    <a href="linkherePlease">Trello</a>
-    <a href="linkherePlease">Coding Standards Document</a>
-    <a href="linkherePlease">Testing Policy Document</a>
-    <a href="linkherePlease">User Manual</a>
+    <a href="linkherePlease" target = "_blank">SRS demo 3 - (Architectural Requirements and design documentation)</a><br/>
+    <a href="linkherePlease" target = "_blank">Trello</a><br/>
+    <a href="linkherePlease" target = "_blank">Coding Standards Document</a><br/>
+    <a href="linkherePlease" target = "_blank">Testing Policy Document</a><br/>
+    <a href="linkherePlease" target = "_blank">User Manual</a><br/>
     <h4>Extra</h4>
-    <a href="linkherePlease">Fire Escape Regulations South Africa</a>
-    <a href="linkherePlease">Hardware Research</a>
-    <a href="linkherePlease">Website Prototype 1 (User testing)</a>
-    <a href="linkherePlease">Website Prototype 2 (User testing)</a>
-    <a href="linkherePlease">Doxygen</a>
-    <a href="linkherePlease">Postman API documentation</a>
+    <a href="linkherePlease" target = "_blank">Fire Escape Regulations South Africa</a><br/>
+    <a href="linkherePlease" target = "_blank">Hardware Research</a><br/>
+    <a href="linkherePlease" target = "_blank">Website Prototype 1 (User testing)</a><br/>
+    <a href="linkherePlease" target = "_blank">Website Prototype 2 (User testing)</a><br/>
+    <a href="linkherePlease" target = "_blank">Doxygen</a><br/>
+    <a href="linkherePlease" target = "_blank">Postman API documentation</a><br/>
     
 </p>
 
