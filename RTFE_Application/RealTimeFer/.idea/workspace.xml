@@ -66,39 +66,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_landing_page.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+            <state relative-caret-position="43">
+              <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/teamsandwico/com/landingPage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="224" column="38" lean-forward="true" selection-start-line="224" selection-start-column="38" selection-end-line="224" selection-end-column="38" />
+            <state relative-caret-position="272">
+              <caret line="42" column="43" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
               <folding>
-                <element signature="e#1889#3925#0" expanded="true" />
-                <element signature="e#2146#3772#0" expanded="true" />
-                <element signature="e#3771#3772#0" expanded="true" />
-                <element signature="e#3924#3925#0" expanded="true" />
+                <element signature="e#2008#4140#0" expanded="true" />
+                <element signature="e#2463#4011#0" expanded="true" />
+                <element signature="e#4010#4011#0" expanded="true" />
+                <element signature="e#4139#4140#0" expanded="true" />
+                <element signature="method#getCurrentTime#0;class#landingPage#0" />
+                <element signature="docComment;method#getUniqueId#0;class#landingPage#0" />
                 <element signature="method#getUniqueId#0;class#landingPage#0" />
+                <element signature="docComment;method#identifyColor#0;class#landingPage#0" />
+                <element signature="method#identifyColor#0;class#landingPage#0" />
+                <element signature="method#loginState#0;class#landingPage#0" />
+                <element signature="docComment;method#printJson#0;class#landingPage#0" />
                 <element signature="method#printJson#0;class#landingPage#0" />
+                <element signature="docComment;method#removeLogin#0;class#landingPage#0" />
+                <element signature="method#removeLogin#0;class#landingPage#0" />
+                <element signature="docComment;method#screenTapped#0;class#landingPage#0" />
+                <element signature="method#showToast#0;class#landingPage#0" />
+                <element signature="method#stateOfActivity#0;class#landingPage#0" />
+                <element signature="docComment;class#Login#0;class#landingPage#0" />
+                <element signature="class#Login#0;class#landingPage#0" />
+                <element signature="docComment;class#StatusCheck#0;class#landingPage#0" />
                 <element signature="class#StatusCheck#0;class#landingPage#0" />
+                <element signature="class#BindUser#0;class#landingPage#0" />
+                <element signature="method#doInBackground#0;class#BindUser#0;class#landingPage#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -115,6 +122,13 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>mac</find>
@@ -122,27 +136,32 @@
       <find>button_check</find>
       <find>color</find>
       <find>bind</find>
+      <find>screen</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="C:\Users\Kinson\Documents\Varsity\COS 301\sandwico\Real-time-Fire-Escape-Routes\RTFE_Application\key\key.jks" />
+    <option name="KEY_ALIAS" value="key0" />
     <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_landing_page.xml" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/toast_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_toast_error.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/teamsandwico/com/landingPage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_landing_page.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-145" />
-    <option name="y" value="30" />
-    <option name="width" value="1095" />
-    <option name="height" value="980" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-10" />
+    <option name="width" value="876" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -157,6 +176,33 @@
           <expand>
             <path>
               <item name="application" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="application" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="application" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="application" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="application" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="application" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
@@ -166,6 +212,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="ExportApk.ApkPath" value="C:\Users\Kinson\Documents\Varsity\application\app" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="ExportApk.SignV1" value="true" />
+    <property name="ExportApk.SignV2" value="true" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.recentlyUsedThemes" value="android:Theme.Wallpaper.NoTitleBar.Fullscreen&#10;android:Theme.Wallpaper.NoTitleBar" />
@@ -339,11 +389,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.1704698" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.13539445" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -355,34 +404,30 @@
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49932885" weight="0.3286119" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49932885" weight="0.3286119" />
+      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49932885" weight="0.32827735" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50067115" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49932885" weight="0.22946176" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49932885" visible="true" weight="0.22860238" />
       <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.32936078" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Preview" order="5" weight="0.3295302" />
+      <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.32942432" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.3295302" />
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="53" lean-forward="true" selection-start-line="1" selection-start-column="53" selection-end-line="1" selection-end-column="53" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk">
+      <provider selected="true" editor-type-id="apk-viewer" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -392,39 +437,84 @@
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_landing_page.xml">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+        <state relative-caret-position="408">
+          <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_toast_error.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/toast_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk">
-      <provider selected="true" editor-type-id="apk-viewer" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/font_certs.xml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/teamsandwico/com/landingPage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="224" column="38" lean-forward="true" selection-start-line="224" selection-start-column="38" selection-end-line="224" selection-end-column="38" />
+        <state relative-caret-position="272">
+          <caret line="42" column="43" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
           <folding>
-            <element signature="e#1889#3925#0" expanded="true" />
-            <element signature="e#2146#3772#0" expanded="true" />
-            <element signature="e#3771#3772#0" expanded="true" />
-            <element signature="e#3924#3925#0" expanded="true" />
+            <element signature="e#2008#4140#0" expanded="true" />
+            <element signature="e#2463#4011#0" expanded="true" />
+            <element signature="e#4010#4011#0" expanded="true" />
+            <element signature="e#4139#4140#0" expanded="true" />
+            <element signature="method#getCurrentTime#0;class#landingPage#0" />
+            <element signature="docComment;method#getUniqueId#0;class#landingPage#0" />
             <element signature="method#getUniqueId#0;class#landingPage#0" />
+            <element signature="docComment;method#identifyColor#0;class#landingPage#0" />
+            <element signature="method#identifyColor#0;class#landingPage#0" />
+            <element signature="method#loginState#0;class#landingPage#0" />
+            <element signature="docComment;method#printJson#0;class#landingPage#0" />
             <element signature="method#printJson#0;class#landingPage#0" />
+            <element signature="docComment;method#removeLogin#0;class#landingPage#0" />
+            <element signature="method#removeLogin#0;class#landingPage#0" />
+            <element signature="docComment;method#screenTapped#0;class#landingPage#0" />
+            <element signature="method#showToast#0;class#landingPage#0" />
+            <element signature="method#stateOfActivity#0;class#landingPage#0" />
+            <element signature="docComment;class#Login#0;class#landingPage#0" />
+            <element signature="class#Login#0;class#landingPage#0" />
+            <element signature="docComment;class#StatusCheck#0;class#landingPage#0" />
             <element signature="class#StatusCheck#0;class#landingPage#0" />
+            <element signature="class#BindUser#0;class#landingPage#0" />
+            <element signature="method#doInBackground#0;class#BindUser#0;class#landingPage#0" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_landing_page.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
   <component name="masterDetails">

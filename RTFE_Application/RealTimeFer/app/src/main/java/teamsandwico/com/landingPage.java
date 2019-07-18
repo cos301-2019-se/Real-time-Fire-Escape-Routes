@@ -1,15 +1,21 @@
 package teamsandwico.com;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -28,6 +34,7 @@ public class landingPage extends AppCompatActivity {
     private EditText input_url, input_name, input_pass;
     private Button button_parse;
     private Button button_check;
+    private pl.droidsonroids.gif.GifImageView image_loading;
     //note: variable objects
     private int screentap = 0;
     private OkHttpClient client = new OkHttpClient();
@@ -48,8 +55,8 @@ public class landingPage extends AppCompatActivity {
         input_pass = findViewById(R.id.input_pass);
         button_parse = findViewById(R.id.button_parse);
         button_check = findViewById(R.id.button_check);
+        image_loading = findViewById(R.id.image_loading);
 
-        text_result.setVisibility(View.GONE);
         text_result.setMovementMethod(new ScrollingMovementMethod());
         text_update.setVisibility(View.GONE);
 
@@ -57,13 +64,15 @@ public class landingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!input_name.getText().equals("")) {
+                    loginState("disable");
+                    button_parse.setVisibility(View.GONE);
+                    image_loading.setVisibility(View.VISIBLE);
                     new Login().execute();
+                    if (login) {
                     handler.postDelayed(
                         new Runnable() {
                             @Override
                             public void run() {
-                                if (login) {
-//                                    text_update.append("logged in");
                                     new BindUser().execute();
                                     if (binded) {
                                         new StatusCheck().execute();
@@ -83,9 +92,10 @@ public class landingPage extends AppCompatActivity {
                                         }
                                     }
                                     handler.postDelayed(this, 2500);
-                                }else text_update.append("Error - login status: " + login);
+
                             }
                         }, 500);
+                    }else text_update.append("Error - login status: " + login);
                 }
             }
         });
@@ -122,8 +132,10 @@ public class landingPage extends AppCompatActivity {
         });
     }
 
-
-
+    private String getCurrentTime() {
+        Date currentTime = Calendar.getInstance().getTime();
+        return currentTime.toString();
+    }
     /**
      * function will return the devices unique id of the current device
      * @return string: devices unique id
@@ -131,35 +143,6 @@ public class landingPage extends AppCompatActivity {
     private String getUniqueId(){
         return Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
     }
-
-    /**
-     * function will print json object to the debug terminal
-     * @param string: is a string of the json object
-     */
-    private void printJson(String string){
-        try {
-            JSONObject json = new JSONObject(string);
-            text_result.append("Host: " + (input_url.getText().length() == 0 ? defaultHost : input_url.getText()) + "\n");
-            text_result.append("Status: " + json.getString("status") + "\n");
-            text_result.append("Msg: " + json.getString("msg") + "\n");
-        }catch (Exception e){
-            text_result.append("Error: " + e.getMessage() + "\n");
-        }
-    }
-
-    /**
-     * function is used to detect screen tap, in order to activate developer terminal
-     * @param v
-     */
-    public void screenTapped(View v){
-        screentap++;
-        if (screentap == 5) {
-            text_result.setVisibility(View.VISIBLE);
-            text_result.append("Developer Terminal:\n");
-            text_result.append("Android Id: " + getUniqueId() + "\n");
-        }
-    }
-
     /**
      * function identifies the color from the route
      * @param route: string of the route value
@@ -177,6 +160,31 @@ public class landingPage extends AppCompatActivity {
         return -1;
     }
 
+    private void loginState(String state){
+        if (state.equals("disable")) {
+            input_url.setEnabled(false);
+            input_name.setEnabled(false);
+            input_pass.setEnabled(false);
+        }else if (state.equals("enable")){
+            input_url.setEnabled(true);
+            input_name.setEnabled(true);
+            input_pass.setEnabled(true);
+        }
+    }
+    /**
+     * function will print json object to the debug terminal
+     * @param string: is a string of the json object
+     */
+    private void printJson(String string){
+        try {
+            JSONObject json = new JSONObject(string);
+            text_result.append("Host: " + (input_url.getText().length() == 0 ? defaultHost : input_url.getText()) + "\n");
+            text_result.append("Status: " + json.getString("status") + "\n");
+            text_result.append("Msg: " + json.getString("msg") + "\n");
+        }catch (Exception e){
+            text_result.append("Error: " + e.getMessage() + "\n");
+        }
+    }
     /**
      * removes interface of the log in
      */
@@ -186,6 +194,41 @@ public class landingPage extends AppCompatActivity {
         input_pass.setVisibility(View.GONE);
         button_parse.setVisibility(View.GONE);
     }
+    /**
+     * function is used to detect screen tap, in order to activate developer terminal
+     * @param v
+     */
+    public void screenTapped(View v){
+        screentap++;
+        if (screentap == 5 && text_result.getVisibility() == View.GONE) {
+            text_result.setVisibility(View.VISIBLE);
+            text_result.append("Developer Terminal:\n");
+            text_result.append("Android Id: " + getUniqueId() + "\n");
+        }else if (screentap > 9 && text_result.getVisibility() == View.VISIBLE){
+            screentap = 0;
+            text_result.setVisibility(View.GONE);
+            text_result.setText("");
+        }
+    }
+
+    public void showToast(String text, int image){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_root));
+
+        TextView text_toast = layout.findViewById(R.id.toast_text);
+        ImageView image_toast = layout.findViewById(R.id.toast_image);
+
+        text_toast.setText(text);
+        image_toast.setImageResource(image);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+
+        toast.show();
+
+    }
 
     private void stateOfActivity(String state){
         switch(state){
@@ -194,13 +237,6 @@ public class landingPage extends AppCompatActivity {
                 break;
         }
     }
-
-
-    private String getCurrentTime() {
-        Date currentTime = Calendar.getInstance().getTime();
-        return currentTime.toString();
-    }
-
     /**
      * class contains async call to service in order to login
      */
@@ -230,7 +266,7 @@ public class landingPage extends AppCompatActivity {
                  Response resp = client.newCall(request).execute();
                  return resp.body().string();
              }catch(Exception e){
-                 return "Error: " + e.getMessage();
+                 return "Error on connection: " + e.getMessage();
              }
         }
 
@@ -242,17 +278,23 @@ public class landingPage extends AppCompatActivity {
                 JSONObject json = new JSONObject(s);
                 if (json.getString("status").equals("true")){
                     login = true;
+                    image_loading.setVisibility(View.GONE);
                     removeLogin();
                     stateOfActivity("logged");
                 }
             }catch(Exception e){
-                text_result.append("Error: " + e.getMessage());
+                String msg = "Could not sign in!";
+                int img = R.drawable.ic_toast_error;
+                showToast(msg, img);
+                loginState("enable");
+                image_loading.setVisibility(View.GONE);
+                button_parse.setVisibility(View.VISIBLE);
+                text_result.append("Error on login: " + e.getMessage());
             }
 
 
         }
     }
-
     /**
      * class contains async call to service in order to call status check
      */

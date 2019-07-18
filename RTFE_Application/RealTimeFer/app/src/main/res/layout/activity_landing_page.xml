@@ -10,6 +10,25 @@
     android:onClick="screenTapped"
     tools:context=".landingPage">
 
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="264dp"
+        android:layout_height="372dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/fire" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/input_url"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="21dp"
+        android:fontFamily="@font/fjalla_one"
+        android:text="Firewatch"
+        android:textColor="@android:color/black"
+        android:textSize="30dp" />
+
     <TextView
         android:id="@+id/text_result"
         android:layout_width="match_parent"
@@ -19,6 +38,7 @@
         android:textSize="20sp"
         android:scrollbars="vertical"
         android:gravity="bottom"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_wrapHeight="71"
@@ -31,6 +51,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="29dp"
+        android:background="@color/Red"
         android:text="login" />
 
     <Button
@@ -45,37 +66,38 @@
 
     <EditText
         android:id="@+id/input_url"
-        android:layout_width="1000dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="200dp"
+        android:fontFamily="@font/ubuntu_light"
         android:hint="Connect to"
         android:textColorHint="@android:color/darker_gray"/>
 
     <EditText
         android:id="@+id/input_name"
-        android:layout_width="1000dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="150dp"
+        android:fontFamily="@font/ubuntu_light"
         android:hint="enter your username"
-        android:text="one@gmail.com"
         android:textColorHint="@android:color/darker_gray"/>
 
     <EditText
         android:id="@+id/input_pass"
-        android:layout_width="1000dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
-        android:hint="enter your pass word"
-        android:text="pass1"
+        android:fontFamily="@font/ubuntu_light"
+        android:hint="enter your password"
         android:textColorHint="@android:color/darker_gray"/>
 
     <TextView
@@ -87,5 +109,16 @@
         android:layout_marginBottom="100dp"
         android:textColor="@android:color/black"
         />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/image_loading"
+        android:layout_width="53dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:visibility="gone"
+        android:src="@drawable/loading" />
+
 </RelativeLayout>
 
