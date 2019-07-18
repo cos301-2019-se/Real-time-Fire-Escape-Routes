@@ -22,7 +22,7 @@
     <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Fire_Escape_Regulations_South_Africa.pdf" target = "_blank">Fire Escape Regulations South Africa</a><br/>
     <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Hardware_Research.pdf" target = "_blank">Hardware Research</a><br/>
     <a href="https://xd.adobe.com/view/314775a3-c0e8-44ee-701f-32aff63e4b73-4776/?fullscreen&hints=off" target = "_blank">Website Prototype 1 (User testing)</a><br/>
-    <a href="https://xd.adobe.com/view/8fc9a9a1-81b9-43bd-572b-c8729c0920c4-f9f8/?fullscreen" target = "_blank">Website Prototype 2 (User testing)</a><br/>
+    <a href="https://drive.google.com/drive/folders/1tLzRexg6MaVqy_WswbaeX5CcyjTGmbym?usp=sharing" target = "_blank">Website Prototype 2 (User testing)</a><br/>
     <a href="https://cos301-2019-se.github.io/Real-time-Fire-Escape-Routes/Documentation/Demo%203/Javadoc/index.html" target = "_blank">Doxygen</a><br/>
     <a href="https://documenter.getpostman.com/view/3793445/S1a7Wkcs?version=latest" target = "_blank">Postman API documentation</a><br/>
     
