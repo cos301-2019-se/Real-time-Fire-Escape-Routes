@@ -86,6 +86,7 @@
         android:layout_marginBottom="150dp"
         android:fontFamily="@font/ubuntu_light"
         android:hint="enter your username"
+        android:text="one@gmail.com"
         android:textColorHint="@android:color/darker_gray"/>
 
     <EditText
@@ -98,6 +99,7 @@
         android:layout_marginBottom="100dp"
         android:fontFamily="@font/ubuntu_light"
         android:hint="enter your password"
+        android:text="pass1"
         android:textColorHint="@android:color/darker_gray"/>
 
     <TextView

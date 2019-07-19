@@ -1,6 +1,5 @@
 package teamsandwico.com;
 
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.Settings;
@@ -68,34 +67,6 @@ public class landingPage extends AppCompatActivity {
                     button_parse.setVisibility(View.GONE);
                     image_loading.setVisibility(View.VISIBLE);
                     new Login().execute();
-                    if (login) {
-                    handler.postDelayed(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                    new BindUser().execute();
-                                    if (binded) {
-                                        new StatusCheck().execute();
-                                        if (position != null && status != null && route != null) {
-                                            if (route != null) {
-                                                View main = findViewById(R.id.relativeLayout);
-                                                main.setBackgroundColor(identifyColor(route));
-                                            }
-                                            String updateMsg = "Status: " + status + "\n" +
-                                                    "Position: " + position + "\n" +
-                                                    "Route: " + route + "\n";
-                                            text_update.setText(updateMsg);
-                                            if (text_update.getVisibility() == View.GONE)
-                                                text_update.setVisibility(View.VISIBLE);
-                                        } else if (status != null) {
-                                            //note: display when status is safe
-                                        }
-                                    }
-                                    handler.postDelayed(this, 2500);
-
-                            }
-                        }, 500);
-                    }else text_update.append("Error - login status: " + login);
                 }
             }
         });
@@ -118,8 +89,11 @@ public class landingPage extends AppCompatActivity {
                         text_update.setText(updateMsg);
                         if (text_update.getVisibility() == View.GONE)
                             text_update.setVisibility(View.VISIBLE);
-                    } else if (status != null) {
+                    } else {
                         //note: display when status is safe
+                        View main = findViewById(R.id.relativeLayout);
+                        main.setBackgroundColor(identifyColor("-1"));
+
                         String updateMsg =
                                 "Time: " + getCurrentTime() + "\n" +
                                         "Status: " + status + "\n";
@@ -156,8 +130,8 @@ public class landingPage extends AppCompatActivity {
             case "3": return getResources().getColor(R.color.Red);
             case "4": return getResources().getColor(R.color.Pink);
             case "5": return getResources().getColor(R.color.Purple);
+            default: return getResources().getColor(R.color.White);
         }
-        return -1;
     }
 
     private void loginState(String state){
@@ -170,6 +144,43 @@ public class landingPage extends AppCompatActivity {
             input_name.setEnabled(true);
             input_pass.setEnabled(true);
         }
+    }
+
+    private void loginSuccess(){
+        handler.postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        new BindUser().execute();
+                        if (binded) {
+                            new StatusCheck().execute();
+                            if (position != null && status != null && route != null) {
+                                if (route != null) {
+                                    View main = findViewById(R.id.relativeLayout);
+                                    main.setBackgroundColor(identifyColor(route));
+                                }
+                                String updateMsg = "Status: " + status + "\n" +
+                                        "Position: " + position + "\n" +
+                                        "Route: " + route + "\n";
+                                text_update.setText(updateMsg);
+                                if (text_update.getVisibility() == View.GONE)
+                                    text_update.setVisibility(View.VISIBLE);
+                            } else if (status != null) {
+                                View main = findViewById(R.id.relativeLayout);
+                                main.setBackgroundColor(identifyColor("-1"));
+
+                                String updateMsg =
+                                        "Time: " + getCurrentTime() + "\n" +
+                                                "Status: " + status + "\n";
+                                text_update.setText(updateMsg);
+                                if (text_update.getVisibility() == View.GONE)
+                                    text_update.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        handler.postDelayed(this, 2500);
+
+                    }
+                }, 1000);
     }
     /**
      * function will print json object to the debug terminal
@@ -281,6 +292,9 @@ public class landingPage extends AppCompatActivity {
                     image_loading.setVisibility(View.GONE);
                     removeLogin();
                     stateOfActivity("logged");
+                    loginSuccess();
+                }else{
+                    throw new Exception("Invalid credentials");
                 }
             }catch(Exception e){
                 String msg = "Could not sign in!";
@@ -334,6 +348,9 @@ public class landingPage extends AppCompatActivity {
             try {
                 JSONObject json = new JSONObject(s);
                 String[] message = json.getString("message").split("-");
+                position = null;
+                status = null;
+                route = null;
                 for (String item: message) {
                     String[] value = item.split(":");
                     switch (value[0].replaceAll("\\s+","")){
