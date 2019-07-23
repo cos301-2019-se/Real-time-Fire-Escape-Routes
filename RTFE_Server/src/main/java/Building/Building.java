@@ -196,6 +196,7 @@ public class Building {
                             for (Path c:d.node.Paths) {
                                 r.resetVisited();
                                 Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
+                                path.insertElementAt(c.start,0);
                                 double tempD = r.pathHeuristic(path,p);
                                 if(tempD < bestDistance){
                                     valid = Path.hasGoal(path);
