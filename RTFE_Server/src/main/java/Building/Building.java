@@ -22,7 +22,7 @@ public class Building {
       private Vector<Room> Floor= new Vector<>();
       private int id;
       private boolean verbose = true;
-      public boolean emergancy = false;
+      public boolean emergency = false;
       private double floorHeight = 3.0; //needed for connecting stairs
 
       public Vector<Routes> getRoutes() {
@@ -59,6 +59,7 @@ public class Building {
        * @param deviceID: The Device ID of the phone to be bound
        * */
       public boolean bindPerson(int id, String deviceID){
+          unBindPerson(deviceID);
           Vector<Person> people =getPeople();
           for (Person p :people) {
               if(p.personID == id){
@@ -68,7 +69,20 @@ public class Building {
           }
           return false;
       }
-
+      /**
+      * Takes a Device ID and removes it from the building
+      * @param deviceID: The Device ID of the phone to be bound
+      * */
+      public boolean unBindPerson( String deviceID){
+          Vector<Person> people =getPeople();
+          for (Person p :people) {
+              if(p.deviceID.compareTo(deviceID)==0){
+                  p.deviceID = null;
+                  return true;
+              }
+          }
+          return false;
+      }
     /**
      * getNumPeople function
      * @brief This function return the amount of people contained in the building
@@ -83,13 +97,77 @@ public class Building {
             }
             return total;
       }
+      /**
+       * Updates a persons information inside a building
+       * @param id: The ID of the person who's location needs to be updates
+       * @param floor: the floor on where the person is now located at
+       * @param pos: The new position location of the person
+       * */
+      public boolean updatePersonLocation(int id,int floor, double [] pos) throws IndexOutOfBoundsException {
+          if(floor>=Floor.size()){
+              throw new IndexOutOfBoundsException("Please select a valid floor");
+          }
+          Vector<Person> people = getPeople();
+          boolean status = false;
+          for (Person p:people) {
+              if(p.personID == id){
+                  Person temp = p;
+                  for (Room currentfloor:Floor) {
+                     status = currentfloor.removePerson(p);
+                  }
+                  temp.position = pos;
+                  addPerson(temp, floor);
+                  if(verbose){
+                      if(status){
+                          System.out.println("Person "+temp.personID +" has been updated");
+                      }
+                  }
+                  return status;
+              }
+          }
+          return false;
+      }
+    /**
+     * @brief: Updates a persons information inside a building
+     * This is an overloaded function please see the original 'updatePersonLocation' for more information
+     * @param device_id: The device_id of the person who's location needs to be updates
+     * @param floor: the floor on where the person is now located at
+     * @param pos: The new position location of the person
+     * */
+      public boolean updatePersonLocation(String device_id,int floor, double[] pos) throws IndexOutOfBoundsException {
+          Vector<Person> people = getPeople();
+          for (Person p:people) {
+              if(p.deviceID.compareTo(device_id)==0){
+                  return updatePersonLocation(p.personID, floor,pos );
+              }
+          }
+          return false;
+      }
+    /**
+     * @brief: Removes a person from the building
+     * This is an overloaded function please see the original 'remove' for more information
+     * @param id: The device_id of the person who's location needs to be updates
+     * */
+    public boolean remove(int id) throws Exception {
+        Vector<Person> people = getPeople();
+        for (Person p:people) {
+            if(p.personID == id){
+                for (Room floor:Floor) {
+                    floor.removePerson(p);
+                }
+            }
+        }
+        throw new Exception("Person not found");
+    }
+
+
 
     /**
      * addPerson function
      * @brief This function inserts a Person object on a specified floor in the building
      *
-     * @param p as a specified Person object
-     * @param floor as an integer indicating which level the Person object should be placed
+     * @param p: as a specified Person object
+     * @param floor: as an integer indicating which level the Person object should be placed
      * @return - true if the placement was successful
      *         - false if an error occurred during placement
      * @date 28/04/2019
@@ -342,6 +420,7 @@ public class Building {
 
             return false;
       }
+
       private int destroyRoutes(){
             int numPathsAffected = 0;
             for (Room f:Floor) {
