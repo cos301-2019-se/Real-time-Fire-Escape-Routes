@@ -5,5 +5,6 @@ public enum NodeType {
     singleDoor,
     doubleDoor,
     buildingExit,
-    goal
+    goal,
+    sensor
 }

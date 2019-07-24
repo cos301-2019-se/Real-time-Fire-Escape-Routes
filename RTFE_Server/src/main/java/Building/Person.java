@@ -9,8 +9,9 @@ public class Person {
     public String name;
     Routes AssignedRoute;
     double [] position;
+    public int floor = 0;
     int personID = 0;
-    public String deviceID = "";
+    public String deviceID = "null";
     public Vector<Door> availableDoors = new Vector<>();
     public Vector <Node> pathToFollow;
     public double distanceToExit = Double.MAX_VALUE;
