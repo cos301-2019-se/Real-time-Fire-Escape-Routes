@@ -121,6 +121,9 @@ public class Node {
 //        return distanceToNodes.get(index);
 //    }
 
+    public Vector<Path> getPaths(){
+        return Paths;
+    }
     public NodeType getType() {
         return type;
     }

@@ -3,9 +3,9 @@ package Building;
 import java.util.Vector;
 
 public class Path {
-    Node start;
-    Node end;
-    double Distance;
+    public Node start;
+    public Node end;
+    public double Distance;
     Path(Node _start,Node _end, double distance){
         start=_start;
         end=_end;

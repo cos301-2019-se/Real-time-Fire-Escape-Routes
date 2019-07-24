@@ -110,16 +110,17 @@ public class Building {
           Vector<Person> people = getPeople();
           boolean status = false;
           for (Person p:people) {
-              if(p.personID == id){
+              if(p.name.compareTo(String.valueOf(id))==0){
                   Person temp = p;
                   for (Room currentfloor:Floor) {
                      status = currentfloor.removePerson(p);
                   }
+                  temp.floor = floor;
                   temp.position = pos;
                   addPerson(temp, floor);
                   if(verbose){
                       if(status){
-                          System.out.println("Person "+temp.personID +" has been updated");
+                          System.out.println("Person "+temp.getName() +" has been updated");
                       }
                   }
                   return status;
