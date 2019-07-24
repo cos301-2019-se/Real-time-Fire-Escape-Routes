@@ -7,7 +7,7 @@ $(()=>{
 
 	let rowForBar = $("#top-bar");
 	//fetchFromDb("getUsers");
-	rowForBar.append(echoTopBar);
+	rowForBar.append(echoTopBar2);
 	let main1 =  $(".main");
 	main1.append(`<div class="main-cards">`);
 	let main = $(".main-cards");
@@ -16,6 +16,20 @@ $(()=>{
 	main.append(echoSimulationWindow());
 	main.append(echoBotCreator());
 	main.append(echoFireEditor());
+
+	$("#toggler").on("click", ()=>{
+		console.log($("#toggler").attr("aria-expanded"));
+
+		if($("#toggler").attr("aria-expanded") === "true")
+		{
+			$("#toggler").attr("style", "margin-top: 2px;");
+		}
+		else
+		{
+			$("#toggler").attr("style", "margin-top: 100px;");
+		}
+
+	})
 
 	/*$("form div div button").on("click", (e)=>{
 		e.preventDefault();
@@ -69,6 +83,15 @@ $(()=>{
 		}); // done on click func
 	}
 	
+	var button = '<select id="building-change" style="margin-left:50px;max-height:40px" class="btn btn-default btn-sm"><span style="margin-right:3px" class="glyphicon glyphicon-arrow-down"></span>Change</select>'
+	$("#building-card").append(button);
+	$("#building-change").change(function(){
+		var name = $( this ).val();
+		console.log("new val: "+name);
+		changeBuilding(name);
+	})
+	addDropDown();
+
 });
 
 function echoTopBar()
@@ -81,6 +104,27 @@ function echoTopBar()
 						    <li id="admin-view" class="nav__list-item">Admin view</li>
 					  	</ul>
   			<div class="header__avatar"><img id="icons" src="icons/white_person.png"> <span>User Name</span></div>
+  					`;
+
+}
+
+function echoTopBar2()
+{
+	return `<nav class="navbar navbar-expand-lg navbar-light" id="nav2">
+				  <a class="navbar-brand header__name" href="#"><img class="" style="width: 220px;" src="img/fireG.png">
+	  					</a>
+				  <button class="navbar-toggler" style="" id="toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+
+				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    <ul class="navbar-nav mr-auto nav__list" id="admin-super-choice">
+						    <li  id="super-user-view" class="active nav__list-item">Super-user view</li>
+						    <li id="admin-view" class="nav__list-item">Admin view</li>
+					  	</ul>
+				     
+				  </div>
+				</nav>
   					`;
 
 }
@@ -109,47 +153,42 @@ function getBuildingInfo(name)
 {
 	let objData;
 	$.ajax({
-		            url: "http://127.0.0.1:8080/database",
-		            type: "POST",
-		            contentType: "application/json; charset=utf-8",
-		            dataType: "json",
-		            data: JSON.stringify({
-		                type:"currentBuilding"
-		            }),
-		            success: function(data){
-		                if (data.status){
-		                	
-		                	objData = data;
-		                	
-
-		                	if(name === "name")
-							{
-								$("#building-name").text(objData.name);
-							}
-							else if(name === "img")
-							{
-								$("#building-name").text(objData.name);
-								$("#SU-simulation").append(`<img src="../Buildings/${objData.name}/building.jpeg" style="width:100%;"/>`);
-							}
-		                	
-		                    
-		                }else{
-		                   $("#building-name").text("No buildings to display");
-		                   return;
-		                }
-		            }, fail: function(){
-						$("#building-name").text("Failed to load building");
-						return;
-		            }
-		        });
+            url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type:"currentBuilding"
+            }),
+            success: function(data){
+                if (data.status){
+                	
+                	objData = data;
+                
+                	if(name === "name")
+					{
+						$("#building-name").html(objData.name);
+					}
+					else if(name === "img")
+					{
+						$("#building-name").html(objData.name);
+						$("#SU-simulation").append(`<img src="../Buildings/${objData.name}/building.jpeg" style="width:100%;"/>`);
+					}
+                	
+                    
+                }else{
+                   $("#building-name").html("No buildings to display");
+                   return;
+                }
+            }, fail: function(){
+				$("#building-name").text("Failed to load building");
+				return;
+            }
+        });
 
 	
 }
 
-function setNewBuilding()
-{
-
-}
 
 function echoContentTable_SuperUser()
 {
@@ -809,6 +848,7 @@ function getInfoFromInput(callFunc, email1)
 		addFire(x, y, rad, floor);
 	}
 
+
 		clearWindow();
 }
 
@@ -1013,6 +1053,19 @@ function addFire(x, y, rad, floor)
             success: function(data){
                 if (data.status){
                 	notify(data.message, "blue");
+                		$.ajax({
+				            url: "http://127.0.0.1:8080/building",
+				            type: "POST",
+				            contentType: "application/json; charset=utf-8",
+				            dataType: "json",
+				            data: JSON.stringify({
+				                type: "assignPeople"
+				            }),
+				            success: function(data){
+				            	$("body").delay(1500);
+				                notify("Affected people were notified","green")
+				            }
+				        });
                     
                 }else{
                 	
