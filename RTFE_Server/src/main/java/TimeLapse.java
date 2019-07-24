@@ -4,7 +4,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Scanner;
-
+/**@file This class serves as a client to the TimeLapse/FileGenerator.java class
+ *  and is used to Either Generate a file or run a sensor server
+ * */
 public class TimeLapse {
     public static void main(String[] args){
 
