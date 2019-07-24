@@ -207,7 +207,25 @@ public class Room {
         }
         return currentDoors;
     }
-
+    /**
+     * Removes a person from a Room, This function searches recursively through all the rooms nested inside it to remove the person.
+     * @param personToRemove: An object of the person that needs to be removed, typically obtained through a prior search through all the people.
+     * @return true - Returns true if the person is found and removed.
+     *         false - Returns false if the person is not found within the room.
+     * */
+    public boolean removePerson(Person personToRemove) {
+        for (int i = 0; i < getRooms().size(); i++) {
+            if (getRooms(i).removePerson(personToRemove))
+                return true;
+        }
+        for (Person p:peopleInRoom) {
+            if(p == personToRemove){
+                peopleInRoom.remove(p);
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean addPerson(Person p){
         for (int i = 0; i <getRooms().size() ; i++) {
             if(getRooms(i).addPerson(p))
@@ -463,27 +481,12 @@ public class Room {
             peopleData.addAll(Rooms.get(i).getPeopleData( routes));
         }
         for (Person p:peopleInRoom) {
+            p.distanceToExit = 0;
             peopleData.add(p);
             for (Door d:doors) {
                 p.availableDoors.add(d);
                 for (Routes r:routes) {
                     r.resetVisited();
-                    /*
-                    for (Path c:d.node.Paths) {
-                                r.resetVisited();
-                                Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
-                                double tempD = r.pathHeuristic(path,p);
-                                if(tempD < bestDistance){
-                                    valid = Path.hasGoal(path);
-                                    Bestpath = path;
-                                    bestDistance = tempD;
-                                    bestRoute = r;
-                                }
-                            }
-
-                    */
-
-                    //routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal())
                     Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
                     if(Path.hasGoal(path)) {
                         Routes.printPath(path,p);
