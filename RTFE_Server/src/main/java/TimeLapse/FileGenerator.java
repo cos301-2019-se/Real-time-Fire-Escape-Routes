@@ -71,7 +71,9 @@ public class FileGenerator {
         try{
             FileWriter fw=new FileWriter("timelapse.txt",true);
             for (Person p :people) {
-                String line ="timestamp:"+time+ " ID:"+p.getName()+" DeviceID:"+p.deviceID+" location:"+ Arrays.toString(p.getPosition())+" floor:"+p.floor+"\n";
+                String pos =  Arrays.toString(p.getPosition());
+                pos = pos.replace(" ","");
+                String line ="timestamp:"+time+ " ID:"+p.getName()+" DeviceID:"+p.deviceID+" location:"+ pos +" floor:"+p.floor+" \n";
                 fw.write(line);
             }
             fw.close();

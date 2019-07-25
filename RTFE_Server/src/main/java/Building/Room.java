@@ -534,14 +534,6 @@ public class Room {
         return peopleData;
     }
 
-
-    /**
-     * Closest Availible Sensor. This Function will iterate through all the possibilties
-     * and return a vector of sensors that is within 1 or 2 moves of the current location
-     * *//*
-    public Vector<Node> closestSensor(Person p){
-    }/**/
-
     protected static class Corner{
         double x;
         double z;

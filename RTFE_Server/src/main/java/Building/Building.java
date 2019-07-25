@@ -21,7 +21,7 @@ public class Building {
       private static int numBuildings = 0;
       private Vector<Room> Floor= new Vector<>();
       private int id;
-      private boolean verbose = true;
+      private boolean verbose = false;
       public boolean emergency = false;
       private double floorHeight = 3.0; //needed for connecting stairs
 
@@ -126,6 +126,8 @@ public class Building {
                   return status;
               }
           }
+          Person p = new Person(String.valueOf(id),pos);
+          this.addPerson(p,floor);
           return false;
       }
     /**

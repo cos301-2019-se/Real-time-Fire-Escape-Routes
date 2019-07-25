@@ -1,5 +1,5 @@
 import Builder.BuildingManager;
-import TimeLapse.FileGenerator;
+import TimeLapse.*;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -9,6 +9,36 @@ import java.util.Scanner;
  * */
 public class TimeLapse {
     public static void main(String[] args){
+        if(args.length == 5){
+            generateFile(args);
+        }
+        else{
+            boolean valid = false;
+            String input = "";
+            Scanner scanner = new Scanner(System.in);
+            while(!valid){
+                System.out.println("Please choose an option: ");
+                System.out.println("1) Start Sensor server");
+                System.out.println("2) Create timelapse file");
+                input = scanner.nextLine();
+                switch (input){
+                    case "1":{
+                        valid = true;
+                        startSensorServer();
+                        break;
+                    }
+                    case "2":{
+                        valid = true;
+                        generateFile(args);
+                        break;
+                    }default:{
+                        valid = false;
+                    }
+                }
+            }
+        }
+    }
+    private static void generateFile(String[] args){
 
         String input = "";
         Scanner scanner = new Scanner(System.in);
@@ -89,6 +119,11 @@ public class TimeLapse {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void startSensorServer(){
+        FileParser server = new FileParser();
+        server.start();
     }
 
 }
