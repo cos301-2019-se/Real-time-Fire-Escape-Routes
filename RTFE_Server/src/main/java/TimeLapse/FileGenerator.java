@@ -7,7 +7,9 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
+/**
+ * @brief This class is used to set and generate timelapse files based on settings provided
+ * */
 public class FileGenerator {
     public Building building;
     long updateInterval;
@@ -16,6 +18,14 @@ public class FileGenerator {
     int BotStartId = 1000;
     double ChanceToMove;
 
+    /**
+     * The constructor is used to set the various settings for the file that is being generated
+     * @param building: The building to be used. It is vital as the code uses it for graph traversal
+     * @param movementChance: This is used to decide how likely people are to move from one location to the next on a given update
+     * @param NumberOfPeople: This parameter is used to specify how many people's data must be simulated in the timelapse file
+     * @param updateInterval: This is used to determine how frequently(in milliseconds) people's decide to move from one location to the next
+     * @param timespan: This is used to determine the start and end period for the timelapse file
+     * */
     public FileGenerator(Building building,int NumberOfPeople, long timespan,long updateInterval,double movementChance){
         this.building = building;
         this.updateInterval= updateInterval;
@@ -23,6 +33,12 @@ public class FileGenerator {
         this.timespan = timespan;
         this.ChanceToMove = movementChance;
     }
+
+    /**
+     * The start function makes use of the simulated building
+     * and all its predefined locations and calls all the
+     * relevant functions to generate the timelapse file
+     * */
     public void start(){
         building.clearPeople();;
         System.out.println("Starting Simulation - "+new Date(System.currentTimeMillis()));
@@ -42,6 +58,12 @@ public class FileGenerator {
 
     }
 
+    /**
+     * The updateFile will pull all the people's position data from
+     * the building and write each persons location into
+     * the text file with a given timestamp
+     * @param time: the timestamp to be used when writing into the file as well as terminal prompt
+     * */
     void updatefile(long time){
 
         System.out.println("Updating file "+new Date(time));
@@ -49,15 +71,18 @@ public class FileGenerator {
         try{
             FileWriter fw=new FileWriter("timelapse.txt",true);
             for (Person p :people) {
-                String line ="timestamp:"+time+ " ID:"+p.getName()+" DeviceID:"+p.deviceID+" location:"+ Arrays.toString(p.getPosition())+" floor:"+p.floor+"\n";
-
+                String pos =  Arrays.toString(p.getPosition());
+                pos = pos.replace(" ","");
+                String line ="timestamp:"+time+ " ID:"+p.getName()+" DeviceID:"+p.deviceID+" location:"+ pos +" floor:"+p.floor+" \n";
                 fw.write(line);
             }
             fw.close();
         }catch(Exception e){System.out.println(e);}
     }
 
-
+    /**
+     * The function updatePeople will based on moveChance change the position of where a person is located.
+     * */
     private void UpdatePeople(){
         Random rand = new Random();
         Vector<Person> people = new Vector<>();
@@ -69,7 +94,10 @@ public class FileGenerator {
             }
         }
     }
-
+    /**
+     * This function takes a person and determines a random sensor where he should move to that is adjacent to his/her current room
+     * @param p: the person of interest looking for a next location
+     * */
     private Sensor nextLocation(Person p){
         Vector<Sensor> sensors = new Vector<Sensor>();
         for (Room f:building.getFloors() ) {
@@ -95,6 +123,10 @@ public class FileGenerator {
         Random rand = new Random();
         return possibleChoices.get(rand.nextInt(possibleChoices.size()));
     }
+
+    /**
+     * This function randomly places people throughout the building until satisfied
+     * */
     private void InitialBuild(){
         int PeopleToPlace = numPeople;
         int numFloors = building.getNumFloors();
@@ -110,6 +142,10 @@ public class FileGenerator {
             }
         }
     }
+
+    /**
+     * This function reads a given building.json file and returns a JSONObject that can be utilized by the system
+     * */
     public static JSONObject readFile(String fileName) throws IOException {
         File f = new File(fileName);
         Lock lock = new ReentrantLock();

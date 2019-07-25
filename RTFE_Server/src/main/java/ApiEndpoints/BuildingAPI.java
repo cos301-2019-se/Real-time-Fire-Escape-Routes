@@ -32,13 +32,21 @@ public class BuildingAPI extends API {
                 return response;
             }
             case "assignPeople":{
-                building.assignPeople();
                 response = new JSONObject();
-                response.put("people", peopleToUnity());
+                if(request.has("alarm")){
+                    if(request.getBoolean("alarm")){
+                        response.put("people", peopleLocations());
+                        response.put("numRoutes",building.getRoutes().size());
+                        response.put("status",true);
+                        return response;
+                    }
+                }
+                building.assignPeople();
+                response.put("people", assignPeopleRoutes());
                 response.put("numRoutes",building.getRoutes().size());
                 response.put("status",true);
-
                 return response;
+
             }
             case "clearPeople":{
                 response = new JSONObject();
@@ -205,7 +213,7 @@ public class BuildingAPI extends API {
         JSONObject Response = new JSONObject();
         try{
             Response.put("status", true);
-            Response.put("people", peopleToUnity());
+            Response.put("people", assignPeopleRoutes());
         }catch(Exception e){
             Response.put("Exception",e.getMessage()) ;
             Response.put("status",false);
@@ -219,7 +227,7 @@ public class BuildingAPI extends API {
      * it contains the people's initial location, as well as the path they need to follow to evacuate the building
      * @return a very long string formatted in a specific way
      * */
-    private static String peopleToUnity(){
+    private static String assignPeopleRoutes(){
         building.emergency = true;
         Vector<Person> people = building.getPeople();
         String data = "";
@@ -235,6 +243,32 @@ public class BuildingAPI extends API {
                     }
                 }
 
+                if (i < people.size() - 1) {
+                    if(people.get(i+1).getAssignedRoute()!=null) {
+                        data += " - ";
+                    }
+                }
+            }
+//            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
+        }
+        return data ;
+    }
+
+    /**
+     * This function converts all the people data from the building into a string that is used by the simulation subsystem
+     * it contains the people's initial location, as well as the path they need to follow to evacuate the building
+     * @return a very long string formatted in a specific way
+     * */
+    private static String peopleLocations(){
+        building.emergency = true;
+        Vector<Person> people = building.getPeople();
+        String data = "";
+        for (int i = 0; i < people.size(); i++) {
+            Person c = people.get(i);
+            if(c.getAssignedRoute()!=null) {
+                double[] pos = c.getAssignedRoute().getGoal().coordinates;
+                data += c.getName() + " *" ;
+                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1];
                 if (i < people.size() - 1) {
                     if(people.get(i+1).getAssignedRoute()!=null) {
                         data += " - ";
