@@ -53,5 +53,38 @@
 		{"id":9,"floor":0,"position":[1,15]},
 		{"id":10,"floor":0,"position":[4,15]},
 		{"id":11,"floor":0,"position":[4,22]}
+	],
+	"sensors":[
+		{"sensorID":"","floor":0,"position":[2,2]},
+		{"sensorID":"","floor":0,"position":[6,2]},
+		{"sensorID":"","floor":0,"position":[10,2]},
+
+		{"sensorID":"","floor":0,"position":[2,8]},
+		{"sensorID":"","floor":0,"position":[6,8]},
+		{"sensorID":"","floor":0,"position":[10,8]},
+		{"sensorID":"","floor":0,"position":[14,8]},
+		{"sensorID":"","floor":0,"position":[18,8]},
+		{"sensorID":"","floor":0,"position":[22,8]},
+
+		{"sensorID":"","floor":0,"position":[20,3.1]},
+		{"sensorID":"","floor":0,"position":[15,3.1]},
+		{"sensorID":"","floor":0,"position":[12.6,5.2]},
+		{"sensorID":"","floor":0,"position":[15,0.9]},
+
+		{"sensorID":"","floor":1,"position":[2,2]},
+		{"sensorID":"","floor":1,"position":[6,2]},
+		{"sensorID":"","floor":1,"position":[10,2]},
+
+		{"sensorID":"","floor":1,"position":[2,8]},
+		{"sensorID":"","floor":1,"position":[6,8]},
+		{"sensorID":"","floor":1,"position":[10,8]},
+		{"sensorID":"","floor":1,"position":[14,8]},
+		{"sensorID":"","floor":1,"position":[18,8]},
+		{"sensorID":"","floor":1,"position":[22,8]},
+
+		{"sensorID":"","floor":1,"position":[20,3.1]},
+		{"sensorID":"","floor":1,"position":[15,3.1]},
+		{"sensorID":"","floor":1,"position":[12.6,5.2]},
+		{"sensorID":"","floor":1,"position":[15,0.9]}
 	]
 }

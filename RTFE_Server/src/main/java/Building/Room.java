@@ -8,6 +8,7 @@ public class Room {
     RoomType roomType;
     public Vector<Door> doors = new Vector<Door>();
     private Vector<Person> peopleInRoom = new Vector<>();
+    private Vector<Sensor> sensors = new Vector<>();
     private Vector<Room> Rooms = new Vector<Room>();
     protected Vector<Corner> Corners = new Vector<>();
     public Vector<Fire> fires = new Vector<Fire>();
@@ -207,7 +208,34 @@ public class Room {
         }
         return currentDoors;
     }
+    public Vector<Sensor> getAllSensors(){
+        Vector<Sensor> sensors = new Vector<>();
 
+        for (int i = 0; i < Rooms.size(); i++) {
+            sensors.addAll(Rooms.get(i).getAllSensors());
+        }
+        sensors.addAll(this.sensors);
+        return sensors;
+    }
+    /**
+     * Removes a person from a Room, This function searches recursively through all the rooms nested inside it to remove the person.
+     * @param personToRemove: An object of the person that needs to be removed, typically obtained through a prior search through all the people.
+     * @return true - Returns true if the person is found and removed.
+     *         false - Returns false if the person is not found within the room.
+     * */
+    public boolean removePerson(Person personToRemove) {
+        for (int i = 0; i < getRooms().size(); i++) {
+            if (getRooms(i).removePerson(personToRemove))
+                return true;
+        }
+        for (Person p:peopleInRoom) {
+            if(p == personToRemove){
+                peopleInRoom.remove(p);
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean addPerson(Person p){
         for (int i = 0; i <getRooms().size() ; i++) {
             if(getRooms(i).addPerson(p))
@@ -220,6 +248,29 @@ public class Room {
         Corner Point = new Corner(p.position);
         if(isInside(poly,poly.length,Point)){
             peopleInRoom.add(p);
+            return true;
+        }
+        return false;
+    }
+    public boolean addSensor(Sensor s){
+        for (int i = 0; i <getRooms().size() ; i++) {
+            if(getRooms(i).addSensor(s))
+                return true;
+        }
+        Corner [] poly = new Corner[Corners.size()];
+        for (int i = 0; i < poly.length; i++) {
+            poly[i] = Corners.get(i);
+        }
+        Corner Point = new Corner(s.getLocation());
+        if(isInside(poly,poly.length,Point)){
+            sensors.add(s);
+            for (Door d:doors) {
+                s.connect(d.node, distance(s.coordinates, d.node.coordinates));
+                if(verbose){
+                    System.out.println("Connecting sensors to pathing: "+s.nodeId+"("+s.deviceID+")<->"+d.node.nodeId+"//distance: "+distance(s.coordinates, d.node.coordinates) );
+                }
+            }
+
             return true;
         }
         return false;
@@ -365,7 +416,7 @@ public class Room {
     }
 
     /**
-     * @info : See the function "isCyclic()" for more details
+     * @brief : See the function "isCyclic()" for more details
      * */
     private Boolean isCyclicUtil(Corner v, Boolean visited[], Corner parent) {
         int _v = Corners.indexOf(v);
@@ -463,30 +514,15 @@ public class Room {
             peopleData.addAll(Rooms.get(i).getPeopleData( routes));
         }
         for (Person p:peopleInRoom) {
+            p.distanceToExit = 0;
             peopleData.add(p);
             for (Door d:doors) {
                 p.availableDoors.add(d);
                 for (Routes r:routes) {
                     r.resetVisited();
-                    /*
-                    for (Path c:d.node.Paths) {
-                                r.resetVisited();
-                                Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
-                                double tempD = r.pathHeuristic(path,p);
-                                if(tempD < bestDistance){
-                                    valid = Path.hasGoal(path);
-                                    Bestpath = path;
-                                    bestDistance = tempD;
-                                    bestRoute = r;
-                                }
-                            }
-
-                    */
-
-                    //routes.get(j).ShortestPathToGoal(d.node, routes.get(j).getGoal())
                     Vector<Node> path =  r.ShortestPathToGoal(d.node,r.getGoal());
                     if(Path.hasGoal(path)) {
-                        Routes.printPath(path,p);
+//                        Routes.printPath(path,p);
                         double tempD = Routes.pathHeuristic(path, p);
                         if (tempD < p.distanceToExit) {
                             p.distanceToExit = tempD;

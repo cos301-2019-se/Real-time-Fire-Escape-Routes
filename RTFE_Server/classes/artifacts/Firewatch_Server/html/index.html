@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Ubuntu" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        #background {
+            background-image: linear-gradient(145deg, #ff7575, #f2f276);
+            position: relative;
+            display: flex;
+        }
+
+        #background div {
+            width: 100%;
+        }
+
+        #sponsor {
+            position: absolute;
+            width: 100% !important;
+            height: 38px;
+            bottom: 22px;
+            left: 0; 
+            display: flex;
+        }
+
+        #sponsor span {
+            text-align: center;
+            width: 100%;
+        }
+
+        #container div{
+            width: 100%;
+        }
+
+        .login-input {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            outline: 0;
+            background-color: #fff;
+            border: 1px solid #e6ecf0;
+            border-radius: 3px;
+
+            font-size: 16px;
+            line-height: 22px;
+            padding: 6px;
+
+            transition: all 200ms linear;
+        }
+
+        .btn {
+            font-family: "Ubuntu";
+            width: 50px !important;
+            margin: 0 auto;
+            color: white;
+            background: #f03a01;
+            padding: 10px 20px;
+            transition: all 200ms linear;
+        }
+
+        .btn-reg {
+            font-family: "Ubuntu";
+            width: 100px !important;
+            margin: 0 auto;
+            color: white;
+            background: #f03a01;
+            padding: 10px 20px;
+            transition: all 200ms linear;
+        }
+
+        .btn:hover, .btn-reg:hover {
+            cursor: pointer;
+            box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.27);
+        }
+
+        #dashboard {
+            display: none;
+        }
+
+        #menu {
+            width: 40px !important;
+            height: 40px;
+            background: #f03a01;
+            position: fixed;
+            top: 10px;
+            right: 10px;     
+            transition: all 200ms linear;
+        }
+
+        #menu-drop {
+            display: none;
+            width: 135px;
+            position: absolute;
+            top: -6px;
+            right: 0px;
+            background: rgb(240, 58, 1) none repeat scroll 0% 0%;
+            color: white;
+        }
+
+        .menu-item {
+            font-family: "Ubuntu";
+            display: block;
+            padding: 5px 10px;
+            transition: all 200ms linear;
+        }
+
+        .menu-item:hover {
+            background: #b22a00;
+        }
+
+        #footer {
+            position: absolute;
+            height: 38px;
+            background: white;
+            bottom: 0;
+            right: 0; 
+            display: flex;
+
+            transition: all 200ms linear;
+        }
+
+        #footer span {
+            text-align: center;
+            font-family: "Ubuntu";
+            width: 100%;
+            color: #797979;
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <div id="background">
+            <div id="sponsor">
+                <span><img src="epiu.png" style="width: 80px; "></span>
+                <span><img src="tuks.png" width="150px"></span>
+                <span><img src="erp.png" width="45px"></span>
+            </div>
+        </div>
+        <div id="login-page"> 
+            <div id="login-form" style="margin: 100px auto; text-align: center; width: 80%;">
+                <div style="position: relative;">
+                    <img src="fire.png">
+                    <span style="display: block; font-family: 'Fjalla One'; font-size: 30px">RealTime Firewatch</span>
+                </div>
+                <input type="text" id="username" class="login-input" placeholder="Email">
+                <input type="text" id="password" class="login-input" placeholder="Password">
+                <div id="login" class="btn">Log in</div>
+            </div>
+        </div>
+        <div id="dashboard">
+            <div id="result"></div>
+            <div>
+                <div id="menu">
+                    <img id="menu-icon" src="menu.png" style="width: 27px; margin: 7px">
+                    <img id="cross-icon" src="cross.png" style="width: 30px; margin: 6px; display: none">
+                    <div style="position: relative">
+                        <div id="menu-drop" style="width: 135px; position: absolute; right: 0;">
+                            <span id="menu-user" style="display: block; font-family: 'Ubuntu'; padding: 6px 10px;">user</span>
+                            <span id="menu-dash" class="menu-item">Dashboard</span>
+                            <span id="menu-get" class="menu-item">get user</span>
+                            <span id="menu-set" class="menu-item">set user</span>
+                            <span id="out" class="menu-item">logout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer" style='width: 50%'>
+            <span>About</span>
+            <span>Privacy</span>
+            <span>Help</span>
+        </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script>
+    username = '';
+
+    $('#login').on('click', function(){
+        $.ajax({
+            url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: 'login',
+                name: $('#username').val(),
+                pass: $('#password').val()
+            }),
+            success: function(data){
+                if (data.status){
+                    username = $('#username').val();
+
+                    $('#login-form').fadeOut('fast', function(){
+                        $('#background').hide('slide', {direction: 'left'}, 500, function(){
+                            $('#login-page').fadeOut('fast', function(){
+                                $('#footer').css('width', '100%');
+                                $('#dashboard').fadeIn('fast');
+                                $('#menu-user').text(username);
+                                dashboard($('#result'))
+                            });
+                        });
+                    })
+                }else{
+                    notify('Error: Email or Password is incorrect!', 'red');
+                }
+            }
+        })
+
+    })
+
+    $('#out').on('click', function(){
+        $('#dashboard').fadeOut('fast', function(){
+            $('#footer').css('width', '50%');
+            $('#login-page').fadeIn(function(){
+                $('#background').show('slide', {direction: 'left'}, 500, function(){
+                   $('#username').val('');
+                   $('#password').val('');
+                   $('#login-form').show();
+                })
+            })
+        })
+    })
+
+    $('#menu').on('click', function(){
+        if ($('#menu-icon').css('display') == 'none'){
+            $('#menu-icon').show();
+            $('#cross-icon').hide();
+            $('#menu-drop').hide('slide', {direction: 'up'});
+        }else if ($('#cross-icon').css('display') == 'none'){
+            $('#menu-icon').hide();
+            $('#cross-icon').show();
+            $('#menu-drop').show('slide', {direction: 'up'});
+        }
+    })
+
+    $('#menu-dash').on('click', function(){
+        dashboard($('#result'))
+    })
+
+    $('#menu-set').on('click', function(){
+        register($('#result'))
+    })
+
+    $('#menu-get').on('click', function(){
+        register($('#result'))
+    })
+
+    function notify(msg, color){
+        $('body').append($('<div></div>')
+            .css({
+                'position' : 'fixed',
+                'margin' : '0 auto',
+                'top' : '-50px',
+                'left' : '0',
+                'right' : '0',
+                'text-align' : 'center',
+            })
+            .append($('<span></span>')
+                .css({
+                    'font-family' : 'Ubuntu',
+                    'padding' : '10px 20px',
+                    'background-color' : color,
+                    'color' : 'white',
+                    'border-radius' : '7px',
+                    'box-shadow' : '0px 2px 3px 1px rgba(0,0,0,0.27)'
+                })
+                .text(msg)
+            )
+            .animate({
+                top: "+=80px"
+            }).delay(2000).animate({
+                top: "-=80px"
+            }, function(){
+                $(this).remove();
+            })
+        )
+    }
+
+    function dashboard(elem){
+        elem.html('');
+        elem.append($('<div></div>')
+            .css({
+                'display' : 'none',
+                'text-align' : 'center',
+                'margin' : '50px 0'
+            })
+            .append($('<span></span>')
+                .text('Welcome')
+                .css({
+                    'font-family' : '"Fjalla One"',
+                    'font-size' : '23px'
+                })
+            ).fadeIn()
+        )
+    }
+
+    function getUsers(elem){
+        elem.html('');
+        elem.append($('<div></div>').text('get users'))
+    }
+
+    function register(elem){
+        elem.html('');
+        elem.append($('<div></div>')
+            .css({
+                'display' : 'none',
+                'text-align' : 'center',
+                'margin' : '50px 0'
+            })
+            .append($('<span></span>')
+                .text('Register a User')
+                .css({
+                    'font-family' : '"Fjalla One"',
+                    'font-size' : '23px'
+                })
+            )
+            .append($('<div></div>')
+                .css({
+                    'width' : '90%',
+                    'margin' : '0 auto'
+                })
+                .append($('<input>')
+                    .attr({
+                        'type': 'text',
+                        'id' : 'reg-name',
+                        'class' : 'login-input',
+                        'placeholder' : 'email' 
+                    })
+                    )
+                .append($('<input>')
+                    .attr({
+                        'type': 'text',
+                        'id' : 'reg-pass',
+                        'class' : 'login-input',
+                        'placeholder' : 'password'
+                    })
+                    )
+                .append($('<div></div>')
+                    .addClass('btn-reg')
+                    .text('Register')
+                    .on('click', function(){
+                        $.ajax({
+                            url: "http://localhost:8080/database",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify({
+                                type: 'register',
+                                name: $('#reg-name').val(),
+                                pass: $('#reg-pass').val()
+                            }),success: function(data){
+                                if (data.status){
+                                    notify('Register success', 'green')
+                                }
+                            }
+                        })
+                    })
+                )
+            ).fadeIn()
+        )
+    }
+</script>
+</body>
+</html>
+

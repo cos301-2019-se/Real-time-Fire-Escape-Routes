@@ -32,13 +32,21 @@ public class BuildingAPI extends API {
                 return response;
             }
             case "assignPeople":{
-                building.assignPeople();
                 response = new JSONObject();
-                response.put("people", peopleToUnity());
+                if(request.has("alarm")){
+                    if(request.getBoolean("alarm")){
+                        response.put("people", peopleLocations());
+                        response.put("numRoutes",building.getRoutes().size());
+                        response.put("status",true);
+                        return response;
+                    }
+                }
+                building.assignPeople();
+                response.put("people", assignPeopleRoutes());
                 response.put("numRoutes",building.getRoutes().size());
                 response.put("status",true);
-
                 return response;
+
             }
             case "clearPeople":{
                 response = new JSONObject();
@@ -58,16 +66,25 @@ public class BuildingAPI extends API {
                 response.put("status",true);
                 return response;
             }
+            case "unbind":{
+                response = new JSONObject();
+                response.put("message", unBindPerson(request));
+                response.put("status",true);
+                return response;
+            }
             case "personInfo":{
                 response = new JSONObject();
                 response.put("message", getPersonInfo(request));
-                if(building.emergancy){
+                if(building.emergency){
                     response.put("status",true);
                 }
                 else{
                     response.put("status",false);
                 }
                 return response;
+            }
+            case "personUpdate":{
+                return UpdatePersonLocation(request);
             }
         }
         throw new Exception("Unsupported Request");
@@ -82,6 +99,15 @@ public class BuildingAPI extends API {
         int id = request.getInt("id");
         String deviceId = request.getString("device_id");
         return building.bindPerson(id,deviceId);
+    }
+    /**
+     * This function will be used to process the request handed over to the API
+     * @param request: Contains the DEVICE that needs to be removed from the building
+     * @return returns a JSON object that contains a success or fail message
+     * */
+    private static boolean unBindPerson(JSONObject request) {
+        String deviceId = request.getString("device_id");
+        return building.unBindPerson(deviceId);
     }
 
     /**
@@ -116,7 +142,7 @@ public class BuildingAPI extends API {
             status +="ID: "+person.deviceID+" - ";
             status +="Name: "+person.name+" - ";
             status +="Position: "+Arrays.toString(person.getPosition())+" - ";
-            if(building.emergancy){
+            if(building.emergency){
                 status+="Status: Emergancy - ";
                 status +="Assigned Route ID: "+person.getAssignedRoute().RouteName+" ";
             }
@@ -187,7 +213,7 @@ public class BuildingAPI extends API {
         JSONObject Response = new JSONObject();
         try{
             Response.put("status", true);
-            Response.put("people", peopleToUnity());
+            Response.put("people", assignPeopleRoutes());
         }catch(Exception e){
             Response.put("Exception",e.getMessage()) ;
             Response.put("status",false);
@@ -201,8 +227,8 @@ public class BuildingAPI extends API {
      * it contains the people's initial location, as well as the path they need to follow to evacuate the building
      * @return a very long string formatted in a specific way
      * */
-    private static String peopleToUnity(){
-        building.emergancy = true;
+    private static String assignPeopleRoutes(){
+        building.emergency = true;
         Vector<Person> people = building.getPeople();
         String data = "";
         for (int i = 0; i < people.size(); i++) {
@@ -227,5 +253,113 @@ public class BuildingAPI extends API {
         }
         return data ;
     }
+
+    /**
+     * This function converts all the people data from the building into a string that is used by the simulation subsystem
+     * it contains the people's initial location, as well as the path they need to follow to evacuate the building
+     * @return a very long string formatted in a specific way
+     * */
+    private static String peopleLocations(){
+        building.emergency = true;
+        Vector<Person> people = building.getPeople();
+        String data = "";
+        for (int i = 0; i < people.size(); i++) {
+            Person c = people.get(i);
+            if(c.getAssignedRoute()!=null) {
+                double[] pos = c.getAssignedRoute().getGoal().coordinates;
+                data += c.getName() + " *" ;
+                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1];
+                if (i < people.size() - 1) {
+                    if(people.get(i+1).getAssignedRoute()!=null) {
+                        data += " - ";
+                    }
+                }
+            }
+//            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
+        }
+        return data ;
+    }
+
+    /**
+     * This function is used to update a person's location within a building it can either accept a person ID or a device ID that needs to be updated
+     *
+     * */
+    private static JSONObject UpdatePersonLocation(JSONObject request){
+        JSONObject response = new JSONObject();
+        JSONArray pos = request.getJSONArray("position");
+        int floor = request.getInt("floor");
+        double [] newPosition = {pos.getDouble(0),pos.getDouble(1)};
+        boolean status = false;
+        try{
+            int personID = request.getInt("id");
+            status = building.updatePersonLocation(personID,floor,newPosition );
+        }
+        catch (Exception e1){
+            try{
+                if(floor>=building.getFloors().size()){
+                    throw new IndexOutOfBoundsException("Please select a valid floor");
+                }
+                String deviceID = (String)request.get("device_id");
+                status = building.updatePersonLocation(deviceID,floor,newPosition );
+            }catch (Exception e2){
+                JSONObject error = new JSONObject();
+                error.put("message", "FATAL ERROR at UpdatePersonLocation: "+e2.getMessage());
+                error.put("status",false);
+                System.out.println("FATAL ERROR at UpdatePersonLocation: "+e2.getMessage());
+                return error;
+            }
+        }
+        if(status){
+            response.put("message", "Person information has been updated" );
+            building.assignPeople();
+        }else{
+            response.put("message", "Person was not found");
+        }
+        response.put("status",status);
+        return response;
+    }
+    /**
+     * This function is used to remove a person from a building
+     *
+     * */
+    private static JSONObject removePerson(JSONObject request){
+        JSONObject response = new JSONObject();
+        boolean status = false;
+        int personID = -1;
+        try{
+            if(request.has("id"))
+                personID = request.getInt("id");
+            else if(request.has("device_id")){
+                String deviceID = (String)request.get("device_id");
+                Vector <Person> people = building.getPeople();
+                for (Person p :people) {
+                    if(p.deviceID.compareTo(deviceID)==0){
+                        personID = p.getPersonID();
+                    }
+                }
+            }
+            else{
+                throw new Exception("Please use either 'device_id' or 'id' when removing a person");
+            }
+            status = building.remove(personID );
+        }
+        catch (Exception e){
+            JSONObject error = new JSONObject();
+            error.put("message", "FATAL ERROR at RemovePerson: "+e.getMessage());
+            error.put("status",false);
+            System.out.println("FATAL ERROR at RemovePerson: "+e.getMessage());
+            return error;
+        }
+        if(status){
+            response.put("message", "Person has been removed from the building" );
+            building.assignPeople();
+        }else{
+            response.put("message", "Person was not found");
+        }
+        response.put("status",status);
+        return response;
+    }
+
+
 
 }
