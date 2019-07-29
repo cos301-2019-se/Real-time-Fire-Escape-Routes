@@ -41,7 +41,7 @@ public class WebAPI extends API {
             }
             case"login":
             {
-                response = login((String)request.get("email"), (String)request.get("pass"));
+                response = login((String)request.get("email"), (String)request.get("password"));
                 return response;
             }
             case "getUsersInBuilding":
