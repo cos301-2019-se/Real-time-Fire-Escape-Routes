@@ -29,10 +29,17 @@ public class WebAPI extends API {
      * */
 
     public static JSONObject handleRequest(JSONObject request)throws Exception {
-        //String reqType = (String)req.get("type");
+        JSONObject response;
         if(verbose)
             System.out.println("WEBAPI -> "+request.toString());
-        JSONObject response;
+        try{
+            building = chooseBuilding(request);
+        }
+        catch (Exception e){
+            response = new JSONObject();
+            response.put("status", false);
+            response.put("message", e.getMessage());
+        }
         switch ((String)request.get("type")){
             case "remove":
             {
@@ -109,11 +116,13 @@ public class WebAPI extends API {
             {
                 response = new JSONObject();
                 try {
-                    response.put("name", lastbuild.get("name"));
+                    JSONObject last = chooseLastBuild(request);
+                    response.put("name", last.get("name"));
                     response.put("status", true);
                 }
                 catch (Exception e){
                     response.put("status", false);
+                    response.put("message", e.getMessage());
                 }
                 return response;
             }

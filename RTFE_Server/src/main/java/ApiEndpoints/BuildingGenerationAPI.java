@@ -1,12 +1,14 @@
 package ApiEndpoints;
 
 import Builder.BuildingManager;
-import org.json.*;
+import Building.Building;
+import org.json.JSONArray;
+import org.json.JSONObject;
 /**
  * BuildingAPI class is used by the '/buildingGeneration' endpoint in the HTTPServer
  * and handles all requests related to creating the Building
  * */
-public class BuildingGenerationAPI {
+public class BuildingGenerationAPI extends API{
     /**
      * This function will be used to process the request handed over to the API
      * @param request: Contains the JSON data that was sent to the server
@@ -21,7 +23,7 @@ public class BuildingGenerationAPI {
                 return Response;
             }
             case "buildingData":{
-                Response.put("msg",BuildingToUnityString(Response));
+                Response.put("msg",BuildingToUnityString(Response,request));
                 Response.put("status",true);
                 return Response;
             }
@@ -35,18 +37,20 @@ public class BuildingGenerationAPI {
      * @param response: Initial repsonse created by the "handleRequest" to which it will also attach additional information
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-    private static String BuildingToUnityString(JSONObject response)throws Exception {
-        if (API.lastbuild == null)
+    private static String BuildingToUnityString(JSONObject response,JSONObject request)throws Exception {
+        Building temp = chooseBuilding(request);
+        JSONObject last = chooseLastBuild(request);
+        if (temp == null)
             throw new Exception("Please build a building first") ;
 
         String responseMessage = "No people to add yet";
-        int numberOfFloors = API.building.getFloors().size();
+        int numberOfFloors = temp.getFloors().size();
         response.put("numberFloors",numberOfFloors);
 
         /**
          * Adding Rooms to the response
          * */
-        JSONArray rooms = (JSONArray)API.lastbuild.get("rooms");
+        JSONArray rooms = (JSONArray)last.get("rooms");
         String data ="";
         for (int i = 0; i < rooms.length() ; i++) {
             JSONObject current = (JSONObject) rooms.get(i);
@@ -66,7 +70,7 @@ public class BuildingGenerationAPI {
          * Adding Halls to the response
          * */
          //Temp fix for unity
-        rooms = (JSONArray)API.lastbuild.get("halls");
+        rooms = (JSONArray)last.get("halls");
         data += " - ";
         for (int i = 0; i < rooms.length() ; i++) {
             JSONObject current = (JSONObject) rooms.get(i);
@@ -86,7 +90,7 @@ public class BuildingGenerationAPI {
          * Adding Stairs to the response
          * */
         try {
-            rooms = (JSONArray) API.lastbuild.get("stairs");
+            rooms = (JSONArray) last.get("stairs");
             String StairData = "";
             for (int i = 0; i < rooms.length(); i++) {
                 JSONObject current = (JSONObject) rooms.get(i);
@@ -140,7 +144,7 @@ public class BuildingGenerationAPI {
          * Adding Doors to the response
          * */
         data = "";
-        JSONArray doors = (JSONArray)API.lastbuild.get("doors");
+        JSONArray doors = (JSONArray)last.get("doors");
         for (int i = 0; i < doors.length() ; i++) {
             JSONObject current = (JSONObject) doors.get(i);
             String type = (String)current.get("type");
@@ -176,7 +180,7 @@ public class BuildingGenerationAPI {
          * Adding People
          * */
         data = "";
-        JSONArray people = (JSONArray)API.lastbuild.get("people");
+        JSONArray people = (JSONArray)last.get("people");
         for (int i = 0; i < people.length() ; i++) {
             JSONObject current = (JSONObject) people.get(i);
             data += current.getInt("floor") + " * ";
@@ -187,6 +191,7 @@ public class BuildingGenerationAPI {
                 data+= " - ";
         }
         response.put("people",data);
+
         return responseMessage;
     }
 
@@ -195,14 +200,44 @@ public class BuildingGenerationAPI {
      * @param data: Contains various coordinate information about the building, stairs, dummy people
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-    private static String build(JSONObject data){
+    private static String build(JSONObject data)throws Exception{
+        Building newbuilding = null ;
+        JSONObject last = null;
+
+
         String temp="Building built successfully";
-        API.lastbuild = data;
+        boolean isSimulation = false;
+        if(isSimulation){
+            newbuilding = buildings[1];
+            last =  lastbuild[1];
+        }
+        else{
+            newbuilding = buildings[0];
+            last =  lastbuild[0];
+        }
+        if(data.has("mode")){
+            if(data.getString("mode").compareToIgnoreCase("simulation")==0){
+                isSimulation = true;
+            }
+        }
+        if(isSimulation){
+            lastbuild[1] = data;
+        }
+        else{
+            lastbuild[0] = data;
+        }
         try {
             BuildingManager BobTheBuilder = new BuildingManager(data);
-            if(API.building != null)
-                API.building.clearPeople();
-            API.building = BobTheBuilder.construct();
+            if(newbuilding != null){
+                newbuilding.clearPeople();
+            }
+            newbuilding = BobTheBuilder.construct();
+            if(isSimulation){
+                buildings[1] = newbuilding;
+            }
+            else{
+                buildings[0] = newbuilding;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
