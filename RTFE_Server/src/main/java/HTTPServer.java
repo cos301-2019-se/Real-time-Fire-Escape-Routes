@@ -14,7 +14,6 @@
 import ApiEndpoints.BuildingAPI;
 import ApiEndpoints.BuildingGenerationAPI;
 import ApiEndpoints.WebAPI;
-import Building.Building;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +22,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 
 public class HTTPServer extends Server{
@@ -33,7 +31,6 @@ public class HTTPServer extends Server{
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
         static final boolean verbose = true;
-        private JSONObject lastBuild = null;
 
         public HTTPServer(){
             super();
@@ -177,6 +174,7 @@ public class HTTPServer extends Server{
         public void run() {
             if(connect != null) {
                 BufferedReader in = null;
+//                InputStream in = null;
                 PrintWriter out = null;
                 BufferedOutputStream dataOut = null;
                 String fileRequested = null;
@@ -186,8 +184,12 @@ public class HTTPServer extends Server{
                     dataOut = new BufferedOutputStream(connect.getOutputStream());
                     String input="";
                     input = in.readLine();
+                    if(input == null){
+                        throw new Exception("null problem");
+                    }
 
                     StringTokenizer parse = new StringTokenizer(input);
+
                     String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
                     // we get file requested
                     fileRequested = parse.nextToken().toLowerCase();
@@ -317,6 +319,9 @@ public class HTTPServer extends Server{
                     e.printStackTrace();
                 }catch (Exception e){
                     System.out.println(e.getMessage());
+                    out.println("{\"status\":\"failed\"}");
+                    out.println("{\"message\":\""+e.getMessage()+"\"}");
+                    out.flush();
                 }
                 finally {
                     try {
@@ -337,8 +342,14 @@ public class HTTPServer extends Server{
             }
         }
         
-        private String getJSONStr(StringBuilder payload) {
-            return payload.substring(payload.indexOf("{"));
+        private String getJSONStr(StringBuilder payload)  {
+            try {
+                return payload.substring(payload.indexOf("{"));
+            }
+            catch (Exception e){
+                System.out.println("Something went wrong parsing the payload: "+payload);
+            }
+            return "{\"type\":\"assignPeople\"}";
         }
     }
 
