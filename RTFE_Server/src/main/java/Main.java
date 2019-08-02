@@ -10,9 +10,6 @@
  *
  * @date 28/05/2019
  */
-import Building.Building;
-import java.util.Vector;
-
 public class Main implements Runnable {
 
     Server myserver;
@@ -27,7 +24,6 @@ public class Main implements Runnable {
     public static void main(String[] args){
         try
         {
-//            Vector<Building> LoadedBuildings = new Vector<>();
             Thread thread = new Thread(new HTTPServer());
             thread.start();
         }

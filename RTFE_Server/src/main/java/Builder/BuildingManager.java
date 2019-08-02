@@ -17,6 +17,7 @@ public class BuildingManager {// Builder design pattern - Director
     Vector <Vector<Builder>> doors = new Vector<>();
     Vector <Vector<Builder>> stairs = new Vector<>();
     Vector <Vector<Builder>> sensors = new Vector<>();
+    Vector <Vector<Builder>> people = new Vector<>();
     private static boolean verbose = true;
     JSONArray peopleData;
     JSONObject buildingData ;
@@ -112,6 +113,7 @@ public class BuildingManager {// Builder design pattern - Director
 
             try{
                 peopleData = (JSONArray)BuildingData.getJSONArray("people");
+
             }catch(Exception e){
                 if(verbose)
                     System.out.println("No people specified in original dataset");
@@ -174,6 +176,13 @@ public class BuildingManager {// Builder design pattern - Director
             for (int i = 0; i < sensors.size(); i++) {
                 for (int j = 0; j < sensors.get(i).size(); j++) {
                     boolean status =  building.getFloor(i).addSensor((Sensor)sensors.get(i).get(j).buildPart());
+                    if(verbose)
+                        System.out.println("Placing Sensor "+status);
+                }
+            }
+            for (int i = 0; i < people.size(); i++) {
+                for (int j = 0; j < people.get(i).size(); j++) {
+                    boolean status =  building.getFloor(i).addPerson((Person)people.get(i).get(j).buildPart());
                     if(verbose)
                         System.out.println("Placing Sensor "+status);
                 }
