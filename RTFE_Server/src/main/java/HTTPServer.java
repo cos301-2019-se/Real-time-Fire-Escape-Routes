@@ -23,6 +23,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 
 public class HTTPServer extends Server{
@@ -34,8 +35,8 @@ public class HTTPServer extends Server{
         static final boolean verbose = true;
         private JSONObject lastBuild = null;
 
-        public HTTPServer(Building b){
-            super(b);
+        public HTTPServer(){
+            super();
         }
         @Override
         void start(){}

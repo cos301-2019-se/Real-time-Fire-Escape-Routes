@@ -21,11 +21,19 @@ public class BuildingAPI extends API {
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
     public static JSONObject handleRequest(JSONObject request)throws Exception {
+        JSONObject response;
         if(verbose){
             System.out.println("BuildingAPI: "+ request.toString());
         }
-        //String reqType = (String)req.get("type");
-        JSONObject response;
+        try{
+            building = chooseBuilding(request);
+        }
+        catch (Exception e){
+            response = new JSONObject();
+            response.put("status", false);
+            response.put("message", e.getMessage());
+        }
+
         switch ((String)request.get("type")){
             case "getNumRooms":{
                 response = getNumRooms(request);
