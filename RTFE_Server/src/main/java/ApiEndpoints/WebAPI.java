@@ -102,7 +102,7 @@ public class WebAPI extends API {
             }
             case "uploadBuilding":
             {
-                response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString());
+                response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString(),(String)request.get("img").toString());
                 return response;
             }
             case "currentBuilding":
@@ -293,7 +293,7 @@ public class WebAPI extends API {
      * @return returns success or fail depending on outcome
      * */
 
-    private static  JSONObject uploadBuilding(String name, String file)
+    private static  JSONObject uploadBuilding(String name, String file,String img)
     {
         File dir = new File("./html"+ "/" + "Buildings/"  +name);
         if (!dir.exists()) {
@@ -303,8 +303,10 @@ public class WebAPI extends API {
                 System.out.println("Failed to create directory!");
             }
         }
-        String absoluteFilePath =  "./html"+ "/" + "Buildings/"  +name +"/" + name + ".json";
+        String absoluteFilePath =  "./html"+ "/" + "Buildings/"  +name +"/" + "data" + ".json";
         File f = new File(absoluteFilePath);
+        String absoluteFilePath2 =  "./html"+ "/" + "Buildings/"  +name +"/" + "building" + ".jpeg";
+        File image = new File(absoluteFilePath2);
         FileOutputStream fop = null;
 
         try
@@ -312,6 +314,9 @@ public class WebAPI extends API {
             if(f.createNewFile()){
                 System.out.println(absoluteFilePath+" File Created");
             }else System.out.println("File "+absoluteFilePath+" already exists");
+            if(image.createNewFile()){
+                System.out.println(absoluteFilePath2+" File Created");
+            }else System.out.println("File "+absoluteFilePath2+" already exists");
         }
         catch (Exception e)
         {
@@ -321,6 +326,12 @@ public class WebAPI extends API {
         {
             fop = new FileOutputStream(f);
             byte[] contentInBytes = file.getBytes();
+            fop.write(contentInBytes);
+            fop.flush();
+            fop.close();
+
+            fop = new FileOutputStream(image);
+            contentInBytes = img.getBytes();
             fop.write(contentInBytes);
             fop.flush();
             fop.close();

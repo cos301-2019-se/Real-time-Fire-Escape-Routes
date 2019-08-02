@@ -354,15 +354,17 @@ public class HTTPServer extends Server{
         String data = payload.toString();
         String [] parsedData = data.split("Content-Disposition: ");
         try {
+
             JSONObject buildingData = new JSONObject(parsedData[1].substring(parsedData[1].indexOf("{"), parsedData[1].indexOf("-------")));
             request.put("file",buildingData);
+            String BuildingImage = parsedData[4].substring(parsedData[4].indexOf("Content-Type: image/jpeg")+28, parsedData[4].indexOf("-------"));
+            request.put("img",BuildingImage);
         }
         catch (Exception e){
             throw new Exception("Building json is invalid");
         }
         String Type = parsedData[2].split("\n")[2];
             Type = Type.substring(0, Type.length() - 1);
-            System.out.println(Type);
             String BuildingName = parsedData[3].split("\n")[2];
             BuildingName = BuildingName.substring(0, BuildingName.length() - 1);
         request.put("type",Type);
