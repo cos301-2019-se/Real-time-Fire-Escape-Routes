@@ -42,14 +42,21 @@ public class BuildingAPI extends API {
             case "assignPeople":{
                 response = new JSONObject();
                 building.assignPeople();
+                if(request.has("peopleLocations")){
+                    unityUpdatePeopleLocation(request);
+                }
                 if(request.has("alarm")){
                     if(request.getBoolean("alarm")){
+                        building.emergency = true;
+                        response.put("emergency","true");
                         response.put("people", assignPeopleRoutes());
                         response.put("numRoutes",building.getRoutes().size());
                         response.put("status",true);
                         return response;
                     }
                     else{
+                        building.emergency = false;
+                        response.put("emergency","false");
                         response.put("people", peopleLocations());
                         response.put("numRoutes",building.getRoutes().size());
                         response.put("status",true);
@@ -58,6 +65,10 @@ public class BuildingAPI extends API {
                 }
 //                building.assignPeople();
 //                response.put("people", assignPeopleRoutes());
+                if(building.emergency)
+                    response.put("emergency","true");
+                else
+                    response.put("emergency","false");
                 response.put("people", peopleLocations());
                 response.put("numRoutes",building.getRoutes().size());
                 response.put("status",true);
@@ -295,7 +306,24 @@ public class BuildingAPI extends API {
         }
         return data ;
     }
+    private static void unityUpdatePeopleLocation(JSONObject request){
+        String peopleData = (String)request.get("peopleLocations");
+        peopleData = peopleData.replaceAll(",",".");
 
+        String [] people = peopleData.split("-");
+        for (String personData:people) {
+            String [] person = personData.split("&");
+            JSONObject PersonUpdate = new JSONObject();
+            double [] pos = {Double.parseDouble(person[2]),Double.parseDouble(person[3])};
+            int floor = Integer.parseInt(person[1]);
+            int id = Integer.parseInt(person[0]);
+            PersonUpdate.put("floor",floor);
+            JSONArray position = new JSONArray(pos);
+            PersonUpdate.put("position",position);
+            PersonUpdate.put("id",id);
+            UpdatePersonLocation(PersonUpdate);
+        }
+    }
     /**
      * This function is used to update a person's location within a building it can either accept a person ID or a device ID that needs to be updated
      *

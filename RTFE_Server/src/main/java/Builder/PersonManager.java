@@ -29,8 +29,11 @@ public class PersonManager {
 //                double [] position = {pos.getDouble(0),pos.getDouble(1)};
                 double [] position = {pos.getDouble(1),pos.getDouble(0)};
                 int floor =person.getInt("floor");
-                if(floor<building.getFloors().size())
-                    status = building.getFloor(floor).addPerson(new Person(person.get("id").toString(),position));
+                if(floor<building.getFloors().size()) {
+                    Person p = new Person(person.get("id").toString(), position);
+                    p.floor = floor;
+                    status = building.getFloor(floor).addPerson(p);
+                }
                 if(verbose){
                     System.out.println("Placing person "+i+" - "+status);
                 }

@@ -274,8 +274,9 @@ public class Building {
                   boolean valid = false;
                   for (Routes r:Routes) {
                         for (Door d:p.availableDoors) {
+                            r.resetVisited();
                             for (Path c:d.node.Paths) {
-                                r.resetVisited();
+//                                r.resetVisited();
                                 Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
                                 path.insertElementAt(c.start,0);
                                 double tempD = r.pathHeuristic(path,p);
