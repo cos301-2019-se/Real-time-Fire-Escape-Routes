@@ -29,4 +29,8 @@ test {
     testLogging {
         events 'started', 'passed'
     }
+    useJUnit{
+        includeCategories 'org.gradle.junit.unitTests'
+        excludeCategories 'org.gradle.junit.integrationTests'
+    }
 }
