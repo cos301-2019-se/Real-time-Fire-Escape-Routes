@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Firewatch Server">
+  <artifact type="jar" build-on-make="true" name="Firewatch Server">
     <output-path>$PROJECT_DIR$/classes/artifacts/Firewatch_Server</output-path>
     <root id="archive" name="Firewatch Server.jar">
       <element id="directory" name="META-INF">

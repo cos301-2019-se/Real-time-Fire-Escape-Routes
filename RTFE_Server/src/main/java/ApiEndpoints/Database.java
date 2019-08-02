@@ -1,6 +1,9 @@
 package ApiEndpoints;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,8 +21,19 @@ public class Database {
     Lock lock;
     Connection con = null;
     Statement query = null;
+    MessageDigest md;
+    byte[] salt;
     public Database()
     {
+        try {
+            md = MessageDigest.getInstance("SHA-1");
+            salt = getSalt();
+            md.update(salt);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
         fileName = "../../database.txt";
         f = new File(fileName);
         lock = new ReentrantLock();
@@ -37,6 +51,13 @@ public class Database {
     /**
      * function is currently static and only creates table users if no table users exists
      */
+    private static byte[] getSalt() throws NoSuchAlgorithmException
+    {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
+    }
     public void createTable(){
 
         try{
@@ -98,16 +119,30 @@ public class Database {
      */
     public boolean insert(String name, String email, String pass, String type){
         lock.lock();
-
+        String generatedPassword = null;
+        try {
+            byte[] bytes = md.digest(pass.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            lock.unlock();
+        }
         boolean val = true;
         try{
             query = con.createStatement();
-            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+pass+"\'"+", " + "\'"+type+"\')");
+            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
 
             query = null;
         }catch(Exception e){
             val = false;
-
+            lock.unlock();
             System.out.println(e.getMessage());
         }
         lock.unlock();
@@ -163,13 +198,29 @@ public class Database {
     public boolean updatePassword(String email, String password)
     {
         lock.lock();
+        String generatedPassword = null;
+        try {
+            byte[] bytes = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            lock.unlock();
+        }
         boolean val;
         try{
             query = con.createStatement();
-            query.execute("update users set password = " + "\'" + password + "\' where email = " + "\'"+email+"\'");
+            query.execute("update users set password = " + "\'" + generatedPassword + "\' where email = " + "\'"+email+"\'");
             val = true;
             query = null;
         }catch(Exception e){
+            lock.unlock();
             val = false;
             System.out.println(e.getMessage());
         }
@@ -359,6 +410,20 @@ public class Database {
      */
     public boolean search(String email,String pass)
     {
+        String generatedPassword = null;
+        try {
+            byte[] bytes = md.digest(pass.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         if(pass.compareTo("") == 0)
         {
             try{
@@ -377,10 +442,44 @@ public class Database {
             try{
 
                 query = con.createStatement();
+                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + generatedPassword + "'");
+                query = null;
+                if (result.getInt("rowcount") > 0) return true;
+            }catch(Exception e){
+
+                System.out.println(e.getMessage());
+            }
+            return false;
+        }
+
+    }
+    public boolean oldSearch(String email,String pass)
+    {
+
+        if(pass.compareTo("") == 0)
+        {
+            try{
+
+                query = con.createStatement();
+                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"'");
+                query = null;
+                if (result.getInt("rowcount") > 0) return true;
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+            return false;
+        }
+        else
+        {
+
+            try{
+
+                query = con.createStatement();
                 ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + pass + "'");
                 query = null;
                 if (result.getInt("rowcount") > 0) return true;
             }catch(Exception e){
+
                 System.out.println(e.getMessage());
             }
             return false;
