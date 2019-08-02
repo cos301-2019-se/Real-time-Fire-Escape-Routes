@@ -1,16 +1,17 @@
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class HTTPServerTest {
     @Test
     public void CreatonOfHTTPThread()
     {
 
-        Thread thread = new Thread(new HTTPServer(null));
+        Thread thread = new Thread(new HTTPServer());
+        Assert.assertTrue(thread!=null);
         thread.start();
+        Assert.assertTrue(thread.isAlive());
 
         thread.stop();
-        System.out.println("HTTPServer runs correctly --  passed");
+//        System.out.println("HTTPServer runs correctly --  passed");
     }
 }

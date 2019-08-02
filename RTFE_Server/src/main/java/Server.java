@@ -11,9 +11,7 @@
  * @date 28/05/2019
  */
 public abstract class Server implements Runnable{
-//    Vector<Building> building= new Vector<>();
     Server(){
-//        building.addAll(b)/;
     };
     void  start(){}; //Needs to be defined in which ever class inherits from this one
 }

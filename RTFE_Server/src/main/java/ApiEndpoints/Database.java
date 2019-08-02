@@ -132,7 +132,7 @@ public class Database {
         catch (Exception e)
         {
             e.printStackTrace();
-            lock.unlock();
+//            lock.unlock();
         }
         boolean val = true;
         try{
@@ -142,10 +142,13 @@ public class Database {
             query = null;
         }catch(Exception e){
             val = false;
-            lock.unlock();
+//            lock.unlock();
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally{
+
+            lock.unlock();
+        }
         return !val;
     }
     /**
