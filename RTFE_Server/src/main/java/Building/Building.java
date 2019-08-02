@@ -127,8 +127,8 @@ public class Building {
               }
           }
           Person p = new Person(String.valueOf(id),pos);
-          this.addPerson(p,floor);
-          return false;
+          status = this.addPerson(p,floor);
+          return status;
       }
     /**
      * @brief: Updates a persons information inside a building

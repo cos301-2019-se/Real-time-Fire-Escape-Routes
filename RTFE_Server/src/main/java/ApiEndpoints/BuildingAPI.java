@@ -41,16 +41,24 @@ public class BuildingAPI extends API {
             }
             case "assignPeople":{
                 response = new JSONObject();
+                building.assignPeople();
                 if(request.has("alarm")){
                     if(request.getBoolean("alarm")){
+                        response.put("people", assignPeopleRoutes());
+                        response.put("numRoutes",building.getRoutes().size());
+                        response.put("status",true);
+                        return response;
+                    }
+                    else{
                         response.put("people", peopleLocations());
                         response.put("numRoutes",building.getRoutes().size());
                         response.put("status",true);
                         return response;
                     }
                 }
-                building.assignPeople();
-                response.put("people", assignPeopleRoutes());
+//                building.assignPeople();
+//                response.put("people", assignPeopleRoutes());
+                response.put("people", peopleLocations());
                 response.put("numRoutes",building.getRoutes().size());
                 response.put("status",true);
                 return response;
@@ -273,10 +281,10 @@ public class BuildingAPI extends API {
         String data = "";
         for (int i = 0; i < people.size(); i++) {
             Person c = people.get(i);
-            if(c.getAssignedRoute()!=null) {
+           if(c.getAssignedRoute()!=null) {
                 double[] pos = c.getAssignedRoute().getGoal().coordinates;
                 data += c.getName() + " *" ;
-                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1];
+                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1]+" % "+"0,"+pos[0]+","+pos[1];
                 if (i < people.size() - 1) {
                     if(people.get(i+1).getAssignedRoute()!=null) {
                         data += " - ";
