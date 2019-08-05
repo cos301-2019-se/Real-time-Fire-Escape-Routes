@@ -1,5 +1,8 @@
 package ApiEndpoints;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -93,25 +96,25 @@ public class Database {
     /**
      * function used to return all users in users table
      */
-    public String getUsers() {
+    public JSONArray getUsers() {
         ResultSet result = select("select * from users order by id desc");
-        Vector<String> ret = new Vector<String>();
+        JSONArray ret = new JSONArray();
         try{
             while(result.next()){
-                Vector<String> current = new Vector<String>();
+                JSONObject current = new JSONObject();
 
-                current.add(String.valueOf(result.getInt("id")));
-                current.add(result.getString("email"));
-                current.add(result.getString("name"));
-                current.add(result.getString("password"));
-                current.add(result.getString("userType"));
-                current.add(result.getString("deviceID"));
-                ret.add(current.toString());
+                current.put("id",result.getInt("id"));
+                current.put("email",result.getString("email"));
+                current.put("name",result.getString("name"));
+                current.put("password",result.getString("password"));
+                current.put("userType",result.getString("userType"));
+                current.put("deviceID",result.getString("deviceID"));
+                ret.put(current.toString());
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return ret.toString();
+        return ret;
     }
     /**
      * function can be used to insert new users to the users table
