@@ -117,26 +117,30 @@ public class Routes {
         return d + path.get(0).distance(p.position[0], p.position[1]);
     }
     public static double pathHeuristic(Vector<Node> path, Person p){
-        double h = 0;
-
+        double heuristic = 0;
         for (int i = 0; i < path.size()-1; i++) {
             Node current = path.get(i);
             Node target = path.get(i+1);
             boolean added =false;
-            for (Path Path: current.Paths){
+            for (Path possiblePath: current.Paths){
                 if(added)
                     break;
-                if(Path.end.nodeId == target.nodeId){
-                    h += Path.Distance;
-                    h *= current.weight;
+                if(possiblePath.end.nodeId == target.nodeId){
+
+                    heuristic += possiblePath.Distance;
+                    heuristic += current.getNumPeople() * current.weight;
                     added = true;
+                }
+                else
+                {
+
                 }
             }
         }
         if(p!=null){
-            h+= path.get(0).distance(p.position[0], p.position[1]);
+            heuristic+= path.get(0).distance(p.position[0], p.position[1]);
         }
-        return h;
+        return heuristic;
     }
     public void resetVisited(){
         for (Node v: nodes) {

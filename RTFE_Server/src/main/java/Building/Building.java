@@ -249,7 +249,7 @@ public class Building {
      */
       public synchronized void assignPeople(){
 
-            /** New */
+          /** New */
 
             Vector<Person> people = new Vector<Person>();
             for (Room floor:Floor) {
@@ -274,12 +274,15 @@ public class Building {
                   Routes bestRoute =null;
                   double bestDistance = Double.MAX_VALUE;
                   boolean valid = false;
-                  for (Routes r:Routes) {
-                        for (Door d:p.availableDoors) {
+
+                for (Routes r:Routes) {
+                      for (Door d:p.availableDoors) {
                             r.resetVisited();
                             for (Path c:d.node.Paths) {
+
 //                                r.resetVisited();
                                 Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
+                                c.assignPeople(p);
                                 path.insertElementAt(c.start,0);
                                 double tempD = r.pathHeuristic(path,p);
                                 if(tempD < bestDistance && Path.hasGoal(path)){
@@ -287,6 +290,12 @@ public class Building {
                                     Bestpath = path;
                                     bestDistance = tempD;
                                     bestRoute = r;
+                                    System.out.println("Heuristic: " + tempD);
+
+                                }
+                                else
+                                {
+                                    c.removePeople(p);
                                 }
                             }
 
@@ -295,7 +304,9 @@ public class Building {
                         }
                   }
                   if(valid){
-                        p.pathToFollow = Bestpath;
+
+
+                      p.pathToFollow = Bestpath;
                         p.setAssignedRoute(bestRoute);
                         bestRoute.addPerson(p);
                   }
