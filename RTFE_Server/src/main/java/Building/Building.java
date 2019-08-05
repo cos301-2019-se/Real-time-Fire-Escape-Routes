@@ -13,6 +13,8 @@
  */
 
 package Building;
+import org.json.JSONArray;
+
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -436,6 +438,15 @@ public class Building {
             }
 
             return false;
+      }
+      public JSONArray getFires(){
+          JSONArray floors = new JSONArray();
+          for (Room f :Floor) {
+              JSONArray fires = new JSONArray();
+              f.getFires(fires);
+              floors.put(fires);
+          }
+          return floors;
       }
 
       private int destroyRoutes(){

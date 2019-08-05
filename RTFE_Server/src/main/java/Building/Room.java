@@ -1,4 +1,6 @@
 package Building;
+import org.json.JSONArray;
+
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -294,6 +296,25 @@ public class Room {
         }
         return false;
     }
+    public JSONArray getFires(JSONArray fires){
+        for (int i = 0; i <getRooms().size() ; i++) {
+            getRooms().get(i).getFires(fires);
+        }
+        if (this.fires.size()!=0){
+            String corners="";
+            for (int i = 0; i < Corners.size(); i++) {
+                corners+=Corners.get(i).z+"%"+Corners.get(i).x;
+                if(i<Corners.size()-1){
+                    corners+="&";
+                }
+            }
+
+            fires.put(corners);
+
+        }
+        return fires;
+    }
+
     public int destroyRoutes(){
         int numPathsAffected = 0;
         for (Room r:Rooms) {

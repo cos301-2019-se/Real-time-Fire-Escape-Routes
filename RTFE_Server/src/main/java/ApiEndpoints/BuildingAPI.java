@@ -89,6 +89,12 @@ public class BuildingAPI extends API {
                 response.put("status",true);
                 return response;
             }
+            case"getFire":{
+                response = new JSONObject();
+                response.put("message", building.getFires());
+                response.put("status",true);
+                return response;
+            }
             case "bind":{
                 response = new JSONObject();
                 response.put("message", bindPerson(request));
