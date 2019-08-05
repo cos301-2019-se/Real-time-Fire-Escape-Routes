@@ -12,7 +12,7 @@ import java.util.Arrays;
  * */
 public class WebAPI extends API {
 
-    private static boolean verbose = true; //USED for debugging purposes
+    private static boolean verbose = false; //USED for debugging purposes
     private static Database USERDB = new Database();
 
     /**

@@ -13,6 +13,7 @@
  */
 
 package Building;
+import java.util.Arrays;
 import java.util.Vector;
 
 import static Building.NodeType.stairs;
@@ -110,7 +111,7 @@ public class Building {
           Vector<Person> people = getPeople();
           boolean status = false;
           for (Person p:people) {
-              if(p.name.compareTo(String.valueOf(id))==0){
+              if(p.name.equalsIgnoreCase(String.valueOf(id))){
                   Person temp = p;
                   for (Room currentfloor:Floor) {
                      status = currentfloor.removePerson(p);
@@ -127,6 +128,7 @@ public class Building {
               }
           }
           Person p = new Person(String.valueOf(id),pos);
+          p.floor = floor;
           status = this.addPerson(p,floor);
           return status;
       }
@@ -140,7 +142,7 @@ public class Building {
       public boolean updatePersonLocation(String device_id,int floor, double[] pos) throws IndexOutOfBoundsException {
           Vector<Person> people = getPeople();
           for (Person p:people) {
-              if(p.deviceID.compareTo(device_id)==0){
+              if(p.deviceID.equalsIgnoreCase(device_id)){
                   return updatePersonLocation(p.personID, floor,pos );
               }
           }
@@ -245,7 +247,7 @@ public class Building {
      * @return no return value
      * @date 27/06/2019
      */
-      public void assignPeople(){
+      public synchronized void assignPeople(){
 
             /** New */
 
@@ -280,7 +282,7 @@ public class Building {
                                 Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
                                 path.insertElementAt(c.start,0);
                                 double tempD = r.pathHeuristic(path,p);
-                                if(tempD < bestDistance){
+                                if(tempD < bestDistance && Path.hasGoal(path)){
                                     valid = Path.hasGoal(path);
                                     Bestpath = path;
                                     bestDistance = tempD;
@@ -323,22 +325,18 @@ public class Building {
      * @date 22/06/2019
      */
       public void connectStairs(){
-            Vector<Node> stairs = getStairs();
-            Node last= stairs.remove(0);
-            int i=0;
+            Vector<Vector<Node>> stairs = getStairs();
+            Vector<Node> last= stairs.remove(0);
             while (stairs.size()>0){
-                  if(i== stairs.size()){
-                        last = stairs.remove(0);
-                        i=0;
-                  }
-                  if(last.coordinates[0] == stairs.get(i).coordinates[0] && last.coordinates[1] == stairs.get(i).coordinates[1] && last.nodeId != stairs.get(i).nodeId){
-                       last.connect(stairs.get(i), floorHeight);
-                       last = stairs.remove(i);
-                       i=0;
-                  }
-                  i++;
+                for (Node bottom: last){
+                    for (Node top:stairs.get(0)) {
+                        if(Arrays.toString(bottom.coordinates).equals(Arrays.toString(top.coordinates))){
+                            bottom.connect(top, floorHeight);
+                        }
+                    }
+                }
+                last = stairs.remove(0);
             }
-
       }
 
     /**
@@ -346,19 +344,23 @@ public class Building {
      * @brief this function returns all the stair objects in the current building object
      *
      * @return a Vector<Node> containing all the nodes linked to stair objects
-     * @date 22/06/2019
+     * @date 04/08/2019
      */
-      private Vector<Node> getStairs(){
-            Vector<Node> allNodes = new Vector<>();
-            Vector<Node> stairNodes = new Vector<>();
-            for (Room floor:Floor) {
-                  allNodes.addAll(floor.getAllDoors());
-            }
-            for (Node current:allNodes) {
+      private Vector<Vector<Node>> getStairs(){
+//            Vector<Node> allNodes = new Vector<>();
+            Vector<Vector<Node>> stairNodes = new Vector<>();
+//            for (Room floor:Floor) {
+//                  allNodes.addAll(floor.getAllDoors());
+//            }
+          for (int i = 0; i <Floor.size() ; i++) {
+              stairNodes.add(new Vector<>());
+              for (Node current:Floor.get(i).getAllDoors()) {
                   if (current.type == stairs){
-                        stairNodes.add(current);
+                      if(!stairNodes.get(i).contains(current))
+                        stairNodes.get(i).add(current);
                   }
-            }
+              }
+          }
             return stairNodes;
       }
 
