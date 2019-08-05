@@ -7,15 +7,19 @@ $(()=>{
 
 	let rowForBar = $("#top-bar");
 	//fetchFromDb("getUsers");
+	anotherFetch("getUsers")
 	rowForBar.append(echoTopBar2);
 	let main1 =  $(".main");
 	main1.append(`<div class="main-cards">`);
-	let main = $(".main-cards");
-	main.append(echoBuildingCard());
-	main.append(echoContentTable_SuperUser());
-	main.append(echoSimulationWindow());
-	main.append(echoBotCreator());
-	main.append(echoFireEditor());
+	$(".main-cards").append($('<div></div>')
+			.append(echoBuildingCard())
+			.append(echoContentTable_SuperUser())
+		)
+		.append($('<div></div>')
+			.append(echoSimulationWindow())
+			.append(echoBotCreator())	
+			.append(echoFireEditor())
+		)
 
 	$("#toggler").on("click", ()=>{
 		console.log($("#toggler").attr("aria-expanded"));
@@ -50,12 +54,15 @@ $(()=>{
 				$("#super-user-view").addClass('active');
 				main1.empty();
 				main1.append(`<div class="main-cards">`);
-				main = $(".main-cards");
-				main.append(echoBuildingCard());
-				main.append(echoContentTable_SuperUser());
-				main.append(echoSimulationWindow());
-				main.append(echoBotCreator());
-				main.append(echoFireEditor());
+					$(".main-cards").append($('<div></div>')
+							.append(echoBuildingCard())
+							.append(echoContentTable_SuperUser())
+						)
+						.append($('<div></div>')
+							.append(echoSimulationWindow())
+							.append(echoBotCreator())	
+							.append(echoFireEditor())
+						)
 				
 				
 			}
@@ -398,13 +405,13 @@ function fetchFromDb(dataType, id)
                 if (data.status){
                 	//console.log(data.data);
                     //console.log(createObject(data.data));
-                    let obj = createObject(data.data);
+                    // let obj = createObject(data.data);
 
-                    if(obj.length)
-                    {
+                    // if(obj.length)
+                    // {
                     	
-                    	$(`#${id}`).append(obj);
-                    }
+                    // 	$(`#${id}`).append(obj);
+                    // }
                     
                 }else{
                    /*SOMETHING TO BE ADDED*/
@@ -417,6 +424,26 @@ function fetchFromDb(dataType, id)
             }
         });
 
+}
+
+function anotherFetch(type){
+	$.ajax({
+		    url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: type
+            }),
+            success: function(resp){
+            	console.log(resp)
+            	if (resp.status){
+            		resp.data.forEach(function(e){
+            			console.log(JSON.parse(e))
+            		})
+            	}
+            }
+	})
 }
 
 function populateTable(data)
