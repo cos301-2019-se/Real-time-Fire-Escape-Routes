@@ -1,3 +1,5 @@
+var dbUsers = null;
+
 $(()=>{
 	/*if($("#top-stat").attr("data-stat") ==="superUser")
 	{
@@ -7,7 +9,7 @@ $(()=>{
 
 	let rowForBar = $("#top-bar");
 	//fetchFromDb("getUsers");
-	anotherFetch("getUsers")
+	setInterval(function(){ anotherFetch('getUsers', '#table-body-SU'); }, 5000);
 	rowForBar.append(echoTopBar2);
 	let main1 =  $(".main");
 	main1.append(`<div class="main-cards">`);
@@ -199,7 +201,7 @@ function getBuildingInfo(name)
 
 function echoContentTable_SuperUser()
 {
-	let info = fetchFromDb("getUsers", "table-body-SU");
+	let info = anotherFetch("getUsers", '#table-body-SU')
 	
 	if(info != undefined)
 	{
@@ -426,7 +428,7 @@ function fetchFromDb(dataType, id)
 
 }
 
-function anotherFetch(type){
+function anotherFetch(type, html){
 	$.ajax({
 		    url: "http://127.0.0.1:8080/database",
             type: "POST",
@@ -436,11 +438,8 @@ function anotherFetch(type){
                 type: type
             }),
             success: function(resp){
-            	console.log(resp)
             	if (resp.status){
-            		resp.data.forEach(function(e){
-            			console.log(JSON.parse(e))
-            		})
+            		$(html).html(populateTable(resp.data))
             	}
             }
 	})
@@ -455,9 +454,9 @@ function populateTable(data)
 			str += `<tr>
 				<td scope ="row" data-label="Name">${element.name}</td>
 				<td data-label="Email">${element.email}</td>
-				<td data-label="Device_ID">${element.mac}</td>
-				<td data-label="Type">${element.type}</td>
-				<td data-label="Status" id="${element.name+element.type}">${fetchStatus(element.mac,element.name+element.type)}</td>
+				<td data-label="Device_ID">${element.deviceID}</td>
+				<td data-label="Type">${element.userType}</td>
+				<td data-label="Status" id="${element.name+element.userType}">${fetchStatus(element.deviceID,element.name+element.userType)}</td>
 				
 			</tr>`;
 
@@ -474,7 +473,7 @@ function populateTable(data)
 				<td data-label="Device_ID">${element.mac}</td>
 				<td data-label="Type">${element.type}</td>
 				<td data-label="Status" id="${element.name+element.type}">${fetchStatus(element.mac,element.name+element.type)}</td>
-				<td data-label="Edit" ><button id="${element.email}-edit" onclick="displayOverlayWindow(editUser,'${element.email}', '${element.name}', '${element.type}', '${element.mac}')" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="displayOverlayWindow(removeUser,'${element.email}', '${element.name}', '${element.type}', '${element.mac}')" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
+				<td data-label="Edit" ><button id="${element.email}-edit" onclick="displayOverlayWindow(editUser,'${element.email}', '${element.name}', '${element.userType}', '${element.deviceID}')" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="displayOverlayWindow(removeUser,'${element.email}', '${element.name}', '${element.type}', '${element.mac}')" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
 			</tr>`;
 
 		});
@@ -484,6 +483,8 @@ function populateTable(data)
 
 function fetchStatus(mac,identify)
 {
+	if(mac==null)
+		mac ="-1"
 	$.ajax({
         url: "http://127.0.0.1:8080/building",
         type: "POST",
