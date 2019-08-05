@@ -99,7 +99,7 @@ public class WebAPI extends API {
             }
             case "register":
             {
-                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("pass"),(String)request.get("userType"));
+                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"));
                 return response;
             }
             case "getBuildings":
