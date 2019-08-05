@@ -2,6 +2,7 @@ package ApiEndpoints;
 
 import Building.Fire;
 import Building.Person;
+import Building.Routes;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,13 +42,14 @@ public class BuildingAPI extends API {
             }
             case "assignPeople":{
                 response = new JSONObject();
-                building.assignPeople();
+//                building.assignPeople();
                 if(request.has("peopleLocations")){
                     unityUpdatePeopleLocation(request);
                 }
                 if(request.has("alarm")){
                     if(request.getBoolean("alarm")){
                         building.emergency = true;
+                        building.assignPeople();
                         response.put("emergency","true");
                         response.put("people", assignPeopleRoutes());
                         response.put("numRoutes",building.getRoutes().size());
@@ -65,13 +67,13 @@ public class BuildingAPI extends API {
                 }
 //                building.assignPeople();
 //                response.put("people", assignPeopleRoutes());
-                if(building.emergency)
-                    response.put("emergency","true");
-                else
-                    response.put("emergency","false");
-                response.put("people", peopleLocations());
-                response.put("numRoutes",building.getRoutes().size());
-                response.put("status",true);
+//                if(building.emergency)
+//                    response.put("emergency","true");
+//                else
+//                    response.put("emergency","false");
+//                response.put("people", peopleLocations());
+//                response.put("numRoutes",building.getRoutes().size());
+//                response.put("status",true);
                 return response;
 
             }
@@ -255,7 +257,7 @@ public class BuildingAPI extends API {
      * @return a very long string formatted in a specific way
      * */
     private static String assignPeopleRoutes(){
-        building.emergency = true;
+//        building.emergency = true;
         Vector<Person> people = building.getPeople();
         String data = "";
         for (int i = 0; i < people.size(); i++) {
@@ -287,19 +289,28 @@ public class BuildingAPI extends API {
      * @return a very long string formatted in a specific way
      * */
     private static String peopleLocations(){
-        building.emergency = true;
+//        building.emergency = true;
         Vector<Person> people = building.getPeople();
         String data = "";
         for (int i = 0; i < people.size(); i++) {
             Person c = people.get(i);
-           if(c.getAssignedRoute()!=null) {
+            if(c.getAssignedRoute()!=null) {
                 double[] pos = c.getAssignedRoute().getGoal().coordinates;
                 data += c.getName() + " *" ;
                 data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1]+" % "+"0,"+pos[0]+","+pos[1];
                 if (i < people.size() - 1) {
-                    if(people.get(i+1).getAssignedRoute()!=null) {
                         data += " - ";
-                    }
+
+                }
+            }
+            else{
+//                double[] pos = c.getAssignedRoute().getGoal().coordinates;
+                double[] pos =building.getRoutes().get(0).getGoal().coordinates;
+                data += c.getName() + " *" ;
+                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1]+" % "+"0,"+pos[0]+","+pos[1];
+                if (i < people.size() - 1) {
+                       data += " - ";
+
                 }
             }
 //            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
@@ -308,20 +319,29 @@ public class BuildingAPI extends API {
     }
     private static void unityUpdatePeopleLocation(JSONObject request){
         String peopleData = (String)request.get("peopleLocations");
+        if(peopleData=="")
+            return;
         peopleData = peopleData.replaceAll(",",".");
-
+        boolean add = true;
         String [] people = peopleData.split("-");
         for (String personData:people) {
+            add = true;
             String [] person = personData.split("&");
             JSONObject PersonUpdate = new JSONObject();
             double [] pos = {Double.parseDouble(person[2]),Double.parseDouble(person[3])};
+            for (Routes r:building.getRoutes()) {
+                if(Arrays.equals(pos, r.getGoal().coordinates)){
+                    add = false;
+                }
+            }
             int floor = Integer.parseInt(person[1]);
             int id = Integer.parseInt(person[0]);
             PersonUpdate.put("floor",floor);
             JSONArray position = new JSONArray(pos);
             PersonUpdate.put("position",position);
             PersonUpdate.put("id",id);
-            UpdatePersonLocation(PersonUpdate);
+            if(add)
+                UpdatePersonLocation(PersonUpdate);
         }
     }
     /**
