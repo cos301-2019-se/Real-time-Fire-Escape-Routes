@@ -109,7 +109,7 @@ public class Database {
                 current.put("password",result.getString("password"));
                 current.put("userType",result.getString("userType"));
                 current.put("deviceID",result.getString("deviceID"));
-                ret.put(current.toString());
+                ret.put(current);
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
