@@ -420,8 +420,11 @@ public class WebAPI extends API {
         try{
             boolean status= USERDB.search(email, password);
             Response.put("status", status);
-            if(status)
-                Response.put("msg","Login success");
+            if(status) {
+                Response.put("userType",USERDB.getUserType(email));
+                Response.put("apiKey",USERDB.generateKey());
+                Response.put("msg", "Login success");
+            }
             else
                 Response.put("msg","Invalid user/pass");
         }catch(Exception e){
