@@ -8,12 +8,13 @@ using UnityEngine.AI;
 public class AgentController : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public bool emergency;
     bool started = false;
     List<Vector3> listRoute;
     // Start is called before the first frame update
     void Start()
     {
-        
+        emergency = false;
         // agent.SetDestination(GameObject.FindWithTag("door").transform.position);
        //Color color = new Color32(0, 0, 0, 0);
 
@@ -41,8 +42,21 @@ public class AgentController : MonoBehaviour
 
     public void Setcolor(GameObject g)
     {
-        Color color = g.GetComponent<Renderer>().material.color;
-        gameObject.GetComponent<Renderer>().material.color = color;
+       
+        
+        if(g == null)
+        {
+            //Material myMaterial = Resources.Load("materials/" + r) as Material;
+        
+            gameObject.GetComponent<Renderer>().material.color = new Color(1,0,0,1);
+        }
+        else
+        {
+            Color color = g.GetComponent<Renderer>().material.color;
+            gameObject.GetComponent<Renderer>().material.color = color;
+        }
+
+        
     }
 
     public void goTo(GameObject x)
@@ -58,20 +72,28 @@ public class AgentController : MonoBehaviour
     public void goTo(List<Vector3> list)
     {
         Debug.Log("person no-------------------: "+GetComponent<number>().objectNumber);
-        for (int i = 0; i < list.Count; i++)
-        {
-           
-            Debug.Log(i+") "+list[i].x +" "+ list[i].y + " "+ list[i].z + " ");
-        }
-        agent.SetDestination(list[0]);
-        list.RemoveAt(0);
-        listRoute = list;
-
         
+        //for (int i = 0; i < list.Count; i++)
+        //{
+           
+        //    Debug.Log(i+") "+list[i].x +" "+ list[i].y + " "+ list[i].z + " ");
+        //}
+
+        if (list.Count > 0)
+        {
+            agent.SetDestination(list[0]);
+            list.RemoveAt(0);
+        }
+
+        //if (listRoute == null)
+            listRoute = list;
+        //else
+        //    listRoute.AddRange(list);
+
 
         //Color color = x.GetComponent<Renderer>().material.color;
         //gameObject.GetComponent<Renderer>().material.color = color;
-    
+
         started = true;
     }
 
@@ -82,15 +104,35 @@ public class AgentController : MonoBehaviour
         {
             if (Vector3.Distance(agent.destination, agent.transform.position) - 0.36 <= agent.stoppingDistance)
             {
-
-                if(listRoute.Count == 0)
-                    Destroy(gameObject);
+                if(emergency)
+                {
+                    if (listRoute.Count == 0)
+                    {
+                        if (emergency)
+                            Destroy(gameObject);
+                    }
+                    else
+                    {
+                        //  Debug.Log("route size-> " + listRoute.Count);
+                        agent.SetDestination(listRoute[0]);
+                        listRoute.RemoveAt(0);
+                    }
+                }
                 else
                 {
-                  //  Debug.Log("route size-> " + listRoute.Count);
-                    agent.SetDestination(listRoute[0]);
-                    listRoute.RemoveAt(0);
+                    if (listRoute.Count == 1)
+                    {
+                        if (emergency)
+                            Destroy(gameObject);
+                    }
+                    else
+                    {
+                        //  Debug.Log("route size-> " + listRoute.Count);
+                        agent.SetDestination(listRoute[0]);
+                        listRoute.RemoveAt(0);
+                    }
                 }
+              
 
             }
         }

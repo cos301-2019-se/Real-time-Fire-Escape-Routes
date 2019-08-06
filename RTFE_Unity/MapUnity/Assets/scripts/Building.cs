@@ -13,6 +13,7 @@ public class buildingString
     public string people;
     public string status;
     public string stairs;
+    public string emergency;
 }
 
 public class Building : MonoBehaviour
@@ -24,6 +25,7 @@ public class Building : MonoBehaviour
     private string people;
     private string status;
     public string stairs;
+    public string emergency;
     private int showFloorsBelow;
     //above will be used to convert from json
     List<Floor> floorList = new List<Floor>();
@@ -34,6 +36,11 @@ public class Building : MonoBehaviour
         numberFloors = -1;
         //createArrays();
 
+    }
+
+    public List<GameObject> getList()
+    {
+        return peopleList;
     }
 
     private void Update()
@@ -143,184 +150,204 @@ public class Building : MonoBehaviour
 
 
         //---------finding stairs and adding the new door to stair room
-        stairs = stairs.Replace(" ", string.Empty);
-        string[] stairsA = stairs.Split('-');
-        float[][] stairsArr = new float[stairsA.Length][];
-        for(int i = 0; i < stairsA.Length; i++)
+        if (stairs != null)
         {
-            stairsArr[i] = new float[10];
-            string[] stairsA1 = stairsA[i].Split('*');
-            stairsArr[i][0] = float.Parse(stairsA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor?
-            stairsArr[i][1] = float.Parse(stairsA1[1], System.Globalization.CultureInfo.InvariantCulture);//type?check this sometime
-
-            string[] stairsA2 = stairsA1[2].Split('%');
-            string[] temp = stairsA2[0].Split(',');
-            stairsArr[i][2] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-            stairsArr[i][3] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
-            temp = stairsA2[1].Split(',');
-            stairsArr[i][4] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-            stairsArr[i][5] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
-            temp = stairsA2[2].Split(',');
-            stairsArr[i][6] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-            stairsArr[i][7] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
-            temp = stairsA2[3].Split(',');
-            stairsArr[i][8] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
-            stairsArr[i][9] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
-        }
-        //-------------------------------------------------
-
-        //----------putting stairs doors into doors array
-        float[][] doorsArr2 = new float[doorsA.Length + stairsA.Length][];
-        for (int i = 0; i < doorsArr.Length; i++)
-        {
-            doorsArr2[i] = new float[4];
-            for(int j = 0; j < 4; j++)
+            stairs = stairs.Replace(" ", string.Empty);
+            string[] stairsA = stairs.Split('-');
+            float[][] stairsArr = new float[stairsA.Length][];
+            for (int i = 0; i < stairsA.Length; i++)
             {
-                doorsArr2[i][j] = doorsArr[i][j];
-            }
-        }
+                stairsArr[i] = new float[10];
+                string[] stairsA1 = stairsA[i].Split('*');
+                stairsArr[i][0] = float.Parse(stairsA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor?
+                stairsArr[i][1] = float.Parse(stairsA1[1], System.Globalization.CultureInfo.InvariantCulture);//type?check this sometime
 
-        for(int i = 0; i < stairsA.Length; i++)
-        {
-            float x1 = stairsArr[i][2];
-            float y1 = stairsArr[i][3];
-            float x2 = stairsArr[i][4];
-            float y2 = stairsArr[i][5];
-
-            float dist = Distance(x1, y1, x2, y2);
-
-            float newX = (x1+x2)/2;
-            float newY = (y1+y2)/2;
-           // Debug.Log(stairsA.Length);
-            doorsArr2[doorsA.Length + i] = new float[4];
-            doorsArr2[doorsA.Length + i][0] = (float)stairsArr[i][0];
-            doorsArr2[doorsA.Length + i][1] = dist-0.2f;
-            doorsArr2[doorsA.Length + i][2] = newX;//x
-            doorsArr2[doorsA.Length + i][3] = newY;//should be z not y just using z cause vector 2 has xy and not xz
-        }
-
-        doorsArr = doorsArr2;
-        //---------------------------------------
-        //--------creating floors
-        rooms = rooms.Replace(" ", string.Empty);
-        for (int i = 0; i < numberFloors; i++)
-        {
-            Floor floorPtr = gameObject.AddComponent(typeof(Floor)) as Floor;
-            floorPtr.addAllDoors(doorsArr);//adding all doors into each floor
-            floorPtr.floorNumber = i;
-            floorList.Add(floorPtr);
-        }
-
-
-        //todo: add the rooms corners
-    
-        //--------creating floors end
-
-
-
-
-        //--------adding rooms to floors
-        string[] roomsArr = rooms.Split('-');
-      
-
-        for (int i = 0; i < roomsArr.Length; i++)
-        {
-            string[] roomsArr2 = roomsArr[i].Split('*');
-
-            int floorNo = int.Parse(roomsArr2[0]);
-            //Debug.Log("belong to room: " + roomsArr2[0]);
-
-            string[] roomsArr3 = roomsArr2[1].Split('%');
-
-            var corners = new string[roomsArr3.Length][];
-            for (int k = 0; k < roomsArr3.Length; k++)
-            {
-                corners[k] = roomsArr3[k].Split(',');
+                string[] stairsA2 = stairsA1[2].Split('%');
+                string[] temp = stairsA2[0].Split(',');
+                stairsArr[i][2] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+                stairsArr[i][3] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
+                temp = stairsA2[1].Split(',');
+                stairsArr[i][4] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+                stairsArr[i][5] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
+                temp = stairsA2[2].Split(',');
+                stairsArr[i][6] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+                stairsArr[i][7] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
+                temp = stairsA2[3].Split(',');
+                stairsArr[i][8] = float.Parse(temp[0], System.Globalization.CultureInfo.InvariantCulture);
+                stairsArr[i][9] = float.Parse(temp[1], System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            float[][] cornersFloat = new float[roomsArr3.Length][];
-            for (int l = 0; l < roomsArr3.Length; l++)
+            //-------------------------------------------------
+
+            //----------putting stairs doors into doors array
+            float[][] doorsArr2 = new float[doorsA.Length + stairsA.Length][];
+            for (int i = 0; i < doorsArr.Length; i++)
             {
-                cornersFloat[l] = new float[2];
-                for (int m = 0; m < 2; m++)
+                doorsArr2[i] = new float[4];
+                for (int j = 0; j < 4; j++)
                 {
-                    //x2[i][j] = (int)x1[i][j];
-                    cornersFloat[l][m] = float.Parse(corners[l][m], System.Globalization.CultureInfo.InvariantCulture);
-                    //Debug.Log("corner values: " + cornersFloat[l][m]);
+                    doorsArr2[i][j] = doorsArr[i][j];
                 }
             }
 
-            floorList[floorNo].addRoom(cornersFloat,false);
-        }
-
-        //-----building stairs rooms
-        for (int i = 0; i < stairsArr.Length; i++)
-        {
-            //stairsArr[i][9]
-            float[][] corn = new float[4][];
-            corn[0] = new float[2];
-            corn[0][0] = stairsArr[i][2];
-            corn[0][1] = stairsArr[i][3];
-
-            corn[1] = new float[2];
-            corn[1][0] = stairsArr[i][4];
-            corn[1][1] = stairsArr[i][5];
-
-            corn[2] = new float[2];
-            corn[2][0] = stairsArr[i][6];
-            corn[2][1] = stairsArr[i][7];
-
-            corn[3] = new float[2];
-            corn[3][0] = stairsArr[i][8];
-            corn[3][1] = stairsArr[i][9];
-            //Debug.Log("+"+stairsArr[i][9]+ " "+stairsArr[i][8]);
-            if((int)stairsArr[i][0] == 0)
+            for (int i = 0; i < stairsA.Length; i++)
             {
-                floorList[(int)stairsArr[i][0]].addRoom(corn, false);
-                floorList[(int)stairsArr[i][0]].addStairs(corn, false);
+                float x1 = stairsArr[i][2];
+                float y1 = stairsArr[i][3];
+                float x2 = stairsArr[i][4];
+                float y2 = stairsArr[i][5];
+
+                float dist = Distance(x1, y1, x2, y2);
+
+                float newX = (x1 + x2) / 2;
+                float newY = (y1 + y2) / 2;
+                // Debug.Log(stairsA.Length);
+                doorsArr2[doorsA.Length + i] = new float[4];
+                doorsArr2[doorsA.Length + i][0] = (float)stairsArr[i][0];
+                doorsArr2[doorsA.Length + i][1] = dist - 0.2f;
+                doorsArr2[doorsA.Length + i][2] = newX;//x
+                doorsArr2[doorsA.Length + i][3] = newY;//should be z not y just using z cause vector 2 has xy and not xz
             }
-            else
+
+            doorsArr = doorsArr2;
+
+            //---------------------------------------
+            //--------creating floors
+            rooms = rooms.Replace(" ", string.Empty);
+            for (int i = 0; i < numberFloors; i++)
             {
-                floorList[(int)stairsArr[i][0]].addRoom(corn, true);
-                if((int)stairsArr[i][0] == 3)//stops top floor stairs from building
-                    floorList[(int)stairsArr[i][0]].addStairs(corn, true);
+                Floor floorPtr = gameObject.AddComponent(typeof(Floor)) as Floor;
+                floorPtr.addAllDoors(doorsArr);//adding all doors into each floor
+                floorPtr.floorNumber = i;
+                floorList.Add(floorPtr);
             }
 
 
+            //todo: add the rooms corners
+
+            //--------creating floors end
+
+
+
+
+            //--------adding rooms to floors
+            string[] roomsArr = rooms.Split('-');
+
+
+            for (int i = 0; i < roomsArr.Length; i++)
+            {
+                string[] roomsArr2 = roomsArr[i].Split('*');
+
+                int floorNo = int.Parse(roomsArr2[0]);
+                //Debug.Log("belong to room: " + roomsArr2[0]);
+
+                string[] roomsArr3 = roomsArr2[1].Split('%');
+
+                var corners = new string[roomsArr3.Length][];
+                for (int k = 0; k < roomsArr3.Length; k++)
+                {
+                    corners[k] = roomsArr3[k].Split(',');
+                }
+
+                float[][] cornersFloat = new float[roomsArr3.Length][];
+                for (int l = 0; l < roomsArr3.Length; l++)
+                {
+                    cornersFloat[l] = new float[2];
+                    for (int m = 0; m < 2; m++)
+                    {
+                        //x2[i][j] = (int)x1[i][j];
+                        cornersFloat[l][m] = float.Parse(corners[l][m], System.Globalization.CultureInfo.InvariantCulture);
+                        //Debug.Log("corner values: " + cornersFloat[l][m]);
+                    }
+                }
+
+                floorList[floorNo].addRoom(cornersFloat, false);
+            }
+
+            //-----building stairs rooms
+            for (int i = 0; i < stairsArr.Length; i++)
+            {
+                //stairsArr[i][9]
+                float[][] corn = new float[4][];
+                corn[0] = new float[2];
+                corn[0][0] = stairsArr[i][2];
+                corn[0][1] = stairsArr[i][3];
+
+                corn[1] = new float[2];
+                corn[1][0] = stairsArr[i][4];
+                corn[1][1] = stairsArr[i][5];
+
+                corn[2] = new float[2];
+                corn[2][0] = stairsArr[i][6];
+                corn[2][1] = stairsArr[i][7];
+
+                corn[3] = new float[2];
+                corn[3][0] = stairsArr[i][8];
+                corn[3][1] = stairsArr[i][9];
+                //Debug.Log("+"+stairsArr[i][9]+ " "+stairsArr[i][8]);
+                if ((int)stairsArr[i][0] == 0)
+                {
+                    floorList[(int)stairsArr[i][0]].addRoom(corn, false);
+                    floorList[(int)stairsArr[i][0]].addStairs(corn, false);
+                }
+                else
+                {
+                    floorList[(int)stairsArr[i][0]].addRoom(corn, true);
+                    if ((int)stairsArr[i][0] < 2)//stops top floor stairs from building
+                        floorList[(int)stairsArr[i][0]].addStairs(corn, true);
+                }
+
+
+            }
+
+            //--------adding rooms to f0oors end
+
+            //--------placing people
+            /*
+            people = people.Replace(" ", string.Empty);
+            string[] peopleA = people.Split('-');
+
+            float[][] peopleArr = new float[peopleA.Length][];
+            for (int i = 0; i < peopleA.Length; i++)
+            {
+                peopleArr[i] = new float[4];
+
+                string[] peopleA1 = peopleA[i].Split('*');
+
+                peopleArr[i][0] = float.Parse(peopleA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor
+                peopleArr[i][1] = float.Parse(peopleA1[1], System.Globalization.CultureInfo.InvariantCulture);//type
+                string[] xy = peopleA1[2].Split(',');
+                peopleArr[i][2] = float.Parse(xy[0], System.Globalization.CultureInfo.InvariantCulture);//x
+                peopleArr[i][3] = float.Parse(xy[1], System.Globalization.CultureInfo.InvariantCulture);//z
+
+                //Debug.Log("door: " + peopleArr[i][0] + " " + peopleArr[i][1] + " " + peopleArr[i][2] + peopleArr[i][3] + " ");//--------------splitting doors
+            }
+
+            for(int i = 0; i < peopleArr.Length; i++)
+            {
+                //  Instantiate(Resources.Load("Capsule"), new Vector3(peopleArr[i][2],peopleArr[i][1]*3,peopleArr[i][3]));
+                // Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
+                GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][3], (peopleArr[i][0]*3)+1.2f,peopleArr[i][2]), new Quaternion(0, 0, 0, 1)) as GameObject;
+                r.GetComponent<number>().objectNumber = peopleArr[i][1];
+                peopleList.Add(r);
+            }
+            //--------placing people end
+            */
         }
 
-        //--------adding rooms to f0oors end
-        
-        //--------placing people
+    }
 
-        people = people.Replace(" ", string.Empty);
-        string[] peopleA = people.Split('-');
+    public void addPerson(List<Vector3> pl,float personNumber, GameObject g, bool emerg)
+    {
+        Debug.Log(personNumber+") "+pl[0].x + ", " + pl[0].y + ", " + pl[0].z + " ");
+        GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, pl[0], new Quaternion(0, 0, 0, 1)) as GameObject;
+        r.GetComponent<number>().objectNumber = personNumber;
+        r.GetComponent<AgentController>().goTo(pl);
+ 
+            r.GetComponent<AgentController>().Setcolor(g);
 
-        float[][] peopleArr = new float[peopleA.Length][];
-        for (int i = 0; i < peopleA.Length; i++)
-        {
-            peopleArr[i] = new float[4];
 
-            string[] peopleA1 = peopleA[i].Split('*');
-
-            peopleArr[i][0] = float.Parse(peopleA1[0], System.Globalization.CultureInfo.InvariantCulture);//floor
-            peopleArr[i][1] = float.Parse(peopleA1[1], System.Globalization.CultureInfo.InvariantCulture);//type
-            string[] xy = peopleA1[2].Split(',');
-            peopleArr[i][2] = float.Parse(xy[0], System.Globalization.CultureInfo.InvariantCulture);//x
-            peopleArr[i][3] = float.Parse(xy[1], System.Globalization.CultureInfo.InvariantCulture);//z
-
-            //Debug.Log("door: " + peopleArr[i][0] + " " + peopleArr[i][1] + " " + peopleArr[i][2] + peopleArr[i][3] + " ");//--------------splitting doors
-        }
-
-        for(int i = 0; i < peopleArr.Length; i++)
-        {
-            //  Instantiate(Resources.Load("Capsule"), new Vector3(peopleArr[i][2],peopleArr[i][1]*3,peopleArr[i][3]));
-            // Debug.Log(peopleArr[i][2]+", "+peopleArr[i][0]+", "+peopleArr[i][3]);
-            GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, new Vector3(peopleArr[i][3], (peopleArr[i][0]*3)+1.2f,peopleArr[i][2]), new Quaternion(0, 0, 0, 1)) as GameObject;
-            r.GetComponent<number>().objectNumber = peopleArr[i][1];
-            peopleList.Add(r);
-        }
-        //--------placing people end
-
+        r.GetComponent<AgentController>().emergency = emerg;
+        peopleList.Add(r);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 [SerializeField]
 public class number : MonoBehaviour
 {
+    public bool exists = true;
     public double objectNumber;
     public int[][] array;
     public string type = "";
