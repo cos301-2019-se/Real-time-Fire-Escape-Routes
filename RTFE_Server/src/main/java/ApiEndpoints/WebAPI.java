@@ -51,6 +51,11 @@ public class WebAPI extends API {
                 response = login((String)request.get("email"), (String)request.get("password"));
                 return response;
             }
+            case "validateDeviceId":
+            {
+                response = validateDeviceId((String)request.get("email"), (String)request.get("deviceID"));
+                return response;
+            }
             case "getUsersInBuilding":
             {
                 response = getUsersInBuilding((int)request.get("building_id"));
@@ -433,6 +438,32 @@ public class WebAPI extends API {
         }
         return Response;
     }
+    /**
+     * This function is used to log a user into the system
+     * @param email: The email of the user to be logged in
+     * @param deviceID: The password of the user to be logged in
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject validateDeviceId(String email, String deviceID){
+
+        JSONObject Response = new JSONObject();
+        try{
+            boolean status= USERDB.validateDeviceId(email, deviceID);
+            Response.put("status", status);
+            if(status) {
+                Response.put("msg", "Login success");
+            }
+            else
+                Response.put("msg","Invalid deviceID/email");
+        }catch(Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - LOGIN FAILED");
+        }
+        return Response;
+    }
+
+
+
 
     /**
      * This function is used to show all the buildings stored in the server's file system

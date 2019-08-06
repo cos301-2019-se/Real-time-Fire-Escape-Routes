@@ -26,6 +26,7 @@ public class Database {
     byte[] salt;
     public Database()
     {
+
         try {
             md = MessageDigest.getInstance("SHA-1");
             salt = getSalt();
@@ -102,10 +103,8 @@ public class Database {
             while(result.next()){
                 JSONObject current = new JSONObject();
 
-                current.put("id",result.getInt("id"));
                 current.put("email",result.getString("email"));
                 current.put("name",result.getString("name"));
-                current.put("password",result.getString("password"));
                 current.put("userType",result.getString("userType"));
                 current.put("deviceID",result.getString("deviceID"));
                 ret.put(current);
@@ -410,10 +409,49 @@ public class Database {
      * if a password is provided it will check if that password matches the one in the db
      * */
     /**
+     * function searches user table for user with sepcified email and checks device ID.
+     * @param email: the email for the user
+     * @param deviceId: the deviceID to be set or checked
+     * @return If the deviceID is not set then set device ID and return TRUE, if set and deviceID parameters = devideID set in database return TRUE,
+     * else return FALSE
+     */
+
+
+    public boolean validateDeviceId(String email, String deviceId)
+    {
+        boolean validated = false;
+        try{
+
+            query = con.createStatement();
+            ResultSet result = select("select email, deviceID, count(*) as rowcount from users where email = '"+email+"'");
+            query = null;
+            if (result.getInt("rowcount") > 0){
+                if(result.getString("deviceID") == null)
+                {
+                    updateDeviceID(email, deviceId);
+                    validated =  true;
+                }
+                else if(result.getString("deviceID").compareTo(deviceId) == 0)
+                {
+                    validated =  true;
+                }
+                else
+                {
+                    validated =  false;
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Search: " +e.getMessage());
+        }
+        return validated;
+    }
+
+    /**
      * function searches user table for user, or logs in the user if password is provided
      * @param email: the email for the user
      * @param pass: the password for the user, or empty if just using function to search
      */
+
     public boolean search(String email,String pass)
     {
         String generatedPassword = null;
