@@ -7,10 +7,8 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.Date;
 import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -69,6 +67,7 @@ public class Database {
             query.execute("create table if not exists users(id integer AUTO_INCREMENT, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
             query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250), building_data longtext);");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
+            query.execute("create table if not exists apiKeys(key_id  AUTO_INCREMENT integer primary key, apikey varchar(250), date_created date, date_expire date);");
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -460,6 +459,7 @@ public class Database {
         }
 
     }
+
     public String getUserType(String email)
     {
 
@@ -511,6 +511,55 @@ public class Database {
 
     }
 
+    public String generateKey(){
+        String generatedKey = null;
+        try {
+            byte[] bytes = md.digest(String.valueOf(System.currentTimeMillis()).getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedKey = sb.toString();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        lock.lock();
+        try{
+            query = con.createStatement();
+            Date now = new Date(System.currentTimeMillis());
+            Date expire = new Date(System.currentTimeMillis()+1800000);// 30mins
+            query.execute("insert into apiKeys(apikey,date_created,date_expire) values(\'"+generatedKey+"\'"+"\'"+now+"\'"+"\'"+expire+"\'");
+            query = null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            lock.unlock();
+        }
+        return  generatedKey;
+    }
+    public boolean validateKey(String key){
+        lock.lock();
+        boolean valid = false;
+        try {
+            query = con.createStatement();
+            ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
+            query = null;
+            Date expireDate = result.getDate("date_expire");
+            Date now = new Date(System.currentTimeMillis());
+            if(now.before(expireDate)){
+                valid = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+        return valid;
+    }
 
 
 }

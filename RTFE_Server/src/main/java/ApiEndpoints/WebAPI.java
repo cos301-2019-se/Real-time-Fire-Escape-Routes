@@ -422,6 +422,7 @@ public class WebAPI extends API {
             Response.put("status", status);
             if(status) {
                 Response.put("userType",USERDB.getUserType(email));
+                Response.put("apiKey",USERDB.generateKey());
                 Response.put("msg", "Login success");
             }
             else
