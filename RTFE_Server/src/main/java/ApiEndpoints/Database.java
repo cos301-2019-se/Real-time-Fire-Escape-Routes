@@ -65,17 +65,55 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer AUTO_INCREMENT, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
+//            query.execute("drop table if exists apiKeys;");
+            query.execute("create table if not exists users(id integer primary key, name varchar(250), email varchar(250), password varchar(250), userType varchar(250), deviceID integer, userDate date );");
             query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250), building_data longtext);");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
-            query.execute("create table if not exists apiKeys(key_id  AUTO_INCREMENT integer primary key, apikey varchar(250), date_created date, date_expire date), authorizationLevel integer;");
+            query.execute("create table if not exists apiKeys(key_id integer primary key, apikey varchar(250), date_created date, date_expire date, authorizationLevel integer);");
 
             query = null;
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("createTable : " + e.getMessage());
         }
 
     }
+    public boolean addUserToBuilding()
+    {
+//        lock.lock();
+//        String generatedPassword = null;
+//        try {
+//            byte[] bytes = md.digest(pass.getBytes());
+//            StringBuilder sb = new StringBuilder();
+//            for(int i=0; i< bytes.length ;i++)
+//            {
+//                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+//            }
+//            generatedPassword = sb.toString();
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+////            lock.unlock();
+//        }
+//        boolean val = true;
+//        try{
+//            query = con.createStatement();
+//            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
+//            //ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));
+//            query = null;
+//        }catch(Exception e){
+//            val = false;
+////            lock.unlock();
+//            System.out.println(e.getMessage());
+//        }
+//        finally{
+//
+//            lock.unlock();
+//        }
+//        return !val;
+        return false;
+    }
+
     /**
      * function returns all the users in a specific building
      * @param building_id: an integer of the building ID
@@ -98,6 +136,7 @@ public class Database {
      * function used to return all users in users table
      */
     public JSONArray getUsers() {
+        output();
         ResultSet result = select("select * from users order by id desc");
         JSONArray ret = new JSONArray();
         try{
@@ -115,6 +154,8 @@ public class Database {
         }
         return ret;
     }
+
+
     /**
      * function can be used to insert new users to the users table
      * @param name: is a string of user name
@@ -420,6 +461,7 @@ public class Database {
 
     public boolean validateDeviceId(String email, String deviceId)
     {
+
         boolean validated = false;
         try{
 
