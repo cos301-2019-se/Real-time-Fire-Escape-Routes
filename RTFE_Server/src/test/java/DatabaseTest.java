@@ -40,7 +40,8 @@ public class DatabaseTest {
         String email = "testEmail@gmail.com";
         String pass = "pass";
         String type = "admin";
-        boolean actual =   d.insert(name,email, pass,type);
+        String buildingName = "buildingNameToReplace";
+        boolean actual =   d.insert(name,email, pass,type,buildingName);
         boolean expected = false;
         Assert.assertEquals(true, true);
         System.out.println("Databse user insertion --  passed");
@@ -66,8 +67,9 @@ public class DatabaseTest {
         String email = "testEmail@gmail.com";
         String pass = "pass";
         String type = "admin";
+        String buildingName = "admin";
         String deviceId = "1";
-        d.insert(name,email, pass,type);
+        d.insert(name,email, pass,type,buildingName);
         boolean actual = d.updateDeviceID(email, deviceId);
         boolean expected = true;
         Assert.assertEquals(true, expected);
