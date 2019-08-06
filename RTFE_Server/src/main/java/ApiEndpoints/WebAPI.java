@@ -104,7 +104,7 @@ public class WebAPI extends API {
             }
             case "register":
             {
-                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"));
+                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"), (String)request.get("buildingName"));
                 return response;
             }
             case "getBuildings":
@@ -368,12 +368,13 @@ public class WebAPI extends API {
      * @param email: The email of the user to be registered
      * @param password: The password of the user to be registered
      * @param type: The role that will be assigned to the user
+     * @param buildingName: The building that the user will be assigned to
      * @return returns success or fail depending on outcome
      * */
-    private static JSONObject register(String name, String email, String password, String type){
+    private static JSONObject register(String name, String email, String password, String type, String buildingName){
         JSONObject Response = new JSONObject();
         try{
-            boolean exist =  USERDB.insert(name, email,password,type);
+            boolean exist =  USERDB.insert(name, email,password,type, buildingName);
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");

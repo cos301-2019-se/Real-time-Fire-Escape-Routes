@@ -77,7 +77,7 @@ public class Database {
         }
 
     }
-    public boolean addUserToBuilding()
+    public boolean addUserToBuilding(String email )
     {
 //        lock.lock();
 //        String generatedPassword = null;
@@ -161,7 +161,7 @@ public class Database {
      * @param name: is a string of user name
      * @param pass: is a string of user password
      */
-    public boolean insert(String name, String email, String pass, String type){
+    public boolean insert(String name, String email, String pass, String type, String buildingName){
         lock.lock();
         String generatedPassword = null;
         try {
@@ -182,7 +182,11 @@ public class Database {
         try{
             query = con.createStatement();
             query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
-
+            ResultSet userIDSelect =  select("select id from users where email =" + email);
+            ResultSet buildingIDResult = select("select building_id from buildings where building_name =" + buildingName);
+            int u_id = userIDSelect.getInt("id");
+            int b_id = buildingIDResult.getInt("building_id");
+            query.execute("insert into user_building(ub_user_id, ub_building_id, ub_user_status) values(" + u_id + ", " + b_id +  " + , 'active')");
             query = null;
         }catch(Exception e){
             val = false;
