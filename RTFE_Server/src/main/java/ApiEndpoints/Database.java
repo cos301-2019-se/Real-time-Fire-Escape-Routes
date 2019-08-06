@@ -68,7 +68,8 @@ public class Database {
             query.execute("create table if not exists users(id integer AUTO_INCREMENT, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
             query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250), building_data longtext);");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
-            query.execute("create table if not exists apiKeys(key_id  AUTO_INCREMENT integer primary key, apikey varchar(250), date_created date, date_expire date);");
+            query.execute("create table if not exists apiKeys(key_id  AUTO_INCREMENT integer primary key, apikey varchar(250), date_created date, date_expire date), authorizationLevel integer;");
+
             query = null;
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -579,9 +580,9 @@ public class Database {
         }
         return  generatedKey;
     }
-    public boolean validateKey(String key){
+    public int validateKey(String key){
         lock.lock();
-        boolean valid = false;
+        int level = 0;
         try {
             query = con.createStatement();
             ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
@@ -589,14 +590,14 @@ public class Database {
             Date expireDate = result.getDate("date_expire");
             Date now = new Date(System.currentTimeMillis());
             if(now.before(expireDate)){
-                valid = true;
+                level = result.getInt("authorizationLevel");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             lock.unlock();
         }
-        return valid;
+        return level;
     }
 
 
