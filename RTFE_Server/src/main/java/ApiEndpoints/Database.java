@@ -440,7 +440,7 @@ public class Database {
                 query = null;
                 if (result.getInt("rowcount") > 0) return true;
             }catch(Exception e){
-                System.out.println(e.getMessage());
+                System.out.println("Search: " +e.getMessage());
             }
             return false;
         }
@@ -454,10 +454,27 @@ public class Database {
                 if (result.getInt("rowcount") > 0) return true;
             }catch(Exception e){
 
-                System.out.println(e.getMessage());
+                System.out.println("Search: " +e.getMessage());
             }
             return false;
         }
+
+    }
+    public String getUserType(String email)
+    {
+
+        try{
+
+            query = con.createStatement();
+            ResultSet result = select("select * from users where email = '"+email+"'");
+            query = null;
+            if (result != null)
+                return result.getString("userType");
+        }catch(Exception e){
+            System.out.println("getUserType: " +e.getMessage());
+        }
+        return "invalid";
+
 
     }
     public boolean oldSearch(String email,String pass)
