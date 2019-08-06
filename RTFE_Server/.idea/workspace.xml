@@ -8,15 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8784d2cc-6e89-443f-a1d4-0f0a888c6710" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/RTFE_server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/RTFE_server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/artifacts/Firewatch_Server/Firewatch Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/classes/artifacts/Firewatch_Server/Firewatch Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Routes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Routes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Building/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Building/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Building/Path.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Building/Path.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Building/Routes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Building/Routes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/BuildingAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/BuildingAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/WebAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/WebAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Building.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Room$Corner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Room$Corner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Room.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -29,6 +30,9 @@
   </component>
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/RTFE_server$Main.ic" NAME="Main Coverage Results" MODIFIED="1565095445064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -61,12 +65,12 @@
     <session id="-275318912">
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="3" />
+          <entry key="JAVA" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="630" />
+          <entry key="JAVA" value="1868" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -82,17 +86,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="53" column="56" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
+            <state relative-caret-position="-543">
+              <caret line="429" column="53" selection-start-line="429" selection-start-column="53" selection-end-line="429" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Building.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="291" column="52" selection-start-line="291" selection-start-column="52" selection-end-line="291" selection-end-column="52" />
               <folding>
-                <element signature="method#bindPerson#0;class#BuildingAPI#0" />
-                <element signature="method#unBindPerson#0;class#BuildingAPI#0" />
-                <element signature="method#getPersonInfo#0;class#BuildingAPI#0" />
-                <element signature="method#addFire#0;class#BuildingAPI#0" />
-                <element signature="method#getNumRooms#0;class#BuildingAPI#0" />
-                <element signature="method#clearPeople#0;class#BuildingAPI#0" />
-                <element signature="method#getRoutes#0;class#BuildingAPI#0" />
-                <element signature="method#removePerson#0;class#BuildingAPI#0" />
+                <element signature="method#destroyRoutes#0;class#Building#0" />
               </folding>
             </state>
           </provider>
@@ -101,17 +107,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/HTTPServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="266" selection-start-line="266" selection-end-line="266" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20171018/b4a63d74bc32f012342173c1a1da6fbe90065d69/json-20171018-sources.jar!/org/json/JSONObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="1605" selection-start-line="1605" selection-end-line="1605" />
+            <state relative-caret-position="-1513">
+              <caret line="28" column="56" selection-start-line="28" selection-start-column="56" selection-end-line="28" selection-end-column="56" />
+              <folding>
+                <element signature="e#5710#5711#0" expanded="true" />
+                <element signature="e#5745#5746#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -119,8 +120,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk-12.0.2/lib/src.zip!/java.base/java/util/Vector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="1275" selection-start-line="1275" selection-end-line="1275" />
+            <state relative-caret-position="312">
+              <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+              <folding>
+                <element signature="e#371#372#0" expanded="true" />
+                <element signature="e#405#406#0" expanded="true" />
+                <element signature="e#451#452#0" expanded="true" />
+                <element signature="e#488#489#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,59 +135,47 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="256">
+              <caret line="71" column="9" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Building.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="285" column="63" lean-forward="true" selection-start-line="285" selection-start-column="63" selection-end-line="285" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#838#839#0" expanded="true" />
-                <element signature="e#873#874#0" expanded="true" />
-                <element signature="method#getPeople#0;class#Building#0" />
-                <element signature="e#1407#1415#0" expanded="true" />
-                <element signature="method#bindPerson#0;class#Building#0" />
-                <element signature="method#unBindPerson#0;class#Building#0" />
-                <element signature="method#getNumPeople#0;class#Building#0" />
-                <element signature="method#updatePersonLocation#0;class#Building#0" />
-                <element signature="method#updatePersonLocation#1;class#Building#0" />
-                <element signature="method#remove#0;class#Building#0" />
-                <element signature="e#6265#6266#0" expanded="true" />
-                <element signature="e#6323#6324#0" expanded="true" />
-                <element signature="method#clearPeople#0;class#Building#0" />
-                <element signature="method#connectDoors#0;class#Building#0" />
-                <element signature="e#8180#8188#0" expanded="true" />
-                <element signature="e#8823#8829#0" expanded="true" />
-                <element signature="method#partition#0;class#Building#0" />
-                <element signature="method#destroyRoutes#0;class#Building#0" />
-              </folding>
+            <state relative-caret-position="63">
+              <caret line="67" column="55" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Node.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Routes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="110" selection-start-line="110" selection-end-line="110" />
+            <state relative-caret-position="510">
+              <caret line="138" column="9" selection-start-line="138" selection-start-column="9" selection-end-line="138" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Building/Room.java">
+        <entry file="file://$PROJECT_DIR$/html/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="510" column="62" selection-start-line="510" selection-start-column="62" selection-end-line="510" selection-end-column="62" />
+            <state relative-caret-position="-4216">
+              <caret line="28" column="43" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html/templates/script1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="116" selection-start-line="116" selection-end-line="116" />
               <folding>
-                <element signature="method#getPeopleData#0;class#Room#0" />
-                <element signature="class#Corner#0;class#Room#0" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -189,8 +184,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Building/Person.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="986">
+              <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -216,7 +211,6 @@
       <find>WebAPI</find>
       <find>Da</find>
       <find>sel</find>
-      <find>insert</find>
       <find>updateDe</find>
       <find>delete</find>
       <find>remove</find>
@@ -225,8 +219,14 @@
       <find>sea</find>
       <find>port</find>
       <find>generatedPassword</find>
-      <find>login</find>
       <find>assign</find>
+      <find>null</find>
+      <find>System.out.p</find>
+      <find>login</find>
+      <find>apikey</find>
+      <find>generate</find>
+      <find>validateKey</find>
+      <find>insert</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -263,6 +263,7 @@
         <option value="$PROJECT_DIR$/src/main/java/Building/Person.java" />
         <option value="$PROJECT_DIR$/src/main/java/TimeLapse.java" />
         <option value="$PROJECT_DIR$/src/main/java/TimeLapse/FileGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/HTTPServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/Server.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/API.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingGenerationAPI.java" />
@@ -271,13 +272,14 @@
         <option value="$PROJECT_DIR$/html/Buildings/office_1(2story)/data.json" />
         <option value="$PROJECT_DIR$/src/main/java/Builder/BuildingManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/Builder/PersonManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
-        <option value="$PROJECT_DIR$/src/main/java/HTTPServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Building/Path.java" />
         <option value="$PROJECT_DIR$/src/main/java/Building/Building.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Building/Routes.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" />
       </list>
     </option>
   </component>
@@ -287,11 +289,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-1784" />
-    <option name="y" value="-8" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="55" />
+    <option name="width" value="1248" />
+    <option name="height" value="1087" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -317,21 +318,7 @@
               <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
               <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="html" type="462c0819:PsiDirectoryNode" />
-              <item name="Buildings" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="html" type="462c0819:PsiDirectoryNode" />
-              <item name="Buildings" type="462c0819:PsiDirectoryNode" />
-              <item name="office_1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="html" type="462c0819:PsiDirectoryNode" />
-              <item name="Buildings" type="462c0819:PsiDirectoryNode" />
-              <item name="office_1(2story)" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
@@ -359,18 +346,12 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ApiEndpoints" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Building" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -382,7 +363,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564398061593" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1565095552191" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.2124506" />
@@ -522,12 +503,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58409000" />
+    <option name="totallyTimeSpent" value="62833000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="55" y="0" width="1248" height="1087" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19296375" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22390573" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -545,8 +526,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32848233" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067115" side_tool="true" weight="0.32719547" />
-      <window_info anchor="bottom" id="Build" order="11" sideWeight="0.49932885" weight="0.33694476" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32502708" />
+      <window_info anchor="bottom" id="Build" order="11" sideWeight="0.49932885" weight="0.33704293" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32423925" />
       <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Panda Executor" order="14" />
       <window_info anchor="bottom" id="JProfiler" order="15" />
@@ -559,7 +540,7 @@
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" id="Database" order="9" visible="true" weight="0.09237875" />
+      <window_info anchor="right" id="Database" order="9" visible="true" weight="0.08585858" />
       <window_info anchor="right" id="Palette" order="10" />
       <window_info anchor="right" id="Panda" order="11" />
       <window_info anchor="right" id="JSON Viewer" order="12" />
@@ -625,7 +606,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java</url>
-          <line>261</line>
+          <line>343</line>
           <properties />
           <option name="timeStamp" value="56" />
         </line-breakpoint>
@@ -860,19 +841,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
-          <folding>
-            <element signature="method#register#0;class#WebAPI#0" />
-            <element signature="method#remove#0;class#WebAPI#0" />
-            <element signature="method#login#0;class#WebAPI#0" />
-            <element signature="method#listDir#0;class#WebAPI#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -889,8 +857,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Person.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="4">
+          <caret line="103" column="20" lean-forward="true" selection-start-line="103" selection-start-column="20" selection-end-line="104" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -898,20 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
           <caret line="1275" selection-start-line="1275" selection-end-line="1275" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20171018/b4a63d74bc32f012342173c1a1da6fbe90065d69/json-20171018-sources.jar!/org/json/JSONObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="1605" selection-start-line="1605" selection-end-line="1605" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingGenerationAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="266" selection-start-line="266" selection-end-line="266" />
         </state>
       </provider>
     </entry>
@@ -928,8 +882,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="53" column="56" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
+        <state relative-caret-position="-1513">
+          <caret line="28" column="56" selection-start-line="28" selection-start-column="56" selection-end-line="28" selection-end-column="56" />
           <folding>
             <element signature="method#bindPerson#0;class#BuildingAPI#0" />
             <element signature="method#unBindPerson#0;class#BuildingAPI#0" />
@@ -943,63 +897,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="110" selection-start-line="110" selection-end-line="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2023">
-          <caret line="124" column="52" selection-start-line="124" selection-start-column="52" selection-end-line="124" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
+        <state relative-caret-position="986">
+          <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Path.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="312">
           <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
           <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#393#394#0" expanded="true" />
-            <element signature="e#455#456#0" expanded="true" />
-            <element signature="e#475#476#0" expanded="true" />
+            <element signature="e#371#372#0" expanded="true" />
+            <element signature="e#405#406#0" expanded="true" />
+            <element signature="e#451#452#0" expanded="true" />
+            <element signature="e#488#489#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Building.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="285" column="63" lean-forward="true" selection-start-line="285" selection-start-column="63" selection-end-line="285" selection-end-column="63" />
+        <state relative-caret-position="576">
+          <caret line="291" column="52" selection-start-line="291" selection-start-column="52" selection-end-line="291" selection-end-column="52" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#838#839#0" expanded="true" />
-            <element signature="e#873#874#0" expanded="true" />
-            <element signature="method#getPeople#0;class#Building#0" />
-            <element signature="e#1407#1415#0" expanded="true" />
-            <element signature="method#bindPerson#0;class#Building#0" />
-            <element signature="method#unBindPerson#0;class#Building#0" />
-            <element signature="method#getNumPeople#0;class#Building#0" />
-            <element signature="method#updatePersonLocation#0;class#Building#0" />
-            <element signature="method#updatePersonLocation#1;class#Building#0" />
-            <element signature="method#remove#0;class#Building#0" />
-            <element signature="e#6265#6266#0" expanded="true" />
-            <element signature="e#6323#6324#0" expanded="true" />
-            <element signature="method#clearPeople#0;class#Building#0" />
-            <element signature="method#connectDoors#0;class#Building#0" />
-            <element signature="e#8180#8188#0" expanded="true" />
-            <element signature="e#8823#8829#0" expanded="true" />
-            <element signature="method#partition#0;class#Building#0" />
             <element signature="method#destroyRoutes#0;class#Building#0" />
           </folding>
         </state>
@@ -1008,7 +930,28 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Routes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
-          <caret line="138" column="9" lean-forward="true" selection-start-line="138" selection-start-column="9" selection-end-line="138" selection-end-column="9" />
+          <caret line="138" column="9" selection-start-line="138" selection-start-column="9" selection-end-line="138" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/API.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="71" column="9" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/WebAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-543">
+          <caret line="429" column="53" selection-start-line="429" selection-start-column="53" selection-end-line="429" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="67" column="55" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
         </state>
       </provider>
     </entry>

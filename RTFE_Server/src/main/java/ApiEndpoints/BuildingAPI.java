@@ -34,7 +34,6 @@ public class BuildingAPI extends API {
             response.put("status", false);
             response.put("message", e.getMessage());
         }
-
         switch ((String)request.get("type")){
             case "getNumRooms":{
                 response = getNumRooms(request);
@@ -76,6 +75,12 @@ public class BuildingAPI extends API {
 //                response.put("status",true);
                 return response;
 
+            }
+            case "removePerson":{
+                response = new JSONObject();
+                response.put("message", building.remove(request.getInt("id")));
+                response.put("status",true);
+                return response;
             }
             case "clearPeople":{
                 response = new JSONObject();

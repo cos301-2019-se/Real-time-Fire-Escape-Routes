@@ -51,6 +51,11 @@ public class WebAPI extends API {
                 response = login((String)request.get("email"), (String)request.get("password"));
                 return response;
             }
+            case "validateDeviceId":
+            {
+                response = validateDeviceId((String)request.get("email"), (String)request.get("deviceID"));
+                return response;
+            }
             case "getUsersInBuilding":
             {
                 response = getUsersInBuilding((int)request.get("building_id"));
@@ -99,7 +104,7 @@ public class WebAPI extends API {
             }
             case "register":
             {
-                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"));
+                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"), (String)request.get("buildingName"));
                 return response;
             }
             case "getBuildings":
@@ -363,12 +368,13 @@ public class WebAPI extends API {
      * @param email: The email of the user to be registered
      * @param password: The password of the user to be registered
      * @param type: The role that will be assigned to the user
+     * @param buildingName: The building that the user will be assigned to
      * @return returns success or fail depending on outcome
      * */
-    private static JSONObject register(String name, String email, String password, String type){
+    private static JSONObject register(String name, String email, String password, String type, String buildingName){
         JSONObject Response = new JSONObject();
         try{
-            boolean exist =  USERDB.insert(name, email,password,type);
+            boolean exist =  USERDB.insert(name, email,password,type, buildingName);
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");
@@ -420,8 +426,11 @@ public class WebAPI extends API {
         try{
             boolean status= USERDB.search(email, password);
             Response.put("status", status);
-            if(status)
-                Response.put("msg","Login success");
+            if(status) {
+                Response.put("userType",USERDB.getUserType(email));
+                Response.put("apiKey",USERDB.generateKey());
+                Response.put("msg", "Login success");
+            }
             else
                 Response.put("msg","Invalid user/pass");
         }catch(Exception e){
@@ -430,6 +439,32 @@ public class WebAPI extends API {
         }
         return Response;
     }
+    /**
+     * This function is used to log a user into the system
+     * @param email: The email of the user to be logged in
+     * @param deviceID: The password of the user to be logged in
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject validateDeviceId(String email, String deviceID){
+
+        JSONObject Response = new JSONObject();
+        try{
+            boolean status= USERDB.validateDeviceId(email, deviceID);
+            Response.put("status", status);
+            if(status) {
+                Response.put("msg", "Login success");
+            }
+            else
+                Response.put("msg","Invalid deviceID/email");
+        }catch(Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - LOGIN FAILED");
+        }
+        return Response;
+    }
+
+
+
 
     /**
      * This function is used to show all the buildings stored in the server's file system

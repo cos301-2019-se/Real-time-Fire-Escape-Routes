@@ -7,10 +7,8 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.Date;
 import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -28,6 +26,7 @@ public class Database {
     byte[] salt;
     public Database()
     {
+
         try {
             md = MessageDigest.getInstance("SHA-1");
             salt = getSalt();
@@ -66,15 +65,55 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("create table if not exists users(id integer AUTO_INCREMENT, name varchar(250), email varchar(250) primary key, password varchar(250), userType varchar(250), deviceID integer, userDate date);");
+//            query.execute("drop table if exists apiKeys;");
+            query.execute("create table if not exists users(id integer primary key, name varchar(250), email varchar(250), password varchar(250), userType varchar(250), deviceID integer, userDate date );");
             query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250), building_data longtext);");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
+            query.execute("create table if not exists apiKeys(key_id integer primary key, apikey varchar(250), date_created date, date_expire date, authorizationLevel integer);");
+
             query = null;
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("createTable : " + e.getMessage());
         }
 
     }
+    public boolean addUserToBuilding(String email )
+    {
+//        lock.lock();
+//        String generatedPassword = null;
+//        try {
+//            byte[] bytes = md.digest(pass.getBytes());
+//            StringBuilder sb = new StringBuilder();
+//            for(int i=0; i< bytes.length ;i++)
+//            {
+//                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+//            }
+//            generatedPassword = sb.toString();
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+////            lock.unlock();
+//        }
+//        boolean val = true;
+//        try{
+//            query = con.createStatement();
+//            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
+//            //ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));
+//            query = null;
+//        }catch(Exception e){
+//            val = false;
+////            lock.unlock();
+//            System.out.println(e.getMessage());
+//        }
+//        finally{
+//
+//            lock.unlock();
+//        }
+//        return !val;
+        return false;
+    }
+
     /**
      * function returns all the users in a specific building
      * @param building_id: an integer of the building ID
@@ -97,16 +136,15 @@ public class Database {
      * function used to return all users in users table
      */
     public JSONArray getUsers() {
+        output();
         ResultSet result = select("select * from users order by id desc");
         JSONArray ret = new JSONArray();
         try{
             while(result.next()){
                 JSONObject current = new JSONObject();
 
-                current.put("id",result.getInt("id"));
                 current.put("email",result.getString("email"));
                 current.put("name",result.getString("name"));
-                current.put("password",result.getString("password"));
                 current.put("userType",result.getString("userType"));
                 current.put("deviceID",result.getString("deviceID"));
                 ret.put(current);
@@ -116,12 +154,14 @@ public class Database {
         }
         return ret;
     }
+
+
     /**
      * function can be used to insert new users to the users table
      * @param name: is a string of user name
      * @param pass: is a string of user password
      */
-    public boolean insert(String name, String email, String pass, String type){
+    public boolean insert(String name, String email, String pass, String type, String buildingName){
         lock.lock();
         String generatedPassword = null;
         try {
@@ -142,7 +182,11 @@ public class Database {
         try{
             query = con.createStatement();
             query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
-
+            ResultSet userIDSelect =  select("select id from users where email =" + email);
+            ResultSet buildingIDResult = select("select building_id from buildings where building_name =" + buildingName);
+            int u_id = userIDSelect.getInt("id");
+            int b_id = buildingIDResult.getInt("building_id");
+            query.execute("insert into user_building(ub_user_id, ub_building_id, ub_user_status) values(" + u_id + ", " + b_id +  " + , 'active')");
             query = null;
         }catch(Exception e){
             val = false;
@@ -411,10 +455,50 @@ public class Database {
      * if a password is provided it will check if that password matches the one in the db
      * */
     /**
+     * function searches user table for user with sepcified email and checks device ID.
+     * @param email: the email for the user
+     * @param deviceId: the deviceID to be set or checked
+     * @return If the deviceID is not set then set device ID and return TRUE, if set and deviceID parameters = devideID set in database return TRUE,
+     * else return FALSE
+     */
+
+
+    public boolean validateDeviceId(String email, String deviceId)
+    {
+
+        boolean validated = false;
+        try{
+
+            query = con.createStatement();
+            ResultSet result = select("select email, deviceID, count(*) as rowcount from users where email = '"+email+"'");
+            query = null;
+            if (result.getInt("rowcount") > 0){
+                if(result.getString("deviceID") == null)
+                {
+                    updateDeviceID(email, deviceId);
+                    validated =  true;
+                }
+                else if(result.getString("deviceID").compareTo(deviceId) == 0)
+                {
+                    validated =  true;
+                }
+                else
+                {
+                    validated =  false;
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Search: " +e.getMessage());
+        }
+        return validated;
+    }
+
+    /**
      * function searches user table for user, or logs in the user if password is provided
      * @param email: the email for the user
      * @param pass: the password for the user, or empty if just using function to search
      */
+
     public boolean search(String email,String pass)
     {
         String generatedPassword = null;
@@ -440,7 +524,7 @@ public class Database {
                 query = null;
                 if (result.getInt("rowcount") > 0) return true;
             }catch(Exception e){
-                System.out.println(e.getMessage());
+                System.out.println("Search: " +e.getMessage());
             }
             return false;
         }
@@ -454,10 +538,28 @@ public class Database {
                 if (result.getInt("rowcount") > 0) return true;
             }catch(Exception e){
 
-                System.out.println(e.getMessage());
+                System.out.println("Search: " +e.getMessage());
             }
             return false;
         }
+
+    }
+
+    public String getUserType(String email)
+    {
+
+        try{
+
+            query = con.createStatement();
+            ResultSet result = select("select * from users where email = '"+email+"'");
+            query = null;
+            if (result != null)
+                return result.getString("userType");
+        }catch(Exception e){
+            System.out.println("getUserType: " +e.getMessage());
+        }
+        return "invalid";
+
 
     }
     public boolean oldSearch(String email,String pass)
@@ -494,6 +596,55 @@ public class Database {
 
     }
 
+    public String generateKey(){
+        String generatedKey = null;
+        try {
+            byte[] bytes = md.digest(String.valueOf(System.currentTimeMillis()).getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedKey = sb.toString();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        lock.lock();
+        try{
+            query = con.createStatement();
+            Date now = new Date(System.currentTimeMillis());
+            Date expire = new Date(System.currentTimeMillis()+1800000);// 30mins
+            query.execute("insert into apiKeys(apikey,date_created,date_expire) values(\'"+generatedKey+"\'"+"\'"+now+"\'"+"\'"+expire+"\'");
+            query = null;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            lock.unlock();
+        }
+        return  generatedKey;
+    }
+    public int validateKey(String key){
+        lock.lock();
+        int level = 0;
+        try {
+            query = con.createStatement();
+            ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
+            query = null;
+            Date expireDate = result.getDate("date_expire");
+            Date now = new Date(System.currentTimeMillis());
+            if(now.before(expireDate)){
+                level = result.getInt("authorizationLevel");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+        return level;
+    }
 
 
 }
