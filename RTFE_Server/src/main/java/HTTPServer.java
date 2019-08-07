@@ -101,10 +101,14 @@ public class HTTPServer extends Server{
      * @date 28/05/2019
      */
         private String getContentType(String fileRequested) {
+
             if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
                 return "text/html";
-            else
-                return "text/plain";
+            if(fileRequested.endsWith(".css"))
+                return "text/css";
+            if(fileRequested.endsWith(".js"))
+                return "text/javascript";
+            return "text/plain";
         }
 
     /**
