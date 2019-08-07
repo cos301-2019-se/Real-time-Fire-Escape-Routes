@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class AgentController : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public bool emergency;
+    public bool emergency =false;
     bool started = false;
     public List<Vector3> listRoute;
     // Start is called before the first frame update
@@ -69,9 +69,9 @@ public class AgentController : MonoBehaviour
         started = true;
     }
 
-    public void goTo(List<Vector3> list)
+    public void goTo(List<Vector3> list, bool emergency)
     {
-    
+        this.emergency = emergency;
 
         if (list.Count > 0)
         {
@@ -79,10 +79,10 @@ public class AgentController : MonoBehaviour
             list.RemoveAt(0);
         }
 
-        //if (listRoute == null)
+        if (emergency)
             listRoute = list;
-        //else
-        //    listRoute.AddRange(list);
+        else
+            listRoute.AddRange(list);
 
 
         //Color color = x.GetComponent<Renderer>().material.color;
@@ -98,39 +98,17 @@ public class AgentController : MonoBehaviour
         {
             if (Vector3.Distance(agent.destination, agent.transform.position) - 0.36 <= agent.stoppingDistance)
             {
-                if(emergency)
+                if (listRoute.Count == 0)
                 {
-                    if (listRoute.Count == 0)
-                    {
-                        if (emergency)
-                            Destroy(gameObject);
-                    }
-                    else
-                    {
-                        //  Debug.Log("route size-> " + listRoute.Count);
-                        agent.SetDestination(listRoute[0]);
-                        listRoute.RemoveAt(0);
-                    }
+                    if (emergency)
+                        Destroy(gameObject);
                 }
                 else
                 {
-                    if (listRoute.Count == 1)
-                    {
-                        if (emergency)
-                            Destroy(gameObject);
-                    }
-                    else
-                    {
-                        //  Debug.Log("route size-> " + listRoute.Count);
-                        if (listRoute.Count != 0)
-                        {
-                            agent.SetDestination(listRoute[0]);
-                            listRoute.RemoveAt(0);
-                        }
-                    }
+                    //  Debug.Log("route size-> " + listRoute.Count);
+                    agent.SetDestination(listRoute[0]);
+                    listRoute.RemoveAt(0);
                 }
-              
-
             }
         }
     }

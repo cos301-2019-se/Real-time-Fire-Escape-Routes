@@ -337,18 +337,18 @@ public class Building : MonoBehaviour
 
     }
 
-    public void addPerson(List<Vector3> pl,float personNumber, GameObject g, bool emerg)
+    public void addPerson(List<Vector3> pl,float personNumber, GameObject g, bool emerge)
     {
        // Debug.Log(personNumber+") "+pl[0].x + ", " + pl[0].y + ", " + pl[0].z + " ");
         GameObject r = Instantiate(Resources.Load("Capsule", typeof(GameObject)) as GameObject, pl[0], new Quaternion(0, 0, 0, 1)) as GameObject;
         r.GetComponent<number>().objectNumber = personNumber;
         r.GetComponent<number>().exists = true;
-        r.GetComponent<AgentController>().goTo(pl);
+        r.GetComponent<AgentController>().goTo(pl, emerge);
  
             r.GetComponent<AgentController>().Setcolor(g);
 
 
-        r.GetComponent<AgentController>().emergency = emerg;
+       // r.GetComponent<AgentController>().emergency = emerg;
         peopleList.Add(r);
     }
 }

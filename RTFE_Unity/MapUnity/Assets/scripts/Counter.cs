@@ -33,6 +33,8 @@ public class Counter : MonoBehaviour
     // public GameObject meshOb;
     public NavMeshSurface s;
     public int alarm = -1;
+    public bool once = true;
+    public bool emergency = false;
    
 
     private string ip = "http://127.0.0.1:8080/";
@@ -65,10 +67,33 @@ public class Counter : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (alarm == -1)
-                alarm = 0;
-            else
+            if( alarm != -1)
+            {
                 alarm = -1;
+                if (alarm != -1)
+                {
+                    string s = findPeople();
+                    if (isSimulation)
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
+                    else
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
+                }
+                else
+                {
+                    Debug.Log("again");
+                   // yield return new WaitForSeconds(5.0f);
+                    if (isSimulation)
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+false+",\"mode\":\"simulation\"}", "assignPeople"));
+                    else
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
+
+                }
+            }
+            else
+            {
+                alarm = 0;  
+                once = true;
+            }    
         }
     }
 
@@ -153,7 +178,7 @@ public class Counter : MonoBehaviour
         return exitList;
     }
 
-    private void addPeopleIntoSimulation(List<TemporaryPeople> allPeople)
+    private void addPeopleIntoSimulation(List<TemporaryPeople> allPeople, bool localEmergency)
     {
         var goArray2 = FindObjectsOfType<GameObject>();
         for (int j = 0; j < goArray2.Length; j++)
@@ -178,7 +203,7 @@ public class Counter : MonoBehaviour
                         if (allGameObjects[j].GetComponent<number>().objectNumber == allPeople[i].personId)
                         {
                             FoundPerson = true;
-                            allGameObjects[j].GetComponent<AgentController>().goTo(allPeople[i].routeList);
+                            allGameObjects[j].GetComponent<AgentController>().goTo(allPeople[i].routeList, localEmergency);
                             allGameObjects[j].GetComponent<number>().exists = true;
                         }
                     }
@@ -187,7 +212,7 @@ public class Counter : MonoBehaviour
 
             if(!FoundPerson)
             {
-                buildingOb.GetComponent<Building>().addPerson(allPeople[i].routeList, allPeople[i].personId, null, true);
+                buildingOb.GetComponent<Building>().addPerson(allPeople[i].routeList, allPeople[i].personId, null, localEmergency);
             }           
         }
 
@@ -200,6 +225,11 @@ public class Counter : MonoBehaviour
                 {
                     Destroy(goArray1[j]);
                 }
+            }
+
+            if (goArray1[j].GetComponent<AgentController>() != null)
+            {
+                goArray1[j].GetComponent<AgentController>().emergency = localEmergency;
             }
         }
     }
@@ -266,24 +296,24 @@ public class Counter : MonoBehaviour
         if (uwr.isNetworkError)
         {
             Debug.Log("Error While Sending: " + uwr.error);
-            if (alarm > -1)
-            {
-                string s = findPeople();
-                if (isSimulation)
-                    StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":true," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
+             if (alarm != -1)
+                {
+                    string s = findPeople();
+                    if (isSimulation)
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
+                    else
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
+                }
                 else
-                    StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":true," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
-            }
-            if (alarm == -1)
-            {
-                Debug.Log("again");
-                // yield return new WaitForSeconds(5.0f);
-                if (isSimulation)
-                    StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false,\"mode\":\"simulation\"}", "assignPeople"));
-                else
-                    StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
+                {
+                    Debug.Log("again");
+                   // yield return new WaitForSeconds(5.0f);
+                    if (isSimulation)
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+false+",\"mode\":\"simulation\"}", "assignPeople"));
+                    else
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
 
-            }
+                }
         }
         else
         {
@@ -293,19 +323,23 @@ public class Counter : MonoBehaviour
                 buildingOb.GetComponent<Building>().addStrings(myObject);
                 buildingOb.GetComponent<Building>().createArrays();
                 s.BuildNavMesh();
-                if (true)//this one should be defaults
+                 if (alarm != -1)
                 {
+                    string s = findPeople();
                     if (isSimulation)
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false,\"mode\":\"simulation\"}", "assignPeople"));
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
                     else
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
                 }
                 else
                 {
+                    Debug.Log("again");
+                   // yield return new WaitForSeconds(5.0f);
                     if (isSimulation)
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":true,\"mode\":\"simulation\"}", "assignPeople"));
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+false+",\"mode\":\"simulation\"}", "assignPeople"));
                     else
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":true}", "assignPeople"));
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
+
                 }
             }
             else if (type == "assignPeople")
@@ -319,23 +353,31 @@ public class Counter : MonoBehaviour
                 {
                     if(myObject.people != "" && myObject.status != "failed")
                     {
+                        bool localEmergency;
+                        if(myObject.emergency == "true")
+                            localEmergency = true;
+                        else
+                            localEmergency = false;
                         //creates a list of all people(ID and routes)
                         List<TemporaryPeople> peopleList = createPeopleList(myObject.people);
                         Debug.Log("number of people: " + peopleList.Count);
 
                         //add all new people into simulation,
-                        addPeopleIntoSimulation(peopleList);
+                        addPeopleIntoSimulation(peopleList, localEmergency);
 
-                        //create a list of all exits(position using vector3)
-                        List<TemporaryExit> exitList = createExitList(peopleList);
-                        Debug.Log("number of exits: "+exitList.Count);
+                        if(myObject.emergency == "true")
+                        {
+                            //create a list of all exits(position using vector3)
+                            List<TemporaryExit> exitList = createExitList(peopleList);
+                            Debug.Log("number of exits: "+exitList.Count);
 
-                        //creates exit gameobjects and assigns a color
-                        placeExits(exitList);
+                            //creates exit gameobjects and assigns a color
+                            placeExits(exitList);
 
-                        //assigns people to their colors
-                        AssignPeopleToColor();
-
+                            //assigns people to their colors
+                            AssignPeopleToColor();
+                        }
+                        
                         if (peopleList == null)
                         {
                             Debug.Log("ERROR: SOMETHING WENT WRONG YOU SHOULD NOT SEE THIS I THINK");
@@ -354,10 +396,11 @@ public class Counter : MonoBehaviour
 
 
 
-                //if(alarm != -1)
-                //{
+                // if(alarm != -1)
+                // {
                 //    if(alarm == 0)
                 //    {
+                //        once = true;
                 //        Debug.Log("once");
                 //        alarm = 1;
                 //    }
@@ -369,23 +412,29 @@ public class Counter : MonoBehaviour
                 //            yield return new WaitForSeconds(1.0f);
                 //        }
                 //    }
-                //}
+                // }
+
+
                 yield return new WaitForSeconds(1.0f);
                 //findPeople();
-                if (alarm > -1)
+                if (alarm != -1)
                 {
-                    string s = findPeople();
-                    if (isSimulation)
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":true," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
-                    else
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":true," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
+                    if(once)
+                    {
+                        once = false;
+                        string s = findPeople();
+                        if (isSimulation)
+                            StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
+                        else
+                            StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
+                    }
                 }
-                if (alarm == -1)
+                else
                 {
                     Debug.Log("again");
                    // yield return new WaitForSeconds(5.0f);
                     if (isSimulation)
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false,\"mode\":\"simulation\"}", "assignPeople"));
+                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+false+",\"mode\":\"simulation\"}", "assignPeople"));
                     else
                         StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
 
