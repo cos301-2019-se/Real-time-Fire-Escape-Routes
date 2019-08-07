@@ -542,8 +542,7 @@ MonoBehaviour:
   isSimulation: 0
   buildingOb: {fileID: 222109079}
   s: {fileID: 1690057787}
-  alarm: 0
-  alarmOnce: 0
+  alarm: -1
 --- !u!4 &1611823374
 Transform:
   m_ObjectHideFlags: 0

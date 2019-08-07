@@ -10,7 +10,7 @@ public class AgentController : MonoBehaviour
     public NavMeshAgent agent;
     public bool emergency;
     bool started = false;
-    List<Vector3> listRoute;
+    public List<Vector3> listRoute;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,13 +71,7 @@ public class AgentController : MonoBehaviour
 
     public void goTo(List<Vector3> list)
     {
-        Debug.Log("person no-------------------: "+GetComponent<number>().objectNumber);
-        
-        //for (int i = 0; i < list.Count; i++)
-        //{
-           
-        //    Debug.Log(i+") "+list[i].x +" "+ list[i].y + " "+ list[i].z + " ");
-        //}
+    
 
         if (list.Count > 0)
         {
@@ -128,8 +122,11 @@ public class AgentController : MonoBehaviour
                     else
                     {
                         //  Debug.Log("route size-> " + listRoute.Count);
-                        agent.SetDestination(listRoute[0]);
-                        listRoute.RemoveAt(0);
+                        if (listRoute.Count != 0)
+                        {
+                            agent.SetDestination(listRoute[0]);
+                            listRoute.RemoveAt(0);
+                        }
                     }
                 }
               
