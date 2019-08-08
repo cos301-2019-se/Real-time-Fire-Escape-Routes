@@ -35,10 +35,10 @@ public class Counter : MonoBehaviour
     public int alarm = -1;
     public bool once = true;
     public bool emergency = false;
-   
 
-    private string ip = "http://127.0.0.1:8080/";
-    //private string ip = "http://192.168.137.1:8080/";
+
+    //private string ip = "http://127.0.0.1:8080/";
+    private string ip = "http://192.168.137.1:8080/";
     //private string ip = "http://192.168.43.237:8080/";
     // private string ip = "https://6c53bafd-db31-4e2e-aac4-49c2a447c8ad.mock.pstmn.io/";
 
@@ -393,9 +393,6 @@ public class Counter : MonoBehaviour
                     Debug.Log("ERROR: my object is equal to null should call again");
                 }
 
-
-
-
                 // if(alarm != -1)
                 // {
                 //    if(alarm == 0)
@@ -413,7 +410,6 @@ public class Counter : MonoBehaviour
                 //        }
                 //    }
                 // }
-
 
                 yield return new WaitForSeconds(1.0f);
                 //findPeople();
