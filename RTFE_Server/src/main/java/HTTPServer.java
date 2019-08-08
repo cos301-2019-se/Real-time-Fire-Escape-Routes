@@ -280,8 +280,10 @@ public class HTTPServer extends Server{
                             response.put("status","failed");
                             response.put("message",e.getMessage());
                         }
-                        if(verbose)
-                            System.out.println("Server -> Client:"+ response.toString());
+                        if(verbose) {
+                            System.out.println("Connecton opened. (" + new Date() + ")");
+                            System.out.println("Server -> Client:" + response.toString());
+                        }
                         out.println(response.toString());
                         out.flush();
                     }

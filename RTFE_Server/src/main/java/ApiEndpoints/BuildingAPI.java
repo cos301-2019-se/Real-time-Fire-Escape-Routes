@@ -306,7 +306,7 @@ public class BuildingAPI extends API {
             if(c.getAssignedRoute()!=null) {
                 double[] pos = c.getAssignedRoute().getGoal().coordinates;
                 data += c.getName() + " *" ;
-                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1]+" % "+"0,"+pos[0]+","+pos[1];
+                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1];
                 if (i < people.size() - 1) {
                         data += " - ";
 
@@ -316,7 +316,7 @@ public class BuildingAPI extends API {
 //                double[] pos = c.getAssignedRoute().getGoal().coordinates;
                 double[] pos =building.getRoutes().get(0).getGoal().coordinates;
                 data += c.getName() + " *" ;
-                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1]+" % "+"0,"+pos[0]+","+pos[1];
+                data+= " "+c.floor+","+c.getPosition()[0]+","+c.getPosition()[1];
                 if (i < people.size() - 1) {
                        data += " - ";
 
