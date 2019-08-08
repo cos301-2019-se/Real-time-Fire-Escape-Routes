@@ -41,82 +41,6 @@ public class WebAPI extends API {
             response.put("message", e.getMessage());
         }
         switch ((String)request.get("type")){
-            case "remove":
-            {
-                response = remove((String)request.get("email"));
-                return response;
-            }
-            case"login":
-            {
-                response = login((String)request.get("email"), (String)request.get("password"));
-                return response;
-            }
-            case "validateDeviceId":
-            {
-                response = validateDeviceId((String)request.get("email"), (String)request.get("deviceID"));
-                return response;
-            }
-            case "getUsersInBuilding":
-            {
-                response = getUsersInBuilding((int)request.get("building_id"));
-                return response;
-            }
-            case"update":
-            {
-                String typeOfUpdate = (String)request.get("typeOfUpdate");
-                if(typeOfUpdate.compareTo("userType") == 0)
-                {
-                    response = updateType((String)request.get("email"), (String)request.get("value"));
-                    return response;
-                }
-                if(typeOfUpdate.compareTo("name") == 0)
-                {
-                    response = updateName((String)request.get("email"), (String)request.get("value"));
-                    return response;
-                }
-                if(typeOfUpdate.compareTo("deviceID") == 0)
-                {
-                    response = updateDeviceID((String)request.get("email"), (String)request.get("value"));
-                    return response;
-                }
-                if(typeOfUpdate.compareTo("password") == 0)
-                {
-                    response = updatePassword((String)request.get("email"), (String)request.get("value"));
-                    return response;
-                }
-                if(typeOfUpdate.compareTo("email") == 0)
-                {
-                    response = updateEmail((String)request.get("email"), (String)request.get("value"));
-                    return response;
-                }
-                else
-                {
-                    response = new JSONObject();
-                    response.put("status", false);
-                    response.put("msg","Error in update");
-                    return response;
-                }
-            }
-            case "getUsers":
-            {
-                response = getUsers();
-                return response;
-            }
-            case "register":
-            {
-                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"), (String)request.get("buildingName"));
-                return response;
-            }
-            case "getBuildings":
-            {
-                response = listDir();
-                return response;
-            }
-            case "uploadBuilding":
-            {
-                response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString(),(String)request.get("img").toString());
-                return response;
-            }
             case "currentBuilding":
             {
                 response = new JSONObject();
@@ -129,6 +53,82 @@ public class WebAPI extends API {
                     response.put("status", false);
                     response.put("message", e.getMessage());
                 }
+                return response;
+            }
+            case "getBuildings":
+            {
+                response = listDir();
+                return response;
+            }
+            case "getUsers":
+            {
+                response = getUsers();
+                return response;
+            }
+            case "getUsersInBuilding":
+            {
+                response = getUsersInBuilding((int)request.get("building_id"));
+                return response;
+            }
+            case"login":
+            {
+                response = login((String)request.get("email"), (String)request.get("password"));
+                return response;
+            }
+            case "register":
+            {
+                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"), (String)request.get("buildingName"));
+                return response;
+            }
+            case "remove":
+            {
+                response = remove((String)request.get("email"));
+                return response;
+            }
+            case"update":
+            {
+                String typeOfUpdate = (String)request.get("typeOfUpdate");
+                if(typeOfUpdate.compareTo("deviceID") == 0)
+                {
+                    response = updateDeviceID((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("email") == 0)
+                {
+                    response = updateEmail((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("name") == 0)
+                {
+                    response = updateName((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("password") == 0)
+                {
+                    response = updatePassword((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("userType") == 0)
+                {
+                    response = updateType((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                else
+                {
+                    response = new JSONObject();
+                    response.put("status", false);
+                    response.put("msg","Error in update");
+                    return response;
+                }
+            }
+            case "uploadBuilding":
+            {
+                response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString(),(String)request.get("img").toString());
+                return response;
+            }
+            case "validateDeviceId":
+            {
+                response = validateDeviceId((String)request.get("email"), (String)request.get("deviceID"));
                 return response;
             }
 
@@ -164,6 +164,102 @@ public class WebAPI extends API {
         return Response;
     }
 
+
+    /**
+     * This function is used to show all the buildings stored in the server's file system
+     * @return returns a JSON object containing the names of all the buildings
+     * */
+    private static JSONObject listDir()throws Exception{
+        File folder = new File("html/Buildings/");
+        JSONArray buildings = new JSONArray();
+        JSONObject response = new JSONObject();
+        File[] listOfFiles = folder.listFiles();
+        for (File file : listOfFiles) {
+            if(file.isDirectory())
+                buildings.put(file.getName());
+        }
+        if(verbose)
+            System.out.println(Arrays.toString(listOfFiles));
+        response.put("status",true);
+        response.put("msg",buildings);
+        return response;
+    }
+    /**
+     * This function is used to log a user into the system
+     * @param email: The email of the user to be logged in
+     * @param password: The password of the user to be logged in
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject login(String email, String password){
+
+        JSONObject Response = new JSONObject();
+        try{
+            boolean status= USERDB.search(email, password);
+            Response.put("status", status);
+            if(status) {
+                Response.put("userType",USERDB.getUserType(email));
+                Response.put("apiKey",USERDB.generateKey());
+                Response.put("msg", "Login success");
+            }
+            else
+                Response.put("msg","Invalid user/pass");
+        }catch(Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - LOGIN FAILED");
+        }
+        return Response;
+    }
+    /**
+     * This function is used to add a user to the database
+     * @param name: The name of the user to be registered
+     * @param email: The email of the user to be registered
+     * @param password: The password of the user to be registered
+     * @param type: The role that will be assigned to the user
+     * @param buildingName: The building that the user will be assigned to
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject register(String name, String email, String password, String type, String buildingName){
+        JSONObject Response = new JSONObject();
+        try{
+            boolean exist =  USERDB.insert(name, email,password,type, buildingName);
+            if(exist){
+                Response.put("status", false);
+                Response.put("msg","User already Exists");
+            }else{
+
+                Response.put("status", true);
+                Response.put("msg","User Successfully created");
+
+            }
+        }catch (Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - REGISTER FAILED");
+        }
+
+        return Response;
+    }
+
+    /**
+
+
+     * This function is used to remove a user from the system
+     * @param email: The email of the user to be removed
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject remove(String email) {
+        JSONObject Response = new JSONObject();
+        boolean exist = USERDB.delete(email);
+        if (exist) {
+            Response.put("status", true);
+            Response.put("msg", "User successfully removed");
+        } else {
+            Response.put("status", false);
+            Response.put("msg", "User does not exist");
+
+
+        }
+        return Response;
+    }
     /**
      * function updates an email of a registered user
      * @param email: the current email, used to identify the user
@@ -362,83 +458,7 @@ public class WebAPI extends API {
         return Response;
     }
 
-    /**
-     * This function is used to add a user to the database
-     * @param name: The name of the user to be registered
-     * @param email: The email of the user to be registered
-     * @param password: The password of the user to be registered
-     * @param type: The role that will be assigned to the user
-     * @param buildingName: The building that the user will be assigned to
-     * @return returns success or fail depending on outcome
-     * */
-    private static JSONObject register(String name, String email, String password, String type, String buildingName){
-        JSONObject Response = new JSONObject();
-        try{
-            boolean exist =  USERDB.insert(name, email,password,type, buildingName);
-            if(exist){
-                Response.put("status", false);
-                Response.put("msg","User already Exists");
-            }else{
 
-                Response.put("status", true);
-                Response.put("msg","User Successfully created");
-
-            }
-        }catch (Exception e){
-            if(verbose)
-                System.out.println("CRITICAL - REGISTER FAILED");
-        }
-
-        return Response;
-    }
-
-    /**
-
-
-     * This function is used to remove a user from the system
-     * @param email: The email of the user to be removed
-     * @return returns success or fail depending on outcome
-     * */
-    private static JSONObject remove(String email) {
-        JSONObject Response = new JSONObject();
-        boolean exist = USERDB.delete(email);
-        if (exist) {
-            Response.put("status", true);
-            Response.put("msg", "User successfully removed");
-        } else {
-            Response.put("status", false);
-            Response.put("msg", "User does not exist");
-
-
-        }
-        return Response;
-    }
-
-    /**
-     * This function is used to log a user into the system
-     * @param email: The email of the user to be logged in
-     * @param password: The password of the user to be logged in
-     * @return returns success or fail depending on outcome
-     * */
-    private static JSONObject login(String email, String password){
-
-        JSONObject Response = new JSONObject();
-        try{
-            boolean status= USERDB.search(email, password);
-            Response.put("status", status);
-            if(status) {
-                Response.put("userType",USERDB.getUserType(email));
-                Response.put("apiKey",USERDB.generateKey());
-                Response.put("msg", "Login success");
-            }
-            else
-                Response.put("msg","Invalid user/pass");
-        }catch(Exception e){
-            if(verbose)
-                System.out.println("CRITICAL - LOGIN FAILED");
-        }
-        return Response;
-    }
     /**
      * This function is used to log a user into the system
      * @param email: The email of the user to be logged in
@@ -465,24 +485,4 @@ public class WebAPI extends API {
 
 
 
-
-    /**
-     * This function is used to show all the buildings stored in the server's file system
-     * @return returns a JSON object containing the names of all the buildings
-     * */
-    private static JSONObject listDir()throws Exception{
-        File folder = new File("html/Buildings/");
-        JSONArray buildings = new JSONArray();
-        JSONObject response = new JSONObject();
-        File[] listOfFiles = folder.listFiles();
-        for (File file : listOfFiles) {
-            if(file.isDirectory())
-                buildings.put(file.getName());
-        }
-        if(verbose)
-            System.out.println(Arrays.toString(listOfFiles));
-        response.put("status",true);
-        response.put("msg",buildings);
-        return response;
-    }
 }

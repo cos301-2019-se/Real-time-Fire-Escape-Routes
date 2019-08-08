@@ -35,10 +35,6 @@ public class BuildingAPI extends API {
             response.put("message", e.getMessage());
         }
         switch ((String)request.get("type")){
-            case "getNumRooms":{
-                response = getNumRooms(request);
-                return response;
-            }
             case "assignPeople":{
                 response = new JSONObject();
 //                building.assignPeople();
@@ -74,16 +70,11 @@ public class BuildingAPI extends API {
 //                response.put("numRoutes",building.getRoutes().size());
 //                response.put("status",true);
                 return response;
+
             }
-            case "botLocations":{
+            case "bind":{
                 response = new JSONObject();
-                response.put("message", botLocations());
-                response.put("status",true);
-                return response;
-            }
-            case "removePerson":{
-                response = new JSONObject();
-                response.put("message", building.remove(request.getInt("id")));
+                response.put("message", bindPerson(request));
                 response.put("status",true);
                 return response;
             }
@@ -105,16 +96,8 @@ public class BuildingAPI extends API {
                 response.put("status",true);
                 return response;
             }
-            case "bind":{
-                response = new JSONObject();
-                response.put("message", bindPerson(request));
-                response.put("status",true);
-                return response;
-            }
-            case "unbind":{
-                response = new JSONObject();
-                response.put("message", unBindPerson(request));
-                response.put("status",true);
+            case "getNumRooms":{
+                response = getNumRooms(request);
                 return response;
             }
             case "personInfo":{
@@ -131,10 +114,75 @@ public class BuildingAPI extends API {
             case "personUpdate":{
                 return UpdatePersonLocation(request);
             }
+            case "removePerson":{
+                response = new JSONObject();
+                response.put("message", building.remove(request.getInt("id")));
+                response.put("status",true);
+                return response;
+            }
+            case "unbind":{
+                response = new JSONObject();
+                response.put("message", unBindPerson(request));
+                response.put("status",true);
+                return response;
+            }
         }
         throw new Exception("Unsupported Request");
     }
 
+
+    /**
+     * This function adds a fire inside the building
+     * @param request: Contains the relevant information to create a fire in the building
+     * @return Returns a JSONObject specifying if routes were affected or not.
+     * */
+    private static String addFire(JSONObject request) {
+        JSONArray pos = request.getJSONArray("position");
+        double radius = request.getDouble("radius");
+        Fire f = new Fire(pos.getDouble(0),pos.getDouble(1),radius);
+        int floor = request.getInt("floor");
+        try {
+            if (building.addFire(floor, f)) {
+                return "Fire Added. Some Routes were affected";
+            }
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return "Fire Added. No Routes were affected";
+    }
+
+
+    /**
+     * This function converts all the people data from the building into a string that is used by the simulation subsystem
+     * it contains the people's initial location, as well as the path they need to follow to evacuate the building
+     * @return a very long string formatted in a specific way
+     * */
+    private static String assignPeopleRoutes(){
+//        building.emergency = true;
+        Vector<Person> people = building.getPeople();
+        String data = "";
+        for (int i = 0; i < people.size(); i++) {
+            Person c = people.get(i);
+            if(c.getAssignedRoute()!=null) {
+                double[] pos = c.getAssignedRoute().getGoal().coordinates;
+                data += c.getName() + " *" ;
+                for (int j = 0; j < c.pathToFollow.size(); j++) {
+                    data+= " "+c.pathToFollow.get(j).floor+","+c.pathToFollow.get(j).coordinates[0]+","+c.pathToFollow.get(j).coordinates[1];
+                    if(j!= c.pathToFollow.size()-1){
+                        data +=" % ";
+                    }
+                }
+
+                if (i < people.size() - 1) {
+                    if(people.get(i+1).getAssignedRoute()!=null) {
+                        data += " - ";
+                    }
+                }
+            }
+//            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
+        }
+        return data ;
+    }
     /**
      * This function will be used to process the request handed over to the API
      * @param request: Contains 2 fields, the DEVICE that needs to be linked a ID
@@ -145,15 +193,16 @@ public class BuildingAPI extends API {
         String deviceId = request.getString("device_id");
         return building.bindPerson(id,deviceId);
     }
+
     /**
-     * This function will be used to process the request handed over to the API
-     * @param request: Contains the DEVICE that needs to be removed from the building
-     * @return returns a JSON object that contains a success or fail message
+     * This function removes all the people from the building
+     * @return Returns the number of differnt rooms within the building
      * */
-    private static boolean unBindPerson(JSONObject request) {
-        String deviceId = request.getString("device_id");
-        return building.unBindPerson(deviceId);
+    private static String clearPeople(){
+        building.clearPeople();
+        return "Removed people from building";
     }
+
 
     /**
      * This function will be used to retrieve all the information for a specific person
@@ -202,26 +251,6 @@ public class BuildingAPI extends API {
 
         return status;
     }
-
-    /**
-     * This function adds a fire inside the building
-     * @param request: Contains the relevant information to create a fire in the building
-     * @return Returns a JSONObject specifying if routes were affected or not.
-     * */
-    private static String addFire(JSONObject request) {
-        JSONArray pos = request.getJSONArray("position");
-        double radius = request.getDouble("radius");
-        Fire f = new Fire(pos.getDouble(0),pos.getDouble(1),radius);
-        int floor = request.getInt("floor");
-        try {
-            if (building.addFire(floor, f)) {
-                return "Fire Added. Some Routes were affected";
-            }
-        }catch (Exception e){
-            return e.getMessage();
-        }
-        return "Fire Added. No Routes were affected";
-    }
     /**
      * This function counts the number of rooms within a building
      * @param req: Contains the relevant information to create a fire in the building
@@ -246,14 +275,10 @@ public class BuildingAPI extends API {
     }
 
     /**
-     * This function removes all the people from the building
-     * @return Returns the number of differnt rooms within the building
+     * This function returns all the routes in the building
+     * @param response: Contains the relevant information to calculate the routes in the building
+     * @return Returns all the routes in the building
      * */
-    private static String clearPeople(){
-        building.clearPeople();
-        return "Removed people from building";
-    }
-
     private static JSONObject getRoutes(JSONObject response) throws JSONException {
         JSONObject Response = new JSONObject();
         try{
@@ -265,38 +290,6 @@ public class BuildingAPI extends API {
             return Response;
         }
         return Response;
-    }
-
-    /**
-     * This function converts all the people data from the building into a string that is used by the simulation subsystem
-     * it contains the people's initial location, as well as the path they need to follow to evacuate the building
-     * @return a very long string formatted in a specific way
-     * */
-    private static String assignPeopleRoutes(){
-//        building.emergency = true;
-        Vector<Person> people = building.getPeople();
-        String data = "";
-        for (int i = 0; i < people.size(); i++) {
-            Person c = people.get(i);
-            if(c.getAssignedRoute()!=null) {
-                double[] pos = c.getAssignedRoute().getGoal().coordinates;
-                data += c.getName() + " *" ;
-                for (int j = 0; j < c.pathToFollow.size(); j++) {
-                    data+= " "+c.pathToFollow.get(j).floor+","+c.pathToFollow.get(j).coordinates[0]+","+c.pathToFollow.get(j).coordinates[1];
-                    if(j!= c.pathToFollow.size()-1){
-                        data +=" % ";
-                    }
-                }
-
-                if (i < people.size() - 1) {
-                    if(people.get(i+1).getAssignedRoute()!=null) {
-                        data += " - ";
-                    }
-                }
-            }
-//            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
-        }
-        return data ;
     }
 
     /**
@@ -333,22 +326,58 @@ public class BuildingAPI extends API {
         }
         return data ;
     }
-    private static JSONArray botLocations(){
-        JSONArray response = new JSONArray();
+
+    /**
+     * This function is used to remove a person from a building
+     *
+     * */
+    private static JSONObject removePerson(JSONObject request){
+        JSONObject response = new JSONObject();
+        boolean status = false;
+        int personID = -1;
         try{
-            for (Person person:building.getPeople()) {
-                JSONObject current = new JSONObject();
-                current.put("id",person.getPersonID());
-                current.put("name",person.getName());
-                current.put("location", new JSONArray(person.getPosition()));
-                current.put("deviceID",person.deviceID);
-                response.put(current);
+            if(request.has("id"))
+                personID = request.getInt("id");
+            else if(request.has("device_id")){
+                String deviceID = (String)request.get("device_id");
+                Vector <Person> people = building.getPeople();
+                for (Person p :people) {
+                    if(p.deviceID.compareTo(deviceID)==0){
+                        personID = p.getPersonID();
+                    }
+                }
             }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+            else{
+                throw new Exception("Please use either 'device_id' or 'id' when removing a person");
+            }
+            status = building.remove(personID );
         }
+        catch (Exception e){
+            JSONObject error = new JSONObject();
+            error.put("message", "FATAL ERROR at RemovePerson: "+e.getMessage());
+            error.put("status",false);
+            System.out.println("FATAL ERROR at RemovePerson: "+e.getMessage());
+            return error;
+        }
+        if(status){
+            response.put("message", "Person has been removed from the building" );
+            building.assignPeople();
+        }else{
+            response.put("message", "Person was not found");
+        }
+        response.put("status",status);
         return response;
     }
+    /**
+     * This function will be used to process the request handed over to the API
+     * @param request: Contains the DEVICE that needs to be removed from the building
+     * @return returns a JSON object that contains a success or fail message
+     * */
+    private static boolean unBindPerson(JSONObject request) {
+        String deviceId = request.getString("device_id");
+        return building.unBindPerson(deviceId);
+    }
+
     private static void unityUpdatePeopleLocation(JSONObject request){
         String peopleData = (String)request.get("peopleLocations");
         if(peopleData=="")
@@ -407,47 +436,6 @@ public class BuildingAPI extends API {
         }
         if(status){
             response.put("message", "Person information has been updated" );
-            building.assignPeople();
-        }else{
-            response.put("message", "Person was not found");
-        }
-        response.put("status",status);
-        return response;
-    }
-    /**
-     * This function is used to remove a person from a building
-     *
-     * */
-    private static JSONObject removePerson(JSONObject request){
-        JSONObject response = new JSONObject();
-        boolean status = false;
-        int personID = -1;
-        try{
-            if(request.has("id"))
-                personID = request.getInt("id");
-            else if(request.has("device_id")){
-                String deviceID = (String)request.get("device_id");
-                Vector <Person> people = building.getPeople();
-                for (Person p :people) {
-                    if(p.deviceID.compareTo(deviceID)==0){
-                        personID = p.getPersonID();
-                    }
-                }
-            }
-            else{
-                throw new Exception("Please use either 'device_id' or 'id' when removing a person");
-            }
-            status = building.remove(personID );
-        }
-        catch (Exception e){
-            JSONObject error = new JSONObject();
-            error.put("message", "FATAL ERROR at RemovePerson: "+e.getMessage());
-            error.put("status",false);
-            System.out.println("FATAL ERROR at RemovePerson: "+e.getMessage());
-            return error;
-        }
-        if(status){
-            response.put("message", "Person has been removed from the building" );
             building.assignPeople();
         }else{
             response.put("message", "Person was not found");

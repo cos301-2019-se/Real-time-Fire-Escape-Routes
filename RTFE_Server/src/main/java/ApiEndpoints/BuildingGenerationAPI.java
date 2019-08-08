@@ -152,20 +152,27 @@ public class BuildingGenerationAPI extends API{
                 continue;
             data += current.getInt("floor") + " * ";
             switch ((String)current.get("type")){
-                case "buildingExit":
+                case "buildingExit":{
                     data+="0.9 * ";
                     break;
-                case "singleDoor":
+                }
+                case "doubleDoor": {
                     data+="0.9 * ";
                     break;
-                case "doubleDoor":
+                }
+                case "singleDoor": {
                     data+="0.9 * ";
                     break;
-                case "stairs":
+                }
+                case "stairs": {
+
                     data+="77 * ";
                     break;
-                default:
+                }
+                default:{
                     data+="0.9 * ";
+                }
+
             }
             JSONArray pos = (JSONArray)current.get("position");
             data += pos.getDouble(0)+","+pos.getDouble(1);

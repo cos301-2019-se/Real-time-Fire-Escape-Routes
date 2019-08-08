@@ -5,6 +5,7 @@ $(()=>{
 	{
 		$('#main-body-superuser').show();
 	}*/
+	pull_user_data();
 	$global_building_info = getInfoAboutCurrentBuilding(); // global variables
 
 	let rowForBar = $("#top-bar");

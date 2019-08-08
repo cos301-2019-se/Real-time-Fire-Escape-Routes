@@ -52,7 +52,7 @@ public class Database {
     }
     //DATABASE CODE @Kinson
     /**
-     * function is currently static and only creates table users if no table users exists
+     * function that creates a salt for the user passwords
      */
     private static byte[] getSalt() throws NoSuchAlgorithmException
     {
@@ -61,6 +61,10 @@ public class Database {
         sr.nextBytes(salt);
         return salt;
     }
+
+    /**
+     * function is currently static and only creates table users if no table users exists
+     */
     public void createTable(){
 
         try{
