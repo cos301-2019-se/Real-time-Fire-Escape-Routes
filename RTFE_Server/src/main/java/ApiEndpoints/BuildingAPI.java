@@ -74,7 +74,12 @@ public class BuildingAPI extends API {
 //                response.put("numRoutes",building.getRoutes().size());
 //                response.put("status",true);
                 return response;
-
+            }
+            case "botLocations":{
+                response = new JSONObject();
+                response.put("message", botLocations());
+                response.put("status",true);
+                return response;
             }
             case "removePerson":{
                 response = new JSONObject();
@@ -327,6 +332,22 @@ public class BuildingAPI extends API {
 //            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
         }
         return data ;
+    }
+    private static JSONArray botLocations(){
+        JSONArray response = new JSONArray();
+        try{
+            for (Person person:building.getPeople()) {
+                JSONObject current = new JSONObject();
+                current.put("id",person.getPersonID());
+                current.put("name",person.getName());
+                current.put("location", new JSONArray(person.getPosition()));
+                current.put("deviceID",person.deviceID);
+                response.put(current);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return response;
     }
     private static void unityUpdatePeopleLocation(JSONObject request){
         String peopleData = (String)request.get("peopleLocations");
