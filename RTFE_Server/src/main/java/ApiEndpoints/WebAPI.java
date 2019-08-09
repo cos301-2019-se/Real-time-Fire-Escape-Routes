@@ -42,6 +42,10 @@ public class WebAPI extends API {
             response.put("message", e.getMessage());
         }
         switch ((String)request.get("type")){
+            case "addUserToBuilding": {
+                response = addUserToBuilding((String)request.get("email"),(String)request.get("buildingName"));
+                return response;
+            }
             case "currentBuilding":
             {
                 response = new JSONObject();
@@ -139,7 +143,14 @@ public class WebAPI extends API {
 
         throw new Exception("Unsupported Request");
     }
-
+    private static JSONObject addUserToBuilding(String email, String buildingName)
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Users added to building");
+        USERDB.addUserToBuilding(email, buildingName);
+        return Response;
+    }
     /**
      * function returns all the users in a specified building
      * @param buildingName: and int used to identify the building
