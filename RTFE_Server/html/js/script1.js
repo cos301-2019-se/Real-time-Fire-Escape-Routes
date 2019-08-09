@@ -503,7 +503,7 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
 	{
 		$("#overlay-window").removeAttr("style");
 
-		$("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+		$("#overlay-window").append(`<div id="contentCard" style="background-color: white;" class="rtferCard">
   				${contentFunc(user, name, type, device)}
   			</div>`);
 	}
@@ -511,7 +511,7 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
 	{
 		$("#overlay-window").removeAttr("style");
 
-		$("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+		$("#overlay-window").append(`<div id="contentCard" style="background-color: white;" class="rtferCard">
   				${contentFunc()}
   			</div>`);
 	}
