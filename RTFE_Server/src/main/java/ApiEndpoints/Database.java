@@ -163,7 +163,7 @@ public class Database {
      * @param buildingParamName: is a string of user name
      * @param numFloors: is a string of user password
      */
-    public boolean insertBuilding(String buildingParamName, int numFloors, Date bdate, String type, String buildingLocation) {
+    public boolean insertBuilding(String buildingParamName, int numFloors, Date bdate, String buildingLocation) {
         lock.lock();
         boolean val = true;
         try
