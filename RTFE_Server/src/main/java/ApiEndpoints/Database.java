@@ -83,39 +83,28 @@ public class Database {
     }
     public boolean addUserToBuilding(String email )
     {
-//        lock.lock();
-//        String generatedPassword = null;
-//        try {
-//            byte[] bytes = md.digest(pass.getBytes());
-//            StringBuilder sb = new StringBuilder();
-//            for(int i=0; i< bytes.length ;i++)
-//            {
-//                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-//            }
-//            generatedPassword = sb.toString();
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-////            lock.unlock();
-//        }
-//        boolean val = true;
-//        try{
-//            query = con.createStatement();
-//            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
-//            //ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));
-//            query = null;
-//        }catch(Exception e){
-//            val = false;
-////            lock.unlock();
-//            System.out.println(e.getMessage());
-//        }
-//        finally{
-//
-//            lock.unlock();
-//        }
-//        return !val;
-        return false;
+        lock.lock();
+         boolean val = true;
+        try{
+            query = con.createStatement();
+            ResultSet results =  select("select * from users where email = '" + email + "'");
+            int u_id = results.getInt("id");
+            ResultSet results2 = select("select building_id, count(*) as rowcount from buildings where building_name = '" + buildingName +"'");
+            int b_id = results2.getInt("building_id");
+            query = null;
+            query = con.createStatement();
+            query.execute("update user_building set ub_user_status = 'inactive' where ub_user_id = '" + u_id + "'");
+            query.execute("insert into user_building(ub_user_id, ub_building_id, ub_user_status) values(" + u_id + ", " + b_id  +" , 'active')");
+            query = null;
+        }catch(Exception e){
+            val = false;
+            System.out.println("addUserToBuilding: " + e.getMessage());
+        }
+        finally{
+
+            lock.unlock();
+        }
+        return val;
     }
 
     /**
