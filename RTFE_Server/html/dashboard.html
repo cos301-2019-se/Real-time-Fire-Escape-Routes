@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="style2.css">
 	<!--<link rel="stylesheet" href="style.css" crossorigin="anonymous"> -->
-   <title>Real-time FER</title>
+
      <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Ubuntu" rel="stylesheet">
    <style>
    		$table-header-underliner: #6a6a6a;
@@ -44,7 +44,7 @@
 				.grid-container {
 				  display: grid;
 				  grid-template-columns: 0px 1fr;
-				  grid-template-rows: 50px 1fr;
+				  grid-template-rows: 60px 1fr;
 				  grid-template-areas:
 				    "sidenav header"
 				    "sidenav main";
@@ -65,9 +65,8 @@
 				  height: 100%;
 				}
 				.active{ background-color: #f03a01;
-					color: black;
-					height: 70%;
-					border-radius: 2px;
+					vertical-align: middle;
+					padding: 1.4% 3% 1.4% 3%;
 				}
 
 				.main {
@@ -92,18 +91,13 @@
 
 				  }
 				  .nav__list-item {
-				    /*padding: 40px 40px 13px 40px;*/
-				    width: 15%;
 				    color: white;
-				    margin-left: 40px;
 				    display: inline;
-                      font-family: "Ubuntu";
-                      font-size: 120%;
+                    font-family: "Ubuntu";
+                    padding-left: 3%;
+                    padding-right: 3%;
 				  }
 				  .nav__list-item.active{
-				    padding: 40px 40px 13px 40px;
-				    color: black;
-				    margin-left: 40px;
 				    display: inline;
 				  }
 				  .nav__list-item:hover {
@@ -267,6 +261,16 @@
 					/*.table-heading:first-child{
 						margin-left: 50%;
 					}*/
+					#navbar-logo{
+						display: inline;
+					}
+					#navbar-logo{
+						width: 10%;
+						margin-right: 3%;
+					}
+					#navbar-logo img{
+						height: 50px;
+					}
 					.searcher{
 						border-width: 0px;
 						background-color: transparent;
@@ -426,12 +430,13 @@
 <!-- 	<div id="overlay-window" class="container-fluid" style="display: none;">
   			
   	</div> -->
-  	<script type="text/javascript" src="jquery-3.4.1.js"></script>
+  	<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
   	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
     <!-- v -->
+    <script type="text/javascript" src="js/layoutBasics.js"></script>
     <script type="text/javascript" src="js/script1.js"></script>
     
   </body>
