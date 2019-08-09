@@ -98,7 +98,6 @@ public class Database {
             query = null;
         }catch(Exception e){
             val = false;
-//            lock.unlock();
             System.out.println("addUserToBuilding: " + e.getMessage());
         }
         finally{
