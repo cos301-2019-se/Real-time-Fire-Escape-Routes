@@ -125,7 +125,7 @@ public class WebAPI extends API {
             case "uploadBuilding":
             {
 //                buildingParamName, numFloors, bdate ,type, buildingLocation
-                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"),(String)request.get("type"), (String)request.get("location"), (String)request.get("file").toString(),(String)request.get("img").toString());
+                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"), (String)request.get("location"), (String)request.get("file").toString(),(String)request.get("img").toString());
                 return response;
             }
             case "validateDeviceId":
@@ -405,9 +405,9 @@ public class WebAPI extends API {
      * @return returns success or fail depending on outcome
      * */
 
-    private static  JSONObject uploadBuilding(String buildingParamName, int numFloors, Date bdate, String type, String buildingLocation, String file, String img)
+    private static  JSONObject uploadBuilding(String buildingParamName, int numFloors, Date bdate, String buildingLocation, String file, String img)
     {
-        USERDB.insertBuilding(buildingParamName, numFloors, bdate ,type, buildingLocation);
+        USERDB.insertBuilding(buildingParamName, numFloors, bdate , buildingLocation);
         File dir = new File("./html"+ "/" + "Buildings/"  +buildingParamName);
         if (!dir.exists()) {
             if (dir.mkdir()) {
