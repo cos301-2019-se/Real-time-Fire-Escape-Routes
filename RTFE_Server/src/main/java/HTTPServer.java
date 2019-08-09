@@ -280,8 +280,10 @@ public class HTTPServer extends Server{
                             response.put("status","failed");
                             response.put("message",e.getMessage());
                         }
-                        if(verbose)
-                            System.out.println("Server -> Client:"+ response.toString());
+                        if(verbose) {
+                            System.out.println("Connecton opened. (" + new Date() + ")");
+                            System.out.println("Server -> Client:" + response.toString());
+                        }
                         out.println(response.toString());
                         out.flush();
                     }
@@ -289,7 +291,9 @@ public class HTTPServer extends Server{
 
                         if (fileRequested.endsWith("/")) {
                             fileRequested += DEFAULT_FILE;
+
                         }
+                        fileRequested = fileRequested.replace("%20"," ");
                         File file = new File(WEB_ROOT, fileRequested);
                         int fileLength = (int) file.length();
                         String content = getContentType(fileRequested);

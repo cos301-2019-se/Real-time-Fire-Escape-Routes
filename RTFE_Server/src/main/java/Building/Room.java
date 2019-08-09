@@ -16,7 +16,7 @@ public class Room {
     public Vector<Fire> fires = new Vector<Fire>();
     protected Vector<Vector<Corner>> Walls=new Vector<>(); // Adjacency List Represntation
     Vector<Node> nodesInRooms = new Vector<Node>();
-    static boolean verbose = true;
+    static boolean verbose = false;
 
     // Constructor
     public Room(RoomType type) {

@@ -292,7 +292,7 @@ public class Building {
                                     Bestpath = path;
                                     bestDistance = tempD;
                                     bestRoute = r;
-                                    System.out.println("Heuristic: " + tempD);
+//                                    System.out.println("Heuristic: " + tempD);
 
                                 }
                                 else
