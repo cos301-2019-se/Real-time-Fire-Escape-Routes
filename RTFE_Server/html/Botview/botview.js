@@ -98,11 +98,13 @@ function addUserToSim(elem){
 }
 
 function addBot(botID,location,deviceID){
-    var input ="<input type=number min=0 max=100 value=floor>"+"<input type=number min=0 max=100 value=x>"+"<input type=number min=0 max=100 value=z>"
+    var input ="<input type='number' min='0' max='100' name='floor' value='0'>"
+        +"<input type='number' min='0' max='100' name='x' value='1'>"
+        +"<input type='number' min='0' max='100' name='y' value='1'>"
     var str ="";
     if(deviceID == null){
         str +=  `<tr>`
-        str +=      `<td scope ="row" data-label="Name">botID - ${botID}</td>`
+        str +=      `<td scope ="row">botID - <span data-label="Name">${botID}</span></td>`
         str +=      `<td data-label="Location"> `+input+` </td>`;
         str +=      `<td data-label="Device_ID"> - </td>`
         str+=       `<td data-label="Type"> BOT</td>`
@@ -111,7 +113,7 @@ function addBot(botID,location,deviceID){
     }
     else{
         str +=  `<tr>`
-        str +=      `<td scope ="row" data-label="Name">botID - ${botID}</td>`
+        str +=      `<td scope ="row">botID - <span data-label="Name">${botID}</span></td>`
         str +=      `<td data-label="Location"> `+input+` </td>`;
         str +=      `<td data-label="Device_ID"> ${deviceID} </td>`
         str+=       `<td data-label="Type"> Person</td>`
@@ -122,12 +124,25 @@ function addBot(botID,location,deviceID){
 }
 
 function checkBotStatus(input) {
-  var x = input.checked;
-  alert(x);
+  var parent = $(input).parent().parent();
+
+  var location = parent.children('[data-label=Location]');
+  var floor = location.children('[name=floor]').val();
+  var x = parseInt(location.children('[name=x]').val());
+  var y = parseInt(location.children('[name=y]').val());
+  var device_id = parent.children('[data-label=Device_ID]').html();
+  var bot_id = parseInt(parent.find('[data-label=Name]').html());
+  var mode = 'simulation';
+
+  if ($(input).is(':checked')){
+    docall(bot_id,[x, y], floor, mode,$(input));
+  }else{
+    remove(bot_id, mode, parent);
+  }
 }
 
-function docall(botID,location,HTMLelement){
-    $("#body").append(str);
+function docall(botID,location,floor,mode,HTMLelement){
+//    $("#body").append(str);
     $.ajax({
         url:  URL+"building",
         type: "POST",
@@ -136,7 +151,9 @@ function docall(botID,location,HTMLelement){
         data: JSON.stringify({
             type: "personUpdate",
             position: location,
-            id : botID
+            floor: floor,
+            id : botID,
+            mode: mode
         }),
         success:function(res){
             if(res.status){
@@ -147,4 +164,21 @@ function docall(botID,location,HTMLelement){
             }
         }
     }); 
+}
+
+function remove(botID,mode,html){
+    $.ajax({
+        url:  URL+"building",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            type: "removePerson",
+            id : botID,
+            mode: mode
+        }),
+        success:function(res){
+            html.remove();
+        }
+    });
 }
