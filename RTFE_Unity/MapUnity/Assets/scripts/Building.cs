@@ -344,6 +344,7 @@ public class Building : MonoBehaviour
         r.GetComponent<number>().objectNumber = personNumber;
         r.GetComponent<number>().exists = true;
         r.GetComponent<AgentController>().goTo(pl, emerge);
+        //r.layer = "scene2";
  
             r.GetComponent<AgentController>().Setcolor(g);
 

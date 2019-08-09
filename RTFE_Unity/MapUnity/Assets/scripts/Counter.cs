@@ -46,7 +46,15 @@ public class Counter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //    var currentScene = SceneManager.GetActiveScene();
+        //    var currentSceneName = currentScene.name;
+        Debug.Log("+++++++++++++++ " + gameObject.scene);
+        //if (currentSceneName == "SampleScene1")
+        //{
+        //    Debug.Log("----------------- "+ currentSceneName);
+        //    //SceneManager.LoadScene("SampleScene2", LoadSceneMode.Additive);
+        //}
+        
         runOnce = false;
     }
 
