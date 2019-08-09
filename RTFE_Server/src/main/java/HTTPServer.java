@@ -291,7 +291,9 @@ public class HTTPServer extends Server{
 
                         if (fileRequested.endsWith("/")) {
                             fileRequested += DEFAULT_FILE;
+
                         }
+                        fileRequested = fileRequested.replace("%20"," ");
                         File file = new File(WEB_ROOT, fileRequested);
                         int fileLength = (int) file.length();
                         String content = getContentType(fileRequested);
