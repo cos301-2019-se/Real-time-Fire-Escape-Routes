@@ -34,6 +34,17 @@ function fetchStatus(mac,identify)
     }); 
 }
 
+function statusIdentifier(status)
+{
+    if(status === "Offline")
+    {
+        return `Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span>`;
+    }
+    if(status === "Online")
+    {
+        return `Online <span class="online-off-indicator"><img src="icons/online.png"/></span>`;
+    }
+}
 function anotherFetch(type, html){
     $.ajax({
             url: "http://127.0.0.1:8080/database",
@@ -59,6 +70,8 @@ function echoContentTable_SuperUser()
 }
 function populateTable(data)
 {
+    console.log("populateTable: "+data);
+    // data= JSON.parse(data);
     let str = "";
     if($("#table-body-SU").length)
     {
@@ -69,7 +82,7 @@ function populateTable(data)
                 <td data-label="Device_ID">${element.deviceID}</td>
                 <td data-label="Type">${element.userType}</td>
                 <td data-label="Status" id="${element.name+element.userType}">${fetchStatus(element.deviceID,element.name+element.userType)}</td>
-                <td><button data-device="${element.deviceID}" onclick="add">Add to simulation</button></td>
+                <td><button data-device="${element.deviceID}" onclick="addUserToSim(this)">Add to simulation</button></td>
                 
             </tr>`;
 
@@ -77,27 +90,44 @@ function populateTable(data)
         return str;
     }
 }
+function addUserToSim(elem){
+    var pos = [2,2];
 
-
-function addBot(botID,location){
-    str += `<tr>
-        <td scope ="row" data-label="Name">Bot - ${botID}</td>
-        <td data-label="Email"> - </td>
-        <td data-label="Device_ID"> - </td>
-        <td data-label="Type"> BOT</td>
-        <td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)" checked/></td>
-    </tr>`;
-
-
+    var ressponse  = addBot($.now(),pos,$(elem).attr("data-device"))
+    $("#talbe-simulation").append(ressponse);
 }
 
+function addBot(botID,location,deviceID){
+    var input ="<input type=number min=0 max=100 value=floor>"+"<input type=number min=0 max=100 value=x>"+"<input type=number min=0 max=100 value=z>"
+    var str ="";
+    if(deviceID == null){
+        str +=  `<tr>`
+        str +=      `<td scope ="row" data-label="Name">botID - ${botID}</td>`
+        str +=      `<td data-label="Location"> `+input+` </td>`;
+        str +=      `<td data-label="Device_ID"> - </td>`
+        str+=       `<td data-label="Type"> BOT</td>`
+        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
+                </tr>`;
+    }
+    else{
+        str +=  `<tr>`
+        str +=      `<td scope ="row" data-label="Name">botID - ${botID}</td>`
+        str +=      `<td data-label="Location"> `+input+` </td>`;
+        str +=      `<td data-label="Device_ID"> ${deviceID} </td>`
+        str+=       `<td data-label="Type"> Person</td>`
+        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
+                </tr>`;   
+    }
+    return str;
+}
 
 function checkBotStatus(input) {
-  var x = e.checked
-  document.getElementById("demo").innerHTML = "You selected: " + x;
+  var x = input.checked;
+  alert(x);
 }
+
 function docall(botID,location,HTMLelement){
-    $("#table-body-SU").append(str);
+    $("#body").append(str);
     $.ajax({
         url:  URL+"building",
         type: "POST",
