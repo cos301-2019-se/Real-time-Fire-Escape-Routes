@@ -10,7 +10,6 @@ import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 /**
@@ -121,21 +120,36 @@ public class Database {
 
     /**
      * function returns all the users in a specific building
-     * @param building_id: an integer of the building ID
+     * @param building_name: an integer of the building ID
      * @return String of users in building with their data
      */
-    public String getUsersInBuilding(int building_id)
+    public JSONArray getUsersInBuilding(String building_name)
     {
-        ResultSet result = select("select ub_user_id from user_building where ub_building_id = " + building_id);
-        Vector<String> ret = new Vector<String>();
+        JSONArray ret = new JSONArray();
         try{
+
+            ResultSet building_id_set = select("select * from buildings where building_name = '" + building_name + "'");
+            int building_id = building_id_set.getInt("building_id");
+
+            ResultSet result = select("select * from user_building where ub_building_id = '" + building_id + "'");
             while(result.next()){
-                ret.add(String.valueOf(result.getInt("ub_user_id")));
+                int id = result.getInt("ub_user_id");
+                ResultSet nameResults = select("select * from users where id = '" + id + "'");
+                JSONObject current = new JSONObject();
+
+                current.put("email",nameResults.getString("email"));
+                current.put("name",nameResults.getString("name"));
+                current.put("userType",nameResults.getString("userType"));
+                current.put("deviceID",nameResults.getString("deviceID"));
+                ret.put(current);
+            }
+            while(result.next()){
+
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("getuib: " + e.getMessage());
         }
-        return ret.toString();
+        return ret;
     }
     /**
      * function used to return all users in users table

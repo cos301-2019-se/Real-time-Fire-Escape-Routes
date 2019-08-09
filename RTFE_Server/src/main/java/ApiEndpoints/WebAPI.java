@@ -69,7 +69,7 @@ public class WebAPI extends API {
             }
             case "getUsersInBuilding":
             {
-                response = getUsersInBuilding((int)request.get("building_id"));
+                response = getUsersInBuilding((String)request.get("buildingName"));
                 return response;
             }
             case"login":
@@ -142,15 +142,15 @@ public class WebAPI extends API {
 
     /**
      * function returns all the users in a specified building
-     * @param building_id: and int used to identify the building
+     * @param buildingName: and int used to identify the building
      * @return a JSONObject with the relevant information
      */
-    private static  JSONObject getUsersInBuilding(int building_id)
+    private static  JSONObject getUsersInBuilding(String buildingName)
     {
         JSONObject Response = new JSONObject();
         Response.put("status", true);
         Response.put("msg","Users in building returned");
-        Response.put("data", USERDB.getUsersInBuilding(building_id));
+        Response.put("data", USERDB.getUsersInBuilding(buildingName));
         return Response;
     }
 
