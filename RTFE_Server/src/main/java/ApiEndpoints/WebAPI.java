@@ -125,7 +125,7 @@ public class WebAPI extends API {
             case "uploadBuilding":
             {
 //                buildingParamName, numFloors, bdate ,type, buildingLocation
-                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"), (String)request.get("location"), (String)request.get("file").toString(),(String)request.get("img").toString());
+                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"), (String)request.get("location"), (String)request.get("data").toString(),(String)request.get("img").toString());
                 return response;
             }
             case "validateDeviceId":
