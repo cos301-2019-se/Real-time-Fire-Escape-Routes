@@ -251,14 +251,14 @@ function echoSimulationWindow()
 
 	if(img != undefined)
 	{
-		return `<div class="card1" id="SU-simulation">
+		return `<div class="card1" id="SU-simulation" style="width: 95%;">
   					${img}
   			</div>
   		</div>`;
 	}
 	else
 	{
-		return `<div class="card1" id="SU-simulation">
+		return `<div class="card1" id="SU-simulation" style="width: 95%;">
   					
   			</div>
   		</div>`;
