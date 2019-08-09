@@ -387,8 +387,17 @@ public class HTTPServer extends Server{
             Type = Type.substring(0, Type.length() - 1);
             String BuildingName = parsedData[3].split("\n")[2];
             BuildingName = BuildingName.substring(0, BuildingName.length() - 1);
+
+            String location = parsedData[5].split("\n")[2];
+            location = location.substring(0, location.length() - 1);
+
+            String numFloors = parsedData[4].split("\n")[2];
+            numFloors = numFloors.substring(0, numFloors.length() - 1);
         request.put("type",Type);
+        request.put("num_floors",Integer.parseInt(numFloors));
         request.put("name",BuildingName);
+        request.put("date",new Date(System.currentTimeMillis()));
+        request.put("location",location);
         return request;
     }
 

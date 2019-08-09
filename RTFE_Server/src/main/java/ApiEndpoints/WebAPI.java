@@ -58,7 +58,8 @@ public class WebAPI extends API {
             }
             case "getBuildings":
             {
-                response = listDir();
+//                response = listDir();
+                response = getBuildings();
                 return response;
             }
             case "getUsers":
@@ -125,7 +126,7 @@ public class WebAPI extends API {
             case "uploadBuilding":
             {
 //                buildingParamName, numFloors, bdate ,type, buildingLocation
-                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"), (String)request.get("location"), (String)request.get("data").toString(),(String)request.get("img").toString());
+                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"), (String)request.get("location"), (String)request.get("file").toString(),(String)request.get("img").toString());
                 return response;
             }
             case "validateDeviceId":
@@ -150,6 +151,20 @@ public class WebAPI extends API {
         Response.put("status", true);
         Response.put("msg","Users in building returned");
         Response.put("data", USERDB.getUsersInBuilding(building_id));
+        return Response;
+    }
+
+    /**
+     * function returns all the users registered on the system
+     * @return a JSONObject with the relevant information
+     */
+
+    private static JSONObject getBuildings()
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Buildings returned");
+        Response.put("data", USERDB.getBuildings());
         return Response;
     }
 
