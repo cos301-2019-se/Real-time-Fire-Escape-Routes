@@ -93,36 +93,37 @@ function populateTable(data)
 function addUserToSim(elem){
     var pos = [2,2];
 
-    addBot($.now(),pos,$(elem).attr("data-device"))
-    
+    var ressponse  = addBot($.now(),pos,$(elem).attr("data-device"))
+    $("#talbe-simulation").append(ressponse);
 }
 
 function addBot(botID,location,deviceID){
+    var input ="<input type=number min=0 max=100 value=floor>"+"<input type=number min=0 max=100 value=x>"+"<input type=number min=0 max=100 value=z>"
     var str ="";
     if(deviceID == null){
         str +=  `<tr>`
         str +=      `<td scope ="row" data-label="Name">botID - ${botID}</td>`
-        str +=      `<td data-label="Location"> - </td>`;
+        str +=      `<td data-label="Location"> `+input+` </td>`;
         str +=      `<td data-label="Device_ID"> - </td>`
         str+=       `<td data-label="Type"> BOT</td>`
-        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)" checked/></td>
+        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
                 </tr>`;
     }
     else{
         str +=  `<tr>`
         str +=      `<td scope ="row" data-label="Name">botID - ${botID}</td>`
-        str +=      `<td data-label="Location"> - </td>`;
+        str +=      `<td data-label="Location"> `+input+` </td>`;
         str +=      `<td data-label="Device_ID"> ${deviceID} </td>`
         str+=       `<td data-label="Type"> Person</td>`
-        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)" checked/></td>
+        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
                 </tr>`;   
     }
     return str;
 }
 
 function checkBotStatus(input) {
-  var x = e.checked
-  document.getElementById("demo").innerHTML = "You selected: " + x;
+  var x = input.checked;
+  alert(x);
 }
 
 function docall(botID,location,HTMLelement){
