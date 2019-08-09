@@ -96,6 +96,12 @@ public class BuildingAPI extends API {
                 response.put("status",true);
                 return response;
             }
+            case"getSimulationPeople":{
+                response = new JSONObject();
+                response.put("message", peopleLocationsJSON());
+                response.put("status",true);
+                return response;
+            }
             case "getNumRooms":{
                 response = getNumRooms(request);
                 return response;
@@ -322,6 +328,30 @@ public class BuildingAPI extends API {
 
                 }
             }
+//            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
+        }
+        return data ;
+    }
+
+    /**
+     * This function converts all the people data from the building into a string that is used by the simulation subsystem
+     * it contains the people's initial location, as well as the path they need to follow to evacuate the building
+     * @return a very long string formatted in a specific way
+     * */
+    private static JSONArray peopleLocationsJSON(){
+//        building.emergency = true;
+        Vector<Person> people = building.getPeople();
+        JSONArray data =new JSONArray();
+        for (int i = 0; i < people.size(); i++) {
+            Person c = people.get(i);
+            JSONObject person = new JSONObject();
+            person.put("id",c.getPersonID());
+            if(!c.deviceID.equals("")){
+                person.put("deviceID",c.deviceID);
+            }
+            person.put("floor",c.floor);
+            person.put("position",c.getPosition());
+            data.put(person);
 //            System.out.println("PersonID: "+c.getPersonID()+" goal:"+ Arrays.toString(c.getAssignedRoute().getGoal().coordinates));
         }
         return data ;

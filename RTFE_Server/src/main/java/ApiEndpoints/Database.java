@@ -8,8 +8,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 /**
@@ -69,7 +69,7 @@ public class Database {
 
         try{
             query = con.createStatement();
-            query.execute("drop table if exists buildings;");
+//            query.execute("drop table if exists buildings;");
             query.execute("create table if not exists users(id integer primary key, name varchar(250), email varchar(250), password varchar(250), userType varchar(250), deviceID integer, userDate date );");
             query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250));");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
@@ -81,61 +81,86 @@ public class Database {
         }
 
     }
-    public boolean addUserToBuilding(String email )
+    public boolean addUserToBuilding(String email , String buildingName)
     {
-//        lock.lock();
-//        String generatedPassword = null;
-//        try {
-//            byte[] bytes = md.digest(pass.getBytes());
-//            StringBuilder sb = new StringBuilder();
-//            for(int i=0; i< bytes.length ;i++)
-//            {
-//                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-//            }
-//            generatedPassword = sb.toString();
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-////            lock.unlock();
-//        }
-//        boolean val = true;
-//        try{
-//            query = con.createStatement();
-//            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
-//            //ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));
-//            query = null;
-//        }catch(Exception e){
-//            val = false;
-////            lock.unlock();
-//            System.out.println(e.getMessage());
-//        }
-//        finally{
-//
+        lock.lock();
+         boolean val = true;
+        try{
+            query = con.createStatement();
+            ResultSet results =  select("select * from users where email = '" + email + "'");
+            int u_id = results.getInt("id");
+            ResultSet results2 = select("select building_id, count(*) as rowcount from buildings where building_name = '" + buildingName +"'");
+            int b_id = results2.getInt("building_id");
+            query = null;
+            query = con.createStatement();
+            query.execute("update user_building set ub_user_status = 'inactive' where ub_user_id = '" + u_id + "'");
+            query.execute("insert into user_building(ub_user_id, ub_building_id, ub_user_status) values(" + u_id + ", " + b_id  +" , 'active')");
+            query = null;
+        }catch(Exception e){
+            val = false;
 //            lock.unlock();
-//        }
-//        return !val;
-        return false;
+            System.out.println("addUserToBuilding: " + e.getMessage());
+        }
+        finally{
+
+            lock.unlock();
+        }
+        return val;
     }
 
     /**
      * function returns all the users in a specific building
-     * @param building_id: an integer of the building ID
+     * @param building_name: an integer of the building ID
      * @return String of users in building with their data
      */
-    public String getUsersInBuilding(int building_id)
+    public JSONArray getUsersInBuilding(String building_name)
     {
-        ResultSet result = select("select ub_user_id from user_building where ub_building_id = " + building_id);
-        Vector<String> ret = new Vector<String>();
+        JSONArray ret = new JSONArray();
+        try{
+
+            ResultSet building_id_set = select("select * from buildings where building_name = '" + building_name + "'");
+            int building_id = building_id_set.getInt("building_id");
+
+            ResultSet result = select("select * from user_building where ub_building_id = '" + building_id + "'");
+            while(result.next()){
+                int id = result.getInt("ub_user_id");
+                ResultSet nameResults = select("select * from users where id = '" + id + "'");
+                JSONObject current = new JSONObject();
+
+                current.put("email",nameResults.getString("email"));
+                current.put("name",nameResults.getString("name"));
+                current.put("userType",nameResults.getString("userType"));
+                current.put("deviceID",nameResults.getString("deviceID"));
+                ret.put(current);
+            }
+            while(result.next()){
+
+            }
+        }catch (Exception e){
+            System.out.println("getuib: " + e.getMessage());
+        }
+        return ret;
+    }
+    /**
+     * function used to return all users in users table
+     */
+    public JSONArray getBuildings() {
+        ResultSet result = select("select * from buildings");
+        JSONArray ret = new JSONArray();
         try{
             while(result.next()){
-                ret.add(String.valueOf(result.getInt("ub_user_id")));
+                JSONObject current = new JSONObject();
+
+                current.put("building_name",result.getString("building_name"));
+                ret.put(current);
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return ret.toString();
+        return ret;
     }
+
+
     /**
      * function used to return all users in users table
      */
@@ -168,11 +193,16 @@ public class Database {
         boolean val = true;
         try
         {
-            query.execute("insert into buidings(building_name, num_floors, building_location) values(\'"+buildingParamName+"\'"+", " + "\'"+numFloors+"\'"+", " + "\'"+bdate+"\'"+", " + "\'"+buildingLocation+"\')");
+            query = con.createStatement();
+            query.execute("insert into buildings(building_name, num_floors,building_date, building_location) values(\'"+buildingParamName+"\'"+", " +numFloors +", " + "\'"+bdate+"\'"+", " + "\'"+buildingLocation+"\')");
 
         } catch(Exception e) {
-            System.out.println(e);
+            System.out.println("Insert building: " + e);
+            System.out.println(Arrays.toString(e.getStackTrace()));
             val = false;
+        }
+        finally {
+            lock.unlock();
         }
         return val;
         //        create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250)
@@ -206,16 +236,11 @@ public class Database {
             query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
             ResultSet results =  select("select * from users where email = '" + email + "'");
             int u_id = results.getInt("id");
-
-
-
             ResultSet results2 = select("select building_id, count(*) as rowcount from buildings where building_name = '" + buildingName +"'");
-
-//
             int b_id = results2.getInt("building_id");
-
-            System.out.println(b_id);
-            query.execute("insert into user_building(ub_user_id, ub_building_id, ub_user_status) values(" + u_id + ", " + b_id +  " + , 'active')");
+            query = null;
+            query = con.createStatement();
+            query.execute("insert into user_building(ub_user_id, ub_building_id, ub_user_status) values(" + u_id + ", " + b_id  +" , 'active')");
             query = null;
         }catch(Exception e){
             val = false;

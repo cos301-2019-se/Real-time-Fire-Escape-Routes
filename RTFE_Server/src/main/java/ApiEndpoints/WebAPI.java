@@ -42,6 +42,10 @@ public class WebAPI extends API {
             response.put("message", e.getMessage());
         }
         switch ((String)request.get("type")){
+            case "addUserToBuilding": {
+                response = addUserToBuilding((String)request.get("email"),(String)request.get("buildingName"));
+                return response;
+            }
             case "currentBuilding":
             {
                 response = new JSONObject();
@@ -58,7 +62,8 @@ public class WebAPI extends API {
             }
             case "getBuildings":
             {
-                response = listDir();
+//                response = listDir();
+                response = getBuildings();
                 return response;
             }
             case "getUsers":
@@ -68,7 +73,7 @@ public class WebAPI extends API {
             }
             case "getUsersInBuilding":
             {
-                response = getUsersInBuilding((int)request.get("building_id"));
+                response = getUsersInBuilding((String)request.get("buildingName"));
                 return response;
             }
             case"login":
@@ -138,18 +143,39 @@ public class WebAPI extends API {
 
         throw new Exception("Unsupported Request");
     }
-
+    private static JSONObject addUserToBuilding(String email, String buildingName)
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Users added to building");
+        USERDB.addUserToBuilding(email, buildingName);
+        return Response;
+    }
     /**
      * function returns all the users in a specified building
-     * @param building_id: and int used to identify the building
+     * @param buildingName: and int used to identify the building
      * @return a JSONObject with the relevant information
      */
-    private static  JSONObject getUsersInBuilding(int building_id)
+    private static  JSONObject getUsersInBuilding(String buildingName)
     {
         JSONObject Response = new JSONObject();
         Response.put("status", true);
         Response.put("msg","Users in building returned");
-        Response.put("data", USERDB.getUsersInBuilding(building_id));
+        Response.put("data", USERDB.getUsersInBuilding(buildingName));
+        return Response;
+    }
+
+    /**
+     * function returns all the users registered on the system
+     * @return a JSONObject with the relevant information
+     */
+
+    private static JSONObject getBuildings()
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Buildings returned");
+        Response.put("data", USERDB.getBuildings());
         return Response;
     }
 
