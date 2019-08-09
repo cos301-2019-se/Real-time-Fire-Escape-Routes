@@ -1,11 +1,7 @@
 var dbUsers = null;
 
 $(()=>{
-	/*if($("#top-stat").attr("data-stat") ==="superUser")
-	{
-		$('#main-body-superuser').show();
-	}*/
-	pull_user_data();
+	
 	$global_building_info = getInfoAboutCurrentBuilding(); // global variables
 
 	let rowForBar = $("#top-bar");
@@ -23,20 +19,6 @@ $(()=>{
 			.append(echoBotCreator())	
 			.append(echoFireEditor())
 		)
-
-	$("#toggler").on("click", ()=>{
-		console.log($("#toggler").attr("aria-expanded"));
-
-		if($("#toggler").attr("aria-expanded") === "true")
-		{
-			$("#toggler").attr("style", "margin-top: 2px;");
-		}
-		else
-		{
-			$("#toggler").attr("style", "margin-top: 100px;");
-		}
-
-	})
 
 	/*$("form div div button").on("click", (e)=>{
 		e.preventDefault();
@@ -121,11 +103,9 @@ function echoTopBar()
 function echoTopBar2()
 {
 	return `<nav class="navbar navbar-expand-lg navbar-light" id="nav2">
-				  <a class="navbar-brand header__name" href="#"><img class="" style="width: 220px;" src="img/fireG.png">
+				  <!--<a class="navbar-brand header__name" href="#"><img class="" style="width: 220px; padding-top: 8px;" src="img/fireG.png">
 	  					</a>
-				  <button class="navbar-toggler" style="" id="toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				    <span class="navbar-toggler-icon"></span>
-				  </button>
+				 
 
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav mr-auto nav__list" id="admin-super-choice">
@@ -133,7 +113,7 @@ function echoTopBar2()
 						    <li id="admin-view" class="nav__list-item">Admin view</li>
 					  	</ul>
 				     
-				  </div>
+				  </div>-->
 				</nav>
   					`;
 
@@ -209,7 +189,7 @@ function echoContentTable_SuperUser()
 		return `			
 	  				<div class="card1" id="inner-table-card" style="display: block;">
 	  					
-	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 65%;">
+	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 50%;">
 	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
      						<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
      						</span>
@@ -238,7 +218,7 @@ function echoContentTable_SuperUser()
 	  				<div class="card1" id="inner-table-card" style="display: block;">
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
-	  					<span class="search-span" style="text-align: right; margin-left: 65%;">
+	  					<span class="search-span" style="text-align: right; margin-left: 50%;">
 	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
      						<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
      						</span>
@@ -271,14 +251,14 @@ function echoSimulationWindow()
 
 	if(img != undefined)
 	{
-		return `<div class="card1" id="SU-simulation">
+		return `<div class="card1" id="SU-simulation" style="width: 95%;">
   					${img}
   			</div>
   		</div>`;
 	}
 	else
 	{
-		return `<div class="card1" id="SU-simulation">
+		return `<div class="card1" id="SU-simulation" style="width: 95%;">
   					
   			</div>
   		</div>`;
@@ -287,19 +267,12 @@ function echoSimulationWindow()
 
 function echoBotCreator()
 {
-	return `<div id="add-bot-window" class="card1">
-  					<button class="btn" id="btn-add-fire" style="margin: 0; padding: 0; display: inline; width: 100%;" ><span style="margin-bottom: 2%;">Add bot</span>
-  					<span class="arrow-span" style="margin-bottom: 0.5%;"><img class="icons_small" src="icons/baseline_add_black_48dp.png"></span></button>
-  				</div>`;
+	return `<button class="btn" id="btn-add-bot">Add bot</button>`;
 }
 //onclick="displayOverlayWindow(${fireWindow})"
 function echoFireEditor()
 {
-	return `<div id="add-fire-window" class="card1" onclick="displayOverlayWindow(${fireWindow})">
-  					<button  class="btn" id="btn-add-fire" style="margin: 0; padding: 0; display: inline; width: 100%;">
-  						<span style="margin-bottom: 2%;">Add fire</span>
-  						<span class="arrow-span" style="margin-bottom: 0.5%;"><img class="icons_small" src="icons/baseline_add_black_48dp.png"></span></button>
-  				</div>`;
+	return `<button onclick="displayOverlayWindow(${fireWindow})" class="btn" id="btn-add-fire">Add fire</button>`;
 }
 
 
@@ -383,7 +356,7 @@ function echoAdminTableView()
   							<img style=" width: 10px;" id="img-drop"  src="icons/baseline_add_black_48dp.png"> Add user 
   						</button>
 
-  						<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding, null, null, null)">
+  						<button style="width:85%" class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding, null, null, null)">
   							<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
   						</button>
   					
@@ -530,7 +503,7 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
 	{
 		$("#overlay-window").removeAttr("style");
 
-		$("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+		$("#overlay-window").append(`<div id="contentCard" style="background-color: white;" class="rtferCard">
   				${contentFunc(user, name, type, device)}
   			</div>`);
 	}
@@ -538,7 +511,7 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
 	{
 		$("#overlay-window").removeAttr("style");
 
-		$("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+		$("#overlay-window").append(`<div id="contentCard" style="background-color: white;" class="rtferCard">
   				${contentFunc()}
   			</div>`);
 	}

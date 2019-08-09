@@ -1,28 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript" src="js/buildingSelection.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-       <!-- <link rel="stylesheet" href="css/bootstrap.css">  -->
-       <!-- <link rel="stylesheet" href="css/bootstrap.min.css">  -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Ubuntu" rel="stylesheet">
     <style>
-
-        /*The styles for the login part*/
         body {
             margin: 0;
+
         }
+
 
 
         #container {
@@ -44,7 +30,7 @@
 
         #sponsor {
             position: absolute;
-            width: 100% !important;
+            width: 75% !important;
             height: 38px;
             bottom: 22px;
             left: 0; 
@@ -103,15 +89,17 @@
 
         #dashboard {
             display: none;
+            overflow: hidden;
         }
+        #result{width: 100%;}
 
         #menu {
             width: 40px !important;
-            height: 40px;
-            background: #f03a01;
+            height: 50px;
+            background: transparent;
             position: fixed;
-            top: 10px;
-            right: 10px;     
+            top: 0px;
+            right: 0px;     
             transition: all 200ms linear;
         }
 
@@ -139,6 +127,7 @@
         #footer {
             position: absolute;
             height: 38px;
+            z-index: 2;
             background: white;
             bottom: 0;
             right: 0; 
@@ -153,396 +142,7 @@
             width: 100%;
             color: #797979;
         }
-
-        /*end for the styles of the login part*/
     </style>
-
-    <!--this style belongs to index page-->
-    <style type="text/css">
-        $table-header-underliner: #6a6a6a;
-        $background-body: #888888;
-        $header-footer: #fc9575;
-        $heading-colors: #000000;
-
-        /*OVERALL LAYOUT*/
-        *{margin: 0;
-            font-family: "Fjalla";}
-
-            button{ border-color: lightgrey;
-                    border-radius: 3px;
-                    padding: 5px;
-                    font-family: "Ubuntu";
-                     }
-
-                a{font-family: "Ubuntu";}
-        /* Simple dashboard grid CSS */
-
-                /* Assign grid instructions to our parent grid container */
-                body{background-color: $background-body;
-                    width: fit-content; margin: 0;}
-                .container-fluid{margin: 0;
-                    padding: 0;}
-                .grid-container {
-                  display: grid;
-                  grid-template-columns: 0px 1fr;
-                  grid-template-rows: 50px 1fr 50px;
-                  grid-template-areas:
-                    "sidenav header"
-                    "sidenav main"
-                    "sidenav footer";
-                  height: 100vh;
-                }
-
-                .icons{width: 30px;}
-                .icons_small{width: 10px;}
-                #navbarSupportedContent{
-                    background-color:#fc9575;
- 
-                }
-
-                /* Give every child element its grid name */
-                .header {
-                  grid-area: header;
-                  background-color: $header-footer;
-                  height: 100%;
-                }
-                .active{ background-color: rgba(255, 255, 255, 0.2);
-                    color: #ddd;
-                    height: 70%;
-                    border-radius: 4px;
-                }
-
-                .main {
-                  grid-area: main;
-                  background-color: #dfdfdf;
-                }
-
-                .footer {
-                  grid-area: footer;
-                  background-color: $header-footer;
-                }
-
-                  .header, .footer {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding: 0 16px;
-                    background-color: #fc9575;
-                  }
-                  .heading{color: #6a6a6a;
-                   font-family: "Ubuntu";}
-                  .nav__list {
-                    padding: 0;
-                    list-style-type: none;
-
-                  }
-                  .nav__list-item {
-                    padding: 13px 40px 13px 40px;
-                    color: #6a6a6a;
-                    margin-left: 40px;
-                    display: inline;
-                  }
-                  .nav__list-item:hover {
-                    background-color: rgba(255, 255, 255, 0.2);
-                    box-shadow:20px 20px 50px 10px #ff7775 inset;
-                    border-radius: 8px; 
-                    cursor: pointer;
-
-                  }
-                  .header__avatar{color: white;}
-                   .main-overview {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); /* Where the magic happens */
-                    grid-auto-rows: 94px;
-                    grid-gap: 20px;
-                    margin: 20px;
-                  }
-
-                  #top-bar{             padding: 0;}
-                  
-                   .main-cards, .dependant-card{
-                        column-count: 1;
-                        column-gap: 20px;
-                        margin: 20px;
-                        margin-bottom: 0;
-                        height: 100%;
-                      }
-
-                      @media only screen and (min-width: 1216px) {
-                        .main-cards{column-count: 2;} 
-                        }
-                      
-                      .card1 {
-                        display: flex;
-                        /*flex-direction: column;*/
-                        /*align-items: center;*/
-                        width: 100%;
-                        border-radius: 8px;
-                        border-style: solid;
-                        background-color: white;
-                        border-width: 1px;
-                        border-color: #707070;
-                        box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);
-                        margin-bottom: 24px;
-                        -webkit-column-break-inside: avoid;
-                        padding: 20px;
-                        box-sizing: border-box;
-                      }
-                      /* Force varying heights to simulate dynamic content */
-                      #building-card{
-                        height: fit-content;
-                      }
-
-                      #inner-table-card{
-                        height: fit-content;
-                        
-
-
-                      }
-                      #SU-simulation{
-                        
-                        margin-left: 0;
-                        height: 485px;
-                      
-                      }
-                      #add-bot-window{
-                        padding-top: 0.5%;
-                        height: fit-content;
-                        padding-bottom: 0.5%;
-                      }
-                      #add-fire-window{
-                        padding-top: 0.5%;
-                        height: fit-content;
-                        padding-bottom: 0.5%;
-                        margin-bottom: 10px;
-                      }
-                    .online-off-indicator img{
-
-
-                                border-color: grey;
-                                border-style: solid;
-                                border-width: 1px;
-                                border-radius: 50%;
-                            }
-                            .online-off-indicator img{
-                                width: 10px;
-                                
-                            }
-
-                    .img-edit{border-radius: 50%;
-                        width: 30px;
-                        padding: 1%;
-                        margin-left: 1%;
-                        border-width: 1px;
-                        border-color: grey;
-                    }
-
-                    button.img-edit img{width: 20px;}
-
-                      /*TABLE*/
-                      table {
-                      border: 1px solid #ccc;
-                      border-collapse: collapse;
-                      margin: 0;
-                      padding: 0;
-                      table-layout: fixed;
-                      width: 100%;
-                    }
-
-                    table tr {
-                      background-color: #f8f8f8;
-                      border: 1px solid #ddd;
-                      padding: .35em;
-                    }
-
-                    table th,
-                    table td {
-                      padding: .625em;
-                      text-align: center;
-                      word-wrap: break-word;
-                    }
-
-                    @media screen and (max-width: 600px) {
-                      table thead {
-                        border: none;
-                        clip: rect(0 0 0 0);
-                        height: 1px;
-                        margin: -1px;
-                        overflow: hidden;
-                        padding: 0;
-                        position: absolute;
-                        width: 1px;
-                      }
-                      
-                      table tr {
-                        border-bottom: 3px solid #ddd;
-                        display: block;
-                      }
-                      
-                      table td {
-                        border-bottom: 1px solid #ddd;
-                        display: block;
-                        text-align: right;
-                      }
-                      
-                      table td::before {
-                        content: attr(data-label);
-                        float: left;
-                      }
-                    }
-                    
-                    .table-heading{
-                        width: 100%;
-                        padding-bottom: 2%;
-                    }
-                    .search-span{
-                        margin-left: 60%;
-                    }
-                    /*.table-heading:first-child{
-                        margin-left: 50%;
-                    }*/
-                    .searcher{
-                        border-width: 0px;
-                        background-color: transparent;
-                        border-bottom-style: solid;
-                        border-bottom-width: 2px;
-                        border-bottom-color: $table-header-underliner;
-                    }
-
-                        /*OVERLAY Window*/
-                        #overlay-window{
-                            position: fixed;
-                            background-color: rgba(0,0,0, 0.7);
-                             z-index: 1; /* Sit on top */
-                            left: 0;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            margin: 0;
-                            padding: 0;
-                            z-index: 10;
-                            overflow: auto; /* Enable scroll if needed */
-                        }
-
-                        #contentCard{
-                            width: 60%;
-                            margin: 2%;
-                            margin-left: 20%;
-                            height: 80%;
-                        }
-
-                        #contentCard .button-line{
-                            position: absolute;
-                            right: 25%;
-                            bottom: 20%;
-                        }
-
-                        .card-content{
-                            margin-top: 7%;
-                        }
-
-                        .rtferCard{
-                            border-radius: 8px;
-                            border-style: solid;
-                            border-width: 1px;
-                            border-color: #707070;
-                            padding: 2%;
-                            box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);
-                        }
-
-        /*some arrow margin regulation*/
-
-        @media only screen and (min-width: 298px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 300px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 350px) {
-        .arrow-span{margin-left: 87%;} 
-        }
-
-        @media only screen and (min-width: 400px) {
-        .arrow-span{margin-left: 87%;} 
-        }
-
-        @media only screen and (min-width: 450px) {
-        .arrow-span{margin-left: 87%;} 
-        }
-
-        @media only screen and (min-width: 500px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 550px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 600px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 630px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 650px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-
-        @media only screen and (min-width: 768px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 800px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 850px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 900px) {
-        .arrow-span{margin-left: 87%;} 
-        } 
-
-        @media only screen and (min-width: 950px) {
-        .arrow-span{margin-left: 87%;}
-         
-        } 
-
-    
-        @media only screen and (min-width: 1000px) {
-        .arrow-span{margin-left: 87%;} 
-        }
-
-        @media only screen and (min-width: 1100px) {
-        .arrow-span{margin-left: 87%;} 
-        }
-
-        @media only screen and (min-width: 1146px) {
-        .arrow-span{margin-left: 87%;} 
-        }
-
-        @media only screen and (min-width: 1250px) {
-        .arrow-span{margin-left: 87%;} 
-        }
-
-        @media only screen and (min-width: 1500px) {
-        .arrow-span{margin-left: 89%;} 
-        }
-
-
-
-        #fire-head{text-align: center;}
-
-        #nav2{width: 100%;}
-    </style>
-    
-   
 </head>
 <body>
     <div id='container'>
@@ -561,16 +161,26 @@
                 </div>
                 <input type="text" id="username" class="login-input" placeholder="Email">
                 <input type="text" id="password" class="login-input" placeholder="Password">
-                <div id="login" class="btn realTimeButs">Log in</div>
+                <div id="login" class="btn">Log in</div>
             </div>
         </div>
         <div id="dashboard">
             <div id="result"></div>
-          
-            
-        </div>
-        <div id="overlay-window" class="container-fluid" style="display: none;">
-            
+            <div>
+                <div id="menu">
+                    <img id="menu-icon" src="icons/menu.png" style="width: 27px; margin: 7px">
+                    <img id="cross-icon" src="icons/cross.png" style="width: 30px; margin: 6px; display: none">
+                    <div style="position: relative">
+                        <div id="menu-drop" style="width: 135px; position: absolute; right: 0;">
+                            <span id="menu-user" style="display: block; font-family: 'Ubuntu'; padding: 6px 10px;">user</span>
+                            <span id="menu-dash" class="menu-item">Dashboard</span>
+                            <span id="menu-get" class="menu-item">get user</span>
+                            <span id="menu-set" class="menu-item">set user</span>
+                            <span id="out" class="menu-item">logout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="footer" style='width: 50%'>
             <span>About</span>
@@ -578,12 +188,60 @@
             <span>Help</span>
         </div>
     </div>
+        <div id="overlay-window" class="container-fluid" style="display: none;">
+            
+    </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-<!-- <script>
+<script>
     username = '';
 
-//need?
+    $('#login').on('click', function(){
+        $.ajax({
+            url: "http://127.0.0.1:8080/database",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                type: 'login',
+                name: $('#username').val(),
+                pass: $('#password').val()
+            }),
+            success: function(data){
+                if (data.status){
+                    username = $('#username').val();
+
+                    $('#login-form').fadeOut('fast', function(){
+                        $('#background').hide('slide', {direction: 'left'}, 500, function(){
+                            $('#login-page').fadeOut('fast', function(){
+                                $('#footer').css('width', '100%');
+                                $('#dashboard').fadeIn('fast');
+                                $('#menu-user').text(username);
+                                dashboard($('#result').load("dashboard.html"))
+                            });
+                        });
+                    })
+                }else{
+                    notify('Error: Email or Password is incorrect!', 'red');
+                }
+            }
+        })
+
+    })
+
+    $('#out').on('click', function(){
+        $('#dashboard').fadeOut('fast', function(){
+            $('#footer').css('width', '50%');
+            $('#login-page').fadeIn(function(){
+                $('#background').show('slide', {direction: 'left'}, 500, function(){
+                   $('#username').val('');
+                   $('#password').val('');
+                   $('#login-form').show();
+                })
+            })
+        })
+    })
+
     $('#menu').on('click', function(){
         if ($('#menu-icon').css('display') == 'none'){
             $('#menu-icon').show();
@@ -608,7 +266,37 @@
         register($('#result'))
     })
 
-    
+    function notify(msg, color){
+        $('body').append($('<div></div>')
+            .css({
+                'position' : 'fixed',
+                'margin' : '0 auto',
+                'top' : '-50px',
+                'left' : '0',
+                'right' : '0',
+                'text-align' : 'center',
+            })
+            .append($('<span></span>')
+                .css({
+                    'font-family' : 'Ubuntu',
+                    'padding' : '10px 20px',
+                    'background-color' : color,
+                    'color' : 'white',
+                    'border-radius' : '7px',
+                    'box-shadow' : '0px 2px 3px 1px rgba(0,0,0,0.27)'
+                })
+                .text(msg)
+            )
+            .animate({
+                top: "+=80px"
+            }).delay(2000).animate({
+                top: "-=80px"
+            }, function(){
+                $(this).remove();
+            })
+        )
+    }
+
     function dashboard(elem){
         elem.html('');
         elem.append($('<div></div>')
@@ -692,27 +380,7 @@
             ).fadeIn()
         )
     }
-</script> -->
-        <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-
-        <!--Local Scripts-->
-        <script type="text/javascript" src="js/notifier.js"></script>
-        <script type="text/javascript" src="js/tablesManipulator.js"></script>
-        <script type="text/javascript" src="js/adminServerCommunicator.js"></script>
-        <script type="text/javascript" src="js/suServerCommunicator.js"></script>
-        <script type="text/javascript" src="js/aboutBuildingServerCommunicators.js"></script>
-        <script type="text/javascript" src="js/register.js"></script>
-        <script type="text/javascript" src="js/people.js"></script>
-        <script type="text/javascript" src="js/buildingSelection.js"></script>
-        <script type="text/javascript" src="js/layoutBasics.js"></script>
-        <script type="text/javascript" src="js/layoutSU.js"></script>
-        <script type="text/javascript" src="js/layoutAdmin.js"></script>
-        <script type="text/javascript" src="js/loginFunctions.js"></script>
-        <script type="text/javascript" src="js/loginLink.js"></script>
-        <script type="text/javascript" src="js/createSUPage.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+</script>
 </body>
 </html>
 
