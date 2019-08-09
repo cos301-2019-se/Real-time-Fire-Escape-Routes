@@ -3,6 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class DatabaseTest {
+    public TestFunctions testFunctions = new TestFunctions();
     @Test
     public void DatabaseCreation()
     {
