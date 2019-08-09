@@ -7,7 +7,7 @@ $(()=>{
 	let rowForBar = $("#top-bar");
 	//fetchFromDb("getUsers");
 	setInterval(function(){ anotherFetch('getUsers', '#table-body-SU'); }, 5000);
-	rowForBar.append(echoTopBar2);
+	rowForBar.append(echoTopBar2).fadeIn();
 	let main1 =  $(".main");
 	main1.append(`<div class="main-cards">`);
 	$(".main-cards").append($('<div></div>')
@@ -24,10 +24,10 @@ $(()=>{
 		e.preventDefault();
 	});*/
 
-	if($("#admin-super-choice").length)
+	if($("#su-view-life").length)
 	{
-		$('#super-user-view').on('click', ()=>{
-			console.log($("#super-user-view").hasClass("active"));
+		$('#su-view-life').on('click', ()=>{
+			console.log($("#su-view-life").hasClass("active"));
 			if($(this).hasClass("active"))
 			{
 				console.log("1");
@@ -35,19 +35,21 @@ $(()=>{
 			}
 			else
 			{
-				$('#admin-view').removeClass("active");
-				$("#super-user-view").addClass('active');
-				main1.empty();
-				main1.append(`<div class="main-cards">`);
-					$(".main-cards").append($('<div></div>')
-							.append(echoBuildingCard())
-							.append(echoContentTable_SuperUser())
-						)
-						.append($('<div></div>')
-							.append(echoSimulationWindow())
-							.append(echoBotCreator())	
-							.append(echoFireEditor())
-						)
+				if($('#admin-view').hasClass("active"))
+				{
+					$('#admin-view').removeClass("active");
+				}
+				
+				if($('#su-view-simulation').hasClass("active"))
+				{
+					$('#su-view-simulation').removeClass("active");
+				}
+
+				$("#su-view-life").addClass('active');
+				$('.main-cards').remove();
+				$('.main').empty();
+				load_SU_LifeView();
+
 				
 				
 			}
@@ -63,17 +65,50 @@ $(()=>{
 			}
 			else
 			{
-				$('#super-user-view').removeClass("active");
+				if($('#su-view-life').hasClass("active"))
+				{
+					$('#su-view-life').removeClass("active");
+				}
+				
+				if($('#su-view-simulation').hasClass("active"))
+				{
+					$('#su-view-simulation').removeClass("active");
+				}
+				
 				$('#admin-view').addClass('active');
-				main1.empty();
-				main1.append(`<div class="dependant-card" id="dep"></div>`);
-				$("#dep").append(echoBuildingCard());
-				$("#dep").append(echoAdminTableView());
+				$('.main-cards').remove();
+				$('.main').load(""); // the actual pages will be loaded
 			}
 
 
 		}); // done on click func
 	}
+
+	$("#su-view-simulation").on("click", function(){
+		if($(this).hasClass("active"))
+			{
+				console.log("2");
+
+			}
+			else
+			{
+				if($('#su-view-life').hasClass("active"))
+				{
+					$('#su-view-life').removeClass("active");
+				}
+				
+				if($('#admin-view').hasClass("active"))
+				{
+					$('#admin-view').removeClass("active");
+				}
+				
+				$("#su-view-simulation").addClass("active");
+				$('.main-cards').remove();
+				$('.main').load(""); // the actual things will be loadeds
+			}
+		
+		
+	});
 	
 	var button = '<select id="building-change" style="margin-left:50px;max-height:40px" class="btn btn-default btn-sm"><span style="margin-right:3px" class="glyphicon glyphicon-arrow-down"></span>Change</select>'
 	$("#building-card").append(button);
@@ -102,12 +137,14 @@ function echoTopBar()
 
 function echoTopBar2()
 {
-	return `<nav class="navbar navbar-expand-lg navbar-light" id="nav2">
-				  <!--<a class="navbar-brand header__name" href="#"><img class="" style="width: 220px; padding-top: 8px;" src="img/fireG.png">
-	  					</a>
-				 
+	return `<nav class="navbar navbar-expand-lg navbar-light" id="nav2" style="margin-bottom: 0;">
+	  					<div id="navbar-logo" href="#"><img src="img/fireG.png" alt="logo"/>
+	  					</div>
+						  <div class="active nav__list-item" id="su-view-life" href="#">Life</div>
+						  <div class="nav__list-item" id="su-view-simulation" href="#">Simulation</div>
+						 <div class="nav__list-item" id="admin-view" href="#" >Administration</div>
 
-				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				  <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav mr-auto nav__list" id="admin-super-choice">
 						    <li  id="super-user-view" class="active nav__list-item">Super-user view</li>
 						    <li id="admin-view" class="nav__list-item">Admin view</li>
