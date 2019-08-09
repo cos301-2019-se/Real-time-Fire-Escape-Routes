@@ -69,9 +69,9 @@ public class Database {
 
         try{
             query = con.createStatement();
-//            query.execute("drop table if exists apiKeys;");
+            query.execute("drop table if exists buildings;");
             query.execute("create table if not exists users(id integer primary key, name varchar(250), email varchar(250), password varchar(250), userType varchar(250), deviceID integer, userDate date );");
-            query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250), building_data longtext);");
+            query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250));");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
             query.execute("create table if not exists apiKeys(key_id integer primary key, apikey varchar(250), date_created date, date_expire date, authorizationLevel integer);");
 
@@ -158,7 +158,25 @@ public class Database {
         }
         return ret;
     }
+    /**
+     * function can be used to insert new users to the users table
+     * @param buildingParamName: is a string of user name
+     * @param numFloors: is a string of user password
+     */
+    public boolean insertBuilding(String buildingParamName, int numFloors, Date bdate, String buildingLocation) {
+        lock.lock();
+        boolean val = true;
+        try
+        {
+            query.execute("insert into buidings(building_name, num_floors, building_location) values(\'"+buildingParamName+"\'"+", " + "\'"+numFloors+"\'"+", " + "\'"+bdate+"\'"+", " + "\'"+buildingLocation+"\')");
 
+        } catch(Exception e) {
+            System.out.println(e);
+            val = false;
+        }
+        return val;
+        //        create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250)
+    }
 
     /**
      * function can be used to insert new users to the users table
@@ -186,16 +204,23 @@ public class Database {
         try{
             query = con.createStatement();
             query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
-            ResultSet userIDSelect =  select("select id from users where email =" + email);
-            ResultSet buildingIDResult = select("select building_id from buildings where building_name =" + buildingName);
-            int u_id = userIDSelect.getInt("id");
-            int b_id = buildingIDResult.getInt("building_id");
+            ResultSet results =  select("select * from users where email = '" + email + "'");
+            int u_id = results.getInt("id");
+
+
+
+            ResultSet results2 = select("select building_id, count(*) as rowcount from buildings where building_name = '" + buildingName +"'");
+
+//
+            int b_id = results2.getInt("building_id");
+
+            System.out.println(b_id);
             query.execute("insert into user_building(ub_user_id, ub_building_id, ub_user_status) values(" + u_id + ", " + b_id +  " + , 'active')");
             query = null;
         }catch(Exception e){
             val = false;
 //            lock.unlock();
-            System.out.println(e.getMessage());
+            System.out.println("Register: " + e.getMessage());
         }
         finally{
 

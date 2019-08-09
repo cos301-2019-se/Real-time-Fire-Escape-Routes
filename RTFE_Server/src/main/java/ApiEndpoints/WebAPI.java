@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * WebAPI class is used by the '/database' endpoint in the HTTPServer
@@ -123,7 +124,8 @@ public class WebAPI extends API {
             }
             case "uploadBuilding":
             {
-                response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString(),(String)request.get("img").toString());
+//                buildingParamName, numFloors, bdate ,type, buildingLocation
+                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"), (String)request.get("location"), (String)request.get("file").toString(),(String)request.get("img").toString());
                 return response;
             }
             case "validateDeviceId":
@@ -398,14 +400,15 @@ public class WebAPI extends API {
     
     /**
      * This function is used to upload buildings to the server's file system
-     * @param name: The name of the building being uploaded
+     * @param buildingParamName: The name of the building being uploaded
      * @param file: A JSON file that contains all the building data
      * @return returns success or fail depending on outcome
      * */
 
-    private static  JSONObject uploadBuilding(String name, String file,String img)
+    private static  JSONObject uploadBuilding(String buildingParamName, int numFloors, Date bdate, String buildingLocation, String file, String img)
     {
-        File dir = new File("./html"+ "/" + "Buildings/"  +name);
+        USERDB.insertBuilding(buildingParamName, numFloors, bdate , buildingLocation);
+        File dir = new File("./html"+ "/" + "Buildings/"  +buildingParamName);
         if (!dir.exists()) {
             if (dir.mkdir()) {
                 System.out.println("Directory is created!");
@@ -413,9 +416,9 @@ public class WebAPI extends API {
                 System.out.println("Failed to create directory!");
             }
         }
-        String absoluteFilePath =  "./html"+ "/" + "Buildings/"  +name +"/" + "data" + ".json";
+        String absoluteFilePath =  "./html"+ "/" + "Buildings/"  +buildingParamName +"/" + "data" + ".json";
         File f = new File(absoluteFilePath);
-        String absoluteFilePath2 =  "./html"+ "/" + "Buildings/"  +name +"/" + "building" + ".jpeg";
+        String absoluteFilePath2 =  "./html"+ "/" + "Buildings/"  +buildingParamName +"/" + "building" + ".jpeg";
         File image = new File(absoluteFilePath2);
         FileOutputStream fop = null;
 
