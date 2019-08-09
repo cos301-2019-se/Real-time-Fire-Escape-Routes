@@ -5,6 +5,7 @@ using System;
 
 public class Floor : MonoBehaviour
 {
+    public double offset;
     public List<GameObject> rooms;
     public float[][] doors;
     public int floorNumber;

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
+
 public class routes
 {
     public int numRoutes;
@@ -35,10 +36,11 @@ public class Counter : MonoBehaviour
     public int alarm = -1;
     public bool once = true;
     public bool emergency = false;
+    public float offset;
 
 
-    //private string ip = "http://127.0.0.1:8080/";
-    private string ip = "http://192.168.137.1:8080/";
+    private string ip = "http://127.0.0.1:8080/";
+    //private string ip = "http://192.168.137.1:8080/";
     //private string ip = "http://192.168.43.237:8080/";
     // private string ip = "https://6c53bafd-db31-4e2e-aac4-49c2a447c8ad.mock.pstmn.io/";
 
@@ -46,21 +48,26 @@ public class Counter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //    var currentScene = SceneManager.GetActiveScene();
-        //    var currentSceneName = currentScene.name;
-        Debug.Log("+++++++++++++++ " + gameObject.scene);
-        //if (currentSceneName == "SampleScene1")
-        //{
-        //    Debug.Log("----------------- "+ currentSceneName);
-        //    //SceneManager.LoadScene("SampleScene2", LoadSceneMode.Additive);
-        //}
-        
+        Debug.Log("+++++++++++++++ " + SceneManager.GetActiveScene().name);
+       
         runOnce = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (SceneManager.GetActiveScene().name == "SampleScene1")
+            {
+                SceneManager.LoadSceneAsync("SampleScene2");
+            }
+            if (SceneManager.GetActiveScene().name == "SampleScene2")
+            {
+                SceneManager.LoadSceneAsync("SampleScene1");
+            }
+        }
+
         if (!runOnce)//calls data from server to get how building must look only calls server again once building is built
         {
             if (isSimulation)
@@ -148,7 +155,7 @@ public class Counter : MonoBehaviour
                 float yfloor = float.Parse(x3[0], System.Globalization.CultureInfo.InvariantCulture);
                 float xpos = float.Parse(x3[1], System.Globalization.CultureInfo.InvariantCulture);
                 float zpos = float.Parse(x3[2], System.Globalization.CultureInfo.InvariantCulture);
-                person.routeList.Add(new Vector3(xpos, (yfloor * 3f) + 1.5f, zpos));
+                person.routeList.Add(new Vector3(xpos, (yfloor * 3f) + 1.5f, zpos+(offset*1000.0f)));
                // person.routeList.Add(new Vector3(xpos, yfloor , zpos));
             }
 

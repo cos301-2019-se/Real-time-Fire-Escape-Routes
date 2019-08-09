@@ -5,16 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public bool switchscene = false;
     // Start is called before the first frame update
     void Start()
     {
-        SceneManager.LoadScene("SampleScene1", LoadSceneMode.Additive);
-        SceneManager.LoadScene("SampleScene2", LoadSceneMode.Additive);
+       
     }
 
         // Update is called once per frame
         void Update()
     {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
         
+ 
+
+                SceneManager.LoadSceneAsync("SampleScene2");
+           
+          
+        }
     }
 }

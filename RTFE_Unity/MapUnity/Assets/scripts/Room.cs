@@ -6,6 +6,7 @@ using System;
 
 public class Room : MonoBehaviour
 {
+    public double offset;
     public bool show= true;
     List<GameObject> roomParts;
     public NavMeshSurface s;

@@ -18,6 +18,7 @@ public class buildingString
 
 public class Building : MonoBehaviour
 {
+    public double offset;
     private string doors;
     private string msg;
     private string rooms;
@@ -100,7 +101,7 @@ public class Building : MonoBehaviour
         people = s.people;
         status = s.status;
         stairs = s.stairs;
-    //Debug.Log("adding data to building");
+        //Debug.Log("adding data to building");
     }
 
     public float Distance(float x1, float y1, float x2, float y2)//simple distance between 2 points
@@ -217,6 +218,7 @@ public class Building : MonoBehaviour
             for (int i = 0; i < numberFloors; i++)
             {
                 Floor floorPtr = gameObject.AddComponent(typeof(Floor)) as Floor;
+                floorPtr.GetComponent<Floor>().offset = offset;
                 floorPtr.addAllDoors(doorsArr);//adding all doors into each floor
                 floorPtr.floorNumber = i;
                 floorList.Add(floorPtr);
@@ -344,9 +346,10 @@ public class Building : MonoBehaviour
         r.GetComponent<number>().objectNumber = personNumber;
         r.GetComponent<number>().exists = true;
         r.GetComponent<AgentController>().goTo(pl, emerge);
+        r.GetComponent<AgentController>().offset = offset;
         //r.layer = "scene2";
- 
-            r.GetComponent<AgentController>().Setcolor(g);
+
+        r.GetComponent<AgentController>().Setcolor(g);
 
 
        // r.GetComponent<AgentController>().emergency = emerg;

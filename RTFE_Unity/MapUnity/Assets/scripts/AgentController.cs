@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public class AgentController : MonoBehaviour
 {
+    public double offset;
     public NavMeshAgent agent;
     public bool emergency =false;
     bool started = false;
