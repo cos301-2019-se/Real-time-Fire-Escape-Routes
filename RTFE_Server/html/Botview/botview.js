@@ -93,7 +93,7 @@ function populateTable(data)
 function addUserToSim(elem){
     var pos = [2,2];
 
-    var ressponse  = addBot($.now(),pos,$(elem).attr("data-device"))
+    var ressponse  = addBot($.now(),pos,$(elem).attr("data-device"));
     $("#talbe-simulation").append(ressponse);
 }
 
@@ -139,6 +139,10 @@ function checkBotStatus(input) {
   }else{
     remove(bot_id, mode, parent);
   }
+  if(device_id!="undefined" || device_id!="-"){
+
+    bindUser(bot_id,device_id,mode)
+  }
 }
 
 function docall(botID,location,floor,mode,HTMLelement){
@@ -179,6 +183,27 @@ function remove(botID,mode,html){
         }),
         success:function(res){
             html.remove();
+        }
+    });
+}
+
+
+function bindUser(botID,device_id,mode){
+    console.log("bind: "+device_id+" - "+botID)
+    device_id =device_id.trim();
+    $.ajax({
+        url:  URL+"building",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            type: "bind",
+            id : botID,
+            device_id : device_id,
+            mode: mode
+        }),
+        success:function(res){
+            console.log(res);
         }
     });
 }

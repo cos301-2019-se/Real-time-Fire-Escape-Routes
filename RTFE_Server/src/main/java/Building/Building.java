@@ -58,14 +58,13 @@ public class Building {
 
       /**
        * Takes a Device ID and binds it to a person inside the building
-       * @param id: ID of a person to be bound
-       * @param deviceID: The Device ID of the phone to be bound
-       * */
-      public boolean bindPerson(int id, String deviceID){
+       * @param id : ID of a person to be bound
+       * @param deviceID : The Device ID of the phone to be bound */
+      public boolean bindPerson(long id, String deviceID){
           unBindPerson(deviceID);
           Vector<Person> people =getPeople();
           for (Person p :people) {
-              if(p.personID == id){
+              if(p.personID == id || p.name.equals(String.valueOf(id))){
                   p.deviceID = deviceID;
                   return true;
               }
@@ -106,7 +105,7 @@ public class Building {
        * @param floor: the floor on where the person is now located at
        * @param pos: The new position location of the person
        * */
-      public boolean updatePersonLocation(int id,int floor, double [] pos) throws IndexOutOfBoundsException {
+      public boolean updatePersonLocation(long id,int floor, double [] pos) throws IndexOutOfBoundsException {
           if(floor>=Floor.size()){
               throw new IndexOutOfBoundsException("Please select a valid floor");
           }
@@ -155,7 +154,7 @@ public class Building {
      * This is an overloaded function please see the original 'remove' for more information
      * @param id: The device_id of the person who's location needs to be updates
      * */
-    public boolean remove(int id) throws Exception {
+    public boolean remove(long id) throws Exception {
         Vector<Person> people = getPeople();
         for (Person p:people) {
             if(p.personID == id){

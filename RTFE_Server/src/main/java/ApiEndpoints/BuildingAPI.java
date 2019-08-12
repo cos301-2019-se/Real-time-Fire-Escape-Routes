@@ -122,7 +122,7 @@ public class BuildingAPI extends API {
             }
             case "removePerson":{
                 response = new JSONObject();
-                response.put("message", building.remove(request.getInt("id")));
+                response.put("message", building.remove(request.getLong("id")));
                 response.put("status",true);
                 return response;
             }
@@ -195,7 +195,7 @@ public class BuildingAPI extends API {
      * @return returns a JSON object that contains a success or fail message
      * */
     private static boolean bindPerson(JSONObject request) {
-        int id = request.getInt("id");
+        long id = request.getLong("id");
         String deviceId = request.getString("device_id");
         return building.bindPerson(id,deviceId);
     }
@@ -364,10 +364,10 @@ public class BuildingAPI extends API {
     private static JSONObject removePerson(JSONObject request){
         JSONObject response = new JSONObject();
         boolean status = false;
-        int personID = -1;
+        long personID = -1;
         try{
             if(request.has("id"))
-                personID = request.getInt("id");
+                personID = request.getLong("id");
             else if(request.has("device_id")){
                 String deviceID = (String)request.get("device_id");
                 Vector <Person> people = building.getPeople();
@@ -426,7 +426,7 @@ public class BuildingAPI extends API {
                 }
             }
             int floor = Integer.parseInt(person[1]);
-            int id = Integer.parseInt(person[0]);
+            long id = Integer.parseInt(person[0]);
             PersonUpdate.put("floor",floor);
             JSONArray position = new JSONArray(pos);
             PersonUpdate.put("position",position);
@@ -446,7 +446,7 @@ public class BuildingAPI extends API {
         double [] newPosition = {pos.getDouble(0),pos.getDouble(1)};
         boolean status = false;
         try{
-            int personID = request.getInt("id");
+            long personID = request.getLong("id");
             status = building.updatePersonLocation(personID,floor,newPosition );
         }
         catch (Exception e1){
