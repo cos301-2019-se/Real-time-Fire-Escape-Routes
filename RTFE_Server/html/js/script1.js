@@ -140,7 +140,7 @@ function echoTopBar2()
 	return `<nav class="navbar navbar-expand-lg navbar-light" id="nav2" style="margin-bottom: 0;">
 	  					<div id="navbar-logo" href="#"><img src="img/fireG.png" alt="logo"/>
 	  					</div>
-						  <div class="active nav__list-item" id="su-view-life" href="#">Life</div>
+						  <div class="active nav__list-item" id="su-view-life" href="#">Live</div>
 						  <div class="nav__list-item" id="su-view-simulation" href="#">Simulation</div>
 						 <div class="nav__list-item" id="admin-view" href="#" >Administration</div>
 
