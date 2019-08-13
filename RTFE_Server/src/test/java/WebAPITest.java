@@ -282,6 +282,6 @@ public class WebAPITest {
         System.out.println("HandleRequest update uploadBuilding -- passed ");
 
     }
-    
+
 
 }

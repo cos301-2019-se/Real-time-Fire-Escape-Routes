@@ -8,7 +8,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -194,11 +193,10 @@ public class Database {
         try
         {
             query = con.createStatement();
-            query.execute("insert into buildings(building_name, num_floors,building_date, building_location) values(\'"+buildingParamName+"\'"+", " +numFloors +", " + "\'"+bdate+"\'"+", " + "\'"+buildingLocation+"\')");
-
+            query.execute("insert into buildings(building_name, num_floors,building_date, building_location) values(\'"+buildingParamName+"'"+", " +numFloors +", " + "'"+bdate+"'"+", " + "'"+buildingLocation+"')");
+            query = null;
         } catch(Exception e) {
             System.out.println("Insert building: " + e);
-            System.out.println(Arrays.toString(e.getStackTrace()));
             val = false;
         }
         finally {
