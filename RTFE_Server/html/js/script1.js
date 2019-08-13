@@ -6,7 +6,7 @@ $(()=>{
 
 	let rowForBar = $("#top-bar");
 	//fetchFromDb("getUsers");
-	setInterval(function(){ anotherFetch('getUsers', '#table-body-SU'); }, 5000);
+	// setInterval(function(){ anotherFetch('getUsers', '#table-body-SU'); }, 5000);
 	rowForBar.append(echoTopBar2).fadeIn();
 	let main1 =  $(".main");
 	main1.append(`<div class="main-cards">`);
@@ -256,7 +256,7 @@ function echoContentTable_SuperUser()
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
 	  					<span class="search-span" style="text-align: right; margin-left: 50%;">
-	  						<input type="text" id="search-input" class="searcher" onkeyup="search(this,"table-body-SU")" placeholder="Search.." name="search">
+	  						<input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search">
      						<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
      						</span>
      						</div>
@@ -462,6 +462,8 @@ function populateTable(data)
 	if($("#table-body-SU").length)
 	{
 		data.forEach((element, index)=>{
+			if(element.deviceID == undefined)
+				element.deviceID ="";
 			str += `<tr>
 				<td scope ="row" data-label="Name">${element.name}</td>
 				<td data-label="Email">${element.email}</td>
@@ -483,7 +485,7 @@ function populateTable(data)
 				<td data-label="Email">${element.email}</td>
 				<td data-label="Device_ID">${element.mac}</td>
 				<td data-label="Type">${element.type}</td>
-				<td data-label="Status" id="${element.name+element.type}">${fetchStatus(element.mac,element.name+element.type)}</td>
+				<td data-label="Status" id="${element.email+element.type}">${fetchStatus(element.mac,element.email+element.type)}</td>
 				<td data-label="Edit" ><button id="${element.email}-edit" onclick="displayOverlayWindow(editUser,'${element.email}', '${element.name}', '${element.userType}', '${element.deviceID}')" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="displayOverlayWindow(removeUser,'${element.email}', '${element.name}', '${element.type}', '${element.mac}')" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
 			</tr>`;
 
@@ -491,33 +493,46 @@ function populateTable(data)
 		return str;
 	}
 }
-
+// setInterval(function(){ anotherFetch('getUsers', '#table-body-SU'); }, 5000);
 function fetchStatus(mac,identify)
 {
-	if(mac==null)
-		mac ="-1"
-	$.ajax({
-        url: "http://127.0.0.1:8080/building",
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({
-            type: "personInfo",
-            device_id: mac
-        }),
-        success:function(res){
-        	var result= false;
-        	if (res.message!="Person is not in building")
-        		result = true;
-        	if(result){
-        		result= statusIdentifier("Online")
-        	}
-        	else{
-        		result= statusIdentifier("Offline")
-        	}
-        	$("#"+identify).html(result);
-        }
-    }); 
+	// console.log(mac);
+	if(mac == null || mac == ""){
+		// console.log(identify);
+		// mac ="-1"
+		// var result = statusIdentifier("Offline");
+    	// $("#"+identify).html('Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span>');
+    	// return;
+	}
+	else{
+		setInterval(function(){
+			$.ajax({
+		        url: "http://127.0.0.1:8080/building",
+		        type: "POST",
+		        contentType: "application/json; charset=utf-8",
+		        dataType: "json",
+		        data: JSON.stringify({
+		            type: "personInfo",
+		            device_id: mac
+		        }),
+		        success:function(res){
+		        	var result= false;
+		        	if (res.message!="Person is not in building")
+		        		result = true;
+		        	if(res.status=="failed")
+		        		result= false;
+		        	if(result){
+		        		result= statusIdentifier("Online")
+		        	}
+		        	else{
+		        		result= statusIdentifier("Offline")
+		        	}
+		        	$("#"+identify).html(result);
+		        }
+		    }); 
+	    }, 5000);
+	}
+	return 'Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span>';
 }
 
 
