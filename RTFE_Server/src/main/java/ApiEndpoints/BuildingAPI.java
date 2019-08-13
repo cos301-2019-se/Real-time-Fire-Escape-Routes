@@ -37,7 +37,8 @@ public class BuildingAPI extends API {
         switch ((String)request.get("type")){
             case "assignPeople":{
                 response = new JSONObject();
-//                building.assignPeople();
+                response.put("fires",unityFireLocations());
+//       building.assignPeople();
                 if(request.has("peopleLocations")){
                     unityUpdatePeopleLocation(request);
                 }
@@ -356,7 +357,30 @@ public class BuildingAPI extends API {
         }
         return data ;
     }
-
+    private static String unityFireLocations(){
+        JSONArray fires = building.getFires();
+        /**
+         * Adding Rooms to the response
+         * */
+//        JSONArray fires = (JSONArray)last.get("rooms");
+        String data ="";
+        for (int i = 0; i < fires.length() ; i++) {
+            JSONObject current = (JSONObject)  fires.get(i);
+            data += current.getInt("floor") + " * ";
+            JSONArray corners = (JSONArray)current.get("corners");
+            for (int j = 0; j < corners.length(); j++) {
+//                JSONArray c = (JSONArray)corners.get(j);
+                double[] c = (double[])corners.get(j);
+//                data += c.getDouble(0)+","+c.getDouble(1);
+                data += c[0]+","+c[1];
+                if(j < corners.length()-1)
+                    data+=" % ";
+            }
+            if( i < fires.length() -1)
+                data+= " - ";
+        }
+        return data;
+    }
     /**
      * This function is used to remove a person from a building
      *

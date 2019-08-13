@@ -1,5 +1,6 @@
 package Building;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Iterator;
 import java.util.Vector;
@@ -296,21 +297,19 @@ public class Room {
         }
         return false;
     }
-    public JSONArray getFires(JSONArray fires){
+    public JSONArray getFires(JSONArray fires,int floor){
         for (int i = 0; i <getRooms().size() ; i++) {
-            getRooms().get(i).getFires(fires);
+            getRooms().get(i).getFires(fires,floor);
         }
         if (this.fires.size()!=0){
-            String corners="";
+            JSONObject fireObject = new JSONObject();
+            fireObject.put("floor",floor);
+            JSONArray corners = new JSONArray();
             for (int i = 0; i < Corners.size(); i++) {
-                corners+=Corners.get(i).z+"%"+Corners.get(i).x;
-                if(i<Corners.size()-1){
-                    corners+="&";
-                }
+                corners.put(new double[]{Corners.get(i).z,Corners.get(i).x});
             }
-
-            fires.put(corners);
-
+            fireObject.put("corners",corners);
+            fires.put(fireObject);
         }
         return fires;
     }
