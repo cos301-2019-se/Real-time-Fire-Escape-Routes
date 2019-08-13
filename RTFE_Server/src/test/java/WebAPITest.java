@@ -1,11 +1,22 @@
 
 import ApiEndpoints.WebAPI;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class WebAPITest {
     public TestFunctions testFunctions = new TestFunctions();
+    @Before
+    public void before() throws Exception {
+        Thread thread = new Thread(new HTTPServer());
+        thread.start();
+    }
+
+    @After
+    public void after() throws Exception {
+    }
     @Test
     public void HandleRequestTest()
     {
@@ -36,13 +47,37 @@ public class WebAPITest {
         System.out.println("HandleRequest with null jsonObject -- passed");
 
     }
+
+    @Test
+    public void register()
+    {
+
+        JSONObject current = new JSONObject();
+        current.put("buildingName","1 Story Office");
+        current.put("email","test@yahoo.com");
+        current.put("password","1234");
+        current.put("name","Test");
+        current.put("password","1234");
+        current.put("userType","Agent");
+        current.put("type","register");
+        try{
+
+            testFunctions.SendRequest(current);
+        }catch (Exception e) {
+            System.out.println("Exception: " + e);
+            Assert.assertEquals(false, true);
+        }
+        Assert.assertEquals(true, true);
+        System.out.println("HandleRequest register -- passed ");
+
+    }
     @Test
     public void addUserToBuilding()
     {
 
         JSONObject current = new JSONObject();
         current.put("buildingName","1 Story Office");
-        current.put("email","peter@yahoo.com");
+        current.put("email","test@yahoo.com");
         current.put("type","addUserToBuilding");
         try{
 
@@ -115,7 +150,7 @@ public class WebAPITest {
 
         JSONObject current = new JSONObject();
         current.put("buildingName","1 Story Office");
-        current.put("email","peter@yahoo.com");
+        current.put("email","test@yahoo.com");
         current.put("password","1234");
         current.put("type","login");
         try{
@@ -130,47 +165,8 @@ public class WebAPITest {
 
     }
 
-    @Test
-    public void register()
-    {
 
-        JSONObject current = new JSONObject();
-        current.put("buildingName","1 Story Office");
-        current.put("email","test@yahoo.com");
-        current.put("password","1234");
-        current.put("name","Test");
-        current.put("password","1234");
-        current.put("userType","Agent");
-        current.put("type","register");
-        try{
 
-            testFunctions.SendRequest(current);
-        }catch (Exception e) {
-            System.out.println("Exception: " + e);
-            Assert.assertEquals(false, true);
-        }
-        Assert.assertEquals(true, true);
-        System.out.println("HandleRequest register -- passed ");
-
-    }
-    @Test
-    public void remove()
-    {
-
-        JSONObject current = new JSONObject();
-        current.put("email","test@yahoo.com");
-        current.put("type","remove");
-        try{
-
-            testFunctions.SendRequest(current);
-        }catch (Exception e) {
-            System.out.println("Exception: " + e);
-            Assert.assertEquals(false, true);
-        }
-        Assert.assertEquals(true, true);
-        System.out.println("HandleRequest remove -- passed ");
-
-    }
 
     @Test
     public void updateDeviceID()
@@ -259,6 +255,25 @@ public class WebAPITest {
     }
 
     @Test
+    public void remove()
+    {
+
+        JSONObject current = new JSONObject();
+        current.put("email","test@yahoo.com");
+        current.put("type","remove");
+        try{
+
+            testFunctions.SendRequest(current);
+        }catch (Exception e) {
+            System.out.println("Exception: " + e);
+            Assert.assertEquals(false, true);
+        }
+        Assert.assertEquals(true, true);
+        System.out.println("HandleRequest remove -- passed ");
+
+    }
+
+    @Test
     public void uploadBuilding()
     {
 
@@ -282,6 +297,6 @@ public class WebAPITest {
         System.out.println("HandleRequest update uploadBuilding -- passed ");
 
     }
-    
+
 
 }

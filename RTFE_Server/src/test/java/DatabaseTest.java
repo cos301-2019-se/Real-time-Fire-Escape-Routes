@@ -78,4 +78,20 @@ public class DatabaseTest {
         d.delete(email);
         d.close();
     }
+    @Test
+    public void DatabaseAddUserToBuilding()
+    {
+        Database d = new Database();
+        String email = "admin@gmail.com";
+        String buildingName = "1 Story Office";
+        String deviceId = "1";
+        d.addUserToBuilding(email,buildingName);
+        boolean actual = d.addUserToBuilding(email, deviceId);
+        boolean expected = false;
+        Assert.assertEquals(actual, expected);
+        System.out.println("Databse update/link deviceID  --  passed");
+        d.delete(email);
+        d.close();
+    }
+//addUserToBuilding
 }
