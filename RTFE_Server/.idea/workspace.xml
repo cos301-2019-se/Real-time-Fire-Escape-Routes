@@ -7,16 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8784d2cc-6e89-443f-a1d4-0f0a888c6710" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/artifacts/Firewatch_Server/Firewatch Server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/classes/artifacts/Firewatch_Server/Firewatch Server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/templates/js/buildingSelection.js" beforeDir="false" afterPath="$PROJECT_DIR$/html/templates/js/buildingSelection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/templates/script1.js" beforeDir="false" afterPath="$PROJECT_DIR$/html/templates/script1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/BuildingAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/BuildingAPI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/Database.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/WebAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/ApiEndpoints/WebAPI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Building.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Person.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Person.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Room$Corner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Room$Corner.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/Building/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/Building/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApiEndpoints/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/HTTPServer$HTTPClientConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/HTTPServer$HTTPClientConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/HTTPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/HTTPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/TimeLapse/FileGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/TimeLapse/FileGenerator.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -61,12 +66,39 @@
     </projectState>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="24" column="11" lean-forward="true" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+            <state relative-caret-position="527">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html/templates/script1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="102" column="18" lean-forward="true" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="147" column="33" selection-start-line="147" selection-start-column="33" selection-end-line="147" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/html/templates/js/buildingSelection.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -82,12 +114,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>\&quot;</find>
-      <find>num</find>
-      <find>connect</find>
-      <find>Vertex</find>
-      <find>Edge</find>
-      <find>getContentType</find>
       <find>Database</find>
       <find>WebAPI</find>
       <find>Da</find>
@@ -111,6 +137,13 @@
       <find>heurist</find>
       <find>Heuristic</find>
       <find>open</find>
+      <find>:8080/building</find>
+      <find>fetchStatus</find>
+      <find>populateTable</find>
+      <find>building-name</find>
+      <find>building</find>
+      <find>adddropdown</find>
+      <find>anotherfetch</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -165,6 +198,8 @@
         <option value="$PROJECT_DIR$/src/main/java/Building/Building.java" />
         <option value="$PROJECT_DIR$/src/main/java/ApiEndpoints/BuildingAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/HTTPServer.java" />
+        <option value="$PROJECT_DIR$/html/templates/script1.js" />
+        <option value="$PROJECT_DIR$/html/templates/js/buildingSelection.js" />
       </list>
     </option>
   </component>
@@ -186,7 +221,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -194,6 +228,17 @@
             <path>
               <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
               <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="html" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RTFE_Server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="html" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RTFE server" type="b2602c69:ProjectViewProjectNode" />
@@ -217,7 +262,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -292,7 +337,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="sqlite-jdbc-3.27.2.1.jar" type="JarApplication" temporary="true">
+    <configuration name="sqlite-jdbc-3.27.2.1.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar" />
       <option name="WORKING_DIRECTORY" value="D:\UNI 3rd year\cos301\Capstone\Demo3-1\Real-time-Fire-Escape-Routes" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -372,10 +417,10 @@
     <option name="totallyTimeSpent" value="62833000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24939272" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2521322" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -384,7 +429,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.26218852" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3618635" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3217768" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.39653304" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -467,13 +512,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/WebAPITest.java</url>
-          <line>4</line>
+          <line>6</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Building/Building.java</url>
-          <line>272</line>
+          <line>271</line>
           <properties />
           <option name="timeStamp" value="63" />
         </line-breakpoint>
@@ -494,8 +539,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/Building/RoomTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
     <entry file="file://$PROJECT_DIR$/classes/ManifestTest/META-INF/MANIFEST.MF" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/RoomType.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -537,13 +580,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html/Buildings/fire_test/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/html/Buildings/fire_test/data.json" />
     <entry file="file://$PROJECT_DIR$/src/test/java/WebAPITest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -579,13 +616,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html/Buildings/office_1/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="21" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/html/Buildings/office_1/data.json" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Builder/StairsBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -634,20 +665,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="24" column="11" lean-forward="true" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/Buildings/office_1(2story)/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/html/Buildings/office_1(2story)/data.json" />
     <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/java/util/Vector.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Builder/Builder.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -670,13 +688,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-12.0.2/lib/src.zip!/java.base/java/util/Vector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-12.0.2/lib/src.zip!/java.base/java/util/Vector.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Building/Path.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -709,13 +721,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/html/templates/style2.css">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/templates/script1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2125">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
-        </state>
-      </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20171018/b4a63d74bc32f012342173c1a1da6fbe90065d69/json-20171018-sources.jar!/org/json/JSONArray.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -799,6 +804,34 @@
             <element signature="e#5710#5711#0" expanded="true" />
             <element signature="e#5745#5746#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="147" column="33" selection-start-line="147" selection-start-column="33" selection-end-line="147" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/templates/script1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="102" column="18" lean-forward="true" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/templates/js/buildingSelection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
         </state>
       </provider>
     </entry>

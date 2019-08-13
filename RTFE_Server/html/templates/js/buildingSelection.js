@@ -12,13 +12,13 @@ function addDropDown(){
         }),
         success:function(res){
             if(res.status){
-                // var mySelect = $('<select style="postion:relative" id="changeBuilding"></select>');
-                $.each(res.msg, function(val,text) {
-                    $("#building-change").append(
-                        $('<option></option>').val(text).html(text)
-                    );
-                });
-                // $("#building-change").append(mySelect);
+                res.data.forEach(function(e){
+                    $('#building-change')
+                    .append($('<option></option>')
+                        .val(e.building_name)
+                        .text(e.building_name)
+                        )
+                })
             }
         }
     }); 
