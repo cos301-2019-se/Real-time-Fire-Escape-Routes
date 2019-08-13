@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -13,7 +13,7 @@
    <!-- <link rel="stylesheet" href="css/bootstrap.css">  -->
    <!-- <link rel="stylesheet" href="css/bootstrap.min.css">  -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="style2.css">
+	<!-- <link rel="stylesheet" href="style2.css"> -->
 	<!--<link rel="stylesheet" href="style.css" crossorigin="anonymous"> -->
 
      <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Ubuntu" rel="stylesheet">
@@ -24,24 +24,33 @@
 		$heading-colors: #000000;
 
     	/*OVERALL LAYOUT*/
-    	*{margin: 0;
-    		font-family: "Fjalla";}
+    	*{	
+    		margin: 0;
+    		font-family: "Fjalla";
+    	}
 
-    		button{ border-color: lightgrey;
-    				border-radius: 3px;
-    				padding: 5px;
-    				font-family: "Ubuntu";
-    				 }
+    		button{ 
+    			border-color: lightgrey;
+				border-radius: 3px;
+				padding: 5px;
+				font-family: "Ubuntu";
+			}
 
-    			a{font-family: "Ubuntu";}
+			a{
+				font-family: "Ubuntu";
+			}
     	/* Simple dashboard grid CSS */
 
-				/* Assign grid instructions to our parent grid container */
-				body{background-color: $background-body;
-					width: fit-content; margin: 0;}
-				.container-fluid{margin: 0;
-					padding: 0;}
-				.grid-container {
+			/* Assign grid instructions to our parent grid container */
+			body{
+				background-color: $background-body;
+				width: fit-content; margin: 0;
+			}
+			.container-fluid{
+				margin: 0;
+				padding: 0;
+			}
+			.grid-container {
 				  display: grid;
 				  grid-template-columns: 0px 1fr;
 				  grid-template-rows: 60px 1fr;
@@ -49,13 +58,13 @@
 				    "sidenav header"
 				    "sidenav main";
 				  height: 100vh;
-				}
+			}
 
-				.icons{width: 30px;}
-				.icons_small{width: 10px;}
-				#navbarSupportedContent{
-					background-color:#fc9575;
- 
+			.icons{width: 30px;}
+			.icons_small{width: 10px;}
+			#navbarSupportedContent{
+				background-color:#fc9575;
+
 				}
 
 				/* Give every child element its grid name */
@@ -81,8 +90,10 @@
 				    padding: 0 16px;
 				    background-color: #fc9575;
 				  }
-				  .heading{color: #6a6a6a;
-				   font-family: "Fjalla One";}
+				  .heading{
+					color: #6a6a6a;
+				   	font-family: "Fjalla One";
+				   }
 
 				  .nav__list {
 				    padding: 0;
@@ -106,7 +117,7 @@
 
 				  }
 				  .header__avatar{color: white;}
-				   .main-overview {
+				  .main-overview {
 				    display: grid;
 				    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); /* Where the magic happens */
 				    grid-auto-rows: 94px;
@@ -151,16 +162,11 @@
 
 					  #inner-table-card{
 					    height: fit-content;
-					    
-
-
 					  }
 					  #SU-simulation{
-					  	
 					  	margin-left: 0;
 					    height: 485px;
 					    width: 95%;
-					  
 					  }
 					  #btn-add-bot{
 					  	margin-right: 2%;
@@ -177,17 +183,14 @@
 					    margin-bottom: 10px;
 					  }
 					.online-off-indicator img{
-
-
-								border-color: grey;
-								border-style: solid;
-								border-width: 1px;
-								border-radius: 50%;
-							}
-							.online-off-indicator img{
-								width: 10px;
-								
-							}
+						border-color: grey;
+						border-style: solid;
+						border-width: 1px;
+						border-radius: 50%;
+					}		
+					.online-off-indicator img{
+						width: 10px;		
+					}
 
 					.img-edit{border-radius: 50%;
 						width: 30px;
@@ -200,7 +203,7 @@
 					button.img-edit img{width: 20px;}
 
 					  /*TABLE*/
-					  table {
+					table{	
 					  border: 1px solid #ccc;
 					  border-collapse: collapse;
 					  margin: 0;
@@ -279,7 +282,7 @@
 						border-bottom-color: $table-header-underliner;
 					}
 
-						/*OVERLAY Window*/
+					/*OVERLAY Window*/
 						#overlay-window{
 							position: fixed;
 							background-color: rgba(0,0,0, 0.7);
@@ -404,8 +407,6 @@
 		@media only screen and (min-width: 1500px) {
 		.arrow-span{margin-left: 89%;} 
 		}
-
-
 
 		#fire-head{text-align: center;}
 
