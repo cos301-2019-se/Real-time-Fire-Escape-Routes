@@ -234,7 +234,7 @@ public class BuildingGenerationAPI extends API{
             lastbuild[0] = data;
         }
         try {
-            BuildingManager BobTheBuilder = new BuildingManager(data);
+            BuildingManager BobTheBuilder = new BuildingManager(data,false);
             if(newbuilding != null){
                 newbuilding.clearPeople();
             }

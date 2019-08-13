@@ -439,15 +439,12 @@ public class Building {
             return false;
       }
       public JSONArray getFires(){
-          JSONArray floors = new JSONArray();
-          for (Room f :Floor) {
-              JSONArray fires = new JSONArray();
-              f.getFires(fires);
-              floors.put(fires);
+          JSONArray firesArray = new JSONArray();
+          for (int i = 0; i < Floor.size(); i++) {
+              Floor.get(i).getFires(firesArray,i);
           }
-          return floors;
+          return firesArray;
       }
-
       private int destroyRoutes(){
             int numPathsAffected = 0;
             for (Room f:Floor) {

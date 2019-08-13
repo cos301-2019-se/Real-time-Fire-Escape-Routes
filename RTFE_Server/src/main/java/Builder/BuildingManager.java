@@ -26,7 +26,7 @@ public class BuildingManager {// Builder design pattern - Director
      * The constructor is used to split the data into smaller pieces creating Concrete Builders where needed
      * @param BuildingData: Contains the full building details that needs to be constructed
      * */
-    public BuildingManager(JSONObject BuildingData){
+    public BuildingManager(JSONObject BuildingData ,boolean TimeLapseCompatible){
         buildingData =BuildingData;
         try {
 
@@ -97,20 +97,20 @@ public class BuildingManager {// Builder design pattern - Director
                 int floornum = door.getInt("floor");
                 doors.get(floornum).add(new DoorBuilder(doorData.get(i)));
             }
-
-            if(buildingData.has("sensors")){
-                sensors = new Vector<>();
-                for (int i = 0; i < floors.size(); i++) {
-                    sensors.add( new Vector<>());
-                }
-                JSONArray sensorData = (JSONArray)buildingData.get("sensors");
-                for (int i = 0; i < sensorData.length() ; i++) {
-                    JSONObject Sensor = (JSONObject) sensorData.get(i);
-                    int floornum = Sensor.getInt("floor");
-                    sensors.get(floornum).add(new SensorPlacer(sensorData.get(i)));
+            if(TimeLapseCompatible) {
+                if (buildingData.has("sensors")) {
+                    sensors = new Vector<>();
+                    for (int i = 0; i < floors.size(); i++) {
+                        sensors.add(new Vector<>());
+                    }
+                    JSONArray sensorData = (JSONArray) buildingData.get("sensors");
+                    for (int i = 0; i < sensorData.length(); i++) {
+                        JSONObject Sensor = (JSONObject) sensorData.get(i);
+                        int floornum = Sensor.getInt("floor");
+                        sensors.get(floornum).add(new SensorPlacer(sensorData.get(i)));
+                    }
                 }
             }
-
             try{
                 peopleData = (JSONArray)BuildingData.getJSONArray("people");
 
