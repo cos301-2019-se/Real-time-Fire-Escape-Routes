@@ -140,7 +140,7 @@ function echoTopBar2()
 	return `<nav class="navbar navbar-expand-lg navbar-light" id="nav2" style="margin-bottom: 0;">
 	  					<div id="navbar-logo" href="#"><img src="img/fireG.png" alt="logo"/>
 	  					</div>
-						  <div class="active nav__list-item" id="su-view-life" href="#">Life</div>
+						  <div class="active nav__list-item" id="su-view-life" href="#">Live view</div>
 						  <div class="nav__list-item" id="su-view-simulation" href="#">Simulation</div>
 						 <div class="nav__list-item" id="admin-view" href="#" >Administration</div>
 
@@ -227,7 +227,7 @@ function echoContentTable_SuperUser()
 	  				<div class="card1" id="inner-table-card" style="display: block;">
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 50%;">
-	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
+	  						<input type="text" id="search-input" class="searcher" onkeyup="search(this,"table-body-SU")" placeholder="Search.." name="search">
      						<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
      						</span>
      						</div>
@@ -256,7 +256,7 @@ function echoContentTable_SuperUser()
 	  					
 	  					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
 	  					<span class="search-span" style="text-align: right; margin-left: 50%;">
-	  						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search">
+	  						<input type="text" id="search-input" class="searcher" onkeyup="search(this,"table-body-SU")" placeholder="Search.." name="search">
      						<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
      						</span>
      						</div>
