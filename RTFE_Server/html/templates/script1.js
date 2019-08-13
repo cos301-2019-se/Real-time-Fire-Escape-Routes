@@ -471,9 +471,9 @@ function populateTable(data)
 			str += `<tr>
 				<td scope ="row" data-label="Name">${element.name}</td>
 				<td data-label="Email">${element.email}</td>
-				<td data-label="Device_ID">${element.mac}</td>
-				<td data-label="Type">${element.type}</td>
-				<td data-label="Status" id="${element.name+element.type}">${fetchStatus(element.mac,element.name+element.type)}</td>
+				<td data-label="Device_ID">${element.deviceID}</td>
+				<td data-label="Type">${element.userType}</td>
+				<td data-label="Status" id="${element.name+element.type}">${fetchStatus(element.deviceID,element.name+element.userType)}</td>
 				<td data-label="Edit" ><button id="${element.email}-edit" onclick="displayOverlayWindow(editUser,'${element.email}', '${element.name}', '${element.userType}', '${element.deviceID}')" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit"><img class="img-edit" onclick="displayOverlayWindow(removeUser,'${element.email}', '${element.name}', '${element.type}', '${element.mac}')" id="${element.email}-remove" src="icons/grey_duspan.png"></button></td>
 			</tr>`;
 
