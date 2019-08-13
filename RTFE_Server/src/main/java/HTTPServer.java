@@ -388,10 +388,10 @@ public class HTTPServer extends Server{
             String BuildingName = parsedData[3].split("\n")[2];
             BuildingName = BuildingName.substring(0, BuildingName.length() - 1);
 
-            String location = parsedData[5].split("\n")[2];
+            String location = parsedData[6].split("\n")[2];
             location = location.substring(0, location.length() - 1);
 
-            String numFloors = parsedData[4].split("\n")[2];
+            String numFloors = parsedData[5].split("\n")[2];
             numFloors = numFloors.substring(0, numFloors.length() - 1);
         request.put("type",Type);
         request.put("num_floors",Integer.parseInt(numFloors));
@@ -400,6 +400,14 @@ public class HTTPServer extends Server{
         request.put("location",location);
         return request;
     }
-
+/*
+* Param 0 - None
+* Param 1 - Building JSON
+* Param 2 - Type
+* Param 3 - Name of building
+* Param 4 - image ofbuilding
+* Param 5 - Number of floors
+* Param 6 - location
+* */
 
 }

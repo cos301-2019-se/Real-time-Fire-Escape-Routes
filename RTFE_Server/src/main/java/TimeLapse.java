@@ -109,7 +109,7 @@ public class TimeLapse {
             JSONObject buildingData = FileGenerator.readFile(filename);
             System.out.println("Loading finished");
             System.out.println("Constructing Building");
-            BuildingManager JSONtoBuilding = new BuildingManager(buildingData);
+            BuildingManager JSONtoBuilding = new BuildingManager(buildingData,true);
             //FileGenerator(Building building,int NumberOfPeople, long timespan,long updateInterval,double movementChance)
 
             FakeSensors = new FileGenerator(JSONtoBuilding.construct(),numPeople,timespan,updateInterval,Chance);
