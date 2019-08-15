@@ -1,0 +1,190 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+MERGED from [com.android.support:design:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\1d98ad58bfcb37f8081c079c095f1319\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\9edb170425c892a8dc362740f3a78434\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\89026883e8095d2f0636c537f9458135\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\e950dd8f13e1ba841e24143f62344bb1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\77cb2a59a6bdb6912456c63c92dba6ca\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-v4:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f79b7b8a61e1b78231f24ec33eb8a78b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\13311da861bc2e137025c75ec48f5cbf\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\8a7fe719cf4c1b9d804e4a398189f7cf\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\81c8a9c3b311644fe1282211ee3e1af8\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f04fe3fef416f43d92ae980309f7f5ac\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\b33a789aae2381a9827291cd5cc9ae4a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\58176673b7f875a3cb429cdcdfed0f59\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f3177cbb7f213fa8cf78f1dd39c91276\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f998a535c6271f0e6fd3cff867c10776\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\2527c2dc0ba2fc02f1482599f20f31f4\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\e183410ec21d9de26fd79955423adda2\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\fa483a9b151e9b609f201bc89ee3cd15\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\084a5509116bb67b4e688f6f1d395c32\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\2c1dad215dd82d2e3b049633cbd5f1dc\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\5b3e7a45023807175311e74a20bff63d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\4919c6e874b7ec2d30a92e1d1455c5a9\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\0fefb25baac253b410ae3d8654875b31\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\23d9f345eaa59c0ab0856284e448abb1\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\9e69e3cafca281c13c5d2a18017839e5\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\cc15bdc07ca96cff91cf70aa4fa5a83f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\94bc52cdb9aaa53a8b146336f263842f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\aa2ee19522444266820a2cc48651fe2f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\6d3ef92587eeb28246d40932fce7c474\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\8168ab55cccac83c459cff8c750ea198\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\dc3f38e745c3dd153fa5a4ff967d134d\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\051d266ad55d4d6b52d75ce9742a33d1\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\373e0bf6164dda56e36fde689a62aacc\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\c630a2069cd918100948ba3b2ed826b5\AndroidManifest.xml:17:1-22:12
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+	package
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:3:5-40
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:1-26:12
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:5:5-75
+	android:name
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:5:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:6:5-75
+	android:name
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:6:22-73
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:7:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:8:5-78
+	android:name
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:8:22-76
+application
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:10:5-24:19
+MERGED from [com.android.support:design:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\1d98ad58bfcb37f8081c079c095f1319\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\1d98ad58bfcb37f8081c079c095f1319\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\89026883e8095d2f0636c537f9458135\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\89026883e8095d2f0636c537f9458135\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\0fefb25baac253b410ae3d8654875b31\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\0fefb25baac253b410ae3d8654875b31\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\23d9f345eaa59c0ab0856284e448abb1\AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\23d9f345eaa59c0ab0856284e448abb1\AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\0fefb25baac253b410ae3d8654875b31\AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:15:9-35
+	android:label
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:13:9-41
+	android:roundIcon
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:14:9-54
+	android:icon
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:12:9-43
+	android:allowBackup
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:11:9-35
+	android:theme
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:16:9-40
+activity#com.example.wifisignalapp.MainActivity
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:17:9-23:20
+	android:name
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:17:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:18:13-22:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:19:17-69
+	android:name
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:19:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:21:17-77
+	android:name
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml:21:27-74
+uses-sdk
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:design:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\1d98ad58bfcb37f8081c079c095f1319\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\1d98ad58bfcb37f8081c079c095f1319\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\9edb170425c892a8dc362740f3a78434\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\9edb170425c892a8dc362740f3a78434\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\89026883e8095d2f0636c537f9458135\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\89026883e8095d2f0636c537f9458135\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\e950dd8f13e1ba841e24143f62344bb1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\e950dd8f13e1ba841e24143f62344bb1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\77cb2a59a6bdb6912456c63c92dba6ca\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\77cb2a59a6bdb6912456c63c92dba6ca\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f79b7b8a61e1b78231f24ec33eb8a78b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f79b7b8a61e1b78231f24ec33eb8a78b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\13311da861bc2e137025c75ec48f5cbf\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\13311da861bc2e137025c75ec48f5cbf\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\8a7fe719cf4c1b9d804e4a398189f7cf\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\8a7fe719cf4c1b9d804e4a398189f7cf\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\81c8a9c3b311644fe1282211ee3e1af8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\81c8a9c3b311644fe1282211ee3e1af8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f04fe3fef416f43d92ae980309f7f5ac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f04fe3fef416f43d92ae980309f7f5ac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\b33a789aae2381a9827291cd5cc9ae4a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\b33a789aae2381a9827291cd5cc9ae4a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\58176673b7f875a3cb429cdcdfed0f59\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\58176673b7f875a3cb429cdcdfed0f59\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f3177cbb7f213fa8cf78f1dd39c91276\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f3177cbb7f213fa8cf78f1dd39c91276\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f998a535c6271f0e6fd3cff867c10776\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\f998a535c6271f0e6fd3cff867c10776\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\2527c2dc0ba2fc02f1482599f20f31f4\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\2527c2dc0ba2fc02f1482599f20f31f4\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\e183410ec21d9de26fd79955423adda2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\e183410ec21d9de26fd79955423adda2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\fa483a9b151e9b609f201bc89ee3cd15\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\fa483a9b151e9b609f201bc89ee3cd15\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\084a5509116bb67b4e688f6f1d395c32\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\084a5509116bb67b4e688f6f1d395c32\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\2c1dad215dd82d2e3b049633cbd5f1dc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\2c1dad215dd82d2e3b049633cbd5f1dc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\5b3e7a45023807175311e74a20bff63d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\5b3e7a45023807175311e74a20bff63d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\4919c6e874b7ec2d30a92e1d1455c5a9\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\4919c6e874b7ec2d30a92e1d1455c5a9\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\0fefb25baac253b410ae3d8654875b31\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\0fefb25baac253b410ae3d8654875b31\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\23d9f345eaa59c0ab0856284e448abb1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\23d9f345eaa59c0ab0856284e448abb1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\9e69e3cafca281c13c5d2a18017839e5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\9e69e3cafca281c13c5d2a18017839e5\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\cc15bdc07ca96cff91cf70aa4fa5a83f\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\cc15bdc07ca96cff91cf70aa4fa5a83f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\94bc52cdb9aaa53a8b146336f263842f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\94bc52cdb9aaa53a8b146336f263842f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\aa2ee19522444266820a2cc48651fe2f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\aa2ee19522444266820a2cc48651fe2f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\6d3ef92587eeb28246d40932fce7c474\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\6d3ef92587eeb28246d40932fce7c474\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\8168ab55cccac83c459cff8c750ea198\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\8168ab55cccac83c459cff8c750ea198\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\dc3f38e745c3dd153fa5a4ff967d134d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\dc3f38e745c3dd153fa5a4ff967d134d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\051d266ad55d4d6b52d75ce9742a33d1\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\051d266ad55d4d6b52d75ce9742a33d1\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\373e0bf6164dda56e36fde689a62aacc\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\373e0bf6164dda56e36fde689a62aacc\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\c630a2069cd918100948ba3b2ed826b5\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Kinson\.gradle\caches\transforms-2\files-2.1\c630a2069cd918100948ba3b2ed826b5\AndroidManifest.xml:20:5-44
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Kinson\Documents\Varsity\ApplicationDevelopementTest\wifiSignalApp\app\src\main\AndroidManifest.xml
