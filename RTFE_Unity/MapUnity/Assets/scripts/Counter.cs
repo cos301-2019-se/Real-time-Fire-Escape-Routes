@@ -39,8 +39,8 @@ public class Counter : MonoBehaviour
     public float offset;
 
 
-    private string ip = "http://127.0.0.1:8080/";
-    //private string ip = "http://192.168.137.1:8080/";
+    //private string ip = "http://127.0.0.1:8080/";
+    private string ip = "http://192.168.137.1:8080/";
     //private string ip = "http://192.168.43.237:8080/";
     // private string ip = "https://6c53bafd-db31-4e2e-aac4-49c2a447c8ad.mock.pstmn.io/";
 
@@ -139,8 +139,9 @@ public class Counter : MonoBehaviour
     private List<TemporaryPeople> createPeopleList(string allPeople)
     {
         List<TemporaryPeople> peopleList = new List<TemporaryPeople>();
-        string[] people = allPeople.Split('-');
         allPeople = allPeople.Replace(" ", string.Empty);
+        string[] people = allPeople.Split('-');
+        
         for (int i = 0; i < people.Length; i++)
         {
             TemporaryPeople person = new TemporaryPeople();

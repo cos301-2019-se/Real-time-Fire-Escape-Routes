@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd1850b53b34c149afe216e997748f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSimulation: 0
+  isSimulation: 1
   buildingOb: {fileID: 222109079}
   s: {fileID: 1690057787}
   alarm: -1
