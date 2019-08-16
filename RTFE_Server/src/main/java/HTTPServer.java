@@ -14,7 +14,6 @@
 import ApiEndpoints.BuildingAPI;
 import ApiEndpoints.BuildingGenerationAPI;
 import ApiEndpoints.WebAPI;
-import Building.Building;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,10 +31,9 @@ public class HTTPServer extends Server{
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
         static final boolean verbose = true;
-        private JSONObject lastBuild = null;
 
-        public HTTPServer(Building b){
-            super(b);
+        public HTTPServer(){
+//            super();
         }
         @Override
         void start(){}
@@ -103,10 +101,14 @@ public class HTTPServer extends Server{
      * @date 28/05/2019
      */
         private String getContentType(String fileRequested) {
+
             if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
                 return "text/html";
-            else
-                return "text/plain";
+            if(fileRequested.endsWith(".css"))
+                return "text/css";
+            if(fileRequested.endsWith(".js"))
+                return "text/javascript";
+            return "text/plain";
         }
 
     /**
@@ -176,6 +178,7 @@ public class HTTPServer extends Server{
         public void run() {
             if(connect != null) {
                 BufferedReader in = null;
+//                InputStream in = null;
                 PrintWriter out = null;
                 BufferedOutputStream dataOut = null;
                 String fileRequested = null;
@@ -185,8 +188,12 @@ public class HTTPServer extends Server{
                     dataOut = new BufferedOutputStream(connect.getOutputStream());
                     String input="";
                     input = in.readLine();
+                    if(input == null){
+                        throw new Exception("null problem");
+                    }
 
                     StringTokenizer parse = new StringTokenizer(input);
+
                     String method = parse.nextToken().toUpperCase(); // we get the HTTP method of the client
                     // we get file requested
                     fileRequested = parse.nextToken().toLowerCase();
@@ -273,8 +280,10 @@ public class HTTPServer extends Server{
                             response.put("status","failed");
                             response.put("message",e.getMessage());
                         }
-                        if(verbose)
-                            System.out.println("Server -> Client:"+ response.toString());
+                        if(verbose) {
+                            System.out.println("Connecton opened. (" + new Date() + ")");
+                            System.out.println("Server -> Client:" + response.toString());
+                        }
                         out.println(response.toString());
                         out.flush();
                     }
@@ -282,7 +291,9 @@ public class HTTPServer extends Server{
 
                         if (fileRequested.endsWith("/")) {
                             fileRequested += DEFAULT_FILE;
+
                         }
+                        fileRequested = fileRequested.replace("%20"," ");
                         File file = new File(WEB_ROOT, fileRequested);
                         int fileLength = (int) file.length();
                         String content = getContentType(fileRequested);
@@ -316,6 +327,9 @@ public class HTTPServer extends Server{
                     e.printStackTrace();
                 }catch (Exception e){
                     System.out.println(e.getMessage());
+                    out.println("{\"status\":\"failed\"}");
+                    out.println("{\"message\":\""+e.getMessage()+"\"}");
+                    out.flush();
                 }
                 finally {
                     try {
@@ -336,8 +350,14 @@ public class HTTPServer extends Server{
             }
         }
         
-        private String getJSONStr(StringBuilder payload) {
-            return payload.substring(payload.indexOf("{"));
+        private String getJSONStr(StringBuilder payload)  {
+            try {
+                return payload.substring(payload.indexOf("{"));
+            }
+            catch (Exception e){
+                System.out.println("Something went wrong parsing the payload: "+payload);
+            }
+            return "{\"type\":\"assignPeople\"}";
         }
     }
 
@@ -354,21 +374,40 @@ public class HTTPServer extends Server{
         String data = payload.toString();
         String [] parsedData = data.split("Content-Disposition: ");
         try {
+
             JSONObject buildingData = new JSONObject(parsedData[1].substring(parsedData[1].indexOf("{"), parsedData[1].indexOf("-------")));
             request.put("file",buildingData);
+            String BuildingImage = parsedData[4].substring(parsedData[4].indexOf("Content-Type: image/jpeg")+28, parsedData[4].indexOf("-------"));
+            request.put("img",BuildingImage);
         }
         catch (Exception e){
             throw new Exception("Building json is invalid");
         }
         String Type = parsedData[2].split("\n")[2];
             Type = Type.substring(0, Type.length() - 1);
-            System.out.println(Type);
             String BuildingName = parsedData[3].split("\n")[2];
             BuildingName = BuildingName.substring(0, BuildingName.length() - 1);
+
+            String location = parsedData[6].split("\n")[2];
+            location = location.substring(0, location.length() - 1);
+
+            String numFloors = parsedData[5].split("\n")[2];
+            numFloors = numFloors.substring(0, numFloors.length() - 1);
         request.put("type",Type);
+        request.put("num_floors",Integer.parseInt(numFloors));
         request.put("name",BuildingName);
+        request.put("date",new Date(System.currentTimeMillis()));
+        request.put("location",location);
         return request;
     }
-
+/*
+* Param 0 - None
+* Param 1 - Building JSON
+* Param 2 - Type
+* Param 3 - Name of building
+* Param 4 - image ofbuilding
+* Param 5 - Number of floors
+* Param 6 - location
+* */
 
 }

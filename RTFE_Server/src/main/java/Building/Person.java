@@ -5,12 +5,13 @@ import java.util.Vector;
 
 public class Person {
 
-    public static int numPeople = 0;
+    public static long numPeople = 0;
     public String name;
     Routes AssignedRoute;
     double [] position;
-    int personID = 0;
-    public String deviceID = "";
+    public int floor = 0;
+    long personID = 0;
+    public String deviceID = "null";
     public Vector<Door> availableDoors = new Vector<>();
     public Vector <Node> pathToFollow;
     public double distanceToExit = Double.MAX_VALUE;
@@ -32,7 +33,7 @@ public class Person {
         AssignedRoute = assignedRoute;
     }
 
-    public int getPersonID() {
+    public long getPersonID() {
         return personID;
     }
 

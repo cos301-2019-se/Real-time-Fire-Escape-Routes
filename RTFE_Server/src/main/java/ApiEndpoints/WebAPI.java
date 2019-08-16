@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * WebAPI class is used by the '/database' endpoint in the HTTPServer
@@ -12,7 +13,7 @@ import java.util.Arrays;
  * */
 public class WebAPI extends API {
 
-    private static boolean verbose = true; //USED for debugging purposes
+    private static boolean verbose = false; //USED for debugging purposes
     private static Database USERDB = new Database();
 
     /**
@@ -29,32 +30,78 @@ public class WebAPI extends API {
      * */
 
     public static JSONObject handleRequest(JSONObject request)throws Exception {
-        //String reqType = (String)req.get("type");
+        JSONObject response;
         if(verbose)
             System.out.println("WEBAPI -> "+request.toString());
-        JSONObject response;
+        try{
+            building = chooseBuilding(request);
+        }
+        catch (Exception e){
+            response = new JSONObject();
+            response.put("status", false);
+            response.put("message", e.getMessage());
+        }
         switch ((String)request.get("type")){
+            case "addUserToBuilding": {
+                response = addUserToBuilding((String)request.get("email"),(String)request.get("buildingName"));
+                return response;
+            }
+            case "currentBuilding":
+            {
+                response = new JSONObject();
+                try {
+                    JSONObject last = chooseLastBuild(request);
+                    response.put("name", last.get("name"));
+                    response.put("status", true);
+                }
+                catch (Exception e){
+                    response.put("status", false);
+                    response.put("message", e.getMessage());
+                }
+                return response;
+            }
+            case "getBuildings":
+            {
+//                response = listDir();
+                response = getBuildings();
+                return response;
+            }
+            case "getUsers":
+            {
+                response = getUsers();
+                return response;
+            }
+            case "getUsersInBuilding":
+            {
+                response = getUsersInBuilding((String)request.get("buildingName"));
+                return response;
+            }
+            case"login":
+            {
+                response = login((String)request.get("email"), (String)request.get("password"));
+                return response;
+            }
+            case "register":
+            {
+                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("password"),(String)request.get("userType"), (String)request.get("buildingName"));
+                return response;
+            }
             case "remove":
             {
                 response = remove((String)request.get("email"));
                 return response;
             }
-            case"login":
-            {
-                response = login((String)request.get("email"), (String)request.get("pass"));
-                return response;
-            }
-            case "getUsersInBuilding":
-            {
-                response = getUsersInBuilding((int)request.get("building_id"));
-                return response;
-            }
             case"update":
             {
                 String typeOfUpdate = (String)request.get("typeOfUpdate");
-                if(typeOfUpdate.compareTo("userType") == 0)
+                if(typeOfUpdate.compareTo("deviceID") == 0)
                 {
-                    response = updateType((String)request.get("email"), (String)request.get("value"));
+                    response = updateDeviceID((String)request.get("email"), (String)request.get("value"));
+                    return response;
+                }
+                if(typeOfUpdate.compareTo("email") == 0)
+                {
+                    response = updateEmail((String)request.get("email"), (String)request.get("value"));
                     return response;
                 }
                 if(typeOfUpdate.compareTo("name") == 0)
@@ -62,19 +109,14 @@ public class WebAPI extends API {
                     response = updateName((String)request.get("email"), (String)request.get("value"));
                     return response;
                 }
-                if(typeOfUpdate.compareTo("deviceID") == 0)
-                {
-                    response = updateDeviceID((String)request.get("email"), (String)request.get("value"));
-                    return response;
-                }
                 if(typeOfUpdate.compareTo("password") == 0)
                 {
                     response = updatePassword((String)request.get("email"), (String)request.get("value"));
                     return response;
                 }
-                if(typeOfUpdate.compareTo("email") == 0)
+                if(typeOfUpdate.compareTo("userType") == 0)
                 {
-                    response = updateEmail((String)request.get("email"), (String)request.get("value"));
+                    response = updateType((String)request.get("email"), (String)request.get("value"));
                     return response;
                 }
                 else
@@ -85,36 +127,15 @@ public class WebAPI extends API {
                     return response;
                 }
             }
-            case "getUsers":
-            {
-                response = getUsers();
-                return response;
-            }
-            case "register":
-            {
-                response =  register((String)request.get("name"), (String)request.get("email"),(String)request.get("pass"),(String)request.get("userType"));
-                return response;
-            }
-            case "getBuildings":
-            {
-                response = listDir();
-                return response;
-            }
             case "uploadBuilding":
             {
-                response =  uploadBuilding((String)request.get("name"), (String)request.get("file").toString());
+//                buildingParamName, numFloors, bdate ,type, buildingLocation
+                response =  uploadBuilding((String)request.get("name"), (int)request.get("num_floors"), (Date)request.get("date"), (String)request.get("location"), (String)request.get("file").toString(),(String)request.get("img").toString());
                 return response;
             }
-            case "currentBuilding":
+            case "validateDeviceId":
             {
-                response = new JSONObject();
-                try {
-                    response.put("name", lastbuild.get("name"));
-                    response.put("status", true);
-                }
-                catch (Exception e){
-                    response.put("status", false);
-                }
+                response = validateDeviceId((String)request.get("email"), (String)request.get("deviceID"));
                 return response;
             }
 
@@ -122,18 +143,39 @@ public class WebAPI extends API {
 
         throw new Exception("Unsupported Request");
     }
-
+    private static JSONObject addUserToBuilding(String email, String buildingName)
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Users added to building");
+        USERDB.addUserToBuilding(email, buildingName);
+        return Response;
+    }
     /**
      * function returns all the users in a specified building
-     * @param building_id: and int used to identify the building
+     * @param buildingName: and int used to identify the building
      * @return a JSONObject with the relevant information
      */
-    private static  JSONObject getUsersInBuilding(int building_id)
+    private static  JSONObject getUsersInBuilding(String buildingName)
     {
         JSONObject Response = new JSONObject();
         Response.put("status", true);
         Response.put("msg","Users in building returned");
-        Response.put("data", USERDB.getUsersInBuilding(building_id));
+        Response.put("data", USERDB.getUsersInBuilding(buildingName));
+        return Response;
+    }
+
+    /**
+     * function returns all the users registered on the system
+     * @return a JSONObject with the relevant information
+     */
+
+    private static JSONObject getBuildings()
+    {
+        JSONObject Response = new JSONObject();
+        Response.put("status", true);
+        Response.put("msg","Buildings returned");
+        Response.put("data", USERDB.getBuildings());
         return Response;
     }
 
@@ -150,6 +192,102 @@ public class WebAPI extends API {
         return Response;
     }
 
+
+    /**
+     * This function is used to show all the buildings stored in the server's file system
+     * @return returns a JSON object containing the names of all the buildings
+     * */
+    private static JSONObject listDir()throws Exception{
+        File folder = new File("html/Buildings/");
+        JSONArray buildings = new JSONArray();
+        JSONObject response = new JSONObject();
+        File[] listOfFiles = folder.listFiles();
+        for (File file : listOfFiles) {
+            if(file.isDirectory())
+                buildings.put(file.getName());
+        }
+        if(verbose)
+            System.out.println(Arrays.toString(listOfFiles));
+        response.put("status",true);
+        response.put("msg",buildings);
+        return response;
+    }
+    /**
+     * This function is used to log a user into the system
+     * @param email: The email of the user to be logged in
+     * @param password: The password of the user to be logged in
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject login(String email, String password){
+
+        JSONObject Response = new JSONObject();
+        try{
+            boolean status= USERDB.search(email, password);
+            Response.put("status", status);
+            if(status) {
+                Response.put("userType",USERDB.getUserType(email));
+                Response.put("apiKey",USERDB.generateKey());
+                Response.put("msg", "Login success");
+            }
+            else
+                Response.put("msg","Invalid user/pass");
+        }catch(Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - LOGIN FAILED");
+        }
+        return Response;
+    }
+    /**
+     * This function is used to add a user to the database
+     * @param name: The name of the user to be registered
+     * @param email: The email of the user to be registered
+     * @param password: The password of the user to be registered
+     * @param type: The role that will be assigned to the user
+     * @param buildingName: The building that the user will be assigned to
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject register(String name, String email, String password, String type, String buildingName){
+        JSONObject Response = new JSONObject();
+        try{
+            boolean exist =  USERDB.insert(name, email,password,type, buildingName);
+            if(exist){
+                Response.put("status", false);
+                Response.put("msg","User already Exists");
+            }else{
+
+                Response.put("status", true);
+                Response.put("msg","User Successfully created");
+
+            }
+        }catch (Exception e){
+            if(verbose)
+                System.out.println("CRITICAL - REGISTER FAILED");
+        }
+
+        return Response;
+    }
+
+    /**
+
+
+     * This function is used to remove a user from the system
+     * @param email: The email of the user to be removed
+     * @return returns success or fail depending on outcome
+     * */
+    private static JSONObject remove(String email) {
+        JSONObject Response = new JSONObject();
+        boolean exist = USERDB.delete(email);
+        if (exist) {
+            Response.put("status", true);
+            Response.put("msg", "User successfully removed");
+        } else {
+            Response.put("status", false);
+            Response.put("msg", "User does not exist");
+
+
+        }
+        return Response;
+    }
     /**
      * function updates an email of a registered user
      * @param email: the current email, used to identify the user
@@ -288,14 +426,15 @@ public class WebAPI extends API {
     
     /**
      * This function is used to upload buildings to the server's file system
-     * @param name: The name of the building being uploaded
+     * @param buildingParamName: The name of the building being uploaded
      * @param file: A JSON file that contains all the building data
      * @return returns success or fail depending on outcome
      * */
 
-    private static  JSONObject uploadBuilding(String name, String file)
+    private static  JSONObject uploadBuilding(String buildingParamName, int numFloors, Date bdate, String buildingLocation, String file, String img)
     {
-        File dir = new File("./html"+ "/" + "Buildings/"  +name);
+        USERDB.insertBuilding(buildingParamName, numFloors, bdate , buildingLocation);
+        File dir = new File("./html"+ "/" + "Buildings/"  +buildingParamName);
         if (!dir.exists()) {
             if (dir.mkdir()) {
                 System.out.println("Directory is created!");
@@ -303,8 +442,10 @@ public class WebAPI extends API {
                 System.out.println("Failed to create directory!");
             }
         }
-        String absoluteFilePath =  "./html"+ "/" + "Buildings/"  +name +"/" + name + ".json";
+        String absoluteFilePath =  "./html"+ "/" + "Buildings/"  +buildingParamName +"/" + "data" + ".json";
         File f = new File(absoluteFilePath);
+        String absoluteFilePath2 =  "./html"+ "/" + "Buildings/"  +buildingParamName +"/" + "building" + ".jpeg";
+        File image = new File(absoluteFilePath2);
         FileOutputStream fop = null;
 
         try
@@ -312,6 +453,9 @@ public class WebAPI extends API {
             if(f.createNewFile()){
                 System.out.println(absoluteFilePath+" File Created");
             }else System.out.println("File "+absoluteFilePath+" already exists");
+            if(image.createNewFile()){
+                System.out.println(absoluteFilePath2+" File Created");
+            }else System.out.println("File "+absoluteFilePath2+" already exists");
         }
         catch (Exception e)
         {
@@ -321,6 +465,12 @@ public class WebAPI extends API {
         {
             fop = new FileOutputStream(f);
             byte[] contentInBytes = file.getBytes();
+            fop.write(contentInBytes);
+            fop.flush();
+            fop.close();
+
+            fop = new FileOutputStream(image);
+            contentInBytes = img.getBytes();
             fop.write(contentInBytes);
             fop.flush();
             fop.close();
@@ -337,73 +487,24 @@ public class WebAPI extends API {
         return Response;
     }
 
-    /**
-     * This function is used to add a user to the database
-     * @param name: The name of the user to be registered
-     * @param email: The email of the user to be registered
-     * @param password: The password of the user to be registered
-     * @param type: The role that will be assigned to the user
-     * @return returns success or fail depending on outcome
-     * */
-    private static JSONObject register(String name, String email, String password, String type){
-        JSONObject Response = new JSONObject();
-        try{
-            boolean exist =  USERDB.insert(name, email,password,type);
-            if(exist){
-                Response.put("status", false);
-                Response.put("msg","User already Exists");
-            }else{
-
-                Response.put("status", true);
-                Response.put("msg","User Successfully created");
-
-            }
-        }catch (Exception e){
-            if(verbose)
-                System.out.println("CRITICAL - REGISTER FAILED");
-        }
-
-        return Response;
-    }
-
-    /**
-
-
-     * This function is used to remove a user from the system
-     * @param email: The email of the user to be removed
-     * @return returns success or fail depending on outcome
-     * */
-    private static JSONObject remove(String email) {
-        JSONObject Response = new JSONObject();
-        boolean exist = USERDB.delete(email);
-        if (exist) {
-            Response.put("status", true);
-            Response.put("msg", "User successfully removed");
-        } else {
-            Response.put("status", false);
-            Response.put("msg", "User does not exist");
-
-
-        }
-        return Response;
-    }
 
     /**
      * This function is used to log a user into the system
      * @param email: The email of the user to be logged in
-     * @param password: The password of the user to be logged in
+     * @param deviceID: The password of the user to be logged in
      * @return returns success or fail depending on outcome
      * */
-    private static JSONObject login(String email, String password){
+    private static JSONObject validateDeviceId(String email, String deviceID){
 
         JSONObject Response = new JSONObject();
         try{
-            boolean status= USERDB.search(email, password);
+            boolean status= USERDB.validateDeviceId(email, deviceID);
             Response.put("status", status);
-            if(status)
-                Response.put("msg","Login success");
+            if(status) {
+                Response.put("msg", "Login success");
+            }
             else
-                Response.put("msg","Invalid user/pass");
+                Response.put("msg","Invalid deviceID/email");
         }catch(Exception e){
             if(verbose)
                 System.out.println("CRITICAL - LOGIN FAILED");
@@ -411,23 +512,6 @@ public class WebAPI extends API {
         return Response;
     }
 
-    /**
-     * This function is used to show all the buildings stored in the server's file system
-     * @return returns a JSON object containing the names of all the buildings
-     * */
-    private static JSONObject listDir()throws Exception{
-        File folder = new File("html/Buildings/");
-        JSONArray buildings = new JSONArray();
-        JSONObject response = new JSONObject();
-        File[] listOfFiles = folder.listFiles();
-        for (File file : listOfFiles) {
-            if(file.isDirectory())
-                buildings.put(file.getName());
-        }
-        if(verbose)
-            System.out.println(Arrays.toString(listOfFiles));
-        response.put("status",true);
-        response.put("msg",buildings);
-        return response;
-    }
+
+
 }

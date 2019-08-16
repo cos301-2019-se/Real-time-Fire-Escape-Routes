@@ -13,6 +13,9 @@
  */
 
 package Building;
+import org.json.JSONArray;
+
+import java.util.Arrays;
 import java.util.Vector;
 
 import static Building.NodeType.stairs;
@@ -21,8 +24,8 @@ public class Building {
       private static int numBuildings = 0;
       private Vector<Room> Floor= new Vector<>();
       private int id;
-      private boolean verbose = true;
-      public boolean emergancy = false;
+      private boolean verbose = false;
+      public boolean emergency = false;
       private double floorHeight = 3.0; //needed for connecting stairs
 
       public Vector<Routes> getRoutes() {
@@ -55,20 +58,33 @@ public class Building {
 
       /**
        * Takes a Device ID and binds it to a person inside the building
-       * @param id: ID of a person to be bound
-       * @param deviceID: The Device ID of the phone to be bound
-       * */
-      public boolean bindPerson(int id, String deviceID){
+       * @param id : ID of a person to be bound
+       * @param deviceID : The Device ID of the phone to be bound */
+      public boolean bindPerson(long id, String deviceID){
+          unBindPerson(deviceID);
           Vector<Person> people =getPeople();
           for (Person p :people) {
-              if(p.personID == id){
+              if(p.personID == id || p.name.equals(String.valueOf(id))){
                   p.deviceID = deviceID;
                   return true;
               }
           }
           return false;
       }
-
+      /**
+      * Takes a Device ID and removes it from the building
+      * @param deviceID: The Device ID of the phone to be bound
+      * */
+      public boolean unBindPerson( String deviceID){
+          Vector<Person> people =getPeople();
+          for (Person p :people) {
+              if(p.deviceID.compareTo(deviceID)==0){
+                  p.deviceID = null;
+                  return true;
+              }
+          }
+          return false;
+      }
     /**
      * getNumPeople function
      * @brief This function return the amount of people contained in the building
@@ -83,13 +99,81 @@ public class Building {
             }
             return total;
       }
+      /**
+       * Updates a persons information inside a building
+       * @param id: The ID of the person who's location needs to be updates
+       * @param floor: the floor on where the person is now located at
+       * @param pos: The new position location of the person
+       * */
+      public boolean updatePersonLocation(long id,int floor, double [] pos) throws IndexOutOfBoundsException {
+          if(floor>=Floor.size()){
+              throw new IndexOutOfBoundsException("Please select a valid floor");
+          }
+          Vector<Person> people = getPeople();
+          boolean status = false;
+          for (Person p:people) {
+              if(p.name.equalsIgnoreCase(String.valueOf(id))){
+                  Person temp = p;
+                  for (Room currentfloor:Floor) {
+                     status = currentfloor.removePerson(p);
+                  }
+                  temp.floor = floor;
+                  temp.position = pos;
+                  addPerson(temp, floor);
+                  if(verbose){
+                      if(status){
+                          System.out.println("Person "+temp.getName() +" has been updated");
+                      }
+                  }
+                  return status;
+              }
+          }
+          Person p = new Person(String.valueOf(id),pos);
+          p.floor = floor;
+          status = this.addPerson(p,floor);
+          return status;
+      }
+    /**
+     * @brief: Updates a persons information inside a building
+     * This is an overloaded function please see the original 'updatePersonLocation' for more information
+     * @param device_id: The device_id of the person who's location needs to be updates
+     * @param floor: the floor on where the person is now located at
+     * @param pos: The new position location of the person
+     * */
+      public boolean updatePersonLocation(String device_id,int floor, double[] pos) throws IndexOutOfBoundsException {
+          Vector<Person> people = getPeople();
+          for (Person p:people) {
+              if(p.deviceID.equalsIgnoreCase(device_id)){
+                  return updatePersonLocation(p.personID, floor,pos );
+              }
+          }
+          return false;
+      }
+    /**
+     * @brief: Removes a person from the building
+     * This is an overloaded function please see the original 'remove' for more information
+     * @param id: The device_id of the person who's location needs to be updates
+     * */
+    public boolean remove(long id) throws Exception {
+        Vector<Person> people = getPeople();
+        for (Person p:people) {
+            if(p.personID == id){
+                for (Room floor:Floor) {
+                    floor.removePerson(p);
+                }
+            }
+        }
+        throw new Exception("Person not found");
+    }
+
+
 
     /**
      * addPerson function
      * @brief This function inserts a Person object on a specified floor in the building
      *
-     * @param p as a specified Person object
-     * @param floor as an integer indicating which level the Person object should be placed
+     * @param p: as a specified Person object
+     * @param floor: as an integer indicating which level the Person object should be placed
      * @return - true if the placement was successful
      *         - false if an error occurred during placement
      * @date 28/04/2019
@@ -164,9 +248,9 @@ public class Building {
      * @return no return value
      * @date 27/06/2019
      */
-      public void assignPeople(){
+      public synchronized void assignPeople(){
 
-            /** New */
+          /** New */
 
             Vector<Person> people = new Vector<Person>();
             for (Room floor:Floor) {
@@ -191,18 +275,28 @@ public class Building {
                   Routes bestRoute =null;
                   double bestDistance = Double.MAX_VALUE;
                   boolean valid = false;
-                  for (Routes r:Routes) {
-                        for (Door d:p.availableDoors) {
+
+                for (Routes r:Routes) {
+                      for (Door d:p.availableDoors) {
+                            r.resetVisited();
                             for (Path c:d.node.Paths) {
-                                r.resetVisited();
+
+//                                r.resetVisited();
                                 Vector<Node> path =  r.ShortestPathToGoal(c.end,r.getGoal());
+                                c.assignPeople(p);
                                 path.insertElementAt(c.start,0);
                                 double tempD = r.pathHeuristic(path,p);
-                                if(tempD < bestDistance){
+                                if(tempD < bestDistance && Path.hasGoal(path)){
                                     valid = Path.hasGoal(path);
                                     Bestpath = path;
                                     bestDistance = tempD;
                                     bestRoute = r;
+//                                    System.out.println("Heuristic: " + tempD);
+
+                                }
+                                else
+                                {
+                                    c.removePeople(p);
                                 }
                             }
 
@@ -211,7 +305,9 @@ public class Building {
                         }
                   }
                   if(valid){
-                        p.pathToFollow = Bestpath;
+
+
+                      p.pathToFollow = Bestpath;
                         p.setAssignedRoute(bestRoute);
                         bestRoute.addPerson(p);
                   }
@@ -241,22 +337,18 @@ public class Building {
      * @date 22/06/2019
      */
       public void connectStairs(){
-            Vector<Node> stairs = getStairs();
-            Node last= stairs.remove(0);
-            int i=0;
+            Vector<Vector<Node>> stairs = getStairs();
+            Vector<Node> last= stairs.remove(0);
             while (stairs.size()>0){
-                  if(i== stairs.size()){
-                        last = stairs.remove(0);
-                        i=0;
-                  }
-                  if(last.coordinates[0] == stairs.get(i).coordinates[0] && last.coordinates[1] == stairs.get(i).coordinates[1] && last.nodeId != stairs.get(i).nodeId){
-                       last.connect(stairs.get(i), floorHeight);
-                       last = stairs.remove(i);
-                       i=0;
-                  }
-                  i++;
+                for (Node bottom: last){
+                    for (Node top:stairs.get(0)) {
+                        if(Arrays.toString(bottom.coordinates).equals(Arrays.toString(top.coordinates))){
+                            bottom.connect(top, floorHeight);
+                        }
+                    }
+                }
+                last = stairs.remove(0);
             }
-
       }
 
     /**
@@ -264,19 +356,23 @@ public class Building {
      * @brief this function returns all the stair objects in the current building object
      *
      * @return a Vector<Node> containing all the nodes linked to stair objects
-     * @date 22/06/2019
+     * @date 04/08/2019
      */
-      private Vector<Node> getStairs(){
-            Vector<Node> allNodes = new Vector<>();
-            Vector<Node> stairNodes = new Vector<>();
-            for (Room floor:Floor) {
-                  allNodes.addAll(floor.getAllDoors());
-            }
-            for (Node current:allNodes) {
+      private Vector<Vector<Node>> getStairs(){
+//            Vector<Node> allNodes = new Vector<>();
+            Vector<Vector<Node>> stairNodes = new Vector<>();
+//            for (Room floor:Floor) {
+//                  allNodes.addAll(floor.getAllDoors());
+//            }
+          for (int i = 0; i <Floor.size() ; i++) {
+              stairNodes.add(new Vector<>());
+              for (Node current:Floor.get(i).getAllDoors()) {
                   if (current.type == stairs){
-                        stairNodes.add(current);
+                      if(!stairNodes.get(i).contains(current))
+                        stairNodes.get(i).add(current);
                   }
-            }
+              }
+          }
             return stairNodes;
       }
 
@@ -341,6 +437,13 @@ public class Building {
             }
 
             return false;
+      }
+      public JSONArray getFires(){
+          JSONArray firesArray = new JSONArray();
+          for (int i = 0; i < Floor.size(); i++) {
+              Floor.get(i).getFires(firesArray,i);
+          }
+          return firesArray;
       }
       private int destroyRoutes(){
             int numPathsAffected = 0;

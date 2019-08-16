@@ -16,6 +16,8 @@ public class BuildingManager {// Builder design pattern - Director
     Vector <Vector<Builder>> rooms = new Vector<>();
     Vector <Vector<Builder>> doors = new Vector<>();
     Vector <Vector<Builder>> stairs = new Vector<>();
+    Vector <Vector<Builder>> sensors = new Vector<>();
+    Vector <Vector<Builder>> people = new Vector<>();
     private static boolean verbose = true;
     JSONArray peopleData;
     JSONObject buildingData ;
@@ -24,7 +26,7 @@ public class BuildingManager {// Builder design pattern - Director
      * The constructor is used to split the data into smaller pieces creating Concrete Builders where needed
      * @param BuildingData: Contains the full building details that needs to be constructed
      * */
-    public BuildingManager(JSONObject BuildingData){
+    public BuildingManager(JSONObject BuildingData ,boolean TimeLapseCompatible){
         buildingData =BuildingData;
         try {
 
@@ -95,10 +97,23 @@ public class BuildingManager {// Builder design pattern - Director
                 int floornum = door.getInt("floor");
                 doors.get(floornum).add(new DoorBuilder(doorData.get(i)));
             }
-            /**/
-
+            if(TimeLapseCompatible) {
+                if (buildingData.has("sensors")) {
+                    sensors = new Vector<>();
+                    for (int i = 0; i < floors.size(); i++) {
+                        sensors.add(new Vector<>());
+                    }
+                    JSONArray sensorData = (JSONArray) buildingData.get("sensors");
+                    for (int i = 0; i < sensorData.length(); i++) {
+                        JSONObject Sensor = (JSONObject) sensorData.get(i);
+                        int floornum = Sensor.getInt("floor");
+                        sensors.get(floornum).add(new SensorPlacer(sensorData.get(i)));
+                    }
+                }
+            }
             try{
                 peopleData = (JSONArray)BuildingData.getJSONArray("people");
+
             }catch(Exception e){
                 if(verbose)
                     System.out.println("No people specified in original dataset");
@@ -156,6 +171,20 @@ public class BuildingManager {// Builder design pattern - Director
                     boolean status =  building.getFloor(i).addDoor((Door)doors.get(i).get(j).buildPart());
                     if(verbose)
                         System.out.println("Placing door "+status);
+                }
+            }
+            for (int i = 0; i < sensors.size(); i++) {
+                for (int j = 0; j < sensors.get(i).size(); j++) {
+                    boolean status =  building.getFloor(i).addSensor((Sensor)sensors.get(i).get(j).buildPart());
+                    if(verbose)
+                        System.out.println("Placing Sensor "+status);
+                }
+            }
+            for (int i = 0; i < people.size(); i++) {
+                for (int j = 0; j < people.get(i).size(); j++) {
+                    boolean status =  building.getFloor(i).addPerson((Person)people.get(i).get(j).buildPart());
+                    if(verbose)
+                        System.out.println("Placing Sensor "+status);
                 }
             }
             if (stairs.size()>0)
