@@ -207,3 +207,5 @@ function bindUser(botID,device_id,mode){
         }
     });
 }
+
+    

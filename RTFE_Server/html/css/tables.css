@@ -1,0 +1,51 @@
+/*TABLE*/
+
+table{  
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 15px;
+  padding: 4px;
+  /*table-layout: fixed;*/
+  width: 90%;
+  height: 80%
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  /*padding: .35em;*/
+  /*width: inherit;*/
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+  word-wrap: break-word;
+}
+.fixed_header{
+    /*width: 400px;*/
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.fixed_header tbody{
+  display:block;
+  /*width: 100%;*/
+  overflow: auto;
+  height: 600px;
+}
+
+.fixed_header thead tr {
+   display: block;
+}
+
+.fixed_header thead {
+  /*background-: black;*/
+  color:black;
+}
+.fixed_header th, .fixed_header td {
+  padding: 5px;
+  text-align: left;
+  width: 200px;
+}

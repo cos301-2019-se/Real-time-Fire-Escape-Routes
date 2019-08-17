@@ -174,10 +174,7 @@ function updateInfo(type, typeOfUpdate, email, value)
                 	return "true";
                     
                 }else{
-                	return "false";
-                	
-                   
-                   
+                	return "false";    
                 }
             }, fail: function(){
 				console.log('fail');
