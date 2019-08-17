@@ -251,5 +251,4 @@ public class BuildingGenerationAPI extends API{
         }
         return temp;
     }
-
 }

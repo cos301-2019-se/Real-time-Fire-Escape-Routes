@@ -88,7 +88,8 @@ $(()=>{
 		if($(this).hasClass("active"))
 			{
 				console.log("2");
-
+				$("main").load("botview/index.html");	
+				
 			}
 			else
 			{
@@ -101,10 +102,11 @@ $(()=>{
 				{
 					$('#admin-view').removeClass("active");
 				}
-				
+			
+				$("main").load("botview/index.html");	
 				$("#su-view-simulation").addClass("active");
 				$('.main-cards').remove();
-				$('.main').load(""); // the actual things will be loadeds
+				// $('.main').load(""); // the actual things will be loadeds
 			}
 		
 		
