@@ -1,0 +1,15 @@
+nav>div>span{
+	padding:10px;
+}
+nav{
+	height: 50px;
+	background-color: #fc9575;
+	padding: 10px;
+	text-align: center;
+}
+nav>div, nav>div>div{
+	display: inline;
+}
+nav{
+
+}

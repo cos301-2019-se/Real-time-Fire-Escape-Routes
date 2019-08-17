@@ -567,7 +567,8 @@ public class Database {
         {
             e.printStackTrace();
         }
-        if(pass.compareTo("") == 0)
+        /*
+        if(pass.equals(""))
         {
             try{
 
@@ -580,8 +581,9 @@ public class Database {
             }
             return false;
         }
-        else
-        {
+        */
+//        else
+//        {
             try{
 
                 query = con.createStatement();
@@ -593,7 +595,7 @@ public class Database {
                 System.out.println("Search: " +e.getMessage());
             }
             return false;
-        }
+//        }
 
     }
 

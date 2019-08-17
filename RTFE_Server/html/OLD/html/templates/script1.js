@@ -990,30 +990,26 @@ function updateTable()
 function updateInfo(type, typeOfUpdate, email, value)
 {
 	$.ajax({
-            url: "http://127.0.0.1:8080/database",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify({
-                type: "update",
-                typeOfUpdate: typeOfUpdate,
-                email: email,
-                value: value
-            }),
-            success: function(data){
-                if (data.status){
-                	return "true";
-                    
-                }else{
-                	return "false";
-                	
-                   
-                   
-                }
-            }, fail: function(){
-				console.log('fail');
+        url: "http://127.0.0.1:8080/database",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            type: "update",
+            typeOfUpdate: typeOfUpdate,
+            email: email,
+            value: value
+        }),
+        success: function(data){
+            if (data.status){
+            	return "true";           
+            }else{
+            	return "false";
             }
-        });
+        }, fail: function(){
+			console.log('fail');
+        }
+    });
 }
 
 function fireWindow()
@@ -1122,12 +1118,8 @@ function getInfoAboutCurrentBuilding()
                 if (data.status){
                 	//console.log(data);
                 	return data;
-                    
                 }else{
-                	
-                	return "No buildings found"
-                   
-                   
+                	return "No buildings found"     
                 }
             }, fail: function(){
 				console.log('fail to get buildings');
@@ -1170,18 +1162,7 @@ function notify(msg, color){
         )
     }
 
-
-
-
-
-
-
-
-
-
-
-
- function handleFileSelect(id)
+function handleFileSelect(id)
   {               
     if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
       alert('The File APIs are not fully supported in this browser.');
@@ -1205,22 +1186,3 @@ function notify(msg, color){
      // fr.readAsDataURL(file);
     }
   }
-
- /* function receivedText() {
-    document.getElementById('editor').appendChild(document.createTextNode(fr.result));
-  }  */         
-
-
-/*
-{
-	"type": "register",
-    "name" : "John Little",
-    "email" : "little@gmail.com",
-    "pass" : "pass57",
-    "userType" : "admin"
-}
-
-{
-	"type": "getUsers",
-    
-}*/
