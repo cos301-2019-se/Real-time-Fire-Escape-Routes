@@ -6,6 +6,33 @@ nav>div>span{
 	float: left;
 	display: inline-block;
 }
+#logout {
+	background-color: #f03a01;
+	border: none;
+	color: white;
+	padding: 7px 14px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+}
+
+#logout:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+	color: #242424;
+}
+
+#userInfo {
+	padding-top: 30px;
+	height: 40px;
+	float:left;
+	width: 20%;
+	text-align: right;
+}
 #logo {
 	float: left;
 	display: inline-block;
@@ -39,13 +66,14 @@ nav>div {
 	list-style-type: none;
 }
 .nav__list-item {
+	transition-duration: 0.4s;
 	font-size:  110%;
-	padding-top: 20px;
+	padding-top: 25px;
 	background-color: #f55903;
 	text-align: center;
 	display: inline-block;
 	width: 30%;
-	height: 50px;
+	height: 45px;
 	float: left;
 }
 .nav__list-item.active{
@@ -56,7 +84,7 @@ nav>div {
 .nav__list-item:hover {
 	background-color: orange;
 	cursor: pointer;
-	box-shadow: #6c757d;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 
 }
 
@@ -64,3 +92,4 @@ nav>div {
 	vertical-align: middle;
 	background-color: black;
 }
+
