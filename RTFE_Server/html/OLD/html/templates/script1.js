@@ -788,6 +788,8 @@ function getInfoFromInput(callFunc, email1)
 		let email = $("#email-addUser").val();
 		let pass = $("#setPassword-addUser").val();
 		let userType = $("#type-addUser option:selected").val();
+        console.log($global_building_info);
+		let currentBuilding = $("#type-addUser option:selected").val();
 		console.log(dataType);
 		console.log(name);
 		console.log(email);
@@ -807,7 +809,7 @@ function getInfoFromInput(callFunc, email1)
 		if(name != undefined && name != "" && name != null && name != " ")
 		{
 			console.log("I am here");
-			updateName = updateInfo(dataType, 'name', email1, name);
+			updateName = updateInfo(dataType, "name", email1, name);
 			if(updateName === "false")
 			{
 				notify("Failed to update user name", 'red');
@@ -881,7 +883,7 @@ function getInfoFromInput(callFunc, email1)
 		clearWindow();
 }
 
-function addUser(dataType, name, email, pass, userType)
+function addUser(dataType, name, email, pass, userType, currentBuilding)
 {
 	//debugger;
 	console.log('over here')
@@ -895,7 +897,8 @@ function addUser(dataType, name, email, pass, userType)
                 name: name,
                 email: email,
                 pass: pass,
-                userType: userType
+                userType: userType,
+                buildingName: currentBuilding
             }),
             success: function(data){
                 if (data.status){

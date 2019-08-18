@@ -1,15 +1,66 @@
 nav>div>span{
 	padding:10px;
 }
-nav{
-	height: 50px;
-	background-color: #fc9575;
-	padding: 10px;
-	text-align: center;
-}
-nav>div, nav>div>div{
-	display: inline;
-}
-nav{
 
+#logoImage {
+	float: left;
+	display: inline-block;
+}
+#logo {
+	float: left;
+	display: inline-block;
+	height: 50px;
+	padding-top: 20px;
+	width: 40%;
+	text-align: left;
+}
+nav{
+	height: 70px;
+	background-color: #242424;
+	padding-left: 10px;
+	text-align: center;
+	color: white;
+}
+nav>div {
+	float: left;
+	display: inline-block;
+	height: 70px;
+	width: 40%;
+	text-align: left;
+}
+#options {
+	display: inline-block;
+	height: 70px;
+}
+
+.nav__list {
+	padding: 0;
+	width: 100%;
+	list-style-type: none;
+}
+.nav__list-item {
+	font-size:  110%;
+	padding-top: 20px;
+	background-color: #f55903;
+	text-align: center;
+	display: inline-block;
+	width: 30%;
+	height: 50px;
+	float: left;
+}
+.nav__list-item.active{
+
+	background-color: #f03a01;
+	color: white;
+}
+.nav__list-item:hover {
+	background-color: orange;
+	cursor: pointer;
+	box-shadow: #6c757d;
+
+}
+
+.active{
+	vertical-align: middle;
+	background-color: black;
 }

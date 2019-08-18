@@ -53,10 +53,7 @@
                   background-color: $header-footer;
                   height: 100%;
                 }
-                .active{ background-color: #f03a01;
-                    vertical-align: middle;
-                    padding: 1.4% 3% 1.4% 3%;
-                }
+
 
                 .main {
                   grid-area: main;
@@ -75,31 +72,9 @@
                     font-family: "Fjalla One";
                    }
 
-                  .nav__list {
-                    padding: 0;
-                    width: 100%;
-                    list-style-type: none;
+                  #options {
+                  }
 
-                  }
-                  .nav__list-item {
-                    color: white;
-                    display: inline;
-                    font-family: "Ubuntu";
-                    padding: 5px;
-                    border: solid;
-                    border-radius: 3px;
-                    margin:5px;
-                    padding-left: 3%;
-                    padding-right: 3%;
-                  }
-                  .nav__list-item.active{
-                    display: inline;
-                  }
-                  .nav__list-item:hover {
-                     color: black;
-                    cursor: pointer;
-
-                  }
                   .header__avatar{color: white;}
                   .main-overview {
                     display: grid;

@@ -56,7 +56,7 @@ function LoginSuccess(userType){
         }
         else{
             $("nav>#options").append(`<div class="active nav__list-item" id="su-view-life" href="#">Live view</div>`)
-            $("nav>#options").append(`<div class="nav__list-item" id="su-view-simulation" href="#">Simulation</div>`)
+            $("nav>#options").append(`<div class="nav__list-item" id="su-view-simulation" href="#">Simulation view</div>`)
             $("nav>#options").append(`<div class="nav__list-item" id="admin-view" href="#" >Administration</div>`)        
         
             $("#result").append(echoContentTable_SuperUser());
