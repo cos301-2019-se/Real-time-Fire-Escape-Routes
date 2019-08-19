@@ -29,10 +29,10 @@ function echoAdminTableView()
 		</div>
 
 		<div style="text-align: right; padding-top: 1%; width: 100%;">
-			<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser, null, null, null)">
+			<button id = "addButton" class="btn btn-light" onclick="displayOverlayWindow(windowForNewUser, null, null, null)">
 				<img style=" width: 10px;" id="img-drop"  src="icons/baseline_add_black_48dp.png"> Add user 
 			</button>
-			<button class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding, null, null, null)">
+			<button id = "addButton"  class="btn btn-light" onclick="displayOverlayWindow(windowForNewBuilding, null, null, null)">
 				<img style=" width: 10px;" id="img-drop" src="icons/baseline_add_black_48dp.png"> Add building 
 			</button>
 		</div>`;
