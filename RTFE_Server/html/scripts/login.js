@@ -69,7 +69,8 @@ function LoginSuccess(userType){
                 $('#admin-view').addClass("active");
                 $("#result").html("");
                 $("#result").append(echoAdminTableView());
-                anotherFetch("getUsers", "#table-body-A",true,false);        
+                anotherFetch("getUsers", "#table-body-A",true,false);  
+            buildingInfo();       
             })     
             
             $("#su-view-life").on("click",()=>{
@@ -88,7 +89,8 @@ function LoginSuccess(userType){
                 $('#admin-view').removeClass("active");
                 $("#result").html("");
                 $("#result").append(echoTableBotview());
-                anotherFetch("getUsers", "#table-body-Sim",false,true);        
+                anotherFetch("getUsers", "#table-body-Sim",false,true); 
+            buildingInfo();        
             })     
             
         }
