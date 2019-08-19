@@ -154,29 +154,6 @@ function addFire(x, y, rad, floor)
         }
     });
 }
-function triggerAlarm(AlarmStatus,mode){
-    $.ajax({
-        url: "http://127.0.0.1:8080/building",
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({
-            type: "assignPeople",
-            mode : mode,
-            alarm: AlarmStatus
-        }),
-        success: function(data){
-            $("body").delay(1500);
-            if(data.emergency =="true"){
-                notify("The Alarm has been triggered","green")
-            }
-            else{
-                notify("Alarm cancelled","green");
-            }
-        }
-    });
-}
-
 function updateInfo(type, typeOfUpdate, email, value)
 {
     $.ajax({
@@ -288,4 +265,132 @@ function addUser(dataType, name, email, pass, userType)
         }
     });
 
+}
+
+
+
+function getBuildingInfo(element,type,isSimulation)
+{
+    let objData;
+    $.ajax({
+        url: "http://127.0.0.1:8080/database",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            type:"currentBuilding",
+            mode: isSimulation
+        }),
+        success: function(data){
+            if (data.status){  
+                objData = data;
+                if(type === "name")
+                {
+                    $(element).html(data.name);
+                }
+                else if(type === "img")
+                {
+                    var img= `<img src="Buildings/${data.name}/building.jpeg" />`
+                    $(element).html(img);
+                }
+            }else{
+               $(element).html("No buildings to display");
+               return;
+            }
+        }, fail: function(){
+            $(element).text("Failed to load building");
+            return;
+        }
+    });   
+}
+function addDropDown(element){
+    $.ajax({
+        url:  URL+"database",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            type: "getBuildings"
+        }),
+        success:function(res){
+            if(res.status){
+                console.log(res);
+                // var mySelect = $('<select style="postion:relative" id="changeBuilding"></select>');
+                for (var i = 0; i < res.data.length; i++) {
+                    var bName = res.data[i].building_name
+                    $(element).append(
+                        $('<option></option>').val(bName).html(bName)
+                    );
+                }
+            }
+        }
+    }); 
+}
+
+function changeBuilding(elementText,elementImage,buildingName,isSimulation){
+    filePath = "/buildings/"+buildingName +"/data.json";
+    $.ajax({
+        url : filePath,
+        success : function (DATA) {
+            if(DATA == null){
+                notify("Invalid Building", 'red');
+            }
+            $.ajax({
+                url: URL+"buildingGeneration",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data : DATA,
+                mode: isSimulation,
+                success:function(res){
+                    if(res.status){
+                        notify("Building Changed", 'green');
+                        $(elementText).html(res.name);
+                    }
+                    else{
+                        notify(res.msg,"red");
+                    }
+                    getBuildingInfo(elementImage,"img",isSimulation);
+                }   
+            });
+        },
+        fail: function(data){
+            console.log("failed: "+data);
+            notify("Server offline","red");
+        }
+    });    
+    
+}
+
+function alarm(status,isSimulation){
+
+    $.ajax({
+        url: URL+"building",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data:JSON.stringify({
+            type: "assignPeople",
+            mode: isSimulation,
+            alarm: status
+
+        }),
+        success:function(res){
+            if(res.status){
+                if(res.emergency =="true"){
+                    notify("Alarm triggered","yellow");
+                }
+                else{
+                    notify("Alarm disarmed","green");
+                }
+            }
+            else{
+                notify(res.msg,"red");
+            }
+        },
+        fail: function(data){
+            console.log("failed: "+data);
+            notify("Server offline","red");
+        }
+    }); 
 }

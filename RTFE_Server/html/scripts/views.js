@@ -44,10 +44,14 @@ function echoContentTable_SuperUser()
 {
 	let info = anotherFetch("getUsers", '#table-body-SU')
 	var table =`
-		<div class="card1" id="inner-table-card" style="display: block;">				
-			<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 50%;">
-				<input type="text" id="search-input" class="searcher" onkeyup="search(this,"table-body-SU")" placeholder="Search.." name="search">
-				<button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
+	<div>
+		<div class="half" id="inner-table-card">				
+			<div class="table-heading" style="display: block;">
+				<span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 50%;">
+					<input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search">
+					<button type="submit" class="btn btn-light">
+						<i class="fa fa-search"></i>
+					</button>
 				</span>
 			</div>
 			<div >
@@ -66,12 +70,27 @@ function echoContentTable_SuperUser()
 				</table>
 			</div>
 		</div>
-	</div>`;
+		<div class="half">
+			<div class="pad">
+				<button onclick="alarm(true,false)">Trigger Alarm</button>
+				<button onclick="alarm(false,false)">Reset Alarm</button>
+			</div>
+			<hr/>
+			<div class="pad">
+				<h1>Active Building: <span id="ActiveBuilding">loading...</span></h1>
+				<h3>Change Building <select id="buildingDropDown"></select></h3>
+			</div>
+			<div id="ActiveBuildingImage">
+				<img id="buildingPicture" src="img/default.jpg">
+			</div>
+		</div>
+	</div>
+	`;
 	return table;	
 }
 function echoTableBotview(){
 	var table =`
-	<div class="half-page-card">
+	<div class="half">
 		<h1 id="liveHeader">Simulation Building</h1>
 		<table class="fixed_header" id="table-body-SU">
 			<thead>
@@ -85,7 +104,7 @@ function echoTableBotview(){
 			<tbody id="table-body-Sim"></tbody>
 		</table>
 	</div>
-	<div class="half-page-card">
+	<div class="half">
 		<h1 id="botHeader">SimulationBuilding</h1>
 		<table id="table-simulation">
 			<thead>

@@ -61,6 +61,7 @@ function LoginSuccess(userType){
         
             $("#result").append(echoContentTable_SuperUser());
             anotherFetch("getUsers", "#table-body-SU",false);
+            buildingInfo();    
 
             $("#admin-view").on("click",()=>{
                 $('#su-view-life').removeClass("active");
@@ -77,8 +78,9 @@ function LoginSuccess(userType){
                 $('#admin-view').removeClass("active");
                 $("#result").html("");
                 $("#result").append(echoContentTable_SuperUser());
-                anotherFetch("getUsers", "#table-body-SU",false,false);        
-            })     
+                anotherFetch("getUsers", "#table-body-SU",false,false);  
+                buildingInfo();   
+            }) ;    
             
             $("#su-view-simulation").on("click",()=>{
                 $('#su-view-life').removeClass("active");
@@ -89,13 +91,19 @@ function LoginSuccess(userType){
                 anotherFetch("getUsers", "#table-body-Sim",false,true);        
             })     
             
-
-
         }
     });
 }
 
-
+function buildingInfo(){
+    addDropDown("#buildingDropDown");
+    getBuildingInfo("#ActiveBuilding",'name','live');
+    getBuildingInfo("#ActiveBuildingImage",'img','live');
+    
+    $("#buildingDropDown").on("change",()=>{
+        changeBuilding("#ActiveBuilding","#ActiveBuildingImage",$("#buildingDropDown").val(),"live")
+    })
+}
 
 
 
