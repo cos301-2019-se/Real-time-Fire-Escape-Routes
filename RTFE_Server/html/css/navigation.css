@@ -14,7 +14,7 @@ nav>div>span{
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
+
 	margin: 4px 2px;
 	cursor: pointer;
 	-webkit-transition-duration: 0.4s; /* Safari */
@@ -38,7 +38,7 @@ nav>div>span{
 	display: inline-block;
 	height: 50px;
 	padding-top: 20px;
-	width: 40%;
+	width: 35%;
 	text-align: left;
 }
 nav{

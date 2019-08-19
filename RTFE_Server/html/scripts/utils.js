@@ -110,7 +110,7 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
     {
         $("#overlay-window").removeAttr("style");
 
-        $("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+        $("#overlay-window").append(`<div id="contentCard"  class="rtferCard">
                 ${contentFunc(user, name, type, device)}
             </div>`);
     }
@@ -118,7 +118,7 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
     {
         $("#overlay-window").removeAttr("style");
 -
-        $("#overlay-window").append(`<div id="contentCard" style="background-color: lightgrey;" class="rtferCard">
+        $("#overlay-window").append(`<div id="contentCard"  class="rtferCard">
                 ${contentFunc()}
             </div>`);
     }
@@ -537,38 +537,38 @@ function windowForNewUser()
 {
     return `<div class="row">
         <div style="text-align: center;" class="col-sm-12">
-            <h1>Add new user</h1>
+            <h1 style = "font-family: 'Fjalla One'" >Add new user</h1>
         </div>
     </div>
-    <div>
+    
+        
         <div id="addUser">
-          <div class="form-group">
+        
+          <div class="form-group" id = "addUserLabels">
             <label for="fullName-addUser">Full name</label>
-            <input type="text" class="form-control" id="fullName-addUser" placeholder="Full Name" required>
-          </div>
-          <div class="form-group">
             <label for="email-addUser">Email</label>
-            <input type="email" class="form-control" id="email-addUser" placeholder="Email" required>
-          </div>
-          <div class="form-group">
             <label for="setPassword-addUser">Set password</label>
-            <input type="password" class="form-control" id="setPassword-addUser" placeholder="password" required>
+             <label for="type-addUser">Set type</label>
+            
           </div>
-          <div class="form-group">
-            <label for="type-addUser">Set type</label>
-            <select class="custom-select mr-sm-2" id="type-addUser">
+          <div class="form-group" id = "addUserInputs">
+            <input type="text" class="form-control" id="fullName-addUser" placeholder="Full Name" required>
+            <input type="email" class="form-control" id="email-addUser" placeholder="Email" required>
+            <input type="password" class="form-control" id="setPassword-addUser" placeholder="password" required>
+             <select class="custom-select mr-sm-2" id="type-addUser">
 
                 <option selected>Agent</option>
                 <option value="1">Admin</option>
             </select>
           </div>
+          
           <div class="form-group row button-line">
             <div class="col-sm-12" style="text-align: right;">
-              <button onclick="getInfoFromInput('addUser', null)" id="submit-new-user" class="btn btn-info">Send request</button>
-              <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
+              <button onclick="getInfoFromInput('addUser', null)" id="addButton" class="btn btn-info">Add user</button>
+              <button onclick="clearWindow()" id="addButton" class="btn btn-danger">Cancel</button>
             </div>
           </div>
         </div>
-    </div>
+    
     `;
 }
