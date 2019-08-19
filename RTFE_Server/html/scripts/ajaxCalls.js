@@ -246,7 +246,8 @@ function addUser(dataType, name, email, pass, userType)
             name: name,
             email: email,
             pass: pass,
-            userType: userType
+            userType: userType,
+            buildingName: $("#ActiveBuilding").text()
         }),
         success: function(data){
             if (data.status){
