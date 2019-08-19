@@ -555,11 +555,13 @@ function windowForNewUser()
             <input type="text" class="form-control" id="fullName-addUser" placeholder="Full Name" required>
             <input type="email" class="form-control" id="email-addUser" placeholder="Email" required>
             <input type="password" class="form-control" id="setPassword-addUser" placeholder="password" required>
+            <div id = #select>
              <select class="custom-select mr-sm-2" id="type-addUser">
 
                 <option selected>Agent</option>
                 <option value="1">Admin</option>
             </select>
+            </div>
           </div>
           
           <div class="form-group row button-line">
