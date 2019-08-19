@@ -3,29 +3,35 @@ function echoAdminTableView()
 	// let info = fetchFromDb("getUsers", "table-body-A",true);
 	var table = `
 		<div id="main-body-admin" class="card1" style="width:60%; margin:auto">
-
-			<div id="inner-table-card" style="display: block;">
-				<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
-					<span class="search-span" style="text-align: right;position:relative ;right: 50px;">
-						<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search"  onkeyup="search(this,'table-body-A')">
-						<button class="btn btn-light" type="submit"><i class="fa fa-search"></i></button>
-					</span>
-				</div>
-			<div>	
-			<table style="width:100%" id="tbh" class="fixed_header">
-				<thead>
-					<tr>
-						<td scope="col">Name</td>
-						<td scope="col">Email</td>
-						<td scope="col">Device_ID</td>
-						<td scope="col">Type</td>
-						<td scope="col">Status</td>
-						<td scope="col">Edit</td>
-					</tr>
-				</thead>
-				<tbody id="table-body-A">
-				</tbody>
-			</table>
+			<div class="pad">
+				<h1>Active Building: <span id="ActiveBuilding">loading...</span></h1>
+				<h3>Change Building <select id="buildingDropDown"></select></h3>
+			</div>
+			<hr/>
+			<div>
+				<div id="inner-table-card" style="display: block;">
+					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
+						<span class="search-span" style="text-align: right;position:relative ;right: 50px;">
+							<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search"  onkeyup="search(this,'table-body-A')">
+							<button class="btn btn-light" type="submit"><i class="fa fa-search"></i></button>
+						</span>
+					</div>
+				<div>	
+				<table style="width:100%" id="tbh" class="fixed_header">
+					<thead>
+						<tr>
+							<td scope="col">Name</td>
+							<td scope="col">Email</td>
+							<td scope="col">Device_ID</td>
+							<td scope="col">Type</td>
+							<td scope="col">Status</td>
+							<td scope="col">Edit</td>
+						</tr>
+					</thead>
+					<tbody id="table-body-A">
+					</tbody>
+				</table>
+			</div
 		</div>
 
 		<div style="text-align: right; padding-top: 1%; width: 100%;">
@@ -91,6 +97,12 @@ function echoContentTable_SuperUser()
 function echoTableBotview(){
 	var table =`
 	<div class="half">
+
+			<div class="pad">
+				<h1>Active Building: <span id="ActiveBuilding">loading...</span></h1>
+				<h3>Change Building <select id="buildingDropDown"></select></h3>
+			</div>
+			<hr/>
 		<h1 id="liveHeader">Simulation Building</h1>
 		<table class="fixed_header" id="table-body-SU">
 			<thead>
