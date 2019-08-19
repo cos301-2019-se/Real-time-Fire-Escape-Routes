@@ -7,7 +7,8 @@ function anotherFetch(type, html,extenedTable,SimulationMode){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify({
-                type: type
+                type: type,
+                buildingName: $("#ActiveBuilding").text()
             }),
             success: function(resp){
                 if (resp.status){
@@ -16,6 +17,8 @@ function anotherFetch(type, html,extenedTable,SimulationMode){
             }
     })
 }
+
+
 function fetchStatus(mac,identify)
 {
     if(mac == null || mac == ""){
@@ -245,7 +248,7 @@ function addUser(dataType, name, email, pass, userType)
             type: dataType,
             name: name,
             email: email,
-            pass: pass,
+            password: pass,
             userType: userType,
             buildingName: $("#ActiveBuilding").text()
         }),

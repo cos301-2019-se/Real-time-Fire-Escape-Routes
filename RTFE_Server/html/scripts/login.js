@@ -51,7 +51,8 @@ function LoginSuccess(userType){
                 console.log("Clicked on admin Views");
                 $("#result").html("");
                 $("#result").append(echoAdminTableView());
-                anotherFetch("getUsers", "#table-body-A",true);        
+                 buildingInfo();
+                anotherFetch("getUsersInBuilding", "#table-body-A",true);
             })        
         }
         else{
@@ -69,8 +70,9 @@ function LoginSuccess(userType){
                 $('#admin-view').addClass("active");
                 $("#result").html("");
                 $("#result").append(echoAdminTableView());
-                anotherFetch("getUsers", "#table-body-A",true,false);  
-            buildingInfo();       
+                 buildingInfo();
+                anotherFetch("getUsersInBuilding", "#table-body-A",true,false);
+
             })     
             
             $("#su-view-life").on("click",()=>{
@@ -79,8 +81,9 @@ function LoginSuccess(userType){
                 $('#admin-view').removeClass("active");
                 $("#result").html("");
                 $("#result").append(echoContentTable_SuperUser());
-                anotherFetch("getUsers", "#table-body-SU",false,false);  
-                buildingInfo();   
+                buildingInfo();
+                anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
+
             }) ;    
             
             $("#su-view-simulation").on("click",()=>{
@@ -89,9 +92,9 @@ function LoginSuccess(userType){
                 $('#admin-view').removeClass("active");
                 $("#result").html("");
                 $("#result").append(echoTableBotview());
-                anotherFetch("getUsers", "#table-body-Sim",false,true); 
-            buildingInfo();        
-            })     
+                buildingInfo();
+                anotherFetch("getUsers", "#table-body-Sim",false,true);
+            })
             
         }
     });

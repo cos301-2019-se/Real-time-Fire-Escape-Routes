@@ -286,7 +286,7 @@ function fireWindow()
 
 function getInfoFromInput(callFunc, email1)
 {   
-    anotherFetch("getUsers","table-body-A",true,false);
+    anotherFetch("getUsersInBuilding","table-body-A",true,false);
 
     if(callFunc === "addUser")
     {
