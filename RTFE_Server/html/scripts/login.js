@@ -92,22 +92,46 @@ function LoginSuccess(userType){
                 $('#admin-view').removeClass("active");
                 $("#result").html("");
                 $("#result").append(echoTableBotview());
-                buildingInfo();
+                buildingInfo(true);
                 anotherFetch("getUsers", "#table-body-Sim",false,true);
             })
             
         }
+
+        $('#logout').click(function() {
+
+            $("#result").html("");
+            $("#navbar").html("");
+            
+            $('#login-form').fadeIn('fast', function(){
+                $('#background').show('slide', {direction: 'right'}, 500, function(){
+                    $('#login-page').fadeIn('fast', function(){
+                        $('#footer').css('width', '50%%');
+                        $('#dashboard').fadeOut('fast');
+                       
+                    });
+                });
+            })
+        });
     });
 }
 
-function buildingInfo(){
+function buildingInfo(isSimulation){
     addDropDown("#buildingDropDown");
     getBuildingInfo("#ActiveBuilding",'name','live');
     getBuildingInfo("#ActiveBuildingImage",'img','live');
-    
     $("#buildingDropDown").on("change",()=>{
         changeBuilding("#ActiveBuilding","#ActiveBuildingImage",$("#buildingDropDown").val(),"live")
     })
+    if(isSimulation == true){
+        addDropDown("#buildingDropDownSim");
+        getBuildingInfo("#ActiveBuildingSim",'name','simulation');       
+        $("#buildingDropDownSim").on("change",()=>{
+            changeBuilding("#ActiveBuildingSim","#ActiveBuildingImageSim",$("#buildingDropDownSim").val(),"simulation")
+            buildingInfo(true);
+        })
+    }
+
 }
 
 

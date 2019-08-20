@@ -338,14 +338,17 @@ function changeBuilding(elementText,elementImage,buildingName,isSimulation){
         success : function (DATA) {
             if(DATA == null){
                 notify("Invalid Building", 'red');
-            }
+                return;
+            };
+            DATA = JSON.parse(DATA);
+            DATA.mode = isSimulation;
+            console.log(DATA);
             $.ajax({
                 url: URL+"buildingGeneration",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data : DATA,
-                mode: isSimulation,
+                data : JSON.stringify(DATA),
                 success:function(res){
                     if(res.status){
                         notify("Building Changed", 'green');

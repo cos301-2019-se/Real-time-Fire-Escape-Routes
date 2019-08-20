@@ -99,8 +99,8 @@ function echoTableBotview(){
 	<div class="half">
 
 			<div class="pad">
+				<h1>All users</h1>
 				<h1>Active Building: <span id="ActiveBuilding">loading...</span></h1>
-				<h3>Change Building <select id="buildingDropDown"></select></h3>
 			</div>
 			<hr/>
 		<h1 id="liveHeader">Simulation Building</h1>
@@ -117,7 +117,17 @@ function echoTableBotview(){
 		</table>
 	</div>
 	<div class="half">
-		<h1 id="botHeader">SimulationBuilding</h1>
+			<div class="pad">
+				<button onclick="alarm(true,'simulation')">Trigger Alarm</button>
+				<button onclick="alarm(false,'simulation')">Reset Alarm</button>
+				<button onclick="" >Add Bot</button>
+			</div>
+			<div class="pad">
+				<h1>Simulation</h1>
+				<h1>Active Building: <span id="ActiveBuildingSim">loading...</span></h1>
+				<h3>Change Building <select id="buildingDropDownSim"></select></h3>
+			</div>
+			<hr/>
 		<table id="table-simulation">
 			<thead>
 				<td>Bot ID</td>
