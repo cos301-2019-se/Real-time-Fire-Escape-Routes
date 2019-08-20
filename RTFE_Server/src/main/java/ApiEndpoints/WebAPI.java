@@ -252,12 +252,12 @@ public class WebAPI extends API {
     private static JSONObject register(String name, String email, String password, String type, String buildingName){
         JSONObject Response = new JSONObject();
         try{
-            boolean exist =  USERDB.insert(name, email,password,type, buildingName);
+            boolean exist =  USERDB.exists(email);
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");
             }else{
-
+                USERDB.insert(name, email,password,type, buildingName);
                 Response.put("status", true);
                 Response.put("msg","User Successfully created");
 

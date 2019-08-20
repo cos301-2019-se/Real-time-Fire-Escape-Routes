@@ -23,8 +23,10 @@ public class Database {
     Statement query = null;
     MessageDigest md;
     byte[] salt;
+    SQLInjectionEscaper shield;
     public Database()
     {
+        shield = new SQLInjectionEscaper();
 
         try {
             md = MessageDigest.getInstance("SHA-1");
@@ -220,6 +222,11 @@ public class Database {
      * @param pass: is a string of user password
      */
     public boolean insert(String name, String email, String pass, String type, String buildingName){
+        name = shield.escapeString(name, true);
+        email = shield.escapeString(email, true);
+        pass = shield.escapeString(pass, true);
+        type = shield.escapeString(type, true);
+        buildingName = shield.escapeString(buildingName, true);
         lock.lock();
         String generatedPassword = null;
         try {
@@ -239,7 +246,7 @@ public class Database {
         boolean val = true;
         try{
             query = con.createStatement();
-            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
+            query.execute("insert into users(name, email, password, userType) values(\'"+ shield.escapeString(name, true)+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
             ResultSet results =  select("select * from users where email = '" + email + "'");
             int u_id = results.getInt("id");
             ResultSet results2 = select("select building_id, count(*) as rowcount from buildings where building_name = '" + buildingName +"'");
@@ -266,6 +273,8 @@ public class Database {
      */
     public boolean updateEmail(String email, String newEmail)
     {
+        email = shield.escapeString(email, true);
+        newEmail = shield.escapeString(newEmail, true);
         lock.lock();
         boolean val;
         try{
@@ -287,6 +296,8 @@ public class Database {
      */
     public boolean updateDeviceID(String email, String deviceID)
     {
+        email = shield.escapeString(email, true);
+        deviceID = shield.escapeString(deviceID, true);
         lock.lock();
         boolean val;
         try{
@@ -308,6 +319,8 @@ public class Database {
      */
     public boolean updatePassword(String email, String password)
     {
+        email = shield.escapeString(email, true);
+        password = shield.escapeString(password, true);
         lock.lock();
         String generatedPassword = null;
         try {
@@ -345,6 +358,8 @@ public class Database {
      */
     public boolean updateType(String email, String type)
     {
+        email = shield.escapeString(email, true);
+        type = shield.escapeString(type, true);
         lock.lock();
         boolean val;
         try{
@@ -366,6 +381,8 @@ public class Database {
      */
     public boolean updateName(String email, String name)
     {
+        email = shield.escapeString(email, true);
+        name = shield.escapeString(name, true);
         lock.lock();
         boolean val;
         try{
@@ -385,6 +402,7 @@ public class Database {
      * @param email: is a string of user name
      */
     public boolean delete(String email){
+        email = shield.escapeString(email, true);
         lock.lock();
         boolean val = false;
         try{
@@ -525,7 +543,8 @@ public class Database {
 
     public boolean validateDeviceId(String email, String deviceId)
     {
-
+        email = shield.escapeString(email, true);
+        deviceId = shield.escapeString(deviceId, true);
         boolean validated = false;
         try{
 
@@ -561,6 +580,8 @@ public class Database {
 
     public boolean search(String email,String pass)
     {
+        email = shield.escapeString(email, true);
+//        pass = shield.escapeString(pass, true);
         String generatedPassword = null;
         for(int k = 0; k < 2; k++)
         {
@@ -582,7 +603,6 @@ public class Database {
             try{
 
                 query = con.createStatement();
-                System.out.println("DOES IT ERROR HERE!?!?!" + " " + generatedPassword);
                 ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + generatedPassword + "'");
                 query = null;
                 if (result.getInt("rowcount") > 0) return true;
@@ -597,6 +617,7 @@ public class Database {
 
     public String getUserType(String email)
     {
+        email = shield.escapeString(email, true);
 
         try{
 
@@ -612,11 +633,10 @@ public class Database {
 
 
     }
-    public boolean oldSearch(String email,String pass)
+    public boolean exists(String email)
     {
+            email = shield.escapeString(email, true);
 
-        if(pass.compareTo("") == 0)
-        {
             try{
 
                 query = con.createStatement();
@@ -627,22 +647,8 @@ public class Database {
                 System.out.println(e.getMessage());
             }
             return false;
-        }
-        else
-        {
 
-            try{
 
-                query = con.createStatement();
-                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + pass + "'");
-                query = null;
-                if (result.getInt("rowcount") > 0) return true;
-            }catch(Exception e){
-
-                System.out.println(e.getMessage());
-            }
-            return false;
-        }
 
     }
 
@@ -697,4 +703,74 @@ public class Database {
     }
 
 
+}
+
+class SQLInjectionEscaper {
+
+    public static String escapeString(String x, boolean escapeDoubleQuotes) {
+        StringBuilder sBuilder = new StringBuilder(x.length() * 11/10);
+
+        int stringLength = x.length();
+
+        for (int i = 0; i < stringLength; ++i) {
+            char c = x.charAt(i);
+
+            switch (c) {
+                case 0: /* Must be escaped for 'mysql' */
+                    sBuilder.append('\\');
+                    sBuilder.append('0');
+
+                    break;
+
+                case '\n': /* Must be escaped for logs */
+                    sBuilder.append('\\');
+                    sBuilder.append('n');
+
+                    break;
+
+                case '\r':
+                    sBuilder.append('\\');
+                    sBuilder.append('r');
+
+                    break;
+
+                case '\\':
+                    sBuilder.append('\\');
+                    sBuilder.append('\\');
+
+                    break;
+
+                case '\'':
+                    sBuilder.append('\\');
+                    sBuilder.append('\'');
+
+                    break;
+
+                case '"': /* Better safe than sorry */
+                    if (escapeDoubleQuotes) {
+                        sBuilder.append('\\');
+                    }
+
+                    sBuilder.append('"');
+
+                    break;
+
+                case '\032': /* This gives problems on Win32 */
+                    sBuilder.append('\\');
+                    sBuilder.append('Z');
+
+                    break;
+
+                case '\u00a5':
+                case '\u20a9':
+                    // escape characters interpreted as backslash by mysql
+                    // fall through
+
+                default:
+                    sBuilder.append(c);
+            }
+        }
+
+        return sBuilder.toString();
+    }
 }

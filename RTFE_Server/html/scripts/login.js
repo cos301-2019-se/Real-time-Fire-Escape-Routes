@@ -82,7 +82,7 @@ function LoginSuccess(userType){
             anotherFetch("getUsers", "#table-body-A",true);    
             $("#admin-view").on("click",()=>{
                 console.log("Clicked on admin Views");
-                $("#result").html("");
+
                 $("#result").append(echoAdminTableView());
                  buildingInfo();
                 anotherFetch("getUsersInBuilding", "#table-body-A",true);
@@ -104,6 +104,7 @@ function LoginSuccess(userType){
             $("nav>#options").append(`<div class="nav__list-item" id="su-view-simulation" href="#">Simulation view</div>`)
             $("nav>#options").append(`<div class="nav__list-item" id="admin-view" href="#" >Administration</div>`)
             $("#displayUsername").html(getCookie("email"));
+            $("#result").html("");
             $("#result").append(echoContentTable_SuperUser());
             anotherFetch("getUsers", "#table-body-SU",false);
             buildingInfo();    
@@ -152,7 +153,7 @@ function LoginSuccess(userType){
                     $('#login-page').fadeIn('fast', function(){
 
                         $('#dashboard').fadeOut('fast');
-                       
+                        $("#result").html("");
                     });
                 });
             })
