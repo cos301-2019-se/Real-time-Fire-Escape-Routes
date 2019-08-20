@@ -7,6 +7,10 @@ function setCookie(name, api, building_name) {
     document.cookie =  "building_name=" + building_name+";expires=" + d.toGMTString() + ";path=/;"
 }
 
+function changeCookie(name, value)
+{
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+}
 
 function getCookie(name) {
     var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');

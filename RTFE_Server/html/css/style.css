@@ -92,6 +92,7 @@
             /* Assign grid instructions to our parent grid container */
             body{
                 background-color: $background-body;
+
                 /*width: fit-content; margin: 0;*/
             }
             .container-fluid{
@@ -285,6 +286,15 @@
                         border-bottom-style: solid;
                         border-bottom-width: 2px;
                         border-bottom-color: $table-header-underliner;
+                        transition: border-bottom-color .35s ease-in-out;
+                    }
+
+                     .searcher:focus{
+                        border-width: 0px;
+                        background-color: transparent;
+                        border-bottom-style: solid;
+                        border-bottom-width: 2px;
+                        border-bottom-color: #5d5d5d;
                     }
 
                     /*OVERLAY Window*/
@@ -453,3 +463,32 @@
     .pad{
         padding: 2%;
     }
+
+/*search button*/
+.search-button{
+  background-color: transparent;
+  border: transparent;
+  padding: 0;
+  max-width: 3%;
+  display: inline-block;
+  margin: 1%;
+  cursor: pointer;
+}
+
+.search-button: hover{
+  border-color: transparent;
+  border-style: none;
+  cursor: pointer;
+}
+
+
+/*search icon*/
+.search-icon{
+  max-width: 100%;
+  height: auto;
+}
+
+#admin-search-button{
+  max-width: 2.5%;
+}
+

@@ -290,13 +290,50 @@ function getInfoFromInput(callFunc, email1)
         let name = $("#fullName-addUser").val();
         let email = $("#email-addUser").val();
         let pass = $("#setPassword-addUser").val();
+        let confirmPass = $("#confirmPassword-addUser").val();
         let userType = $("#type-addUser option:selected").val();
+        $("#fullName-addUser").attr("style", "");
+        $("#email-addUser").attr("style", "");
+        $("#setPassword-addUser").attr("style", "");
+        $("#confirmPassword-addUser").attr("style", "");
+        let valid = true;
         console.log(dataType);
         console.log(name);
         console.log(email);
         console.log(pass);
         console.log(userType);
-        addUser(dataType, name, email, pass, userType);
+        if(!validateEmail(email))
+        {
+            notify("Invalid email", 'red');
+            $("#email-addUser").attr("style", "border: 1px solid red; box-shadow: 0px 0px 4px red;");
+            valid = false;
+        }
+        if(pass == "") {
+            notify("Passwords can't be empty", 'red');
+            $("#setPassword-addUser").attr("style", "border: 1px solid red; box-shadow: 0px 0px 4px red;");
+            valid = false;
+        }
+        if(name == "") {
+            notify("Name can't be empty", 'red');
+            $("#fullName-addUser").attr("style", "border: 1px solid red; box-shadow: 0px 0px 4px red;");
+            valid = false;
+        }
+        if(email == "") {
+            notify("Email can't be empty", 'red');
+            $("#email-addUser").attr("style", "border: 1px solid red; box-shadow: 0px 0px 4px red;");
+            valid = false;
+        }
+        if(pass != confirmPass){
+            notify("Passwords don't match", 'red');
+            $("#confirmPassword-addUser").attr("style", "border: 1px solid red; box-shadow: 0px 0px 4px red;");
+            $("#setPassword-addUser").attr("style", "border: 1px solid red; box-shadow: 0px 0px 4px red;");
+            valid = false;
+        }
+        if(valid == true) {
+            addUser(dataType, name, email, pass, userType);
+            clearWindow();
+        }
+
     }
 
 
@@ -380,7 +417,7 @@ function getInfoFromInput(callFunc, email1)
         addFire(x, y, rad, floor);
     }
 
-        clearWindow();
+        // clearWindow();
 }
 
 
@@ -540,16 +577,18 @@ function windowForNewUser()
         <div id="addUser">
         
           <div class="form-group" id = "addUserLabels">
-            <label for="fullName-addUser">Full name</label>
+            <label for="fullName-addUser">Full Name</label>
             <label for="email-addUser">Email</label>
-            <label for="setPassword-addUser">Set password</label>
-             <label for="type-addUser">Set type</label>
+            <label for="setPassword-addUser">Password</label>
+            <label for="confirmPassword-addUser">Confirm Password</label>
+             <label for="type-addUser">User Type</label>
             
           </div>
           <div class="form-group" id = "addUserInputs">
             <input type="text" class="form-control" id="fullName-addUser" placeholder="Full Name" required>
             <input type="email" class="form-control" id="email-addUser" placeholder="Email" required>
             <input type="password" class="form-control" id="setPassword-addUser" placeholder="password" required>
+            <input type="password" class="form-control" id="confirmPassword-addUser" placeholder="password" required>
             <div id = #select>
              <select class="custom-select mr-sm-2" id="type-addUser">
 
@@ -570,3 +609,18 @@ function windowForNewUser()
     `;
 }
 
+//function to highlight search field when searchbutton was pressed
+function highlightSearchField()
+{
+    $(".search-button").on('click', ()=>{
+        console.log("I was clicked");
+        $('#search-input').select();
+        
+    });
+}
+
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}

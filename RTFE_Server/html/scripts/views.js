@@ -13,7 +13,8 @@ function echoAdminTableView()
 					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
 						<span class="search-span" style="text-align: right;position:relative ;right: 50px;">
 							<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search"  onkeyup="search(this,'table-body-A')">
-							<button class="btn btn-light" type="submit"><i class="fa fa-search"></i></button>
+							<div class="search-button" id="admin-search-button" onclick="highlightSearchField()"><img class="search-icon" src="icons/search_grey.png"><i class="fa fa-search"></i>
+							</div>
 						</span>
 					</div>
 				<div>	
@@ -55,9 +56,10 @@ function echoContentTable_SuperUser()
 			<div class="table-heading" style="display: block;">
 				<span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 50%;">
 					<input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search">
-					<button type="submit" class="btn btn-light">
+					<div class="search-button" onclick="highlightSearchField()">
+						<img class="search-icon" src="icons/search_grey.png">
 						<i class="fa fa-search"></i>
-					</button>
+					</div>
 				</span>
 			</div>
 			<div >

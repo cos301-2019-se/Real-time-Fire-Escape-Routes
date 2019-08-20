@@ -32,7 +32,7 @@ table td {
   display:block;
   /*width: 100%;*/
   overflow: auto;
-  height: 600px;
+
 }
 
 .fixed_header thead tr {
@@ -48,3 +48,4 @@ table td {
   text-align: left;
   width: 200px;
 }
+
