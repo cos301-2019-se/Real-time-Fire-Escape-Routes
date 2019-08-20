@@ -614,6 +614,17 @@ function windowForNewUser()
     `;
 }
 
+//function to highlight search field when searchbutton was pressed
+function highlightSearchField()
+{
+    $(".search-button").on('click', ()=>{
+        console.log("I was clicked");
+        $('#search-input').select();
+        
+    });
+}
+
+
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
