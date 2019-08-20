@@ -11,7 +11,7 @@ $(function() {
                 password: $('#password').val()
             }),
             success: function(data){
-                setCookie("email", $('#username').val());
+                setCookie( $('#username').val(), data.apiKey, "");
                 if (data.status == true){
                     if(data.userType == "Agent"){
                         notify("You have insuffcient rank to use the page", 'orange');
@@ -115,10 +115,11 @@ function LoginSuccess(userType){
             deleteCookie("email");
             $("#result").html("");
             $("#navbar").html("");
+            $('#footer').css('width', '50%');
             $('#login-form').fadeIn('fast', function(){
                 $('#background').show('slide', {direction: 'right'}, 500, function(){
                     $('#login-page').fadeIn('fast', function(){
-                        $('#footer').css('width', '50%%');
+
                         $('#dashboard').fadeOut('fast');
                        
                     });
