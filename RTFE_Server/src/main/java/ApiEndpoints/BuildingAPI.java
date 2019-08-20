@@ -24,6 +24,7 @@ public class BuildingAPI extends API {
     private static Building building;
     synchronized public static JSONObject handleRequest(JSONObject request)throws Exception {
         JSONObject response;
+        AuthorizeRequest(request);
         if(verbose){
             System.out.println("BuildingAPI: "+ request.toString());
         }

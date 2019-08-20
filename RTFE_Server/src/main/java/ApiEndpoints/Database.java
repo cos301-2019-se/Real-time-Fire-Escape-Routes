@@ -52,7 +52,17 @@ public class Database {
 
     public void wakeup()
     {
-
+        if(con==null) {
+            try {
+                Class.forName("org.sqlite.JDBC");
+                con = DriverManager.getConnection("jdbc:sqlite:database.db");
+                System.out.println("Connected to DB!!");
+            } catch (Exception e) {
+                System.out.println("Failed to connect to database");
+                System.out.println(e.getMessage());
+            }
+            createTable();
+        }
     }
     //DATABASE CODE @Kinson
     /**
@@ -73,11 +83,11 @@ public class Database {
 
         try{
             query = con.createStatement();
-//            query.execute("drop table if exists buildings;");
+//            query.execute("drop table if exists apiKeys;");
             query.execute("create table if not exists users(id integer primary key, name varchar(250), email varchar(250), password varchar(250), userType varchar(250), deviceID integer, userDate date );");
             query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250));");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
-            query.execute("create table if not exists apiKeys(key_id integer primary key, apikey varchar(250), date_created date, date_expire date, authorizationLevel integer);");
+            query.execute("create table if not exists apiKeys(key_id integer primary key, apikey varchar(250), date_created bigint, date_expire bigint, authorizationLevel integer);");
 
             query = null;
         }catch (Exception e){
@@ -106,7 +116,6 @@ public class Database {
             System.out.println("addUserToBuilding: " + e.getMessage());
         }
         finally{
-
             lock.unlock();
         }
         return val;
@@ -234,7 +243,9 @@ public class Database {
         catch (Exception e)
         {
             e.printStackTrace();
-//            lock.unlock();
+        }
+        finally {
+            lock.unlock();
         }
         boolean val = true;
         try{
@@ -254,7 +265,6 @@ public class Database {
             System.out.println("Register: " + e.getMessage());
         }
         finally{
-
             lock.unlock();
         }
         return !val;
@@ -277,7 +287,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -298,7 +310,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -322,6 +336,8 @@ public class Database {
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+        finally {
             lock.unlock();
         }
         boolean val;
@@ -335,7 +351,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -356,7 +374,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -377,7 +397,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -395,7 +417,9 @@ public class Database {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -582,7 +606,6 @@ public class Database {
             try{
 
                 query = con.createStatement();
-                System.out.println("DOES IT ERROR HERE!?!?!" + " " + generatedPassword);
                 ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + generatedPassword + "'");
                 query = null;
                 if (result.getInt("rowcount") > 0) return true;
@@ -646,7 +669,7 @@ public class Database {
 
     }
 
-    public String generateKey(){
+    public String generateKey(int AuthLevel){
         String generatedKey = null;
         try {
             byte[] bytes = md.digest(String.valueOf(System.currentTimeMillis()).getBytes());
@@ -664,9 +687,9 @@ public class Database {
         lock.lock();
         try{
             query = con.createStatement();
-            Date now = new Date(System.currentTimeMillis());
-            Date expire = new Date(System.currentTimeMillis()+1800000);// 30mins
-            query.execute("insert into apiKeys(apikey,date_created,date_expire) values(\'"+generatedKey+"\'"+"\'"+now+"\'"+"\'"+expire+"\'");
+            long expire =(System.currentTimeMillis()+1800000);// 30mins
+            ;
+            query.execute("insert into apiKeys(apikey,date_created,date_expire,authorizationLevel) values(\'"+generatedKey+"\',"+"\'"+System.currentTimeMillis()+"\',"+"\'"+expire+"\',"+"\'"+AuthLevel+"\')");
             query = null;
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -683,11 +706,13 @@ public class Database {
             query = con.createStatement();
             ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
             query = null;
-            Date expireDate = result.getDate("date_expire");
-            Date now = new Date(System.currentTimeMillis());
-            if(now.before(expireDate)){
-                level = result.getInt("authorizationLevel");
-            }
+            Date expireDate = new Date(result.getLong("date_expire"));
+//            if(result.getInt("rowcount") > 0) {
+                Date now = new Date(System.currentTimeMillis());
+                if (now.before(expireDate)) {
+                    level = result.getInt("authorizationLevel");
+                }
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {

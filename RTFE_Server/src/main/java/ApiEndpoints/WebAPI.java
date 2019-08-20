@@ -12,7 +12,6 @@ import java.util.Date;
  * and handles all requests related to the database and basic administration
  * */
 public class WebAPI extends API {
-
     private static boolean verbose = false; //USED for debugging purposes
     private static Database USERDB = new Database();
     public static void wakeup()
@@ -32,7 +31,26 @@ public class WebAPI extends API {
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
     public static JSONObject handleRequest(JSONObject request)throws Exception {
+        SecuredEndpoints= new String[]{
+                "addUserToBuilding",
+                "currentBuilding",
+                "getBuildings",
+                "getUsers",
+                "remove",
+                "update",
+                "validateDeviceId",
+        };
+        AuthorizationLevelRequired= new int[]{
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+        };
         JSONObject response;
+        AuthorizeRequest(request);
         if(verbose)
             System.out.println("WEBAPI -> "+request.toString());
 
@@ -220,8 +238,19 @@ public class WebAPI extends API {
             boolean status= USERDB.search(email, password);
             Response.put("status", status);
             if(status) {
-                Response.put("userType",USERDB.getUserType(email));
-                Response.put("apiKey",USERDB.generateKey());
+                String type = USERDB.getUserType(email);
+                switch (type.toLowerCase()){
+                    case "dev":
+                        Response.put("apiKey",USERDB.generateKey(2));
+                        break;
+                    case "admin":
+                        Response.put("apiKey",USERDB.generateKey(1));
+                        break;
+                    case "agent":
+                        Response.put("apiKey",USERDB.generateKey(0));
+                        break;
+                }
+                Response.put("userType",type);
                 Response.put("msg", "Login success");
             }
             else

@@ -1,5 +1,4 @@
 URL = "http://127.0.0.1:8080/"
-
 function anotherFetch(type, html,extenedTable,SimulationMode){
     $.ajax({
             url: URL+"database",
@@ -7,6 +6,7 @@ function anotherFetch(type, html,extenedTable,SimulationMode){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify({
+                key: getCookie("apiKey"),
                 type: type,
                 buildingName: $("#ActiveBuilding").text()
             }),
@@ -31,6 +31,7 @@ function fetchStatus(mac,identify)
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify({
+                    key: getCookie("apiKey"),
                     type: "personInfo",
                     device_id: mac
                 }),
@@ -62,6 +63,7 @@ function docall(botID,location,floor,mode,HTMLelement){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type: "personUpdate",
             position: location,
             floor: floor,
@@ -86,6 +88,7 @@ function remove(botID,mode,html){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type: "removePerson",
             id : botID,
             mode: mode
@@ -106,6 +109,7 @@ function bindUser(botID,device_id,mode){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type: "bind",
             id : botID,
             device_id : device_id,
@@ -125,6 +129,7 @@ function addFire(x, y, rad, floor)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type: "fire",
             position: [x,y],
             radius: rad,
@@ -155,6 +160,7 @@ function updateInfo(type, typeOfUpdate, email, value)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type: "update",
             typeOfUpdate: typeOfUpdate,
             email: email,
@@ -181,6 +187,7 @@ function deleteUser(email, name)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type: "remove",
             email: email
         }),
@@ -209,6 +216,7 @@ function addBuilding(file, BuildingName, image)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             file: file,
             type: "upload",
             BuildingName: BuildingName,
@@ -240,7 +248,8 @@ function addUser(dataType, name, email, pass, userType)
             email: email,
             password: pass,
             userType: userType,
-            buildingName: $("#ActiveBuilding").text()
+            buildingName: $("#ActiveBuilding").text(),
+            key: getCookie("apiKey")            
         }),
         success: function(data){
             if (data.status){
@@ -251,8 +260,6 @@ function addUser(dataType, name, email, pass, userType)
             }else{
                 notify("Failed to add a user", 'red');
                 console.log(data.message);
-               
-               
             }
         }, fail: function(){
             console.log('fail');
@@ -272,6 +279,7 @@ function getBuildingInfo(element,type,isSimulation)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type:"currentBuilding",
             mode: isSimulation
         }),
@@ -304,6 +312,7 @@ function addDropDown(element){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            key: getCookie("apiKey"),
             type: "getBuildings"
         }),
         success:function(res){
@@ -332,7 +341,7 @@ function changeBuilding(elementText,elementImage,buildingName,isSimulation){
             };
             DATA = JSON.parse(DATA);
             DATA.mode = isSimulation;
-            console.log(DATA);
+            DATA.key =  getCookie("apiKey"),
             $.ajax({
                 url: URL+"buildingGeneration",
                 type: "POST",
@@ -367,6 +376,7 @@ function alarm(status,isSimulation){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data:JSON.stringify({
+            key: getCookie("apiKey"),
             type: "assignPeople",
             mode: isSimulation,
             alarm: status

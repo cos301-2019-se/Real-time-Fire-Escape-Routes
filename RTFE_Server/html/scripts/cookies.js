@@ -2,7 +2,9 @@
 function setCookie(name, api, building_name) {
     var d = new Date;
     d.setTime(d.getTime() + 24*60*60*1000);
-    document.cookie =  "email =" + name + ";path=/;expires=" + d.toGMTString() + ";path=/;apiKey=" + api + ";path=/;building_name=" + building_name;
+    document.cookie =  "email =" + name + ";path=/;expires=" + d.toGMTString() + ";path=/;";
+    document.cookie =  "apiKey=" + api + ";path=/;expires=" + d.toGMTString() + ";path=/;";
+    document.cookie =  "building_name=" + building_name+";expires=" + d.toGMTString() + ";path=/;"
 }
 
 

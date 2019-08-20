@@ -7,6 +7,30 @@ import org.json.JSONObject;
  * Abstract Class that will be used by subclasses that makes use of a dedicated API endpoint
  * */
 public abstract class API {
+    protected static String [] SecuredEndpoints;
+    protected static int [] AuthorizationLevelRequired;
+    protected static boolean AuthorizeRequest(JSONObject request)throws Exception{
+        Database db = new Database();
+        db.wakeup();
+        String key = "pending";
+        if(request.has("key"))
+        {
+            key = request.getString("key");
+        }
+        int keyLevel = 0;
+        for (int i = 0; i < SecuredEndpoints.length; i++) {
+            if(SecuredEndpoints[i].equals(request.get("type"))){
+                keyLevel = db.validateKey(key);
+                if(keyLevel >= AuthorizationLevelRequired[i]){
+                    return true;
+                }
+                else{
+                    throw new Exception("Access Denied");
+                }
+            }
+        }
+        return true;
+    }
 
     /** @brief: buildings.get(0) = Live view, buildings.get(1) = Simulation view */
     public static Building [] buildings = new Building[2];
