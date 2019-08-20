@@ -113,7 +113,7 @@ function echoTableBotview(){
 				<td>Device ID</td>
 				<td>Type</td>
 				<td>Status</td>
-				<td>Add To sim</td>
+				<td class="special-long-td-text">Add to<br/> simulation</td>
 			</thead>
 			<tbody id="table-body-Sim"></tbody>
 		</table>

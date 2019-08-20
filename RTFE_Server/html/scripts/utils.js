@@ -66,7 +66,7 @@ function populateTable(data,withEdit,addToSim)
                     </td>`
             }
             if(addToSim){
-                str+=` <td><button data-device="${element.deviceID}" onclick="addUserToSim(this)">Add to simulation</button></td>`;
+                str+=` <td class="content-aligned-center"><button class="add-user-to-sim-but" data-device="${element.deviceID}" onclick="addUserToSim(this)">Add</button></td>`;
             }
         str+=`</tr>`;
 
