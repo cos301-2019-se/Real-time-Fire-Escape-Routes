@@ -15,7 +15,10 @@ public class WebAPI extends API {
 
     private static boolean verbose = false; //USED for debugging purposes
     private static Database USERDB = new Database();
-
+    public static void wakeup()
+    {
+        USERDB.wakeup();
+    }
     /**
      * function handles the requests made to the server
      * @param request: the request object
