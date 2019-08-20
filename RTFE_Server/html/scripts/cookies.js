@@ -18,3 +18,5 @@ function putCookie(form)
 
     return true;
 }
+function deleteCookie(name) { setCookie(name, ''); }
+
