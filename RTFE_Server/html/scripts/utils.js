@@ -575,3 +575,13 @@ function windowForNewUser()
     `;
 }
 
+//function to highlight search field when searchbutton was pressed
+function highlightSearchField()
+{
+    $(".search-button").on('click', ()=>{
+        console.log("I was clicked");
+        $('#search-input').select();
+        
+    });
+}
+
