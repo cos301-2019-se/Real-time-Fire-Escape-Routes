@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="scripts/utils.js"></script>
 	<script type="text/javascript" src="scripts/views.js"></script>
 	<script type="text/javascript" src="scripts/ajaxCalls.js"></script>
+	<script type="text/javascript" src="scripts/cookies.js"></script>
 </head>
 <body>
 	<div id='container'>
@@ -33,7 +34,7 @@
                     <img src="img/fire.png">
                     <span style="display: block; font-family: 'Fjalla One'; font-size: 30px">Real-Time Firewatch</span>
                 </div>
-                <input type="email" id="username" class="login-input" placeholder="Email">
+                <input name = "userEmail" type="email" id="username" class="login-input" placeholder="Email">
                 <input type="password" id="password" class="login-input" placeholder="Password">
                 <div id="login" class="btn">Log in</div>
             </div>
@@ -46,9 +47,9 @@
     	    </div>
     	    <div id="overlay-window" class="container-fluid" style="display: none;"></div>
         <div id="footer" style='width: 50%'>
-            <span>About</span>
+            <span><a style = "text-decoration: none; color: #797979;" href = "https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/README.md">About</a></span>
+            <span><a style = "text-decoration: none; color: #797979;" href = "https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/UserManual.pdf">Help</a> </span>
             <span>Privacy</span>
-            <span>Help</span>
         </div>
     </div>
 

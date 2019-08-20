@@ -11,7 +11,7 @@ $(function() {
                 password: $('#password').val()
             }),
             success: function(data){
-                
+                setCookie( $('#username').val(), data.apiKey, "");
                 if (data.status == true){
                     if(data.userType == "Agent"){
                         notify("You have insuffcient rank to use the page", 'orange');
@@ -44,8 +44,10 @@ function LoginSuccess(userType){
 
     $('#navbar').load("ContentPages/navigation.html nav",()=>{
         if(userType == "admin"){
+             $("nav>#options").append(`<div class="nav__list-item" id="su-view-life" href="#">Live view</div>`)
             $("nav>#options").append(`<div class="active nav__list-item" id="admin-view" href="#" >Administration</div>`)
             $("#result").append(echoAdminTableView());
+        $("#displayUsername").html(getCookie("email"));
             anotherFetch("getUsers", "#table-body-A",true);    
             $("#admin-view").on("click",()=>{
                 console.log("Clicked on admin Views");
@@ -53,13 +55,24 @@ function LoginSuccess(userType){
                 $("#result").append(echoAdminTableView());
                  buildingInfo();
                 anotherFetch("getUsersInBuilding", "#table-body-A",true);
-            })        
+            })
+
+        $("#su-view-life").on("click",()=>{
+            $('#su-view-life').addClass("active");
+        $('#su-view-simulation').removeClass("active");
+        $('#admin-view').removeClass("active");
+        $("#result").html("");
+        $("#result").append(echoContentTable_SuperUser());
+        buildingInfo();
+        anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
+
+    }) ;
         }
         else{
             $("nav>#options").append(`<div class="active nav__list-item" id="su-view-life" href="#">Live view</div>`)
             $("nav>#options").append(`<div class="nav__list-item" id="su-view-simulation" href="#">Simulation view</div>`)
-            $("nav>#options").append(`<div class="nav__list-item" id="admin-view" href="#" >Administration</div>`)        
-        
+            $("nav>#options").append(`<div class="nav__list-item" id="admin-view" href="#" >Administration</div>`)
+            $("#displayUsername").html(getCookie("email"));
             $("#result").append(echoContentTable_SuperUser());
             anotherFetch("getUsers", "#table-body-SU",false);
             buildingInfo();    
@@ -99,14 +112,14 @@ function LoginSuccess(userType){
         }
 
         $('#logout').click(function() {
-
+            deleteCookie("email");
             $("#result").html("");
             $("#navbar").html("");
-            
+            $('#footer').css('width', '50%');
             $('#login-form').fadeIn('fast', function(){
                 $('#background').show('slide', {direction: 'right'}, 500, function(){
                     $('#login-page').fadeIn('fast', function(){
-                        $('#footer').css('width', '50%%');
+
                         $('#dashboard').fadeOut('fast');
                        
                     });

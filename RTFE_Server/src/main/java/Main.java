@@ -1,3 +1,5 @@
+import ApiEndpoints.WebAPI;
+
 /**
  * @file Main.java
  * @brief This is the Main java file executed to run the Server
@@ -10,6 +12,8 @@
  *
  * @date 28/05/2019
  */
+
+
 public class Main implements Runnable {
 
     Server myserver;
@@ -24,6 +28,7 @@ public class Main implements Runnable {
     public static void main(String[] args){
         try
         {
+            WebAPI.wakeup();
             Thread thread = new Thread(new HTTPServer());
             thread.start();
         }

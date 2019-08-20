@@ -49,6 +49,11 @@ public class Database {
         }
         createTable();
     }
+
+    public void wakeup()
+    {
+
+    }
     //DATABASE CODE @Kinson
     /**
      * function that creates a salt for the user passwords
@@ -116,7 +121,10 @@ public class Database {
     {
         JSONArray ret = new JSONArray();
         try{
-
+            if(building_name.compareTo("loading...") == 0)
+            {
+                building_name = "1 Story Office";
+            }
             ResultSet building_id_set = select("select * from buildings where building_name = '" + building_name + "'");
             int building_id = building_id_set.getInt("building_id");
 
@@ -554,39 +562,27 @@ public class Database {
     public boolean search(String email,String pass)
     {
         String generatedPassword = null;
-        try {
-            byte[] bytes = md.digest(pass.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
+        for(int k = 0; k < 2; k++)
+        {
+            try {
+                byte[] bytes = md.digest(pass.getBytes());
+                StringBuilder sb = new StringBuilder();
+                for(int i=0; i< bytes.length ;i++)
+                {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                generatedPassword = sb.toString();
+            }
+            catch (Exception e)
             {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                e.printStackTrace();
             }
-            generatedPassword = sb.toString();
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        /*
-        if(pass.equals(""))
-        {
+
             try{
 
                 query = con.createStatement();
-                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"'");
-                query = null;
-                if (result.getInt("rowcount") > 0) return true;
-            }catch(Exception e){
-                System.out.println("Search: " +e.getMessage());
-            }
-            return false;
-        }
-        */
-//        else
-//        {
-            try{
-
-                query = con.createStatement();
+                System.out.println("DOES IT ERROR HERE!?!?!" + " " + generatedPassword);
                 ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + generatedPassword + "'");
                 query = null;
                 if (result.getInt("rowcount") > 0) return true;
