@@ -5,6 +5,10 @@ function setCookie(name, api, building_name) {
     document.cookie =  "email =" + name + ";path=/;expires=" + d.toGMTString() + ";path=/;apiKey=" + api + ";path=/;building_name=" + building_name;
 }
 
+function changeCookie(name, value)
+{
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+}
 
 function getCookie(name) {
     var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');

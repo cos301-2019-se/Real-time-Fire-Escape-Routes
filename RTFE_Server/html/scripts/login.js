@@ -1,3 +1,34 @@
+function notify(msg, color){
+    $('body').append($('<div></div>')
+        .css({
+            'position' : 'fixed',
+            'margin' : '0 auto',
+            'top' : '-50px',
+            'left' : '0',
+            'right' : '0',
+            'text-align' : 'center',
+        })
+        .append($('<span></span>')
+            .css({
+                'font-family' : 'Ubuntu',
+                'padding' : '10px 20px',
+                'background-color' : color,
+                'color' : 'white',
+                'border-radius' : '7px',
+                'box-shadow' : '0px 2px 3px 1px rgba(0,0,0,0.27)'
+            })
+            .text(msg)
+        )
+        .animate({
+            top: "+=80px"
+        }).delay(2000).animate({
+            top: "-=80px"
+        }, function(){
+            $(this).remove();
+        })
+    )
+}
+
 $(function() {
     $('#login').on('click', function(){
         $.ajax({
@@ -66,9 +97,9 @@ function LoginSuccess(userType){
         buildingInfo();
         anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
 
-    }) ;
+            }) ;
         }
-        else{
+        else {
             $("nav>#options").append(`<div class="active nav__list-item" id="su-view-life" href="#">Live view</div>`)
             $("nav>#options").append(`<div class="nav__list-item" id="su-view-simulation" href="#">Simulation view</div>`)
             $("nav>#options").append(`<div class="nav__list-item" id="admin-view" href="#" >Administration</div>`)

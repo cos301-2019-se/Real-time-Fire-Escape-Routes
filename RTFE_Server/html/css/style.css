@@ -92,6 +92,7 @@
             /* Assign grid instructions to our parent grid container */
             body{
                 background-color: $background-body;
+
                 /*width: fit-content; margin: 0;*/
             }
             .container-fluid{

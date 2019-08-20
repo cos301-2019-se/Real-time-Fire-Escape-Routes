@@ -8,6 +8,7 @@ body {
             height: 100vh;
             /*height: 100vh;*/
             position: relative;
+
         }
         #background {
             background-image: linear-gradient(145deg, #ff7575, #f2f276);
@@ -81,7 +82,10 @@ body {
             display: none;
             /*overflow: hidden;*/
         }
-        #result{width: 100%;}
+        #result{
+            margin-bottom: 60px;
+            width: 100%;
+        }
 
         #menu {
             width: 40px !important;
