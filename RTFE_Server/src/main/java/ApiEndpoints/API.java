@@ -14,14 +14,14 @@ public abstract class API {
     /** @brief: lastbuild.get(0) = Live view, lastbuild.get(1) = Simulation view */
     public static JSONObject [] lastbuild =  new JSONObject[2];
 
-    protected static Building building;
+//    protected Building building;
 
     /**
      * This function will be used to process the request handed over to the API
      * @param request: Contains the JSON data that was sent to the server
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-    public static JSONObject handleRequest(JSONObject request) throws Exception {
+    public static JSONObject handleRequest(JSONObject request, Building building) throws Exception {
         return null;
     }
     /**

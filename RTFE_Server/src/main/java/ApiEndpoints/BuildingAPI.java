@@ -1,6 +1,6 @@
 package ApiEndpoints;
 
-import Building.Fire;
+import Building.*;
 import Building.Person;
 import Building.Routes;
 import org.json.JSONArray;
@@ -21,18 +21,23 @@ public class BuildingAPI extends API {
      * @param request: Contains the JSON data that was sent to the server
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-    public static JSONObject handleRequest(JSONObject request)throws Exception {
+    private static Building building;
+    synchronized public static JSONObject handleRequest(JSONObject request)throws Exception {
         JSONObject response;
         if(verbose){
             System.out.println("BuildingAPI: "+ request.toString());
         }
         try{
             building = chooseBuilding(request);
+            if(building==null){
+                throw new Exception("No building Active");
+            }
         }
         catch (Exception e){
             response = new JSONObject();
             response.put("status", false);
             response.put("message", e.getMessage());
+            return response;
         }
         switch ((String)request.get("type")){
             case "assignPeople":{
@@ -233,9 +238,11 @@ public class BuildingAPI extends API {
         String id = (String)request.get("device_id");
         Person person = null;
         for (Person p:people) {
-            if(p.deviceID.compareTo(id)==0){
-                person = p;
-                break;
+            if(p.deviceID!=null) {
+                if (p.deviceID.compareTo(id) == 0) {
+                    person = p;
+                    break;
+                }
             }
         }
         String status = "";
@@ -450,7 +457,7 @@ public class BuildingAPI extends API {
                 }
             }
             int floor = Integer.parseInt(person[1]);
-            long id = Integer.parseInt(person[0]);
+            long id = Long.parseLong(person[0]);
             PersonUpdate.put("floor",floor);
             JSONArray position = new JSONArray(pos);
             PersonUpdate.put("position",position);

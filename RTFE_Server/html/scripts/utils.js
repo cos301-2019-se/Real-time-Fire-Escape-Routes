@@ -130,6 +130,9 @@ function addUserToSim(elem){
     var ressponse  = addBot($.now(),pos,$(elem).attr("data-device"));
     $("#table-simulation").append(ressponse);
 }
+function addBotToSim(){
+
+}
 
 function addBot(botID,location,deviceID){
     var input ="<input type='number' min='0' max='100' name='floor' value='0'>"
@@ -236,16 +239,9 @@ function fireWindow()
 {
     let maxX = 100;
     let maxY= 100;
-    let maxFloor;
-    console.log($global_building_info);
-    if($global_building_info != null && $global_building_info != 'No buildings found')
-    {
-        maxFloor = $global_building_info.numberFloors-1;
-    }
-    else
-    {
-        maxFloor = 1;
-    }
+    let maxFloor = 100;
+    $()
+
     
     console.log(maxFloor);
     let maxRad = 360;
@@ -367,7 +363,6 @@ function getInfoFromInput(callFunc, email1)
 
         //addInfo(dataType, name, email, pass, userType);
     }
-///////////////////////////////////////////////////////////////////////////
     else if(callFunc === "addBuilding")
     {
         let name = $("#buildingName").val();

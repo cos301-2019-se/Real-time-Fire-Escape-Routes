@@ -28,19 +28,11 @@ public class WebAPI extends API {
      * @param request: Contains the JSON data that was sent to the server
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-
     public static JSONObject handleRequest(JSONObject request)throws Exception {
         JSONObject response;
         if(verbose)
             System.out.println("WEBAPI -> "+request.toString());
-        try{
-            building = chooseBuilding(request);
-        }
-        catch (Exception e){
-            response = new JSONObject();
-            response.put("status", false);
-            response.put("message", e.getMessage());
-        }
+
         switch ((String)request.get("type")){
             case "addUserToBuilding": {
                 response = addUserToBuilding((String)request.get("email"),(String)request.get("buildingName"));

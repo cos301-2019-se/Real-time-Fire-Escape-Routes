@@ -78,8 +78,8 @@ function echoContentTable_SuperUser()
 		</div>
 		<div class="half">
 			<div class="pad">
-				<button onclick="alarm(true,false)">Trigger Alarm</button>
-				<button onclick="alarm(false,false)">Reset Alarm</button>
+				<button onclick="alarm(true,'live')">Trigger Alarm</button>
+				<button onclick="alarm(false,'live')">Reset Alarm</button>
 			</div>
 			<hr/>
 			<div class="pad">
@@ -120,7 +120,8 @@ function echoTableBotview(){
 			<div class="pad">
 				<button onclick="alarm(true,'simulation')">Trigger Alarm</button>
 				<button onclick="alarm(false,'simulation')">Reset Alarm</button>
-				<button onclick="" >Add Bot</button>
+				<button onclick="">Add Bot</button>
+				<button onclick="displayOverlayWindow(fireWindow())">Add Fire</button>
 			</div>
 			<div class="pad">
 				<h1>Simulation</h1>
