@@ -339,6 +339,11 @@ public class Building : MonoBehaviour
 
     }
 
+    public void addFire(List<Vector2> fireCorners, float floorNo)
+    {
+        floorList[(int)floorNo].addFire(fireCorners, floorNo);
+    }
+
     public void addPerson(List<Vector3> pl,float personNumber, GameObject g, bool emerge)
     {
        // Debug.Log(personNumber+") "+pl[0].x + ", " + pl[0].y + ", " + pl[0].z + " ");

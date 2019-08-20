@@ -13,6 +13,7 @@ public class routes
     public string people;
     public string status;
     public string emergency;
+    public string fires;
 }
 
 public class TemporaryPeople
@@ -39,11 +40,10 @@ public class Counter : MonoBehaviour
     public float offset;
 
 
-    //private string ip = "http://127.0.0.1:8080/";
-    private string ip = "http://192.168.137.1:8080/";
+    private string ip = "http://127.0.0.1:8080/";
+    //private string ip = "http://192.168.137.1:8080/";
     //private string ip = "http://192.168.43.237:8080/";
     // private string ip = "https://6c53bafd-db31-4e2e-aac4-49c2a447c8ad.mock.pstmn.io/";
-
 
     // Start is called before the first frame update
     void Start()
@@ -298,6 +298,38 @@ public class Counter : MonoBehaviour
         //}
     }
 
+    public void CreateFireObject(string firestring)
+    {
+        Debug.Log("inside fire object maker");
+        if (firestring != "")
+        {
+            firestring = firestring.Replace(" ", string.Empty);
+            string[] fires = firestring.Split('-');
+            //Fire: 0 * 4.5,0.0 % 4.5,4.0 % 0.0,4.0 % 0.0,0.0
+            for(int i = 0; i < fires.Length; i++)
+            {
+                string[] splitFloor = fires[i].Split('*');
+                float floorNumber = float.Parse(splitFloor[0], System.Globalization.CultureInfo.InvariantCulture);
+                List<Vector2> fireCornerList = new List<Vector2>();
+                string[] corners = splitFloor[1].Split('%');
+
+                for(int j = 0; j < corners.Length; j++)
+                {                 
+                    string[] xz = corners[j].Split(',');
+                    float x = float.Parse(xz[0], System.Globalization.CultureInfo.InvariantCulture);
+                    float z = float.Parse(xz[1], System.Globalization.CultureInfo.InvariantCulture);
+                    fireCornerList.Add(new Vector2(x, z));
+                   // Debug.Log(floorNumber + " " +xz[0]+" "+xz[1]);
+                }
+                buildingOb.GetComponent<Building>().addFire(fireCornerList, floorNumber);
+            }
+        }
+        else
+        {
+            Debug.Log("Fire string is empty");
+        }
+    }
+
     IEnumerator postRequest(string url, string json, string type)
     {
         var uwr = new UnityWebRequest(url, "POST");
@@ -364,6 +396,15 @@ public class Counter : MonoBehaviour
                 Debug.Log("my People: " + myObject.people);
                 Debug.Log("status: " + myObject.status);
                 Debug.Log("emergency: " + myObject.emergency);
+                Debug.Log("Fire: " + myObject.fires);
+
+                if(myObject.fires == "")//delete this whole if statement later
+                {
+                    Debug.Log("Fire is empty putting in fake data");
+                    myObject.fires = "0 * 4.5,0.0 % 4.5,4.0 % 0.0,4.0 % 0.0,0.0";
+
+                }
+                //Fire: 0 * 4.5,0.0 % 4.5,4.0 % 0.0,4.0 % 0.0,0.0
 
                 if (myObject != null)
                 {
@@ -374,6 +415,7 @@ public class Counter : MonoBehaviour
                             localEmergency = true;
                         else
                             localEmergency = false;
+
                         //creates a list of all people(ID and routes)
                         List<TemporaryPeople> peopleList = createPeopleList(myObject.people);
                         Debug.Log("number of people: " + peopleList.Count);
@@ -392,6 +434,9 @@ public class Counter : MonoBehaviour
 
                             //assigns people to their colors
                             AssignPeopleToColor();
+
+                            Debug.Log("Calling fire object maker");
+                            CreateFireObject(myObject.fires);
                         }
                         
                         if (peopleList == null)

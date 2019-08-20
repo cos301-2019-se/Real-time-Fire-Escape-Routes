@@ -7,6 +7,7 @@ public class Floor : MonoBehaviour
 {
     public double offset;
     public List<GameObject> rooms;
+    public List<GameObject> fireFloors;
     public float[][] doors;
     public int floorNumber;
     public GameObject[] people;
@@ -40,6 +41,7 @@ public class Floor : MonoBehaviour
     private void Awake()
     {
         rooms = new List<GameObject>();
+        fireFloors = new List<GameObject>();
     }
 
     public void addAllDoors(float[][] d)
@@ -65,6 +67,13 @@ public class Floor : MonoBehaviour
         r.GetComponent<Room>().buildStairs(verticesArray, floorNumber, dontBuildFloors);
 
 
+    }
+
+    public void addFire(List<Vector2> fireCorners, float floorNo)
+    {
+        GameObject r = Instantiate(Resources.Load("Room", typeof(GameObject)) as GameObject, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 1)) as GameObject;
+        fireFloors.Add(r);
+        r.GetComponent<Room>().buildFloorTopFire(fireCorners.ToArray(), null, (int)floorNo);
     }
 
     public void addRoom(float[][] corners, bool dontBuildFloors)
