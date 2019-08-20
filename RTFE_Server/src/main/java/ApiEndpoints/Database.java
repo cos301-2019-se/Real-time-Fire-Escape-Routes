@@ -89,6 +89,8 @@ public class Database {
     }
     public boolean addUserToBuilding(String email , String buildingName)
     {
+        email = shield.escapeString(email, true);
+        buildingName = shield.escapeString(buildingName, true);
         lock.lock();
          boolean val = true;
         try{
@@ -121,6 +123,7 @@ public class Database {
      */
     public JSONArray getUsersInBuilding(String building_name)
     {
+        building_name = shield.escapeString(building_name, true);
         JSONArray ret = new JSONArray();
         try{
             if(building_name.compareTo("loading...") == 0)
@@ -198,6 +201,7 @@ public class Database {
      * @param numFloors: is a string of user password
      */
     public boolean insertBuilding(String buildingParamName, int numFloors, Date bdate, String buildingLocation) {
+        
         lock.lock();
         boolean val = true;
         try
@@ -225,7 +229,6 @@ public class Database {
         name = shield.escapeString(name, true);
         email = shield.escapeString(email, true);
         pass = shield.escapeString(pass, true);
-        type = shield.escapeString(type, true);
         buildingName = shield.escapeString(buildingName, true);
         lock.lock();
         String generatedPassword = null;
@@ -359,7 +362,6 @@ public class Database {
     public boolean updateType(String email, String type)
     {
         email = shield.escapeString(email, true);
-        type = shield.escapeString(type, true);
         lock.lock();
         boolean val;
         try{
@@ -581,7 +583,7 @@ public class Database {
     public boolean search(String email,String pass)
     {
         email = shield.escapeString(email, true);
-//        pass = shield.escapeString(pass, true);
+        pass = shield.escapeString(pass, true);
         String generatedPassword = null;
         for(int k = 0; k < 2; k++)
         {
