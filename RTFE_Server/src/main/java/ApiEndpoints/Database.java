@@ -121,7 +121,10 @@ public class Database {
     {
         JSONArray ret = new JSONArray();
         try{
-
+            if(building_name.compareTo("loading...") == 0)
+            {
+                building_name = "1 Story Office";
+            }
             ResultSet building_id_set = select("select * from buildings where building_name = '" + building_name + "'");
             int building_id = building_id_set.getInt("building_id");
 
