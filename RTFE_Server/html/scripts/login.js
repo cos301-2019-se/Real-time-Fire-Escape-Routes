@@ -11,7 +11,7 @@ $(function() {
                 password: $('#password').val()
             }),
             success: function(data){
-                
+                setCookie("email", $('#username').val());
                 if (data.status == true){
                     if(data.userType == "Agent"){
                         notify("You have insuffcient rank to use the page", 'orange');
@@ -58,8 +58,8 @@ function LoginSuccess(userType){
         else{
             $("nav>#options").append(`<div class="active nav__list-item" id="su-view-life" href="#">Live view</div>`)
             $("nav>#options").append(`<div class="nav__list-item" id="su-view-simulation" href="#">Simulation view</div>`)
-            $("nav>#options").append(`<div class="nav__list-item" id="admin-view" href="#" >Administration</div>`)        
-        
+            $("nav>#options").append(`<div class="nav__list-item" id="admin-view" href="#" >Administration</div>`)
+            $("#displayUsername").html(getCookie("email"));
             $("#result").append(echoContentTable_SuperUser());
             anotherFetch("getUsers", "#table-body-SU",false);
             buildingInfo();    
