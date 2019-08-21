@@ -77,11 +77,13 @@ function LoginSuccess(userType){
         if(userType == "admin"){
              $("nav>#options").append(`<div class="nav__list-item" id="su-view-life" href="#">Live view</div>`)
             $("nav>#options").append(`<div class="active nav__list-item" id="admin-view" href="#" >Administration</div>`)
+        $("#result").html("");
             $("#result").append(echoAdminTableView());
         $("#displayUsername").html(getCookie("email"));
             anotherFetch("getUsers", "#table-body-A",true);    
             $("#admin-view").on("click",()=>{
                 console.log("Clicked on admin Views");
+                $("#result").html("");
 
                 $("#result").append(echoAdminTableView());
                  buildingInfo();
