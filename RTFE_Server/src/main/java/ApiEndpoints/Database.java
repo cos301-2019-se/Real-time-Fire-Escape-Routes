@@ -16,15 +16,24 @@ import java.util.concurrent.locks.ReentrantLock;
  * The Database makes use of sqlite to accomplish fast, secure and reliable access
  * */
 public class Database {
+    static Database instance = null;
     public String fileName;
     File f;
     Lock lock;
-    Connection con = null;
+     Connection con = null;
     Statement query = null;
     MessageDigest md;
     byte[] salt;
     SQLInjectionEscaper shield;
-    public Database()
+    synchronized public static Database getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new Database();
+        }
+        return instance;
+    }
+    private Database()
     {
         shield = new SQLInjectionEscaper();
 
@@ -52,19 +61,19 @@ public class Database {
         createTable();
     }
 
-    public void wakeup()
+    synchronized public void wakeup()
     {
-        if(con==null) {
-            try {
-                Class.forName("org.sqlite.JDBC");
-                con = DriverManager.getConnection("jdbc:sqlite:database.db");
-                System.out.println("Connected to DB!!");
-            } catch (Exception e) {
-                System.out.println("Failed to connect to database");
-                System.out.println(e.getMessage());
-            }
-            createTable();
-        }
+//        if(con==null) {
+//            try {
+//                Class.forName("org.sqlite.JDBC");
+//                con = DriverManager.getConnection("jdbc:sqlite:database.db");
+//                System.out.println("Connected to DB!!");
+//            } catch (Exception e) {
+//                System.out.println("Failed to connect to database");
+//                System.out.println(e.getMessage());
+//            }
+//            createTable();
+//        }
     }
     //DATABASE CODE @Kinson
     /**
@@ -253,9 +262,10 @@ public class Database {
         catch (Exception e)
         {
             e.printStackTrace();
+            lock.unlock();
+            return false;
         }
         finally {
-            lock.unlock();
         }
         boolean val = true;
         try{
@@ -713,7 +723,11 @@ public class Database {
         int level = 0;
         try {
             query = con.createStatement();
-            ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
+            query.execute("select * from apiKeys where apikey = '"+key+"'");
+
+              ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
+
+
             query = null;
             Date expireDate = new Date(result.getLong("date_expire"));
 //            if(result.getInt("rowcount") > 0) {

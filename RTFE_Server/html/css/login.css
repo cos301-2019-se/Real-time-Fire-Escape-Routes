@@ -80,7 +80,7 @@ body {
 
         #dashboard {
             display: none;
-            overflow: hidden;
+            /*overflow: hidden;*/
         }
         #result{
             margin-bottom: 60px;

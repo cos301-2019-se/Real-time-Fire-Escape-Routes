@@ -9,8 +9,8 @@ import org.json.JSONObject;
 public abstract class API {
     protected static String [] SecuredEndpoints;
     protected static int [] AuthorizationLevelRequired;
-    protected static boolean AuthorizeRequest(JSONObject request)throws Exception{
-        Database db = new Database();
+    synchronized protected static boolean AuthorizeRequest(JSONObject request)throws Exception{
+        Database db = Database.getInstance();
         db.wakeup();
         String key = "pending";
         if(request.has("key"))

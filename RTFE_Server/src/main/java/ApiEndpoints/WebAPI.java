@@ -12,8 +12,8 @@ import java.util.Date;
  * and handles all requests related to the database and basic administration
  * */
 public class WebAPI extends API {
-    private static boolean verbose = false; //USED for debugging purposes
-    private static Database USERDB = new Database();
+    private static boolean verbose = true; //USED for debugging purposes
+    private static Database USERDB = Database.getInstance();
     public static void wakeup()
     {
         USERDB.wakeup();
