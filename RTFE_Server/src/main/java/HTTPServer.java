@@ -177,7 +177,6 @@ public class HTTPServer extends Server{
         @Override
         public void run() {
             if(connect != null) {
-                WebAPI.wakeup();
                 BufferedReader in = null;
 //                InputStream in = null;
                 PrintWriter out = null;

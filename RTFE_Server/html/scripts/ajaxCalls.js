@@ -1,20 +1,22 @@
+var intervals= [];
 URL = "http://127.0.0.1:8080/"
 function anotherFetch(type, html,extenedTable,SimulationMode){
     $.ajax({
-            url: URL+"database",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify({
-                key: getCookie("apiKey"),
-                type: type,
-                buildingName: $("#ActiveBuilding").text()
-            }),
-            success: function(resp){
-                if (resp.status){
-                    $(html).html(populateTable(resp.data,extenedTable,SimulationMode))
-                }
+        url: URL+"database",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            key: getCookie("apiKey"),
+            type: type,
+            buildingName: getCookie("building_name")
+        }),
+        success: function(resp){
+            if (resp.status){
+                $(html).html("");
+                $(html).html(populateTable(resp.data,extenedTable,SimulationMode))
             }
+        }
     })
 }
 
@@ -24,7 +26,7 @@ function fetchStatus(mac,identify)
     if(mac == null || mac == ""){
     }
     else{
-        setInterval(function(){
+    var myInterval = setInterval(function(){
             $.ajax({
                 url: URL+"building",
                 type: "POST",
@@ -51,6 +53,7 @@ function fetchStatus(mac,identify)
                 }
             }); 
         }, 5000);
+        intervals.push(myInterval);
     }
     return 'Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span>';
 }
@@ -248,7 +251,7 @@ function addUser(dataType, name, email, pass, userType)
             email: email,
             password: pass,
             userType: userType,
-            buildingName: $("#ActiveBuilding").text(),
+            buildingName: getCookie("building_name"),
             key: getCookie("apiKey")            
         }),
         success: function(data){
@@ -288,6 +291,9 @@ function getBuildingInfo(element,type,isSimulation)
                 objData = data;
                 if(type === "name")
                 {
+                    if(isSimulation!="simulation"){
+                        changeCookie("building_name",data.name);
+                    }
                     $(element).html(data.name);
                 }
                 else if(type === "img")
@@ -351,7 +357,11 @@ function changeBuilding(elementText,elementImage,buildingName,isSimulation){
                 success:function(res){
                     if(res.status){
                         notify("Building Changed", 'green');
-                        $(elementText).html(res.name);
+                        $(elementText).html(buildingName);
+                        if(isSimulation!="simulation"){
+                            if(buildingName!=undefined)
+                                changeCookie("building_name",buildingName);
+                        }
                     }
                     else{
                         notify(res.msg,"red");
@@ -401,3 +411,4 @@ function alarm(status,isSimulation){
         }
     }); 
 }
+

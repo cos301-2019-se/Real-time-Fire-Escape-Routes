@@ -7,9 +7,16 @@ function setCookie(name, api, building_name) {
     document.cookie =  "building_name=" + building_name+";expires=" + d.toGMTString() + ";path=/;"
 }
 
+function createCookie(name, value) {
+    var d = new Date;
+    d.setTime(d.getTime() + 24*60*60*1000);
+    document.cookie =  name+"=" + value + ";path=/;expires=" + d.toGMTString() + ";path=/;";
+}
+
 function changeCookie(name, value)
 {
-    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    deleteCookie(name);
+    createCookie(name,value);
 }
 
 function getCookie(name) {
@@ -36,5 +43,6 @@ function putCookie(form)
 
     return true;
 }
-function deleteCookie(name) { setCookie(name, ''); }
-
+function deleteCookie(name) {
+    createCookie(name,"",-1);
+}

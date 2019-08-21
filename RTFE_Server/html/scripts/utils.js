@@ -299,7 +299,7 @@ function getInfoFromInput(callFunc, email1)
         let email = $("#email-addUser").val();
         let pass = $("#setPassword-addUser").val();
         let confirmPass = $("#confirmPassword-addUser").val();
-        let userType = $("#type-addUser option:selected").val();
+        let userType = $("#type-addUser").val();
         $("#fullName-addUser").attr("style", "");
         $("#email-addUser").attr("style", "");
         $("#setPassword-addUser").attr("style", "");
@@ -643,9 +643,8 @@ function windowForNewUser() // I think we should check if the given password mat
             <input type="password" class="form-control" id="confirmPassword-addUser" placeholder="password" required>
             <div id = #select>
              <select class="custom-select mr-sm-2" id="type-addUser">
-
                 <option selected>Agent</option>
-                <option value="1">Admin</option>
+                <option value="admin">Admin</option>
             </select>
             </div>
           </div>

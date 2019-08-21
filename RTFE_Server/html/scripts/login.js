@@ -76,13 +76,14 @@ function LoginSuccess(userType){
 
     $('#navbar').load("ContentPages/navigation.html nav",()=>{
         if(userType == "admin"){
-             $("nav>#options").append(`<div class="nav__list-item" id="su-view-life" href="#">Live view</div>`)
+            $("nav>#options").append(`<div class="nav__list-item" id="su-view-life" href="#">Live view</div>`)
             $("nav>#options").append(`<div class="active nav__list-item" id="admin-view" href="#" >Administration</div>`)
-        $("#result").html("");
+            $("#result").html("");
             $("#result").append(echoAdminTableView());
-        $("#displayUsername").html(getCookie("email"));
+            $("#displayUsername").html(getCookie("email"));
             anotherFetch("getUsers", "#table-body-A",true);    
             $("#admin-view").on("click",()=>{
+                intervals.forEach(clearInterval);
                 $('#su-view-life').removeClass("active");
                 $('#su-view-simulation').removeClass("active");
                 $('#admin-view').addClass("active");
@@ -93,13 +94,14 @@ function LoginSuccess(userType){
             })
 
         $("#su-view-life").on("click",()=>{
+            intervals.forEach(clearInterval);
             $('#su-view-life').addClass("active");
-        $('#su-view-simulation').removeClass("active");
-        $('#admin-view').removeClass("active");
-        $("#result").html("");
-        $("#result").append(echoContentTable_SuperUser());
-        buildingInfo();
-        anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
+            $('#su-view-simulation').removeClass("active");
+            $('#admin-view').removeClass("active");
+            $("#result").html("");
+            $("#result").append(echoContentTable_SuperUser());
+            buildingInfo();
+            anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
 
             }) ;
         }
@@ -110,32 +112,44 @@ function LoginSuccess(userType){
             $("#displayUsername").html(getCookie("email"));
             $("#result").html("");
             $("#result").append(echoContentTable_SuperUser());
-            anotherFetch("getUsers", "#table-body-SU",false);
             buildingInfo();    
+            anotherFetch("getUsers", "#table-body-SU",false);
 
             $("#admin-view").on("click",()=>{
+                
+                intervals.forEach(clearInterval);
                 $('#su-view-life').removeClass("active");
                 $('#su-view-simulation').removeClass("active");
                 $('#admin-view').addClass("active");
                 $("#result").html("");
                 $("#result").append(echoAdminTableView());
-                 buildingInfo();
+                buildingInfo();
+                $("#buildingDropDown").on("change",()=>{
+                    changeCookie("building_name",$("#buildingDropDown").val());
+                    anotherFetch("getUsersInBuilding", "#table-body-A",true,false);
+                })
                 anotherFetch("getUsersInBuilding", "#table-body-A",true,false);
 
             })     
             
             $("#su-view-life").on("click",()=>{
+                intervals.forEach(clearInterval);
                 $('#su-view-life').addClass("active");
                 $('#su-view-simulation').removeClass("active");
                 $('#admin-view').removeClass("active");
                 $("#result").html("");
                 $("#result").append(echoContentTable_SuperUser());
                 buildingInfo();
+                $("#buildingDropDown").on("change",()=>{
+                    changeCookie("building_name",$("#buildingDropDown").val());
+                    anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
+                })
                 anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
 
             }) ;    
             
             $("#su-view-simulation").on("click",()=>{
+                intervals.forEach(clearInterval);
                 $('#su-view-life').removeClass("active");
                 $('#su-view-simulation').addClass("active");
                 $('#admin-view').removeClass("active");
@@ -155,7 +169,7 @@ function LoginSuccess(userType){
             $('#login-form').fadeIn('fast', function(){
                 $('#background').show('slide', {direction: 'right'}, 500, function(){
                     $('#login-page').fadeIn('fast', function(){
-
+                        intervals.forEach(clearInterval);
                         $('#dashboard').fadeOut('fast');
                         $("#result").html("");
                     });

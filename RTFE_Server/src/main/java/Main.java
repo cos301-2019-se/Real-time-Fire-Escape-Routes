@@ -1,4 +1,4 @@
-import ApiEndpoints.WebAPI;
+import ApiEndpoints.Database;
 
 /**
  * @file Main.java
@@ -28,9 +28,9 @@ public class Main implements Runnable {
     public static void main(String[] args){
         try
         {
-            WebAPI.wakeup();
             Thread thread = new Thread(new HTTPServer());
             thread.start();
+            Database.wakeup();
         }
         catch(Exception e)
         {

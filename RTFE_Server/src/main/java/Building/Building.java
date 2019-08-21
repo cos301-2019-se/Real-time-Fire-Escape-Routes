@@ -13,7 +13,9 @@
  */
 
 package Building;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -21,6 +23,7 @@ import java.util.Vector;
 import static Building.NodeType.stairs;
 
 public class Building {
+      public JSONArray sensors = new JSONArray();
       private static int numBuildings = 0;
       private Vector<Room> Floor= new Vector<>();
       private int id;
@@ -55,6 +58,27 @@ public class Building {
             }
             return PeopleList;
       }
+      public boolean hasSensorInBuilding(String sensorID){
+          for (int i = 0; i < sensors.length(); i++) {
+              JSONObject sensor = sensors.getJSONObject(i);
+              if (sensor.getString("sensorID").equals(sensorID)){
+                  return true;
+              }
+          }
+          return false;
+      }
+        public JSONObject sensorLocationInBuilding(String sensorID) throws Exception {
+            JSONObject location = new JSONObject();
+            for (int i = 0; i < sensors.length(); i++) {
+                JSONObject sensor = sensors.getJSONObject(i);
+                if (sensor.getString("sensorID").equals(sensorID)){
+                    location.put("floor",sensor.get("floor"));
+                    location.put("position",sensor.getJSONArray("position"));
+                    return location;
+                }
+            }
+            throw new Exception("Sensor not in Building");
+}
 
       /**
        * Takes a Device ID and binds it to a person inside the building

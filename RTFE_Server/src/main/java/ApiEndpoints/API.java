@@ -11,7 +11,6 @@ public abstract class API {
     protected static int [] AuthorizationLevelRequired;
     synchronized protected static boolean AuthorizeRequest(JSONObject request)throws Exception{
         Database db = Database.getInstance();
-        db.wakeup();
         String key = "pending";
         if(request.has("key"))
         {
