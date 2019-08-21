@@ -123,7 +123,7 @@ function echoTableBotview(){
 				<button onclick="alarm(true,'simulation')">Trigger Alarm</button>
 				<button onclick="alarm(false,'simulation')">Reset Alarm</button>
 				<button onclick="">Add Bot</button>
-				<button onclick="displayOverlayWindow(fireWindow())">Add Fire</button>
+				<button onclick="displayOverlayWindow(fireWindow)">Add Fire</button>
 			</div>
 			<div class="pad">
 				<h1>Simulation</h1>
