@@ -32,7 +32,7 @@ table td {
   display:block;
   /*width: 100%;*/
   overflow: auto;
-
+  /*height: 600px;*/
 }
 
 .fixed_header thead tr {
@@ -49,3 +49,42 @@ table td {
   width: 200px;
 }
 
+table, td{
+  border-collapse: collapse;
+
+}
+
+thead{
+  width: calc(100% - 17px);
+}
+
+tbody{
+  display: block;
+  /*max-height: 200px;*/
+  overflow-y: scroll;
+}
+
+th,td{
+  padding: 5px;
+  word-break: break-all;
+}
+
+tr{
+  display: table;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+td{
+  text-align: center;
+  border-bottom: none;
+  border-left: none; 
+}
+
+.special-long-td-text{
+  text-align: center !important;
+}
+
+.content-aligned-center{
+  text-align: center !important;
+}
