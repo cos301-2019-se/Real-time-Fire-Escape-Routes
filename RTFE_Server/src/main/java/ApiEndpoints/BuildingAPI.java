@@ -246,6 +246,48 @@ public class BuildingAPI extends API {
                 }
             }
         }
+        if(person == null){
+            try {
+                if (request.has("sensors")) {
+                    JSONArray sensors = request.getJSONArray("sensors");
+                    for (int i = 0; i < sensors.length(); i++) {
+                        JSONObject sensor = sensors.getJSONObject(i);
+                        if (building.hasSensorInBuilding(sensor.getString("bssid"))) {
+                            JSONObject sensorLocation = building.sensorLocationInBuilding(sensor.getString("bssid"));
+                            JSONArray pos = sensorLocation.getJSONArray("position");
+                            int floor = sensorLocation.getInt("floor");
+                            double [] newPosition = {pos.getDouble(0),pos.getDouble(1)};
+                            Person phoneToBePlaced = new Person(String.valueOf(System.currentTimeMillis()),newPosition);
+                            phoneToBePlaced.deviceID = request.getString("device_id");
+                            building.addPerson(phoneToBePlaced,floor);
+                        }
+                    }
+                }
+            }
+            catch (Exception e){
+                System.out.println("Something when wrong parsing the sensor data");
+            }
+        }
+        if(request.has("sensors")) {
+            try {
+                JSONArray sensors = request.getJSONArray("sensors");
+                for (int i = 0; i < sensors.length(); i++) {
+                    JSONObject sensor = sensors.getJSONObject(i);
+                    if (building.hasSensorInBuilding(sensor.getString("bssid"))) {
+                        JSONObject sensorLocation = building.sensorLocationInBuilding(sensor.getString("bssid"));
+                        JSONObject updateRequest = new JSONObject();
+
+                        updateRequest.put("device_id", request.getString("device_id"));
+                        updateRequest.put("floor", sensorLocation.getInt("floor"));
+                        updateRequest.put("position", sensorLocation.getJSONArray("position"));
+                        UpdatePersonLocation(updateRequest);
+                    }
+                }
+            }
+            catch (Exception e){
+                System.out.println("Something when wrong parsing the sensor data");
+            }
+        }
         String status = "";
         if(person != null){
             status +="ID: "+person.deviceID+" - ";
@@ -262,6 +304,7 @@ public class BuildingAPI extends API {
         }
         else{
             status+="Person is not in building";
+
         }
 
         return status;
