@@ -54,6 +54,7 @@ $(function() {
                         $('#background').hide('slide', {direction: 'left'}, 500, function(){
                             $('#login-page').fadeOut('fast', function(){
                                 $('#footer').css('width', '100%');
+                                $('#dashboard').css('width', '100%');
                                 $('#dashboard').fadeIn('fast');
                                 $('#menu-user').text(username);
                                 
@@ -82,9 +83,10 @@ function LoginSuccess(userType){
         $("#displayUsername").html(getCookie("email"));
             anotherFetch("getUsers", "#table-body-A",true);    
             $("#admin-view").on("click",()=>{
-                console.log("Clicked on admin Views");
+                $('#su-view-life').removeClass("active");
+                $('#su-view-simulation').removeClass("active");
+                $('#admin-view').addClass("active");
                 $("#result").html("");
-
                 $("#result").append(echoAdminTableView());
                  buildingInfo();
                 anotherFetch("getUsersInBuilding", "#table-body-A",true);
