@@ -49,7 +49,6 @@ function echoAdminTableView()
 
 function echoContentTable_SuperUser()
 {
-	let info = anotherFetch("getUsers", '#table-body-SU')
 	var table =`
 	<div>
 		<div class="half" id="inner-table-card">				
