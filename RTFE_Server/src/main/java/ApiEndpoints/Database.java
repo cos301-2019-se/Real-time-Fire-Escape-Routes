@@ -60,20 +60,8 @@ public class Database {
         }
         createTable();
     }
-
-    synchronized public void wakeup()
-    {
-//        if(con==null) {
-//            try {
-//                Class.forName("org.sqlite.JDBC");
-//                con = DriverManager.getConnection("jdbc:sqlite:database.db");
-//                System.out.println("Connected to DB!!");
-//            } catch (Exception e) {
-//                System.out.println("Failed to connect to database");
-//                System.out.println(e.getMessage());
-//            }
-//            createTable();
-//        }
+    public static void wakeup(){
+        getInstance();
     }
     //DATABASE CODE @Kinson
     /**
