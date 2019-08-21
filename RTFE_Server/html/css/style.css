@@ -13,11 +13,34 @@
         }
 
             button{
-                border-color: lightgrey;
+                /*border-color: lightgrey;
                 border-radius: 3px;
-                padding: 5px;
+                padding: 5px;*/
                 font-family: "Ubuntu";
             }
+            /*button style*/
+       
+
+        button {
+                background-color: #f03a01;
+                border: none;
+                color: white;
+                padding: 7px 14px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+
+                margin: 4px 2px;
+                cursor: pointer;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+            }
+
+        button:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            background-color: orange;
+        }
+
 
             a{
                 font-family: "Ubuntu";
@@ -498,3 +521,8 @@
     background-color: transparent;
     color: #000;
 }
+
+.img-edit{
+    background-color: #fff;
+}
+
