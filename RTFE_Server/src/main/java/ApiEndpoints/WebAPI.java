@@ -14,10 +14,6 @@ import java.util.Date;
 public class WebAPI extends API {
     private static boolean verbose = true; //USED for debugging purposes
     private static Database USERDB = Database.getInstance();
-    public static void wakeup()
-    {
-        USERDB.wakeup();
-    }
     /**
      * function handles the requests made to the server
      * @param request: the request object
