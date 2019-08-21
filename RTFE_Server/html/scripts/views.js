@@ -22,11 +22,11 @@ function echoAdminTableView()
 					<thead>
 						<tr>
 							<td scope="col">Name</td>
-							<td scope="col">Email</td>
-							<td scope="col">Device_ID</td>
-							<td scope="col">Type</td>
-							<td scope="col">Status</td>
-							<td scope="col">Edit</td>
+							<td scope="col" class="email-column">Email</td>
+							<td scope="col">Device ID</td>
+							<td scope="col" class="type-column">Type</td>
+							<td scope="col" class="hundred-column">Status</td>
+							<td scope="col" class="hundred-column align-center">Edit</td>
 						</tr>
 					</thead>
 					<tbody id="table-body-A">
@@ -66,11 +66,11 @@ function echoContentTable_SuperUser()
   				<table class="fixed_header" style="fit-content" id="tbh">
 				   <thead>
 					    <tr>
-							<th scope="col">Name</th>
-							<th scope="col">Email</th>
-							<th scope="col">Device_ID</th>
-							<th scope="col">Type</th>
-							<th scope="col">Status</th>
+							<td scope="col">Name</td>
+							<td scope="col" class="email-column">Email</td>
+							<td scope="col">Device ID</td>
+							<td scope="col" class="type-column">Type</td>
+							<td scope="col" class="hundred-column">Status</td>
 					    </tr>
 					</thead>
 				  	<tbody id="table-body-SU">
@@ -108,12 +108,12 @@ function echoTableBotview(){
 		<h1 id="liveHeader">Simulation Building</h1>
 		<table class="fixed_header" id="table-body-SU">
 			<thead>
-				<td>Name</td>
-				<td>Email</td>
-				<td>Device ID</td>
-				<td>Type</td>
-				<td>Status</td>
-				<td class="special-long-td-text">Add to<br/> simulation</td>
+				<td scope="col">Name</td>
+				<td scope="col" class="email-column">Email</td>
+				<td scope="col">Device ID</td>
+				<td scope="col" class="type-column">Type</td>
+				<td scope="col" class="hundred-column">Status</td>
+				<td class="special-long-td-text simulation-column">Add to<br/> simulation</td>
 			</thead>
 			<tbody id="table-body-Sim"></tbody>
 		</table>
@@ -133,10 +133,10 @@ function echoTableBotview(){
 			<hr/>
 		<table id="table-simulation">
 			<thead>
-				<td>Bot ID</td>
-				<td>Location(Floor,x,z)</td>
-				<td>Device ID</td>
-				<td>Status</td>
+				<td scope="col">Bot ID</td>
+				<td scope="col">Location(Floor,x,z)</td>
+				<td scope="col">Device ID</td>
+				<td scope="col">Status</td>
 			</thead>
 			<tbody></tbody>
 		</table>

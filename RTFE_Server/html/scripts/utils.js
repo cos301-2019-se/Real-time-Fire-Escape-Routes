@@ -49,24 +49,24 @@ function populateTable(data,withEdit,addToSim)
     data.forEach((element, index)=>{
         str += `<tr>
             <td scope ="row" data-label="Name">${element.name}</td>
-            <td data-label="Email">${element.email}</td>`
+            <td data-label="Email" class="email-column">${element.email}</td>`
             if(element.deviceID!=undefined){
                 str += `<td data-label="Device_ID">${element.deviceID}</td>`
             }
             else{
                 str += `<td data-label="Device_ID"></td>`
             }
-        str+= `<td data-label="Type">${element.userType}</td>
-            <td data-label="Status" id="${element.deviceID}">${fetchStatus(element.deviceID,element.deviceID)}</td>`
+        str+= `<td data-label="Type" class="type-column">${element.userType}</td>
+            <td data-label="Status" class="hundred-column" id="${element.deviceID}">${fetchStatus(element.deviceID,element.deviceID)}</td>`
         
             if(withEdit){
-                str +=`<td data-label="Edit" >
+                str +=`<td data-label="Edit" class="hundred-column align-center">
                         <button id="${element.email}-edit" onclick="displayOverlayWindow(editUser,'${element.email}', '${element.name}', '${element.userType}', '${element.deviceID}')" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit">
                         <img class="img-edit" onclick="displayOverlayWindow(removeUser,'${element.email}', '${element.name}', '${element.userType}', '${element.deviceID}')" id="${element.email}-remove" src="icons/grey_duspan.png"></button>
                     </td>`
             }
             if(addToSim){
-                str+=` <td class="content-aligned-center"><button class="add-user-to-sim-but" data-device="${element.deviceID}" onclick="addUserToSim(this)">Add</button></td>`;
+                str+=` <td class="content-aligned-center simulation-column"><button class="add-user-to-sim-but" data-device="${element.deviceID}" onclick="addUserToSim(this)">Add</button></td>`;
             }
         str+=`</tr>`;
 
