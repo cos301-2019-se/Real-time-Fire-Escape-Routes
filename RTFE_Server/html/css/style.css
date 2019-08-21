@@ -4,6 +4,10 @@
         $heading-colors: #000000;
 
         /*OVERALL LAYOUT*/
+        body{
+            width: 100%;
+            overflow-x: hidden !important;
+        }
         *{  
             margin: 0;
             font-family: "Fjalla";
@@ -110,7 +114,13 @@
             background-color: orange;
         }
 
+
+
         /* Simple dashboard grid CSS */
+
+            #dashboard{
+                overflow-x: hidden; 
+            }
 
             /* Assign grid instructions to our parent grid container */
             body{
@@ -332,25 +342,121 @@
                             /*overflow: auto; /* Enable scroll if needed */
                         }
 
-                        #contentCard{
+                      #contentCard-newUser, #contentCard{
                             border-radius : 3px;
-                            padding: 0;
+                            padding: 2%;
                             background-color: white;
-                            width: 40%;
-                            margin-left: 30%;
+                            width: max-content;
+                            margin-left: 36.8%;
                             margin-top: 5%;
                             height: 60%;
+                            max-height:486px;
+                            max-width: 400px;
                             box-shadow: 0 18px 24px 0 rgba(0,0,0,0.24),0 25px 66px 0 rgba(0,0,0,0.19);
                         }
 
-                        #contentCard .button-line{
-                            position: absolute;
-                            right: 32%;
-                            bottom: 32%;
+                        @media only screen and (min-height: 500px) {
+                            #contentCard-newUser{
+                                height:67.7%;
+                                margin-left: 34.5%;
+                            } 
+                        } 
+
+                        @media only screen and (min-height: 500px) {
+                            #contentCard{
+                                height:67.7%;
+                                margin-left: 34.5%;
+                            } 
+                        } 
+
+                        @media only screen and (min-height: 800px) {
+                            #contentCard-newUser{
+                                height:60%;
+                                margin-left: 36.8%;
+                            } 
+                        } 
+
+                        @media only screen and (min-height: 800px) {
+                            #contentCard{
+                                height:60%;
+                                margin-left: 36.8%;
+                            } 
+                        } 
+
+
+                        #contentCard-newUser{
+                            max-height: 519px !important;
+                        }
+                       #contentCard-newUser, #contentCard .button-line div{
+                            display: grid;
+                            padding: 3%;
+                        }
+
+                       #contentCard div{
+                            margin-bottom: 5%;
+                        }
+
+                        #contentCard-newUser div:nth-child(first){
+                            max-height: 38px;
+                        }
+
+                        #contentCard-newUser div:nth-child(2) div{
+                            margin-bottom: 5%;
+                        }
+                       #type-addUser, #numOfFloors{
+                            width: 30%;
+                            padding: 2%;
+                            border-radius: 2px;
+                            border: 1px solid #b4b4b4;
+                            transition: border-bottom-color .35s ease-in-out;
+                            -webkit-transform: border-bottom-color .35s ease-in-out; 
+                        }
+
+                        #type-addUser, #numOfFloors:focus{
+                            border-bottom: 1.5px solid #5d5d5d;
+
+                        }
+
+                        .content-card-label{
+                            display: block;
+                            padding-bottom: 1%;
+                        }
+
+                        .content-card-input{
+                            width: 100%;
+                            padding: 2%;
+                            border-radius: 2px;
+                            border: 1px solid #b4b4b4;
+                            max-width: 380px;
+                            min-width: 380px;
+                            transition: border-bottom-color .35s ease-in-out;
+                            -webkit-transform: border-bottom-color .35s ease-in-out;
+                        }
+
+                        .content-card-input:focus{
+                            border-bottom: 1.5px solid #5d5d5d;
+                        }
+
+                        .file-container{
+                            display: flex;
+                        }
+
+                        .custom-file-label{
+                            display: block;
                         }
 
                         .card-content{
+                            width: 30%;
                             margin-top: 7%;
+                        }
+
+                       #add-new-user-button, #cancel-new-user-button, #cancel-new-building, #submit-new-building{
+                            margin-left: 0 !important;
+                            margin-right: 0 !important;
+                            width: 100%;
+                        }
+                       #cancel-new-user-button, #cancel-new-building{
+                            background-color: #b4b4b4;
                         }
 
                         .rtferCard{
@@ -360,6 +466,16 @@
                             border-color: #707070;
                             padding: 2%;
                             /*box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);*/
+                        }
+
+                        .button-line div{
+                            padding: 0 !important;
+                        }
+
+
+                        #upload-plan-title{
+                            display: block;
+                            margin-bottom: 2%;
                         }
 
         /*some arrow margin regulation*/

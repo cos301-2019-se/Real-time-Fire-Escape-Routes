@@ -114,6 +114,14 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
                 ${contentFunc(user, name, type, device)}
             </div>`);
     }
+    else if(contentFunc === windowForNewUser)
+    {
+        $("#overlay-window").removeAttr("style");
+
+        $("#overlay-window").append(`<div id="contentCard-newUser"  class="rtferCard">
+                ${contentFunc()}
+            </div>`);
+    }
     else
     {
         $("#overlay-window").removeAttr("style");
@@ -474,7 +482,7 @@ function editUser(user, name, type, device)
     console.log(name);
     return `<div class="row">
         <div style="text-align: center;" class="col-sm-12">
-            <h1>Eddit user ${name}</h1>
+            <h1>Edit user ${name}</h1>
         </div>
     </div>
     <div>
@@ -529,26 +537,26 @@ function windowForNewBuilding()
     <div>
         <div>
           <div class="form-group">
-            <label for="buildingName">Building name</label>
-            <input type="text" class="form-control" id="buildingName" placeholder="Building1">
+            <label for="buildingName" class="content-card-label">Building name</label>
+            <input type="text" class="form-control content-card-input" id="buildingName" placeholder="Building1">
           </div>
           <div class="form-group">
-            <label for="buildingLocation">Building location</label>
-            <input type="text" class="form-control" id="buildingLocation" placeholder="Location...">
+            <label for="buildingLocation" class="content-card-label">Building location</label>
+            <input type="text" class="form-control content-card-input" id="buildingLocation" placeholder="Location...">
           </div>
           <div class="form-group">
-            <label for="numOfFloors">Number of Floors</label>
+            <label for="numOfFloors" class="content-card-label">Number of Floors</label>
             <input type="number" class="form-control" id="numOfFloors" placeholder="1" min="1">
           </div>
           <div class="form-group">
-            <label for="fileupload">Upload plan</label>
-            <div class="row" padding: 2%;>
+            <label for="fileupload" id="upload-plan-title">Upload plan</label>
+            <div class="row file-container" padding: 2%;>
              <div class="col-sm-5 custom-file">
-                <label style="width: 250px; margin-left: 3.3%;" class="custom-file-label" for="uploadImg"><img style="width: 25px; background-color: transparent;" src="icons/greyFolder.png"/>Upload img</label>
+                <label class="custom-file-label" for="uploadImg"><img style="width: 25px; background-color: transparent;" src="icons/greyFolder.png"/>Upload img</label>
                 <input type="file" class="custom-file-input" id="uploadImg">
              </div>
              <div class="col-sm-5 custom-file">
-                <label style="width: 250px;" class="custom-file-label" for="uploadJson"><img style="width: 25px;" src="icons/jsonFile.png"/>Upload building</label>
+                <label class="custom-file-label" for="uploadJson"><img style="width: 25px;" src="icons/jsonFile.png"/>Upload building</label>
                 <input type="file" class="custom-file-input" id="uploadJson">
              </div>
             </div>
@@ -565,9 +573,53 @@ function windowForNewBuilding()
     `;
 }
 
-function windowForNewUser()
+function windowForNewUser() // I think we should check if the given password matching repeated one
 {
-    return `<div class="row">
+   // $("#contentCard").css("max-height", "519px");
+    let windowForUser = `
+        <div class="row">
+            <div style="text-align: center;" class="col-sm-12">
+                <h1>Add new user</h1>
+            </div>
+        </div>
+        <div>
+            <div class="form-group">
+                <label for="fullName-addUser" class="content-card-label">Name</label>
+                <input type="text" class="form-control content-card-input" id="fullName-addUser" placeholder="Full Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email-addUser" class="content-card-label">Email</label>
+                <input type="text" class="form-control content-card-input" id="email-addUser" placeholder="Full Name" required>
+              </div>
+              <div class="form-group">
+                <label for="setPassword-addUser" class="content-card-label">Password</label>
+                <input type="password" class="form-control content-card-input" id="setPassword-addUser" placeholder="Full Name" required>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword-addUser" class="content-card-label">Confirm Password</label>
+                <input type="password" class="form-control content-card-input" id="confirmPassword-addUser" placeholder="Full Name" required>
+              </div>
+              <div id ="select">
+                <label for="type-addUser" class="content-card-label">User Type</label>
+                <select class="custom-select mr-sm-2" id="type-addUser">
+
+                    <option selected>Agent</option>
+                    <option value="1">Admin</option>
+
+                </select>
+              </div>
+              
+              <div class="form-group row button-line">
+                <div class="col-sm-12" style="text-align: right;">
+                  <button onclick="getInfoFromInput('addUser', null)" id="add-new-user-button" class="btn btn-info">Add user</button>
+                  <button onclick="clearWindow()" id="cancel-new-user-button" class="btn btn-danger">Cancel</button>
+                </div>
+            </div>            
+        </div>
+
+    `;
+
+    let oldWindowForUser =`<div class="row">
         <div style="text-align: center;" class="col-sm-12">
             <h1 style = "font-family: 'Fjalla One'" >Add new user</h1>
         </div>
@@ -607,6 +659,8 @@ function windowForNewUser()
         </div>
     
     `;
+
+    return windowForUser;
 }
 
 //function to highlight search field when searchbutton was pressed

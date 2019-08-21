@@ -68,7 +68,7 @@ table td {
 .fixed_header tbody{
   display:block;
   /*width: 100%;*/
-  overflow: auto;
+  overflow-x: hidden;
   /*height: 600px;*/
 }
 
@@ -94,14 +94,13 @@ table, td{
 
 thead{
   display: block;
-  width: calc(100% - 17px);
 }
 
 tbody{
   display: block;
     overflow: auto;
    height: 300px;
-   
+
 }
 
 th,td{
