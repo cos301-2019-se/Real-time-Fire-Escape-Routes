@@ -1,2 +1,2 @@
-java -jar RTFE_server.main.jar
+java -jar "Firewatch Server.jar"
 PAUSE
