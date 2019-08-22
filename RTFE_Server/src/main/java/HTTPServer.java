@@ -26,6 +26,17 @@ import java.util.StringTokenizer;
 
 
 public class HTTPServer extends Server{
+
+
+        public static final String ANSI_RESET = "\u001B[0m";
+        public static final String ANSI_BLACK = "\u001B[30m";
+        public static final String ANSI_RED = "\u001B[31m";
+        public static final String ANSI_GREEN = "\u001B[32m";
+        public static final String ANSI_YELLOW = "\u001B[33m";
+        public static final String ANSI_BLUE = "\u001B[34m";
+        public static final String ANSI_PURPLE = "\u001B[35m";
+        public static final String ANSI_CYAN = "\u001B[36m";
+        public static final String ANSI_WHITE = "\u001B[37m";
         static final File WEB_ROOT = new File("./html");
         static final String DEFAULT_FILE = "index.html";
         static final String FILE_NOT_FOUND = "404.html";
@@ -278,6 +289,8 @@ public class HTTPServer extends Server{
                             }
                         }
                         catch (Exception e){
+                            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+                            System.out.println(ANSI_RED +  Arrays.toString(e.getStackTrace()) + ANSI_RESET);
                             response.put("status","failed");
                             response.put("message",e.getMessage());
                             response.put("stacktrace", Arrays.toString(e.getStackTrace()));
@@ -328,7 +341,9 @@ public class HTTPServer extends Server{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }catch (Exception e){
-                    System.out.println(e.getMessage());
+
+//                    System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+//                    System.out.println(ANSI_RED +  Arrays.toString(e.getStackTrace()) + ANSI_RESET);
                     JSONObject response = new JSONObject();
                     response.put("status","failed");
                     response.put("message", Arrays.toString(e.getStackTrace()));
