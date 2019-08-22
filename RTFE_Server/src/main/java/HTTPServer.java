@@ -42,7 +42,7 @@ public class HTTPServer extends Server{
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        static final boolean verbose = true;
+        static final boolean verbose = false;
 
         public HTTPServer(){
 //            super();
@@ -268,7 +268,7 @@ public class HTTPServer extends Server{
                                 }
 
                             /** Determining the API endpoint requested */
-                            System.out.println(fileRequested.toString());
+//                            System.out.println(fileRequested.toString());
                             String endPoint = fileRequested.toString();
                             endPoint = endPoint.substring(1);
                             endPoint = endPoint.toLowerCase();
@@ -297,8 +297,8 @@ public class HTTPServer extends Server{
                         }
                         if(verbose) {
                             System.out.println("Connecton opened. (" + new Date() + ")");
-                            System.out.println("Server -> Client:" + response.toString());
                         }
+                        System.out.println("Server -> Client:" + response.toString());
                         out.println(response.toString());
                         out.flush();
                     }

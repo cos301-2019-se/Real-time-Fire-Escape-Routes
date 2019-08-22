@@ -395,7 +395,7 @@ function alarm(status,isSimulation){
         success:function(res){
             if(res.status){
                 if(res.emergency =="true"){
-                    notify("Alarm triggered","yellow");
+                    notify("Alarm triggered","orange");
                 }
                 else{
                     notify("Alarm disarmed","green");

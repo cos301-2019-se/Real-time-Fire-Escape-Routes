@@ -257,7 +257,9 @@ public class BuildingAPI extends API {
                             JSONArray pos = sensorLocation.getJSONArray("position");
                             int floor = sensorLocation.getInt("floor");
                             double [] newPosition = {pos.getDouble(0),pos.getDouble(1)};
-                            Person phoneToBePlaced = new Person(String.valueOf(System.currentTimeMillis()),newPosition);
+                            long ID = System.currentTimeMillis();
+                            Person phoneToBePlaced = new Person(String.valueOf(ID),newPosition);
+                            phoneToBePlaced.personID = ID;
                             phoneToBePlaced.deviceID = request.getString("device_id");
                             building.addPerson(phoneToBePlaced,floor);
                         }

@@ -7,8 +7,8 @@ import org.json.JSONObject;
  * Abstract Class that will be used by subclasses that makes use of a dedicated API endpoint
  * */
 public abstract class API {
-    protected static String [] SecuredEndpoints;
-    protected static int [] AuthorizationLevelRequired;
+    protected static String [] SecuredEndpoints = new String[]{};
+    protected static int [] AuthorizationLevelRequired  = new int[]{};
     synchronized protected static boolean AuthorizeRequest(JSONObject request)throws Exception{
         Database db = Database.getInstance();
         String key = "pending";

@@ -183,7 +183,7 @@ public class Database {
      * function used to return all users in users table
      */
     public JSONArray getUsers() {
-        output();
+//        output();
         ResultSet result = select("select * from users order by id desc");
         JSONArray ret = new JSONArray();
         try{
