@@ -29,8 +29,7 @@ function notify(msg, color){
     )
 }
 
-$(function() {
-    $('#login').on('click', function(){
+    function login() {
         $.ajax({
             url: "http://127.0.0.1:8080/database",
             type: "POST",
@@ -41,35 +40,34 @@ $(function() {
                 email: $('#username').val(),
                 password: $('#password').val()
             }),
-            success: function(data){
-                setCookie( $('#username').val(), data.apiKey, "");
-                if (data.status == true){
-                    if(data.userType == "Agent"){
+            success: function (data) {
+                setCookie($('#username').val(), data.apiKey, "");
+                if (data.status == true) {
+                    if (data.userType == "Agent") {
                         notify("You have insuffcient rank to use the page", 'orange');
                         return;
                     }
                     notify(data.msg, 'green');
                     username = $('#username').val();
-                    $('#login-form').fadeOut('fast', function(){
-                        $('#background').hide('slide', {direction: 'left'}, 500, function(){
-                            $('#login-page').fadeOut('fast', function(){
+                    $('#login-form').fadeOut('fast', function () {
+                        $('#background').hide('slide', {direction: 'left'}, 500, function () {
+                            $('#login-page').fadeOut('fast', function () {
                                 $('#footer').css('width', '100%');
                                 $('#dashboard').css('width', '100%');
                                 $('#dashboard').fadeIn('fast');
                                 $('#menu-user').text(username);
-                                
+
                                 LoginSuccess(data.userType);
 
                             });
                         });
                     })
-                }else{
+                } else {
                     notify(data.msg, 'red');
                 }
             }
         })
-    })
-});
+    }
 
 
 function LoginSuccess(userType){
