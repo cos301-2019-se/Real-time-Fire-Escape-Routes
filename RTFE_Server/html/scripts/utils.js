@@ -624,7 +624,7 @@ function windowForNewUser() // I think we should check if the given password mat
                     <select class="custom-select mr-sm-2" id="type-addUser">
 
                         <option selected>Agent</option>
-                        <option value="1">Admin</option>
+                        <option value="admin">Admin</option>
 
                     </select>
                 </div>
