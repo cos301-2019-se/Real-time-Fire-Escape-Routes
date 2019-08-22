@@ -134,6 +134,7 @@ function addFire(x, y, rad, floor)
         data: JSON.stringify({
             key: getCookie("apiKey"),
             type: "fire",
+            mode: "simulation",
             position: [x,y],
             radius: rad,
             floor: floor
@@ -379,7 +380,9 @@ function changeBuilding(elementText,elementImage,buildingName,isSimulation){
 }
 
 function alarm(status,isSimulation){
-
+    if(isSimulation ===true){
+        isSimulation ="simulation"
+    }
     $.ajax({
         url: URL+"building",
         type: "POST",

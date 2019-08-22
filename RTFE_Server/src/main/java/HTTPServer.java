@@ -243,10 +243,11 @@ public class HTTPServer extends Server{
                         try {
                             
                             /**Getting the req.body*/
-                                StringBuilder payload = new StringBuilder();
+                                StringBuilder payloadBuilder = new StringBuilder();
                                 while(in.ready()){
-                                    payload.append((char) in.read());
+                                    payloadBuilder.append((char)in.read());
                                 }
+                                String payload = payloadBuilder.toString();
                                 String type = getContentType(payload);
                                 if (verbose)
                                     System.out.println("TYPE -> "+type);
@@ -293,7 +294,6 @@ public class HTTPServer extends Server{
                             System.out.println(ANSI_RED +  Arrays.toString(e.getStackTrace()) + ANSI_RESET);
                             response.put("status","failed");
                             response.put("message",e.getMessage());
-                            response.put("stacktrace", Arrays.toString(e.getStackTrace()));
                         }
                         if(verbose) {
                             System.out.println("Connecton opened. (" + new Date() + ")");
@@ -370,14 +370,14 @@ public class HTTPServer extends Server{
             }
         }
         
-        private String getJSONStr(StringBuilder payload)  {
+        private String getJSONStr(String payload) throws Exception {
             try {
                 return payload.substring(payload.indexOf("{"));
             }
             catch (Exception e){
                 System.out.println("Something went wrong parsing the payload: "+payload);
             }
-            return "{\"type\":\"assignPeople\"}";
+            throw new Exception("Error parsing payload");
         }
     }
 
@@ -389,7 +389,7 @@ public class HTTPServer extends Server{
      * @return a JSONObject used by the rest of the system to execute the requests
      * @date 28/05/2019
      */
-    private JSONObject getFormData(StringBuilder payload) throws Exception {
+    private JSONObject getFormData(String payload) throws Exception {
         JSONObject request = new JSONObject();
         String data = payload.toString();
         String [] parsedData = data.split("Content-Disposition: ");
