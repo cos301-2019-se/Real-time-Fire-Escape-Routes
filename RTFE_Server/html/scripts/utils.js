@@ -119,7 +119,7 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
         $("#overlay-window").removeAttr("style");
 
         $("#overlay-window").append(`<div id="contentCard-removeUser"  class="rtferCard">
-                ${contentFunc()}
+                ${contentFunc(user, name, type, device)}
             </div>`);
     }
 
@@ -464,6 +464,7 @@ function selectType(type)
 
 function removeUser(user, name, type, device)
 {
+        console.log(user + name + type + device);
         return `<div class="row">
                 <div style="text-align: center; margin-bottom:5%;" class="col-sm-12">
                     <h1>Do you want to remove ${name} from your system?</h1>
@@ -624,7 +625,7 @@ function windowForNewUser() // I think we should check if the given password mat
                     <select class="custom-select mr-sm-2" id="type-addUser">
 
                         <option selected>Agent</option>
-                        <option value="1">Admin</option>
+                        <option value="admin">Admin</option>
 
                     </select>
                 </div>
