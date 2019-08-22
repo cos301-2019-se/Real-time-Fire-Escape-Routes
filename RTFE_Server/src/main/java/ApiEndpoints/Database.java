@@ -426,14 +426,22 @@ public class Database {
     public boolean delete(String email){
         email = shield.escapeString(email, true);
         lock.lock();
-        boolean val = false;
+        boolean val = true;
         try{
 
             query = con.createStatement();
+            Boolean ye =  query.execute("select id from users where email = '" + email + "'");
+            query = null;
+            query = con.createStatement();
+            ye = query.execute("delete from user_building WHERE ub_user_id IN(select id from users where email = '" + email + "')");
+
+            query = null;
+            query = con.createStatement();
             query.execute("delete from users WHERE email = " + "\'" + email + "\'");
-            val = true;
+
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            val = false;
+            System.out.println("DELETE: " + e.getMessage());
         }
         finally {
             lock.unlock();
@@ -606,6 +614,7 @@ public class Database {
     {
         email = shield.escapeString(email, true);
         pass = shield.escapeString(pass, true);
+
         String generatedPassword = null;
         for(int k = 0; k < 2; k++)
         {
