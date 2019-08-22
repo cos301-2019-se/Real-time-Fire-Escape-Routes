@@ -69,7 +69,8 @@ table td {
 
 
 .fixed_header{
-    /*width: 400px;*/
+    width: 100%;
+    margin: 10px 0 0 0;
     table-layout: fixed;
     border-collapse: collapse;
 }
@@ -81,8 +82,8 @@ table td {
   /*height: 600px;*/
 }
 
-.fixed_header thead tr {
-   display: block;
+.fixed_header thead tr, .fixed_header tbody tr {
+   display: flex;
 }
 
 .fixed_header thead {
@@ -92,8 +93,8 @@ table td {
 .fixed_header th, .fixed_header td {
   padding: 5px;
   text-align: left;
-  min-width: 75px;
-  width: 200px;
+  /*min-width: 75px;*/
+  width: 100%;
 }
 
 table, td{
@@ -196,7 +197,7 @@ td{
   min-width: 10px !important;
   max-width: 10px;
 }
-
+/*
 .edit-column{
   max-width: 100px;
 }
@@ -205,6 +206,7 @@ td{
   min-width: 70px;
   max-width: 100px;
 }
+*/
 
 
 
@@ -226,10 +228,6 @@ td{
 } 
 
 @media only screen and (min-height: 800px) {
-    .device-column{
-      min-width: 70px;
-      max-width: 100px;
-    }
     .name-column{
       min-width: 250px !important;
       max-width: 300px
