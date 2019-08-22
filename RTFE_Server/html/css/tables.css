@@ -197,7 +197,7 @@ td{
   min-width: 10px !important;
   max-width: 10px;
 }
-
+/*
 .edit-column{
   max-width: 100px;
 }
@@ -206,6 +206,7 @@ td{
   min-width: 70px;
   max-width: 100px;
 }
+*/
 
 
 
@@ -227,10 +228,6 @@ td{
 } 
 
 @media only screen and (min-height: 800px) {
-    .device-column{
-      min-width: 70px;
-      max-width: 100px;
-    }
     .name-column{
       min-width: 250px !important;
       max-width: 300px
