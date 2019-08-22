@@ -10,8 +10,11 @@ function echoAdminTableView()
 			<hr/>
 			<div>
 				<div id="inner-table-card" style="display: block;">
-					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
-						<span class="search-span" style="text-align: right;position:relative ;right: 50px;">
+					<div id="admin-table-header" style="display: block;">
+
+					<!--<span class="table-name heading" style="text-align: left;">User Table</span>-->
+
+						<span class="search-span">
 							<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search"  onkeyup="search(this,'table-body-A')">
 							<div class="search-button" id="admin-search-button" onclick="highlightSearchField()"><img class="search-icon" src="icons/search_grey.png"><i class="fa fa-search"></i>
 							</div>
@@ -53,7 +56,10 @@ function echoContentTable_SuperUser()
 	<div>
 		<div class="half" id="inner-table-card">				
 			<div class="table-heading" style="display: block;">
-				<span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 50%;">
+
+				<!--<span class="table-name heading" style="text-align: left;">User Table</span>-->
+
+				<span class="search-span" style="text-align: right; margin-left: 50%;">
 					<input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search">
 					<div class="search-button" onclick="highlightSearchField()">
 						<img class="search-icon" src="icons/search_grey.png">
@@ -107,7 +113,7 @@ function echoTableBotview(){
 		<h1 id="liveHeader">Simulation Building</h1>
 		<table class="fixed_header" id="table-body-SU">
 			<thead>
-				<td scope="col">Name</td>
+				<td scope="col" class="name-column">Name</td>
 				<td scope="col" class="email-column">Email</td>
 				<td scope="col">Device ID</td>
 				<td scope="col" class="type-column">Type</td>
@@ -132,10 +138,11 @@ function echoTableBotview(){
 			<hr/>
 		<table id="table-simulation">
 			<thead>
-				<td scope="col">Bot ID</td>
-				<td scope="col">Location(Floor,x,z)</td>
-				<td scope="col">Device ID</td>
-				<td scope="col">Status</td>
+				<td scope="col" class="bot-simul">Bot ID</td>
+				<td scope="col" class="location-simul">Location(Floor,x,z)</td>
+				<td scope="col" class="device-simul">Device ID</td>
+				<td scope="col" class="type-simul">Type</td>
+				<td scope="col" class="status-simul">Status</td>
 			</thead>
 			<tbody></tbody>
 		</table>
