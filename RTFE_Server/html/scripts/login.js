@@ -77,7 +77,13 @@ function LoginSuccess(userType){
             $("nav>#options").append(`<div class="nav__list-item" id="su-view-life" href="#">Live view</div>`)
             $("nav>#options").append(`<div class="active nav__list-item" id="admin-view" href="#" >Administration</div>`)
             $("#result").html("");
+            getBuildingInfo("#ActiveBuilding",'name','live');
+            addDropDown("#buildingDropDown");
             $("#result").append(echoAdminTableView());
+             $("#buildingDropDown").on("change",()=>{
+            changeCookie("building_name",$("#buildingDropDown").val());
+             anotherFetch("getUsersInBuilding", "#table-body-A",true,false);
+            })
             $("#displayUsername").html(getCookie("email"));
             anotherFetch("getUsers", "#table-body-A",true);    
             $("#admin-view").on("click",()=>{
@@ -88,6 +94,10 @@ function LoginSuccess(userType){
                 $("#result").html("");
                 $("#result").append(echoAdminTableView());
                  buildingInfo();
+                $("#buildingDropDown").on("change",()=>{
+                    changeCookie("building_name",$("#buildingDropDown").val());
+                anotherFetch("getUsersInBuilding", "#table-body-A",true,false);
+            })
                 anotherFetch("getUsersInBuilding", "#table-body-A",true);
             })
 
@@ -99,6 +109,10 @@ function LoginSuccess(userType){
             $("#result").html("");
             $("#result").append(echoContentTable_SuperUser());
             buildingInfo();
+            $("#buildingDropDown").on("change",()=>{
+                changeCookie("building_name",$("#buildingDropDown").val());
+            anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
+        })
             anotherFetch("getUsersInBuilding", "#table-body-SU",false,false);
 
             }) ;
