@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -279,6 +280,7 @@ public class HTTPServer extends Server{
                         catch (Exception e){
                             response.put("status","failed");
                             response.put("message",e.getMessage());
+                            response.put("stacktrace", Arrays.toString(e.getStackTrace()));
                         }
                         if(verbose) {
                             System.out.println("Connecton opened. (" + new Date() + ")");
@@ -327,8 +329,11 @@ public class HTTPServer extends Server{
                     e.printStackTrace();
                 }catch (Exception e){
                     System.out.println(e.getMessage());
-                    out.println("{\"status\":\"failed\"}");
-                    out.println("{\"message\":\""+e.getMessage()+"\"}");
+                    JSONObject response = new JSONObject();
+                    response.put("status","failed");
+                    response.put("message", Arrays.toString(e.getStackTrace()));
+                    out.println(response.toString());
+                    out.println();
                     out.flush();
                 }
                 finally {

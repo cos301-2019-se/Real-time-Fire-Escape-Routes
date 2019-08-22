@@ -306,7 +306,7 @@ public class Room {
             fireObject.put("floor",floor);
             JSONArray corners = new JSONArray();
             for (int i = 0; i < Corners.size(); i++) {
-                corners.put(new double[]{Corners.get(i).z,Corners.get(i).x});
+                corners.put(new double[]{Corners.get(i).x,Corners.get(i).z});
             }
             fireObject.put("corners",corners);
             fires.put(fireObject);
