@@ -33,11 +33,11 @@ function statusIdentifier(status)
 {
     if(status === "Offline")
     {
-        return `Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span>`;
+        return `<span class="online-off-indicator"><img src="icons/offline.png"/></span>`;
     }
     if(status === "Online")
     {
-        return `Online <span class="online-off-indicator"><img src="icons/online.png"/></span>`;
+        return `<span class="online-off-indicator"><img src="icons/online.png"/></span>`;
     }
 
 }
@@ -48,19 +48,22 @@ function populateTable(data,withEdit,addToSim)
     let str = "";
     data.forEach((element, index)=>{
         str += `<tr>
+            <td data-label="Status" class="status-column" id="${element.deviceID}">${fetchStatus(element.deviceID,element.deviceID)}</td>
             <td scope ="row" class="name-column" data-label="Name">${element.name}</td>
             <td data-label="Email" class="email-column">${element.email}</td>`
-            if(element.deviceID!=undefined){
-                str += `<td data-label="Device_ID">${element.deviceID}</td>`
-            }
-            else{
-                str += `<td data-label="Device_ID"></td>`
-            }
+           
         str+= `<td data-label="Type" class="type-column">${element.userType}</td>
-            <td data-label="Status" class="hundred-column" id="${element.deviceID}">${fetchStatus(element.deviceID,element.deviceID)}</td>`
-        
+            `
+             if(element.deviceID!=undefined){
+
+                    str += `<td data-label="Device_ID" class="device-column">${element.deviceID}</td>`
+                }
+                else{
+                    $(".device-column").css("text-align", "center");
+                    str += `<td data-label="Device_ID" class="device-column" style="text-align:center">-</td>`
+                }
             if(withEdit){
-                str +=`<td data-label="Edit" class="hundred-column align-center">
+                str +=`<td data-label="Edit" class="edit-column align-center">
                         <button id="${element.email}-edit" onclick="displayOverlayWindow(editUser,'${element.email}', '${element.name}', '${element.userType}', '${element.deviceID}')" class="img-edit"><img src="icons/grey_pensil.png"></button><button class="img-edit">
                         <img class="img-edit" onclick="displayOverlayWindow(removeUser,'${element.email}', '${element.name}', '${element.userType}', '${element.deviceID}')" id="${element.email}-remove" src="icons/grey_duspan.png"></button>
                     </td>`
@@ -73,6 +76,7 @@ function populateTable(data,withEdit,addToSim)
     });
     return str; 
 }
+
 function search(searchBox,tableElement) {
   // console.log(searchBox,tableElement);
   var input, filter, table, tr, td, i, txtValue;
