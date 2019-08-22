@@ -15,21 +15,22 @@ function echoAdminTableView()
 					<!--<span class="table-name heading" style="text-align: left;">User Table</span>-->
 
 						<span class="search-span">
-							<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search"  onkeyup="search(this,'table-body-A')">
 							<div class="search-button" id="admin-search-button" onclick="highlightSearchField()"><img class="search-icon" src="icons/search_grey.png"><i class="fa fa-search"></i>
 							</div>
+							<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search"  onkeyup="search(this,'table-body-A')">
 						</span>
 					</div>
 				<div>	
-				<table style="width:100%" id="tbh" class="fixed_header">
+				<table id="tbh" class="fixed_header">
 					<thead>
 						<tr>
-							<td scope="col">Name</td>
+						
+							<td scope="col" class="status-column" style="color:transparent">S</td>
+							<td scope="col" class="name-column">Name</td>
 							<td scope="col" class="email-column">Email</td>
-							<td scope="col">Device ID</td>
 							<td scope="col" class="type-column">Type</td>
-							<td scope="col" class="hundred-column">Status</td>
-							<td scope="col" class="hundred-column align-center">Edit</td>
+							<td scope="col" class="device-column">Device ID</td>
+							<td scope="col" class="edit-column align-center">Edit</td>
 						</tr>
 					</thead>
 					<tbody id="table-body-A">
@@ -58,24 +59,25 @@ function echoContentTable_SuperUser()
 			<div class="table-heading" style="display: block;">
 
 				<!--<span class="table-name heading" style="text-align: left;">User Table</span>-->
-
-				<span class="search-span" style="text-align: right; margin-left: 50%;">
-					<input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search">
-					<div class="search-button" onclick="highlightSearchField()">
+				<div class="search-button" onclick="highlightSearchField()">
 						<img class="search-icon" src="icons/search_grey.png">
 						<i class="fa fa-search"></i>
 					</div>
+				<span class="search-span" style="text-align: right; margin-left: 50%;">
+					<input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search">
+					
 				</span>
 			</div>
 			<div >
   				<table class="fixed_header" style="fit-content" id="tbh">
 				   <thead>
 					    <tr>
-							<td scope="col">Name</td>
+					    	<td scope="col" class="status-column"></td>
+							<td scope="col" class="name-column">Name</td>
 							<td scope="col" class="email-column">Email</td>
-							<td scope="col">Device ID</td>
 							<td scope="col" class="type-column">Type</td>
-							<td scope="col" class="hundred-column">Status</td>
+							<td scope="col" class="device-column">Device ID</td>
+							
 					    </tr>
 					</thead>
 				  	<tbody id="table-body-SU">
@@ -113,11 +115,11 @@ function echoTableBotview(){
 		<h1 id="liveHeader">Simulation Building</h1>
 		<table class="fixed_header" id="table-body-SU">
 			<thead>
+				<td scope="col" class="status-column"></td>
 				<td scope="col" class="name-column">Name</td>
 				<td scope="col" class="email-column">Email</td>
-				<td scope="col">Device ID</td>
 				<td scope="col" class="type-column">Type</td>
-				<td scope="col" class="hundred-column">Status</td>
+				<td scope="col" class="device-column">Device ID</td>				
 				<td class="special-long-td-text simulation-column">Add to<br/> simulation</td>
 			</thead>
 			<tbody id="table-body-Sim"></tbody>

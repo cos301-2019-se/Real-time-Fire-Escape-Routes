@@ -55,7 +55,7 @@ function fetchStatus(mac,identify)
         }, 5000);
         intervals.push(myInterval);
     }
-    return 'Offline <span class="online-off-indicator"><img src="icons/offline.png"/></span>';
+    return '<span class="online-off-indicator"><img src="icons/offline.png"/></span>';
 }
 
 function docall(botID,location,floor,mode,HTMLelement){

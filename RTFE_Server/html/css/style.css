@@ -8,6 +8,8 @@
             width: 100%;
             overflow-x: hidden !important;
         }
+
+        
         *{  
             margin: 0;
             font-family: "Fjalla";
@@ -291,11 +293,6 @@
                         content: attr(data-label);
                         float: left;
                       }
-                    }
-                    
-                 
-                    .search-span{
-                        margin-left: 60%;
                     }
                     /*.table-heading:first-child{
                         margin-left: 50%;

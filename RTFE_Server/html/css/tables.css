@@ -57,7 +57,7 @@ table td {
     width: 100%;
     padding-bottom: 2%;
     margin-left: inherit;
-    text-align: right;
+    text-align: left;
 
 }
 
@@ -144,17 +144,18 @@ td{
 }
 
 .name-column{
-  min-width: 100px !important;
-  max-width: 250px;
+  min-width: 250px !important;
+  max-width: 300px
 }
 
 .email-column{
-  min-width: 100px !important;
+  min-width: 250px !important;
   max-width: 300px;
 }
 
 .type-column{
   min-width: 70px !important;
+  max-width: 80px;
 }
 
 .simulation-column{
@@ -177,16 +178,65 @@ td{
 }
 
 .device-simul{
-  max-width: 100px;
   min-width: 80px;
+  max-width: 100px;
 }
 
 .status-simul{
-  max-width: 50px;
   min-width: 45px;
+  max-width: 50px;
 }
 
 .type-simul{
   max-width: 70px !important;
   min-width: 70px !important;
+}
+
+.status-column{
+  min-width: 10px !important;
+  max-width: 10px;
+}
+
+.edit-column{
+  max-width: 100px;
+}
+
+.device-column{
+  min-width: 70px;
+  max-width: 100px;
+}
+
+
+
+@media only screen and (min-height: 500px) {
+    .device-column{
+      min-width: 70px;
+      max-width: 70px;
+    }
+
+        .name-column{
+      min-width: 180px !important;
+      max-width: 230px
+    }
+
+    .email-column{
+      min-width: 180px !important;
+      max-width: 230px;
+    }
+} 
+
+@media only screen and (min-height: 800px) {
+    .device-column{
+      min-width: 70px;
+      max-width: 100px;
+    }
+    .name-column{
+      min-width: 250px !important;
+      max-width: 300px
+    }
+
+    .email-column{
+      min-width: 250px !important;
+      max-width: 300px;
+    }
 }
