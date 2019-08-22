@@ -1,6 +1,6 @@
 package ApiEndpoints;
 
-import Building.Fire;
+import Building.*;
 import Building.Person;
 import Building.Routes;
 import org.json.JSONArray;
@@ -21,18 +21,24 @@ public class BuildingAPI extends API {
      * @param request: Contains the JSON data that was sent to the server
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-    public static JSONObject handleRequest(JSONObject request)throws Exception {
+    private static Building building;
+    synchronized public static JSONObject handleRequest(JSONObject request)throws Exception {
         JSONObject response;
+        AuthorizeRequest(request);
         if(verbose){
             System.out.println("BuildingAPI: "+ request.toString());
         }
         try{
             building = chooseBuilding(request);
+            if(building==null){
+                throw new Exception("No building Active");
+            }
         }
         catch (Exception e){
             response = new JSONObject();
             response.put("status", false);
             response.put("message", e.getMessage());
+            return response;
         }
         switch ((String)request.get("type")){
             case "assignPeople":{
@@ -233,9 +239,55 @@ public class BuildingAPI extends API {
         String id = (String)request.get("device_id");
         Person person = null;
         for (Person p:people) {
-            if(p.deviceID.compareTo(id)==0){
-                person = p;
-                break;
+            if(p.deviceID!=null) {
+                if (p.deviceID.compareTo(id) == 0) {
+                    person = p;
+                    break;
+                }
+            }
+        }
+        if(person == null){
+            try {
+                if (request.has("sensors")) {
+                    JSONArray sensors = request.getJSONArray("sensors");
+                    for (int i = 0; i < sensors.length(); i++) {
+                        JSONObject sensor = sensors.getJSONObject(i);
+                        if (building.hasSensorInBuilding(sensor.getString("bssid"))) {
+                            JSONObject sensorLocation = building.sensorLocationInBuilding(sensor.getString("bssid"));
+                            JSONArray pos = sensorLocation.getJSONArray("position");
+                            int floor = sensorLocation.getInt("floor");
+                            double [] newPosition = {pos.getDouble(0),pos.getDouble(1)};
+                            long ID = System.currentTimeMillis();
+                            Person phoneToBePlaced = new Person(String.valueOf(ID),newPosition);
+                            phoneToBePlaced.personID = ID;
+                            phoneToBePlaced.deviceID = request.getString("device_id");
+                            building.addPerson(phoneToBePlaced,floor);
+                        }
+                    }
+                }
+            }
+            catch (Exception e){
+                System.out.println("Something when wrong parsing the sensor data");
+            }
+        }
+        if(request.has("sensors")) {
+            try {
+                JSONArray sensors = request.getJSONArray("sensors");
+                for (int i = 0; i < sensors.length(); i++) {
+                    JSONObject sensor = sensors.getJSONObject(i);
+                    if (building.hasSensorInBuilding(sensor.getString("bssid"))) {
+                        JSONObject sensorLocation = building.sensorLocationInBuilding(sensor.getString("bssid"));
+                        JSONObject updateRequest = new JSONObject();
+
+                        updateRequest.put("device_id", request.getString("device_id"));
+                        updateRequest.put("floor", sensorLocation.getInt("floor"));
+                        updateRequest.put("position", sensorLocation.getJSONArray("position"));
+                        UpdatePersonLocation(updateRequest);
+                    }
+                }
+            }
+            catch (Exception e){
+                System.out.println("Something when wrong parsing the sensor data");
             }
         }
         String status = "";
@@ -254,6 +306,7 @@ public class BuildingAPI extends API {
         }
         else{
             status+="Person is not in building";
+
         }
 
         return status;
@@ -450,7 +503,7 @@ public class BuildingAPI extends API {
                 }
             }
             int floor = Integer.parseInt(person[1]);
-            long id = Integer.parseInt(person[0]);
+            long id = Long.parseLong(person[0]);
             PersonUpdate.put("floor",floor);
             JSONArray position = new JSONArray(pos);
             PersonUpdate.put("position",position);

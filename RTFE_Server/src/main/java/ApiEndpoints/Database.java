@@ -16,15 +16,26 @@ import java.util.concurrent.locks.ReentrantLock;
  * The Database makes use of sqlite to accomplish fast, secure and reliable access
  * */
 public class Database {
+    static Database instance = null;
     public String fileName;
     File f;
     Lock lock;
-    Connection con = null;
+     Connection con = null;
     Statement query = null;
     MessageDigest md;
     byte[] salt;
-    public Database()
+    SQLInjectionEscaper shield;
+    synchronized public static Database getInstance()
     {
+        if(instance == null)
+        {
+            instance = new Database();
+        }
+        return instance;
+    }
+    private Database()
+    {
+        shield = new SQLInjectionEscaper();
 
         try {
             md = MessageDigest.getInstance("SHA-1");
@@ -49,6 +60,9 @@ public class Database {
         }
         createTable();
     }
+    public static void wakeup(){
+        getInstance();
+    }
     //DATABASE CODE @Kinson
     /**
      * function that creates a salt for the user passwords
@@ -68,11 +82,11 @@ public class Database {
 
         try{
             query = con.createStatement();
-//            query.execute("drop table if exists buildings;");
+//            query.execute("drop table if exists apiKeys;");
             query.execute("create table if not exists users(id integer primary key, name varchar(250), email varchar(250), password varchar(250), userType varchar(250), deviceID integer, userDate date );");
             query.execute("create table if not exists buildings(building_id integer primary key, building_name varchar(250), num_floors integer, building_date date, building_location varchar(250));");
             query.execute("create table if not exists user_building(ub_id integer primary key, ub_user_id integer, ub_building_id integer, ub_user_status varchar(250));");
-            query.execute("create table if not exists apiKeys(key_id integer primary key, apikey varchar(250), date_created date, date_expire date, authorizationLevel integer);");
+            query.execute("create table if not exists apiKeys(key_id integer primary key, apikey varchar(250), date_created bigint, date_expire bigint, authorizationLevel integer);");
 
             query = null;
         }catch (Exception e){
@@ -82,6 +96,8 @@ public class Database {
     }
     public boolean addUserToBuilding(String email , String buildingName)
     {
+        email = shield.escapeString(email, true);
+        buildingName = shield.escapeString(buildingName, true);
         lock.lock();
          boolean val = true;
         try{
@@ -101,7 +117,6 @@ public class Database {
             System.out.println("addUserToBuilding: " + e.getMessage());
         }
         finally{
-
             lock.unlock();
         }
         return val;
@@ -114,9 +129,13 @@ public class Database {
      */
     public JSONArray getUsersInBuilding(String building_name)
     {
+        building_name = shield.escapeString(building_name, true);
         JSONArray ret = new JSONArray();
         try{
-
+            if(building_name.compareTo("loading...") == 0)
+            {
+                building_name = "1 Story Office";
+            }
             ResultSet building_id_set = select("select * from buildings where building_name = '" + building_name + "'");
             int building_id = building_id_set.getInt("building_id");
 
@@ -164,7 +183,7 @@ public class Database {
      * function used to return all users in users table
      */
     public JSONArray getUsers() {
-        output();
+//        output();
         ResultSet result = select("select * from users order by id desc");
         JSONArray ret = new JSONArray();
         try{
@@ -188,6 +207,7 @@ public class Database {
      * @param numFloors: is a string of user password
      */
     public boolean insertBuilding(String buildingParamName, int numFloors, Date bdate, String buildingLocation) {
+        
         lock.lock();
         boolean val = true;
         try
@@ -212,6 +232,10 @@ public class Database {
      * @param pass: is a string of user password
      */
     public boolean insert(String name, String email, String pass, String type, String buildingName){
+        name = shield.escapeString(name, true);
+        email = shield.escapeString(email, true);
+        pass = shield.escapeString(pass, true);
+        buildingName = shield.escapeString(buildingName, true);
         lock.lock();
         String generatedPassword = null;
         try {
@@ -226,12 +250,15 @@ public class Database {
         catch (Exception e)
         {
             e.printStackTrace();
-//            lock.unlock();
+            lock.unlock();
+            return false;
+        }
+        finally {
         }
         boolean val = true;
         try{
             query = con.createStatement();
-            query.execute("insert into users(name, email, password, userType) values(\'"+name+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
+            query.execute("insert into users(name, email, password, userType) values(\'"+ shield.escapeString(name, true)+"\'"+", " + "\'"+email+"\'"+", " + "\'"+generatedPassword+"\'"+", " + "\'"+type+"\')");
             ResultSet results =  select("select * from users where email = '" + email + "'");
             int u_id = results.getInt("id");
             ResultSet results2 = select("select building_id, count(*) as rowcount from buildings where building_name = '" + buildingName +"'");
@@ -246,7 +273,6 @@ public class Database {
             System.out.println("Register: " + e.getMessage());
         }
         finally{
-
             lock.unlock();
         }
         return !val;
@@ -258,6 +284,8 @@ public class Database {
      */
     public boolean updateEmail(String email, String newEmail)
     {
+        email = shield.escapeString(email, true);
+        newEmail = shield.escapeString(newEmail, true);
         lock.lock();
         boolean val;
         try{
@@ -269,7 +297,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -279,6 +309,8 @@ public class Database {
      */
     public boolean updateDeviceID(String email, String deviceID)
     {
+        email = shield.escapeString(email, true);
+        deviceID = shield.escapeString(deviceID, true);
         lock.lock();
         boolean val;
         try{
@@ -290,7 +322,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -300,6 +334,8 @@ public class Database {
      */
     public boolean updatePassword(String email, String password)
     {
+        email = shield.escapeString(email, true);
+        password = shield.escapeString(password, true);
         lock.lock();
         String generatedPassword = null;
         try {
@@ -314,6 +350,8 @@ public class Database {
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+        finally {
             lock.unlock();
         }
         boolean val;
@@ -327,7 +365,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -337,6 +377,7 @@ public class Database {
      */
     public boolean updateType(String email, String type)
     {
+        email = shield.escapeString(email, true);
         lock.lock();
         boolean val;
         try{
@@ -348,7 +389,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -358,6 +401,8 @@ public class Database {
      */
     public boolean updateName(String email, String name)
     {
+        email = shield.escapeString(email, true);
+        name = shield.escapeString(name, true);
         lock.lock();
         boolean val;
         try{
@@ -369,7 +414,9 @@ public class Database {
             val = false;
             System.out.println(e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -377,17 +424,28 @@ public class Database {
      * @param email: is a string of user name
      */
     public boolean delete(String email){
+        email = shield.escapeString(email, true);
         lock.lock();
-        boolean val = false;
+        boolean val = true;
         try{
 
             query = con.createStatement();
+            Boolean ye =  query.execute("select id from users where email = '" + email + "'");
+            query = null;
+            query = con.createStatement();
+            ye = query.execute("delete from user_building WHERE ub_user_id IN(select id from users where email = '" + email + "')");
+
+            query = null;
+            query = con.createStatement();
             query.execute("delete from users WHERE email = " + "\'" + email + "\'");
-            val = true;
+
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            val = false;
+            System.out.println("DELETE: " + e.getMessage());
         }
-        lock.unlock();
+        finally {
+            lock.unlock();
+        }
         return val;
     }
     /**
@@ -517,7 +575,8 @@ public class Database {
 
     public boolean validateDeviceId(String email, String deviceId)
     {
-
+        email = shield.escapeString(email, true);
+        deviceId = shield.escapeString(deviceId, true);
         boolean validated = false;
         try{
 
@@ -553,35 +612,27 @@ public class Database {
 
     public boolean search(String email,String pass)
     {
-        String generatedPassword = null;
-        try {
-            byte[] bytes = md.digest(pass.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        if(pass.compareTo("") == 0)
-        {
-            try{
+        email = shield.escapeString(email, true);
+        pass = shield.escapeString(pass, true);
 
-                query = con.createStatement();
-                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"'");
-                query = null;
-                if (result.getInt("rowcount") > 0) return true;
-            }catch(Exception e){
-                System.out.println("Search: " +e.getMessage());
-            }
-            return false;
-        }
-        else
+        String generatedPassword = null;
+        for(int k = 0; k < 2; k++)
         {
+            try {
+                byte[] bytes = md.digest(pass.getBytes());
+                StringBuilder sb = new StringBuilder();
+                for(int i=0; i< bytes.length ;i++)
+                {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                generatedPassword = sb.toString();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
             try{
 
                 query = con.createStatement();
@@ -593,12 +644,13 @@ public class Database {
                 System.out.println("Search: " +e.getMessage());
             }
             return false;
-        }
+//        }
 
     }
 
     public String getUserType(String email)
     {
+        email = shield.escapeString(email, true);
 
         try{
 
@@ -614,11 +666,10 @@ public class Database {
 
 
     }
-    public boolean oldSearch(String email,String pass)
+    public boolean exists(String email)
     {
+            email = shield.escapeString(email, true);
 
-        if(pass.compareTo("") == 0)
-        {
             try{
 
                 query = con.createStatement();
@@ -629,26 +680,12 @@ public class Database {
                 System.out.println(e.getMessage());
             }
             return false;
-        }
-        else
-        {
 
-            try{
 
-                query = con.createStatement();
-                ResultSet result = select("select count(*) as rowcount from users where email = '"+email+"' and password = '" + pass + "'");
-                query = null;
-                if (result.getInt("rowcount") > 0) return true;
-            }catch(Exception e){
-
-                System.out.println(e.getMessage());
-            }
-            return false;
-        }
 
     }
 
-    public String generateKey(){
+    public String generateKey(int AuthLevel){
         String generatedKey = null;
         try {
             byte[] bytes = md.digest(String.valueOf(System.currentTimeMillis()).getBytes());
@@ -666,9 +703,9 @@ public class Database {
         lock.lock();
         try{
             query = con.createStatement();
-            Date now = new Date(System.currentTimeMillis());
-            Date expire = new Date(System.currentTimeMillis()+1800000);// 30mins
-            query.execute("insert into apiKeys(apikey,date_created,date_expire) values(\'"+generatedKey+"\'"+"\'"+now+"\'"+"\'"+expire+"\'");
+            long expire =(System.currentTimeMillis()+1800000);// 30mins
+            ;
+            query.execute("insert into apiKeys(apikey,date_created,date_expire,authorizationLevel) values(\'"+generatedKey+"\',"+"\'"+System.currentTimeMillis()+"\',"+"\'"+expire+"\',"+"\'"+AuthLevel+"\')");
             query = null;
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -683,13 +720,19 @@ public class Database {
         int level = 0;
         try {
             query = con.createStatement();
-            ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
+            query.execute("select * from apiKeys where apikey = '"+key+"'");
+
+              ResultSet result = select("select * from apiKeys where apikey = '"+key+"'");
+
+
             query = null;
-            Date expireDate = result.getDate("date_expire");
-            Date now = new Date(System.currentTimeMillis());
-            if(now.before(expireDate)){
-                level = result.getInt("authorizationLevel");
-            }
+            Date expireDate = new Date(result.getLong("date_expire"));
+//            if(result.getInt("rowcount") > 0) {
+                Date now = new Date(System.currentTimeMillis());
+                if (now.before(expireDate)) {
+                    level = result.getInt("authorizationLevel");
+                }
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -699,4 +742,74 @@ public class Database {
     }
 
 
+}
+
+class SQLInjectionEscaper {
+
+    public static String escapeString(String x, boolean escapeDoubleQuotes) {
+        StringBuilder sBuilder = new StringBuilder(x.length() * 11/10);
+
+        int stringLength = x.length();
+
+        for (int i = 0; i < stringLength; ++i) {
+            char c = x.charAt(i);
+
+            switch (c) {
+                case 0: /* Must be escaped for 'mysql' */
+                    sBuilder.append('\\');
+                    sBuilder.append('0');
+
+                    break;
+
+                case '\n': /* Must be escaped for logs */
+                    sBuilder.append('\\');
+                    sBuilder.append('n');
+
+                    break;
+
+                case '\r':
+                    sBuilder.append('\\');
+                    sBuilder.append('r');
+
+                    break;
+
+                case '\\':
+                    sBuilder.append('\\');
+                    sBuilder.append('\\');
+
+                    break;
+
+                case '\'':
+                    sBuilder.append('\\');
+                    sBuilder.append('\'');
+
+                    break;
+
+                case '"': /* Better safe than sorry */
+                    if (escapeDoubleQuotes) {
+                        sBuilder.append('\\');
+                    }
+
+                    sBuilder.append('"');
+
+                    break;
+
+                case '\032': /* This gives problems on Win32 */
+                    sBuilder.append('\\');
+                    sBuilder.append('Z');
+
+                    break;
+
+                case '\u00a5':
+                case '\u20a9':
+                    // escape characters interpreted as backslash by mysql
+                    // fall through
+
+                default:
+                    sBuilder.append(c);
+            }
+        }
+
+        return sBuilder.toString();
+    }
 }

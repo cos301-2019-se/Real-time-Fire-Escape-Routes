@@ -46,6 +46,7 @@ public class FileParser {
         String [] params =  line.split(" ");
         JSONObject data = new JSONObject();
         data.put("type","personUpdate");
+        data.put("mode","simulation");
         data.put("id",Integer.parseInt(params[1].split(":")[1]));
         data.put("floor",Integer.parseInt(params[4].split(":")[1]));
         String position = params[3].split(":")[1];

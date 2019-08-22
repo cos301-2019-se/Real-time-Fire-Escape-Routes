@@ -12,10 +12,8 @@ import java.util.Date;
  * and handles all requests related to the database and basic administration
  * */
 public class WebAPI extends API {
-
-    private static boolean verbose = false; //USED for debugging purposes
-    private static Database USERDB = new Database();
-
+    private static boolean verbose = true; //USED for debugging purposes
+    private static Database USERDB = Database.getInstance();
     /**
      * function handles the requests made to the server
      * @param request: the request object
@@ -28,19 +26,30 @@ public class WebAPI extends API {
      * @param request: Contains the JSON data that was sent to the server
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-
     public static JSONObject handleRequest(JSONObject request)throws Exception {
+        SecuredEndpoints= new String[]{
+                "addUserToBuilding",
+                "currentBuilding",
+                "getBuildings",
+                "getUsers",
+                "remove",
+                "update",
+                "validateDeviceId",
+        };
+        AuthorizationLevelRequired= new int[]{
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+        };
         JSONObject response;
+        AuthorizeRequest(request);
         if(verbose)
             System.out.println("WEBAPI -> "+request.toString());
-        try{
-            building = chooseBuilding(request);
-        }
-        catch (Exception e){
-            response = new JSONObject();
-            response.put("status", false);
-            response.put("message", e.getMessage());
-        }
+
         switch ((String)request.get("type")){
             case "addUserToBuilding": {
                 response = addUserToBuilding((String)request.get("email"),(String)request.get("buildingName"));
@@ -225,8 +234,19 @@ public class WebAPI extends API {
             boolean status= USERDB.search(email, password);
             Response.put("status", status);
             if(status) {
-                Response.put("userType",USERDB.getUserType(email));
-                Response.put("apiKey",USERDB.generateKey());
+                String type = USERDB.getUserType(email);
+                switch (type.toLowerCase()){
+                    case "dev":
+                        Response.put("apiKey",USERDB.generateKey(2));
+                        break;
+                    case "admin":
+                        Response.put("apiKey",USERDB.generateKey(1));
+                        break;
+                    case "agent":
+                        Response.put("apiKey",USERDB.generateKey(0));
+                        break;
+                }
+                Response.put("userType",type);
                 Response.put("msg", "Login success");
             }
             else
@@ -249,12 +269,12 @@ public class WebAPI extends API {
     private static JSONObject register(String name, String email, String password, String type, String buildingName){
         JSONObject Response = new JSONObject();
         try{
-            boolean exist =  USERDB.insert(name, email,password,type, buildingName);
+            boolean exist =  USERDB.exists(email);
             if(exist){
                 Response.put("status", false);
                 Response.put("msg","User already Exists");
             }else{
-
+                USERDB.insert(name, email,password,type, buildingName);
                 Response.put("status", true);
                 Response.put("msg","User Successfully created");
 

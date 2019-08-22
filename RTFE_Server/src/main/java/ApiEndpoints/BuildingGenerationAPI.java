@@ -15,6 +15,7 @@ public class BuildingGenerationAPI extends API{
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
     public static JSONObject handleRequest(JSONObject request)throws Exception {
+        AuthorizeRequest(request);
         JSONObject Response = new JSONObject();
         switch ( (String)request.get("type")){
             case "build":{
@@ -251,5 +252,4 @@ public class BuildingGenerationAPI extends API{
         }
         return temp;
     }
-
 }

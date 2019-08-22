@@ -20,17 +20,29 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.StringTokenizer;
 
 
 public class HTTPServer extends Server{
+
+
+        public static final String ANSI_RESET = "\u001B[0m";
+        public static final String ANSI_BLACK = "\u001B[30m";
+        public static final String ANSI_RED = "\u001B[31m";
+        public static final String ANSI_GREEN = "\u001B[32m";
+        public static final String ANSI_YELLOW = "\u001B[33m";
+        public static final String ANSI_BLUE = "\u001B[34m";
+        public static final String ANSI_PURPLE = "\u001B[35m";
+        public static final String ANSI_CYAN = "\u001B[36m";
+        public static final String ANSI_WHITE = "\u001B[37m";
         static final File WEB_ROOT = new File("./html");
         static final String DEFAULT_FILE = "index.html";
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         static final int PORT = 8080;
-        static final boolean verbose = true;
+        static final boolean verbose = false;
 
         public HTTPServer(){
 //            super();
@@ -231,10 +243,11 @@ public class HTTPServer extends Server{
                         try {
                             
                             /**Getting the req.body*/
-                                StringBuilder payload = new StringBuilder();
+                                StringBuilder payloadBuilder = new StringBuilder();
                                 while(in.ready()){
-                                    payload.append((char) in.read());
+                                    payloadBuilder.append((char)in.read());
                                 }
+                                String payload = payloadBuilder.toString();
                                 String type = getContentType(payload);
                                 if (verbose)
                                     System.out.println("TYPE -> "+type);
@@ -256,7 +269,7 @@ public class HTTPServer extends Server{
                                 }
 
                             /** Determining the API endpoint requested */
-                            System.out.println(fileRequested.toString());
+//                            System.out.println(fileRequested.toString());
                             String endPoint = fileRequested.toString();
                             endPoint = endPoint.substring(1);
                             endPoint = endPoint.toLowerCase();
@@ -277,13 +290,15 @@ public class HTTPServer extends Server{
                             }
                         }
                         catch (Exception e){
+                            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+                            System.out.println(ANSI_RED +  Arrays.toString(e.getStackTrace()) + ANSI_RESET);
                             response.put("status","failed");
                             response.put("message",e.getMessage());
                         }
                         if(verbose) {
                             System.out.println("Connecton opened. (" + new Date() + ")");
-                            System.out.println("Server -> Client:" + response.toString());
                         }
+                        System.out.println("Server -> Client:" + response.toString());
                         out.println(response.toString());
                         out.flush();
                     }
@@ -326,9 +341,14 @@ public class HTTPServer extends Server{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }catch (Exception e){
-                    System.out.println(e.getMessage());
-                    out.println("{\"status\":\"failed\"}");
-                    out.println("{\"message\":\""+e.getMessage()+"\"}");
+
+//                    System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+//                    System.out.println(ANSI_RED +  Arrays.toString(e.getStackTrace()) + ANSI_RESET);
+                    JSONObject response = new JSONObject();
+                    response.put("status","failed");
+                    response.put("message", Arrays.toString(e.getStackTrace()));
+                    out.println(response.toString());
+                    out.println();
                     out.flush();
                 }
                 finally {
@@ -350,14 +370,14 @@ public class HTTPServer extends Server{
             }
         }
         
-        private String getJSONStr(StringBuilder payload)  {
+        private String getJSONStr(String payload) throws Exception {
             try {
                 return payload.substring(payload.indexOf("{"));
             }
             catch (Exception e){
                 System.out.println("Something went wrong parsing the payload: "+payload);
             }
-            return "{\"type\":\"assignPeople\"}";
+            throw new Exception("Error parsing payload");
         }
     }
 
@@ -369,7 +389,7 @@ public class HTTPServer extends Server{
      * @return a JSONObject used by the rest of the system to execute the requests
      * @date 28/05/2019
      */
-    private JSONObject getFormData(StringBuilder payload) throws Exception {
+    private JSONObject getFormData(String payload) throws Exception {
         JSONObject request = new JSONObject();
         String data = payload.toString();
         String [] parsedData = data.split("Content-Disposition: ");

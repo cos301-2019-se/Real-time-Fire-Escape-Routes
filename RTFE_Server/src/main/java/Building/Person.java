@@ -10,7 +10,7 @@ public class Person {
     Routes AssignedRoute;
     double [] position;
     public int floor = 0;
-    long personID = 0;
+    public long personID = 0;
     public String deviceID = "null";
     public Vector<Door> availableDoors = new Vector<>();
     public Vector <Node> pathToFollow;

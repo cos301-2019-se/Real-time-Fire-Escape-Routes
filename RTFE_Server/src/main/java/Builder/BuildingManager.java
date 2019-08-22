@@ -203,6 +203,13 @@ public class BuildingManager {// Builder design pattern - Director
                 System.out.println("Building Complete");
 
             constructRoutes(building);
+
+            if(buildingData.has("sensors")){
+                JSONArray sensors = buildingData.getJSONArray("sensors");
+                for (int i = 0; i <sensors.length() ; i++) {
+                    building.sensors.put(sensors.get(i));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

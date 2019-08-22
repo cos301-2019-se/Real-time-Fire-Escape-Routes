@@ -7,6 +7,29 @@ import org.json.JSONObject;
  * Abstract Class that will be used by subclasses that makes use of a dedicated API endpoint
  * */
 public abstract class API {
+    protected static String [] SecuredEndpoints = new String[]{};
+    protected static int [] AuthorizationLevelRequired  = new int[]{};
+    synchronized protected static boolean AuthorizeRequest(JSONObject request)throws Exception{
+        Database db = Database.getInstance();
+        String key = "pending";
+        if(request.has("key"))
+        {
+            key = request.getString("key");
+        }
+        int keyLevel = 0;
+        for (int i = 0; i < SecuredEndpoints.length; i++) {
+            if(SecuredEndpoints[i].equals(request.get("type"))){
+                keyLevel = db.validateKey(key);
+                if(keyLevel >= AuthorizationLevelRequired[i]){
+                    return true;
+                }
+                else{
+                    throw new Exception("Access Denied");
+                }
+            }
+        }
+        return true;
+    }
 
     /** @brief: buildings.get(0) = Live view, buildings.get(1) = Simulation view */
     public static Building [] buildings = new Building[2];
@@ -14,14 +37,14 @@ public abstract class API {
     /** @brief: lastbuild.get(0) = Live view, lastbuild.get(1) = Simulation view */
     public static JSONObject [] lastbuild =  new JSONObject[2];
 
-    protected static Building building;
+//    protected Building building;
 
     /**
      * This function will be used to process the request handed over to the API
      * @param request: Contains the JSON data that was sent to the server
      * @return returns a JSON object with the appropriate response messages for the initial request
      * */
-    public static JSONObject handleRequest(JSONObject request) throws Exception {
+    public static JSONObject handleRequest(JSONObject request, Building building) throws Exception {
         return null;
     }
     /**
