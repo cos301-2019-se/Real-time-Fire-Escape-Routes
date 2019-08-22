@@ -143,8 +143,13 @@ td{
   min-width: 100px !important;
 }
 
+.name-column{
+  min-width: 100px !important;
+  max-width: 250px;
+}
+
 .email-column{
-  min-width: 250px !important;
+  min-width: 100px !important;
   max-width: 300px;
 }
 
@@ -159,4 +164,29 @@ td{
 
 .align-center{
   text-align: center !important;
+}
+
+.bot-simul{
+  min-width: 50px;
+  max-width: 50px;
+}
+
+.location-simul{
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.device-simul{
+  max-width: 100px;
+  min-width: 80px;
+}
+
+.status-simul{
+  max-width: 50px;
+  min-width: 45px;
+}
+
+.type-simul{
+  max-width: 70px !important;
+  min-width: 70px !important;
 }

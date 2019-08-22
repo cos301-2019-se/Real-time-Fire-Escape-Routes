@@ -208,7 +208,7 @@
                         border-style: solid;
                         background-color: #FFF;
                         border-width: 1px;
-                        border-color: #C5C5C5;
+                        border-color: #E3E3E3;
                         /*box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.19);*/
                         margin-bottom: 24px;
                         -webkit-column-break-inside: avoid;
@@ -343,7 +343,7 @@
         border-radius: 3px;
         border-style: solid;
         border-width: 1px;
-        border-color: grey;
+        border-color: #E3E3E3;
     }
     #ActiveBuildingImage>img{
         width: 96%;

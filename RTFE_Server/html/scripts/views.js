@@ -113,7 +113,7 @@ function echoTableBotview(){
 		<h1 id="liveHeader">Simulation Building</h1>
 		<table class="fixed_header" id="table-body-SU">
 			<thead>
-				<td scope="col">Name</td>
+				<td scope="col" class="name-column">Name</td>
 				<td scope="col" class="email-column">Email</td>
 				<td scope="col">Device ID</td>
 				<td scope="col" class="type-column">Type</td>
@@ -138,10 +138,11 @@ function echoTableBotview(){
 			<hr/>
 		<table id="table-simulation">
 			<thead>
-				<td scope="col">Bot ID</td>
-				<td scope="col">Location(Floor,x,z)</td>
-				<td scope="col">Device ID</td>
-				<td scope="col">Status</td>
+				<td scope="col" class="bot-simul">Bot ID</td>
+				<td scope="col" class="location-simul">Location(Floor,x,z)</td>
+				<td scope="col" class="device-simul">Device ID</td>
+				<td scope="col" class="type-simul">Type</td>
+				<td scope="col" class="status-simul">Status</td>
 			</thead>
 			<tbody></tbody>
 		</table>

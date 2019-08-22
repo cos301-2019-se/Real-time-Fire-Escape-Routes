@@ -48,7 +48,7 @@ function populateTable(data,withEdit,addToSim)
     let str = "";
     data.forEach((element, index)=>{
         str += `<tr>
-            <td scope ="row" data-label="Name">${element.name}</td>
+            <td scope ="row" class="name-column" data-label="Name">${element.name}</td>
             <td data-label="Email" class="email-column">${element.email}</td>`
             if(element.deviceID!=undefined){
                 str += `<td data-label="Device_ID">${element.deviceID}</td>`
@@ -177,11 +177,11 @@ function addBot(botID,location,deviceID){
     }
     else{
         str +=  `<tr>`
-        str +=      `<td scope ="row">botID - <span data-label="Name">${botID}</span></td>`
-        str +=      `<td data-label="Location"> `+input+` </td>`;
-        str +=      `<td data-label="Device_ID"> ${deviceID} </td>`
-        str+=       `<td data-label="Type"> Person</td>`
-        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
+        str +=      `<td class="bot-simul" scope ="row">botID - <span data-label="Name">${botID}</span></td>`
+        str +=      `<td class="location-simul" data-label="Location"> `+input+` </td>`;
+        str +=      `<td class="device-simul" data-label="Device_ID"> ${deviceID} </td>`
+        str+=       `<td class="type-simul" data-label="Type"> Person</td>`
+        str+=       `<td class="status-simul" data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
                 </tr>`;   
     }
     return str;
@@ -273,8 +273,8 @@ function fireWindow()
     console.log(maxFloor);
     let maxRad = 360;
     // question how to get largest x, y, radius
-    return `<div> 
-                <h1 id='fire-head'>Simulate fire in the building</h1>
+    return `<div id='fire-div-heading'> 
+                <h1 id='fire-head' style='text-align:center;'>Simulate fire in the building</h1>
             </div>
             <div class='card-content'>
                 <div class='form-group'>
