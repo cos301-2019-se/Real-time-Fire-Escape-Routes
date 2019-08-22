@@ -53,11 +53,20 @@ table td {
   word-wrap: break-word;
 }
 
-.table-heading{
-                width: 100%;
-                padding-bottom: 2%;
-                margin-left: inherit;
+#admin-table-header, .table-heading{
+    width: 100%;
+    padding-bottom: 2%;
+    margin-left: inherit;
+    text-align: right;
+
 }
+
+.table-heading span{
+    margin-right: 2.5%;
+    margin-left:0 !important;
+}
+
+
 
 .fixed_header{
     /*width: 400px;*/

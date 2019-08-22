@@ -10,8 +10,11 @@ function echoAdminTableView()
 			<hr/>
 			<div>
 				<div id="inner-table-card" style="display: block;">
-					<div class="table-heading" style="display: block;"><span class="table-name heading" style="text-align: left;">User Table</span>
-						<span class="search-span" style="text-align: right;position:relative ;right: 50px;">
+					<div id="admin-table-header" style="display: block;">
+
+					<!--<span class="table-name heading" style="text-align: left;">User Table</span>-->
+
+						<span class="search-span">
 							<input type="text" id="search-input" class="searcher" placeholder="Search.." name="search"  onkeyup="search(this,'table-body-A')">
 							<div class="search-button" id="admin-search-button" onclick="highlightSearchField()"><img class="search-icon" src="icons/search_grey.png"><i class="fa fa-search"></i>
 							</div>
@@ -53,7 +56,10 @@ function echoContentTable_SuperUser()
 	<div>
 		<div class="half" id="inner-table-card">				
 			<div class="table-heading" style="display: block;">
-				<span class="table-name heading" style="text-align: left;">User Table</span><span class="search-span" style="text-align: right; margin-left: 50%;">
+
+				<!--<span class="table-name heading" style="text-align: left;">User Table</span>-->
+
+				<span class="search-span" style="text-align: right; margin-left: 50%;">
 					<input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search">
 					<div class="search-button" onclick="highlightSearchField()">
 						<img class="search-icon" src="icons/search_grey.png">

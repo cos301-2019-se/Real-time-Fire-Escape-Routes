@@ -106,14 +106,23 @@ function search(searchBox,tableElement) {
 function displayOverlayWindow(contentFunc, user, name, type, device)
 {
     //debugger;
-    if(user != null)
+    if(contentFunc === editUser)
     {
         $("#overlay-window").removeAttr("style");
 
-        $("#overlay-window").append(`<div id="contentCard"  class="rtferCard">
+        $("#overlay-window").append(`<div id="contentCard-editUser" class="rtferCard">
                 ${contentFunc(user, name, type, device)}
             </div>`);
     }
+    else if(contentFunc === removeUser)
+    {
+        $("#overlay-window").removeAttr("style");
+
+        $("#overlay-window").append(`<div id="contentCard-removeUser"  class="rtferCard">
+                ${contentFunc()}
+            </div>`);
+    }
+
     else if(contentFunc === windowForNewUser)
     {
         $("#overlay-window").removeAttr("style");
@@ -122,6 +131,16 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
                 ${contentFunc()}
             </div>`);
     }
+
+    else if(contentFunc === fireWindow)
+    {
+        $("#overlay-window").removeAttr("style");
+
+        $("#overlay-window").append(`<div id="contentCard-fireWindow"  class="rtferCard">
+                ${contentFunc()}
+            </div>`);
+    }
+
     else
     {
         $("#overlay-window").removeAttr("style");
@@ -259,28 +278,28 @@ function fireWindow()
             </div>
             <div class='card-content'>
                 <div class='form-group'>
-                    <label for='x-coordinate'>X</label>
-                    <input type='number' min='0' max='${maxX}' class='form-control' id='x-coordinate' value='0'>
+                    <label for='x-coordinate' class="content-card-label">X</label>
+                    <input type='number' min='0' max='${maxX}' class='form-control content-card-input' id='x-coordinate' value='0'>
                 </div>
                 <div class='form-group'>
-                    <label for='y-coordinate'>Y</label>
-                    <input type='number' min='0' max='${maxY}' class='form-control' id='y-coordinate' value='0'>
+                    <label for='y-coordinate' class="content-card-label">Y</label>
+                    <input type='number' min='0' max='${maxY}' class='form-control content-card-input' id='y-coordinate' value='0'>
                 </div>
                 <div class='form-group'>
-                    <label for='rad-number'>Radius</label>
-                    <input type='number' min='0' max='${maxRad}' class='form-control' id='rad-number' value='0'>
+                    <label for='rad-number' class="content-card-label">Radius</label>
+                    <input type='number' min='0' max='${maxRad}' class='form-control content-card-input' id='rad-number' value='0'>
                 </div>
                 <div class='form-group'>
                     <div class='form-group'>
-                        <label for='floor-number'>Floors</label>
-                        <input type='number' min='0' max='${maxFloor}' class='form-control' id='floor-number' value='0'>
+                        <label for='floor-number' class="content-card-label">Floors</label>
+                        <input type='number' min='0' max='${maxFloor}' class='form-control content-card-input' id='floor-number' value='0'>
                     </div>
                 </div>
             </div>
             <div class='form-group row button-line'>
                     <div class='col-sm-12' style='text-align: right;'>
-                      <button type= 'submit' class='btn btn-info' onclick='getInfoFromInput(addFire, null)'>Add fire</button>
-                      <button onclick='clearWindow()' id='cancel-delete ' class='btn btn-danger'>Cancel</button>
+                      <button id="add-new-user-button" type= 'submit' class='btn btn-info' onclick='getInfoFromInput(addFire, null)'>Add fire</button>
+                      <button onclick='clearWindow()' id='cancel-new-user-button' class='btn btn-danger'>Cancel</button>
                     </div>
                   </div>
         `;
@@ -446,31 +465,31 @@ function selectType(type)
 function removeUser(user, name, type, device)
 {
         return `<div class="row">
-                <div style="text-align: center; margin-bottom: 3%; margin-top: 3%;" class="col-sm-12">
+                <div style="text-align: center; margin-bottom:5%;" class="col-sm-12">
                     <h1>Do you want to remove ${name} from your system?</h1>
                 </div>
             </div>
             <div>
                   <div class="form-group">
                     <h3>Full name:</h3>
-                    <p>${name}</p>
+                    <p class="odd-del">${name}</p>
                   </div>
                   <div class="form-group">
                     <h3>Email:</h3>
-                    <p>${user}</p>
+                    <p  class="even-del">${user}</p>
                   </div>
                   <div class="form-group">
                     <h3>Device_ID:</h3>
-                    <p>${device}</p>
+                    <p class="odd-del">${device}</p>
                   </div>
                   <div class="form-group">
                     <h3>Type:</h3>
-                    <p>${type}</p>
+                    <p class="even-del">${type}</p>
                   </div>
                   <div class="form-group row button-line">
-                    <div class="col-sm-12" style="text-align: right;">
-                      <button type="submit" class="btn btn-info" onclick="deleteUser('${user}', '${name}')">Delete user</button>
-                      <button onclick="clearWindow()" id="cancel-delete" class="btn btn-danger">Cancel</button>
+                    <div class="col-sm-12">
+                      <button type="submit" class="btn btn-info" id="add-new-user-button" onclick="deleteUser('${user}', '${name}')">Delete user</button>
+                      <button onclick="clearWindow()" id="cancel-new-user-button" class="btn btn-danger">Cancel</button>
                     </div>
                   </div>
             </div>
@@ -486,32 +505,31 @@ function editUser(user, name, type, device)
         </div>
     </div>
     <div>
-        <div>
           <div class="form-group">
-            <label for="fullName-edditUser">Change name</label>
-            <input type="text" class="form-control" id="fullName-edditUser" value="${name}">
+            <label class="content-card-label" for="fullName-edditUser">Change name</label>
+            <input class="form-control content-card-input" type="text" id="fullName-edditUser" value="${name}">
           </div>
           <div class="form-group">
-            <label for="email-edditUser">Change email</label>
-            <input type="email" class="form-control" id="email-edditUser" value="${user}">
+            <label class="content-card-label" for="email-edditUser">Change email</label>
+            <input class="form-control content-card-input" type="email" id="email-edditUser" value="${user}">
           </div>
           <div class="form-group">
-            <label for="setPassword-edditUser">Change password</label>
-            <input type="password" class="form-control" id="setPassword-edditUser" placeholder="Do not fill in to keep it same">
+            <label class="content-card-label" for="setPassword-edditUser">Change password</label>
+            <input class="form-control content-card-input" type="password" id="setPassword-edditUser" placeholder="Do not fill in to keep it same">
           </div>
           <div class="form-group">
-            <label for="type-edditUser">Change type</label>
+            <label class="content-card-label" for="type-edditUser">Change type</label>
             <select class="custom-select mr-sm-2" id="type-edditUser">
                 ${selectType(type)}
             </select>
           </div>
           <div class="form-group row button-line">
-            <div class="col-sm-12" style="text-align: right;">
-              <button onclick="getInfoFromInput('addInfo', '${user}')" id="submit-new-user" class="btn btn-info">Change info</button>
-              <button onclick="clearWindow()" id="cancel-new-user" class="btn btn-danger">Cancel</button>
+            <div class="col-sm-12">
+              <button onclick="getInfoFromInput('addInfo', '${user}')" id="add-new-user-button" class="btn btn-info">Change info</button>
+              <button onclick="clearWindow()" id="cancel-new-user-button" class="btn btn-danger">Cancel</button>
             </div>
           </div>
-        </div>
+       
     </div>
     `;
 }
@@ -530,7 +548,7 @@ function clearWindow()
 function windowForNewBuilding()
 {
     return `<div class="row">
-        <div style="text-align: center;" class="col-sm-12">
+        <div style="text-align: center;" class="col-sm-12 needs-margin">
             <h1>Add new building</h1>
         </div>
     </div>
@@ -599,18 +617,20 @@ function windowForNewUser() // I think we should check if the given password mat
                 <label for="confirmPassword-addUser" class="content-card-label">Confirm Password</label>
                 <input type="password" class="form-control content-card-input" id="confirmPassword-addUser" placeholder="Full Name" required>
               </div>
-              <div id ="select">
-                <label for="type-addUser" class="content-card-label">User Type</label>
-                <select class="custom-select mr-sm-2" id="type-addUser">
+              <div class="form-group">
+                <div id ="select">
+                    <label for="type-addUser" class="content-card-label">User Type
+                    </label>
+                    <select class="custom-select mr-sm-2" id="type-addUser">
 
-                    <option selected>Agent</option>
-                    <option value="1">Admin</option>
+                        <option selected>Agent</option>
+                        <option value="1">Admin</option>
 
-                </select>
+                    </select>
+                </div>
               </div>
-              
               <div class="form-group row button-line">
-                <div class="col-sm-12" style="text-align: right;">
+                <div class="col-sm-12">
                   <button onclick="getInfoFromInput('addUser', null)" id="add-new-user-button" class="btn btn-info">Add user</button>
                   <button onclick="clearWindow()" id="cancel-new-user-button" class="btn btn-danger">Cancel</button>
                 </div>
