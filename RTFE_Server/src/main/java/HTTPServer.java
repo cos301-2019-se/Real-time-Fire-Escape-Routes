@@ -259,7 +259,7 @@ public class HTTPServer extends Server{
                                         break;
                                     }
                                     default:{
-                                        String test = getJSONStr(payload);
+                                        String test = getJSONStr(payload,in);
                                         req = new JSONObject(test);
                                         break;
                                     }
@@ -370,15 +370,44 @@ public class HTTPServer extends Server{
             }
         }
         
-        private String getJSONStr(String payload) throws Exception {
+        private String getJSONStr(String payload, BufferedReader in) throws Exception {
+
+
+            int copyIndex = payload.indexOf("{");
+            if(copyIndex>-1){
+                return cleanString(payload.substring(copyIndex));
+            }
+
             try {
-                return payload.substring(payload.indexOf("{"));
+                String [] headers  = payload.split("\n");
+                int contentLength = 0 ;
+                for (String header:headers) {
+                    if(header.contains("Content-Length:")){
+                        contentLength = Integer.parseInt(cleanString(header.split(":")[1]));
+                        break;
+                    }
+                }
+                StringBuilder data2 = new StringBuilder();
+                while(data2.length()<contentLength || in.ready()){
+                    data2.append((char)in.read());
+                }
+                copyIndex = data2.indexOf("{");
+                if(copyIndex>-1){
+                    return cleanString(data2.substring(copyIndex));
+                }
             }
             catch (Exception e){
                 System.out.println("Something went wrong parsing the payload: "+payload);
             }
             throw new Exception("Error parsing payload");
         }
+    }
+    private String cleanString(String data){
+        data = data.replace("\r","");
+        data = data.replace("\n","");
+        data = data.replace(" ","");
+        data = data.replace("\t","");
+        return data;
     }
 
     /**
