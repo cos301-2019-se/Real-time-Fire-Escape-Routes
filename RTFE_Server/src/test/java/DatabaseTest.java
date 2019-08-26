@@ -8,7 +8,7 @@ public class DatabaseTest {
     public void DatabaseCreation()
     {
         Database a = null;
-        Database d = new Database();
+        Database d = Database.getInstance();
 
         if(d != null)
         {
@@ -21,7 +21,7 @@ public class DatabaseTest {
     @Test
     public void DatabaseReading()
     {
-        Database d = new Database();
+        Database d = Database.getInstance();
         String output ="done";
 //        String output = d.getUsers();
         String expected = output;
@@ -36,7 +36,7 @@ public class DatabaseTest {
     @Test
     public void DatabaseAddUser()
     {
-        Database d = new Database();
+        Database d = Database.getInstance();
         String name = "testName";
         String email = "testEmail@gmail.com";
         String pass = "pass";
@@ -51,7 +51,7 @@ public class DatabaseTest {
     @Test
     public void DatabaseRemoveUser()
     {
-        Database d = new Database();
+        Database d = Database.getInstance();
 
         String email = "testEmail@gmail.com";
         boolean actual = d.delete(email);
@@ -63,7 +63,7 @@ public class DatabaseTest {
     @Test
     public void DatabaseUpdateDeviceID()
     {
-        Database d = new Database();
+        Database d = Database.getInstance();
         String name = "testName";
         String email = "testEmail@gmail.com";
         String pass = "pass";
@@ -81,7 +81,7 @@ public class DatabaseTest {
     @Test
     public void DatabaseAddUserToBuilding()
     {
-        Database d = new Database();
+        Database d = Database.getInstance();
         String email = "admin@gmail.com";
         String buildingName = "1 Story Office";
         String deviceId = "1";

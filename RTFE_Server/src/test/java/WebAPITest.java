@@ -8,21 +8,28 @@ import org.junit.Test;
 
 public class WebAPITest {
     public TestFunctions testFunctions = new TestFunctions();
+    private String APIKey ;
+    Thread httpserver;
     @Before
     public void before() throws Exception {
-        Thread thread = new Thread(new HTTPServer());
-        thread.start();
+        httpserver = new Thread(new HTTPServer());
+        httpserver.start();
+
     }
 
     @After
     public void after() throws Exception {
+        httpserver.stop();
     }
     @Test
     public void HandleRequestTest()
     {
         JSONObject testData = new JSONObject();
         try{
-            WebAPI.handleRequest(testData);
+            JSONObject response = WebAPI.handleRequest(testData);
+            if(response.has("apiKey")){
+                APIKey = response.getString("apiKey");
+            }
 
         }catch (Exception e){
 
@@ -154,7 +161,6 @@ public class WebAPITest {
         current.put("password","1234");
         current.put("type","login");
         try{
-
             testFunctions.SendRequest(current);
         }catch (Exception e) {
             System.out.println("Exception: " + e);
