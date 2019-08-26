@@ -405,7 +405,6 @@ public class HTTPServer extends Server{
     private String cleanString(String data){
         data = data.replace("\r","");
         data = data.replace("\n","");
-        data = data.replace(" ","");
         data = data.replace("\t","");
         return data;
     }

@@ -299,7 +299,7 @@ function getBuildingInfo(element,type,isSimulation)
                 }
                 else if(type === "img")
                 {
-                    var img= `<img src="Buildings/${data.name}/building.jpeg" />`
+                    var img= `<img src="Buildings/`+getCookie("building_name")+`/building.jpeg" />`
                     $(element).html(img);
                 }
             }else{
@@ -324,7 +324,7 @@ function addDropDown(element){
         }),
         success:function(res){
             if(res.status){
-                console.log(res);
+                // console.log(res);
                 // var mySelect = $('<select style="postion:relative" id="changeBuilding"></select>');
                 for (var i = 0; i < res.data.length; i++) {
                     var bName = res.data[i].building_name

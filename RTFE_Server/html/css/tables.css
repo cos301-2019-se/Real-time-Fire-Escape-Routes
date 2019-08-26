@@ -78,7 +78,7 @@ table td {
 .fixed_header tbody{
   display:block;
   /*width: 100%;*/
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   /*height: 600px;*/
 }
 

@@ -54,51 +54,47 @@ function echoAdminTableView()
 function echoContentTable_SuperUser()
 {
 	var table =`
-	<div>
-		<div class="half" id="inner-table-card">				
-			<div class="table-heading" style="display: flex; padding: 2% 0 0 0; margin-left: 0">
-
-			    <div style="width: 100%; margin: 0 10px">
-			        <h1>Users in building</h1>
-			    </div>
-                <div style="position: relative; width: 50%; margin: 0 10px">
-                    <div style="float: right">
-                        <img class="search-icon" src="icons/search_grey.png" style="position: absolute; width: 28px; top: 5px">
-                        <input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search" size="10"
-                            style="padding: 10px 0 10px 35px; font-family: 'Ubuntu'; font-size: 15px">
-                    </div>
-                </div>
-			</div>
-			<div >
-  				<table class="fixed_header" style="fit-content" id="tbh">
-				   <thead>
-					    <tr>
-					    	<td scope="col" class="status-column"></td>
-							<td scope="col" class="name-column">Name</td>
-							<td scope="col" class="email-column">Email</td>
-							<td scope="col" class="type-column">Type</td>
-							<td scope="col" class="device-column">Device ID</td>
-							
-					    </tr>
-					</thead>
-				  	<tbody id="table-body-SU">
-				  	</tbody>
-				</table>
-			</div>
+	<div id="main-body-admin" class="card1" style="width:60%; margin:auto">
+		<div class="pad">
+			<button onclick="alarm(true,'live')">Trigger Alarm</button>
+			<button onclick="alarm(false,'live')">Reset Alarm</button>
 		</div>
-		<div class="half">
-			<div class="pad">
-				<button onclick="alarm(true,'live')">Trigger Alarm</button>
-				<button onclick="alarm(false,'live')">Reset Alarm</button>
-			</div>
-			<hr/>
-			<div class="pad">
-				<h1>Active Building: <span id="ActiveBuilding">loading...</span></h1>
-				<h3>Change Building <select id="buildingDropDown"></select></h3>
-			</div>
-			<div id="ActiveBuildingImage">
-				<img id="buildingPicture" src="img/default.jpg">
-			</div>
+		<hr/>
+		<div class="pad">
+			<h1>Active Building: <span id="ActiveBuilding">loading...</span></h1>
+			<h3>Change Building <select id="buildingDropDown"></select></h3>
+		</div>
+		<div id="ActiveBuildingImage">
+			<img id="buildingPicture" src="img/default.jpg">
+		</div>
+
+		<div class="table-heading" style="display: flex; padding: 2% 0 0 0; margin-left: 0">
+		    <div style="width: 100%; margin: 0 10px">
+		        <h1>Users in building</h1>
+		    </div>
+            <div style="position: relative; width: 50%; margin: 0 10px">
+                <div style="float: right">
+                    <img class="search-icon" src="icons/search_grey.png" style="position: absolute; width: 28px; top: 5px">
+                    <input type="text" id="search-input" class="searcher" onkeyup="search(this,'table-body-SU')" placeholder="Search.." name="search" size="10"
+                        style="padding: 10px 0 10px 35px; font-family: 'Ubuntu'; font-size: 15px">
+                </div>
+            </div>
+		</div>
+		<div >
+				<table class="fixed_header" style="fit-content" id="tbh">
+			   <thead>
+				    <tr>
+				    	<td scope="col" class="status-column"></td>
+						<td scope="col" class="name-column">Name</td>
+						<td scope="col" class="email-column">Email</td>
+						<td scope="col" class="type-column">Type</td>
+						<td scope="col" class="device-column">Device ID</td>
+						
+				    </tr>
+				</thead>
+			  	<tbody id="table-body-SU">
+			  	</tbody>
+			</table>
 		</div>
 	</div>
 	`;
