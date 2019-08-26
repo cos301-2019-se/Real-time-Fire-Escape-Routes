@@ -131,7 +131,9 @@ public class Building {
        * */
       public boolean updatePersonLocation(long id,int floor, double [] pos) throws IndexOutOfBoundsException {
           if(floor>=Floor.size()){
-              throw new IndexOutOfBoundsException("Please select a valid floor");
+
+//              throw new IndexOutOfBoundsException("Please select a valid floor");
+              floor = Floor.size()-1;
           }
           Vector<Person> people = getPeople();
           boolean status = false;

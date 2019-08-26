@@ -1,6 +1,7 @@
 package ApiEndpoints;
 
-import Building.*;
+import Building.Building;
+import Building.Fire;
 import Building.Person;
 import Building.Routes;
 import org.json.JSONArray;
@@ -8,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Vector;
 /**
  * BuildingAPI class is used by the '/building' endpoint in the HTTPServer
@@ -46,7 +48,7 @@ public class BuildingAPI extends API {
                 response.put("fires",unityFireLocations());
 //       building.assignPeople();
                 if(request.has("peopleLocations")){
-//                    unityUpdatePeopleLocation(request);
+                    unityUpdatePeopleLocation(request);
                 }
                 if(request.has("alarm")){
                     if(request.getBoolean("alarm")){
@@ -490,26 +492,31 @@ public class BuildingAPI extends API {
         if(peopleData=="")
             return;
         peopleData = peopleData.replaceAll(",",".");
-        boolean add = true;
+        boolean add;
         String [] people = peopleData.split("-");
+        int numUpdated =0;
+        int numToUpdate =people.length;
+        double stepSize = numToUpdate/10.0;
+        System.out.println("    Updating Locations: "+numUpdated+"/"+numToUpdate+" Status: "+"0 % " + new Date(System.currentTimeMillis()));
         for (String personData:people) {
             add = true;
             String [] person = personData.split("&");
-            JSONObject PersonUpdate = new JSONObject();
             double [] pos = {Double.parseDouble(person[2]),Double.parseDouble(person[3])};
             for (Routes r:building.getRoutes()) {
                 if(Arrays.equals(pos, r.getGoal().coordinates)){
                     add = false;
                 }
             }
-            int floor = Integer.parseInt(person[1]);
-            long id = Long.parseLong(person[0]);
-            PersonUpdate.put("floor",floor);
-            JSONArray position = new JSONArray(pos);
-            PersonUpdate.put("position",position);
-            PersonUpdate.put("id",id);
-            if(add)
-                UpdatePersonLocation(PersonUpdate);
+            if(add) {
+                int floor = Integer.parseInt(person[1]);
+                long id = Long.parseLong(person[0]);
+                building.updatePersonLocation(id, floor, pos);
+            }
+            numUpdated++;
+            if((numToUpdate /(double)numUpdated) % stepSize==0) {
+                double f =(numUpdated/(double)numToUpdate);
+                System.out.println("    Updating Locations: " + numUpdated + "/" + numToUpdate + " Status: " + (int)(f*100) + "% "+ new Date(System.currentTimeMillis()));
+            }
         }
     }
     /**
