@@ -42,6 +42,7 @@
    <li><b>Student Number: </b>
         u16313382
    </li>
+    <li><b>CV: </b> https://drive.google.com/file/d/1bCwLsxItpME2UU_yPvfoacp5Xk8dUySd/view?usp=sharing</li>
     <li><b>Position: </b>3rd Year BSc Computer Science student</li>
     <li><b>Interests: </b>Artificial intelligence, Software engineering, Project management, reading, music, deepsea diving </li>
     <li><b>Skills</b>
@@ -74,7 +75,8 @@
 <hr/>
 <ul>
     <li><b>Name: </b>Pieter Braak</li>
-   <li><b>Student Number: </b>16009917</li>
+    <li><b>CV: </b> https://drive.google.com/file/d/1s4oBJvPdPu4bnfQj_qL-Ba2p-6PbSAtq/view?usp=sharing</li>
+    <li><b>Student Number: </b>16009917</li>
     <li><b>Position: </b> Third Year BIS Multimedia Student</li>
     <li><b>Interests: </b>Computers, Networking, Home automation</li>
     <li><b>Skills: </b>
