@@ -148,7 +148,7 @@
 <hr/>
 <ul>
     <li><b>Name: </b>Kateryna Reva</li>
-  <li><a href="https://drive.google.com/file/d/1JX-9c8R4XsFtbCMrtXsxJS5Ss1KyZS0f/view?usp=sharing">View CV on google Drive</a></li>
+  <li><a href="https://drive.google.com/file/d/1ZWAO3-FwlbSeg7J2uoipd4XEPGCL5y5H/view?usp=sharing">View CV on google Drive</a></li>
   <li><a href="https://github.com/littleNeuronCell">My GitHub Profile</a></li>
   <li><b>Email:</b> u17035989@tuks.co.za or madeoutofcells@gmail.com</li>
    <li><b>Student Number: </b>17035989</li>
