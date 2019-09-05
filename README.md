@@ -154,7 +154,7 @@
    <li><b>Student Number: </b>17035989</li>
     <li><b>Position: </b>Third Year BIS Multimedia Student</li>
     <li><b>Role in project: </b>front-end web developer</li>
-    <li><b>Interests: </b>Visual Arts and Artificial  Intellegence, Ballet and Software engeneering</li>
+    <li><b>Interests: </b>Visual Arts and Digital Forensics, Ballet and HCI</li>
      <li><b>Skills: </b>
         <ul>
             <li>Visual Design</li>
