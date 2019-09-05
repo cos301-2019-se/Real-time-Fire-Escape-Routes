@@ -148,6 +148,7 @@
 <hr/>
 <ul>
     <li><b>Name: </b>Kateryna Reva</li>
+  <li><a href="https://drive.google.com/file/d/1JX-9c8R4XsFtbCMrtXsxJS5Ss1KyZS0f/view?usp=sharing">View CV on google Drive</a></li>
    <li><b>Student Number: </b>17035989</li>
     <li><b>Position: </b>Third Year BIS Multimedia Student</li>
     <li><b>Interests: </b>Visual Arts and Artificial  Intellegence, Ballet and Software engeneering</li>
