@@ -125,6 +125,8 @@
 <ul>
     <li><b>Name: </b> Jason Louw</li>
    <li><b>Student Number: </b>u16054017</li>
+    <li><a href="https://github.com/JasonLouw">Github</a></li>
+  <li><a href="https://www.linkedin.com/in/jason-louw-271897125/">Linkedin</a></li>
     <li><b>Position: </b>Unity Simulation</li>
     <li><b>Interests: </b> Game development, AI and </li>
      <li><b>Skills: </b>
