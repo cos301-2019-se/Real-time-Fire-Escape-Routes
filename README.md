@@ -143,7 +143,7 @@
             <li>Intel and Lenovo Promotions</li>
        </ul>
     </li>
-    <li><b>Attitude: </b>Havent given up yet, Dont plan on it anytime soon.</li>
+    <li><b>Attitude: </b>Havent given up yet.</li>
     
     
 </ul>
