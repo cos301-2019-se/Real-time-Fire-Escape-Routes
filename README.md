@@ -75,9 +75,13 @@
 <hr/>
 <ul>
     <li><b>Name: </b>Pieter Braak</li>
-  <li><a href="https://drive.google.com/file/d/1s4oBJvPdPu4bnfQj_qL-Ba2p-6PbSAtq/view?usp=sharing">View CV on google Drive</a></li>
+    <li><a href="https://github.com/Viper3489753489">Github profile</a></li>
+    <li><a href="https://www.linkedin.com/in/pieter-braak-128473132/">Linkedin</a></li>
+    <li><a href="https://drive.google.com/file/d/1s4oBJvPdPu4bnfQj_qL-Ba2p-6PbSAtq/view?usp=sharing">CV on google Drive</a></li>
+    <li><b>Email:</b> pieterbraak@yahoo.com</li>
     <li><b>Student Number: </b>16009917</li>
-    <li><b>Position: </b> Third Year BIS Multimedia Student</li>
+    <li><b>Position:</b> Third Year BIS Multimedia Student</li>
+    <li><b>Role in project:</b> Back-end/Technical lead</li>
     <li><b>Interests: </b>Computers, Networking, Home automation</li>
     <li><b>Skills: </b>
         <ul>
