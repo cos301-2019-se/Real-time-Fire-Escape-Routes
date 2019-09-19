@@ -36,7 +36,7 @@ function echoAdminTableView()
 					<tbody id="table-body-A">
 					</tbody>
 				</table>
-			</div
+			</div>
 		</div>
 
 		<div style="text-align: right; padding-top: 1%; width: 100%;">
