@@ -169,6 +169,7 @@ function LoginSuccess(userType){
                 $("#result").append(echoTableBotview());
                 buildingInfo(true);
                 anotherFetch("getUsers", "#table-body-Sim",false,true);
+                getPeople("table-body-Sim");
             })
             
         }

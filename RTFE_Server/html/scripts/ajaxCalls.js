@@ -20,6 +20,30 @@ function anotherFetch(type, html,extenedTable,SimulationMode){
     })
 }
 
+function getPeople(html){
+    $.ajax({
+        url: URL+"building",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            key: getCookie("apiKey"),
+            type: "getPeople",
+            mode:"simulation"
+        }),
+        success: function(resp){
+            if (resp.status){
+                var people = resp.message;
+                $(html).html("");
+                for (var i = 0; i < people.length; i++) {
+                    console.log(people[i]) 
+                    addBotToSim(people[i])
+                }
+                // $(html).html()
+            }
+        }
+    })
+}
 
 function fetchStatus(mac,identify)
 {

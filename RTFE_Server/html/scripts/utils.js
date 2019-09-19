@@ -158,14 +158,26 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
 
 function addUserToSim(elem){
     var pos = [2,2];
-    var ressponse  = addBot($.now(),pos,$(elem).attr("data-device"));
+    var ressponse  = addBot($.now(),pos,$(elem).attr("data-device"),false);
     $("#table-simulation").append(ressponse);
 }
-function addBotToSim(){
-
+function addBotToSim(person){
+    var location={};
+    location.y = person.floor;
+    location.x = person.position[0]
+    location.z = person.position[1]
+    var ressponse = addBot(person.id,location,person.device_id,true);
+    $("#table-simulation").append(ressponse);
 }
 
-function addBot(botID,location,deviceID){
+function addBot(botID,location,deviceID,checked){
+    if(checked){
+        checked = "checked";
+    }
+    else{
+        checked="";
+    }
+    console.log(checked);
     var input ="<input type='number' min='0' max='100' name='floor' value='0'>"
         +"<input type='number' min='0' max='100' name='x' value='1'>"
         +"<input type='number' min='0' max='100' name='y' value='1'>"
@@ -176,7 +188,7 @@ function addBot(botID,location,deviceID){
         str +=      `<td data-label="Location"> `+input+` </td>`;
         str +=      `<td data-label="Device_ID"> - </td>`
         str+=       `<td data-label="Type"> BOT</td>`
-        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
+        str+=       `<td data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)" ${checked}/></td>
                 </tr>`;
     }
     else{
@@ -185,7 +197,7 @@ function addBot(botID,location,deviceID){
         str +=      `<td class="location-simul" data-label="Location"> `+input+` </td>`;
         str +=      `<td class="device-simul" data-label="Device_ID"> ${deviceID} </td>`
         str+=       `<td class="type-simul" data-label="Type"> Person</td>`
-        str+=       `<td class="status-simul" data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)"/></td>
+        str+=       `<td class="status-simul" data-label="Status"><input  type="checkbox" id="botStatus-${botID}" onchange="checkBotStatus(this)" ${checked}/></td>
                 </tr>`;   
     }
     return str;

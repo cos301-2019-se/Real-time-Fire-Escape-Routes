@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Building To Floorplan</title>
+	<script type="text/javascript" src="../scripts/jquery-3.4.1.js"></script>
+	<script type="text/javascript" src="../scripts/jquery-ui.js"></script>
+	<script src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
+
+	<style type="text/css">
+		div{
+			padding: 10px;
+			min-height: 200px;
+		}
+		.half{
+			display: inline-table;
+			min-width: 40%;
+			max-width: 40%;
+		}
+		label{
+			padding: 5px;
+			font-weight: bold;
+			width: 150px;
+    		display:inline-block;
+		}
+	</style>
+</head>
+<body>
+	<div class="half">
+		<label>Building image: </label>
+			<input type="file" name="floorPlanImage" id="floorPlanImage"/>
+			<br/>
+		<label>Number of Floors: </label>
+			<input type="number" name="numFloors" min="1" max="200" value="1" id="numFloors"/>
+			<br/>
+		<label>Scale: <span id="scaleText">100</span></label>
+			<input type="range" name="scale" min="0" max="200" value="100" id="scale"/>
+			<br/>
+		<hr/>
+		<div id="input">
+		</div>
+	</div>
+	<div id="output" class="half">
+	</div>
+
+	<script type="text/javascript">
+		var SCALE = 100;
+		$("#scale").on("change",()=>{
+			$("#scaleText").html($("#scale").val())
+			SCALE = $("#scale").val();
+			 readFile();
+		});
+		$("#numFloors").on("change",()=>{
+			readFile();
+		})
+
+		function readFile(){
+			var file = document.getElementById("floorPlanImage").files[0];
+			if (file) {
+			    var reader = new FileReader();
+			    reader.readAsText(file, "UTF-8");
+			    reader.onload = function (evt) {
+			        // console.log("onLoad: "+evt.target.result);
+			        $("#input").html(evt.target.result);
+			        building = parseFile(evt.target.result)
+			        offSetBuilding(building);
+					$("#output").html("");
+					$("#output").append(renderjson(building))
+			    }
+			    reader.onerror = function (evt) {
+			        console.log("onError: error reading file");
+			    }
+			}
+		}
+		$("#floorPlanImage").on("change",function(){
+			readFile();
+		});
+		function parseFile(data){
+			elements = data.split("\n");
+			// console.log(elements);
+			var building = {};
+			building.rooms = [];
+			var numFloors = $("#numFloors").val();
+			for (var currentFloor = 0; currentFloor < numFloors; currentFloor++) {
+				for (var i = 0; i < elements.length; i++) {
+					if(elements[i].includes("path")){
+						var data = elements[i]
+						data = data.slice(data.indexOf("\"")+2,data.length);
+						data = data.slice(0,data.indexOf("\"")-2);
+						data = data.replace("L","");
+
+						// if(data.includes("M")){
+							building.rooms.push(createRoom(data,currentFloor));
+						// }
+					}
+				}
+			}
+			console.log(building);
+			return building;
+		}
+
+		function createRoom(roomData,floorNum){
+			var RoomData = roomData.split("M");
+			console.log(RoomData);
+			for (var c = 0; c < RoomData.length; c++) {
+				data = RoomData[c]
+				var numberPairs = data.split(" ");
+				corners = [];
+				var localScale = SCALE/100;
+				console.log(numberPairs)
+				for (var i = 0; i < numberPairs.length; i++) {
+					if(numberPairs[i] == "z")
+						continue;
+					var XZ = numberPairs[i].split(",");
+					var X = parseInt(XZ[0]*localScale);
+					var Z = parseInt(XZ[1]*localScale);
+					corners.push([X,Z]);
+				}
+				console.log(data);
+				var room = {}
+				room.corners = corners
+				room.floor = floorNum;
+				return room;
+			}
+		}
+
+		function offSetBuilding(building){
+			var offset = getSmallestPoints(building);
+			for (var i = building.rooms.length - 1; i >= 0; i--) {
+				var room = building.rooms[i];
+				for (var j = 0; j < room.corners.length; j++) {
+					room.corners[j][0]+=offset.x;
+					room.corners[j][1]+=offset.z;
+				}
+			}
+		}
+		function getSmallestPoints(building){
+			var smallestX = 9999999;
+			var smallestZ = 9999999;
+			for (var i = building.rooms.length - 1; i >= 0; i--) {
+				var room = building.rooms[i];
+				for (var j = 0; j < room.corners.length; j++) {
+					if(room.corners[j][0]<smallestX){
+						smallestX=room.corners[j][0];
+					}
+					if(room.corners[j][1]<smallestZ){
+						smallestZ=room.corners[j][1];
+					}
+				}
+			}
+        	return {
+				x: Math.abs(smallestX),
+				z: Math.abs(smallestZ)
+			};
+		}
+
+	</script>
+</body>
+</html>

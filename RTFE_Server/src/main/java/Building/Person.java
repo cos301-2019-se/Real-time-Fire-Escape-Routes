@@ -1,6 +1,8 @@
 package Building;
 
 
+import org.json.JSONObject;
+
 import java.util.Vector;
 
 public class Person {
@@ -49,5 +51,13 @@ public class Person {
         return AssignedRoute;
     }
 
+    public JSONObject toJSON(){
+        JSONObject person = new JSONObject();
+        person.put("floor",this.floor);
+        person.put("position",this.position);
+        person.put("id",this.personID);
+        person.put("device_id",this.deviceID);
+        return person;
+    }
 
 }

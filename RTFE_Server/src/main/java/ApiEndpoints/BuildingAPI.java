@@ -141,10 +141,24 @@ public class BuildingAPI extends API {
                 response.put("status",true);
                 return response;
             }
+            case "getPeople":{
+                response = new JSONObject();
+                response.put("message", getPeople(request));
+                response.put("status",true);
+                return response;
+            }
         }
         throw new Exception("Unsupported Request");
     }
 
+    private static JSONArray getPeople(JSONObject request) {
+        JSONArray response = new JSONArray();
+        Vector<Person> people = building.getPeople();
+        for (Person p:people) {
+            response.put(p.toJSON());
+        }
+        return response;
+    }
 
     /**
      * This function adds a fire inside the building
