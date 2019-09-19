@@ -1,7 +1,6 @@
 
 import ApiEndpoints.WebAPI;
 import org.json.JSONObject;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,17 +9,39 @@ public class WebAPITest {
     public TestFunctions testFunctions = new TestFunctions();
     private String APIKey ;
     Thread httpserver;
+
+
     @Before
     public void before() throws Exception {
-        httpserver = new Thread(new HTTPServer());
-        httpserver.start();
+        try{
+            httpserver = new Thread(new HTTPServer());
+            httpserver.start();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
+        JSONObject current = new JSONObject();
+        current.put("buildingName","1 Story Office");
+        current.put("email","dev@gmail.com");
+        current.put("password","1234");
+        current.put("type","login");
+        try{
+            testFunctions.SendRequest(current);
+            JSONObject response = WebAPI.handleRequest(current);
+            System.out.println("RESPONSE _____: " + response.toString());
+            if(response.has("apiKey")){
+                APIKey = response.getString("apiKey");
+            }
+        }catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
     }
 
-    @After
-    public void after() throws Exception {
-        httpserver.stop();
-    }
+//    @After
+//    public void after() throws Exception {
+//
+//        httpserver.stop();
+//    }
     @Test
     public void HandleRequestTest()
     {
@@ -67,6 +88,7 @@ public class WebAPITest {
         current.put("password","1234");
         current.put("userType","Agent");
         current.put("type","register");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -86,6 +108,7 @@ public class WebAPITest {
         current.put("buildingName","1 Story Office");
         current.put("email","test@yahoo.com");
         current.put("type","addUserToBuilding");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -104,6 +127,7 @@ public class WebAPITest {
 
         JSONObject current = new JSONObject();
         current.put("type","getBuildings");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -122,6 +146,7 @@ public class WebAPITest {
 
         JSONObject current = new JSONObject();
         current.put("type","getUsers");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -140,6 +165,7 @@ public class WebAPITest {
         JSONObject current = new JSONObject();
         current.put("buildingName","1 Story Office");
         current.put("type","getUsersInBuilding");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -160,6 +186,7 @@ public class WebAPITest {
         current.put("email","test@yahoo.com");
         current.put("password","1234");
         current.put("type","login");
+        current.put("key", APIKey);
         try{
             testFunctions.SendRequest(current);
         }catch (Exception e) {
@@ -183,6 +210,7 @@ public class WebAPITest {
         current.put("type","update");
         current.put("typeOfUpdate", "deviceID");
         current.put("value", "");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -206,6 +234,7 @@ public class WebAPITest {
         current.put("type","update");
         current.put("typeOfUpdate", "name");
         current.put("value", "newName");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -227,6 +256,7 @@ public class WebAPITest {
         current.put("type","update");
         current.put("typeOfUpdate", "password");
         current.put("value", "4321");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -248,6 +278,7 @@ public class WebAPITest {
         current.put("type","update");
         current.put("typeOfUpdate", "userType");
         current.put("value", "Agent");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -267,6 +298,7 @@ public class WebAPITest {
         JSONObject current = new JSONObject();
         current.put("email","test@yahoo.com");
         current.put("type","remove");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
@@ -292,6 +324,7 @@ public class WebAPITest {
         current.put("file", "file");
         current.put("img", "img");
         current.put("value", "Agent");
+        current.put("key", APIKey);
         try{
 
             testFunctions.SendRequest(current);
