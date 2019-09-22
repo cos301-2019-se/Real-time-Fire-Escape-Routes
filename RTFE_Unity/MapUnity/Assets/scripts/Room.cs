@@ -483,7 +483,7 @@ public class Room : MonoBehaviour
         Vector3[] vertices = new Vector3[vertices2D.Length];
         for (int i = 0; i < vertices.Length; i++)
         {
-            vertices[i] = new Vector3(vertices2D[i].x, floorNum * 3+0.2f, vertices2D[i].y);
+            vertices[i] = new Vector3(vertices2D[i].x, floorNum * 3 + 0.2f, vertices2D[i].y );
         }
 
         // Create the mesh

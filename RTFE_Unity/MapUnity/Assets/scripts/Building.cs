@@ -121,6 +121,8 @@ public class Building : MonoBehaviour
         // doors = "0 * 1 * 0,2 - 1 * 1  * 5,7 - 2 * 1 * 5,8.3 - 0 * 1 * 3,3";//floor*type*x,y
         // people = "0 * 0 * 7,7 - 1 * 1  * 7,7 - 2 * 2 * 7,7";
         Debug.Log(stairs);
+        Debug.Log(rooms);
+        Debug.Log(doors);
 
         showFloorsBelow = numberFloors;
 
@@ -235,7 +237,10 @@ public class Building : MonoBehaviour
             //--------adding rooms to floors
             string[] roomsArr = rooms.Split('-');
 
-
+            float BiggestX = 0;
+            float SmallestX = 0;
+            float SmallestZ = 0;
+            float BiggestZ = 0;
             for (int i = 0; i < roomsArr.Length; i++)
             {
                 string[] roomsArr2 = roomsArr[i].Split('*');
@@ -259,14 +264,34 @@ public class Building : MonoBehaviour
                     {
                         //x2[i][j] = (int)x1[i][j];
                         cornersFloat[l][m] = float.Parse(corners[l][m], System.Globalization.CultureInfo.InvariantCulture);
+                        if(m == 0)
+                        {
+                            if(BiggestX < cornersFloat[l][m])
+                                BiggestX = cornersFloat[l][m];
+                            if (SmallestX > cornersFloat[l][m])
+                                SmallestX = cornersFloat[l][m];
+                        }
+                        if(m == 1)
+                        {
+                            if (BiggestZ < cornersFloat[l][m])
+                                BiggestZ = cornersFloat[l][m];
+                            if (SmallestZ > cornersFloat[l][m])
+                                SmallestZ = cornersFloat[l][m];
+                        }
                         //Debug.Log("corner values: " + cornersFloat[l][m]);
                     }
                 }
 
                 floorList[floorNo].addRoom(cornersFloat, false);
             }
+            float averageX = (BiggestX + SmallestX) / 2f;
+            float averageZ = (BiggestZ + SmallestZ) / 2f;
+            GameObject cam = GameObject.Find("MainCamera");
+            cam.GetComponent<FlyCamera>().X = averageX;
+            cam.GetComponent<FlyCamera>().Z = averageZ;
 
             //-----building stairs rooms
+
             for (int i = 0; i < stairsArr.Length; i++)
             {
                 //stairsArr[i][9]

@@ -30,7 +30,7 @@ public class TemporaryExit
 public class Counter : MonoBehaviour
 {
     public bool isSimulation = false;
-    bool runOnce;
+    public bool runOnce;
     public GameObject buildingOb;
     // public GameObject meshOb;
     public NavMeshSurface s;
@@ -40,8 +40,8 @@ public class Counter : MonoBehaviour
     public float offset;
 
 
-    private string ip = "http://127.0.0.1:8080/";
-    //private string ip = "http://192.168.137.1:8080/";
+    //private string ip = "http://127.0.0.1:8080/";
+    private string ip = "http://192.168.137.1:8080/";
     //private string ip = "http://192.168.43.237:8080/";
     // private string ip = "https://6c53bafd-db31-4e2e-aac4-49c2a447c8ad.mock.pstmn.io/";
 
@@ -70,6 +70,8 @@ public class Counter : MonoBehaviour
 
         if (!runOnce)//calls data from server to get how building must look only calls server again once building is built
         {
+            buildingOb = Instantiate(Resources.Load("Builder", typeof(GameObject)) as GameObject, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 1)) as GameObject;
+            //yield return new WaitForSeconds(1.0f);
             if (isSimulation)
                 StartCoroutine(postRequest(ip + "buildingGeneration", "{\"type\":\"buildingData\",\"mode\":\"simulation\"}", "buildingGeneration"));
             else
@@ -288,14 +290,6 @@ public class Counter : MonoBehaviour
                 }
             }
         }
-        //for (int i = 0; i < exitList.Count; i++)
-        //{
-
-        //    GameObject go = Instantiate(Resources.Load("Sphere", typeof(GameObject)) as GameObject, new Vector3(exitList[i].position.x, exitList[i].position.y, exitList[i].position.z), new Quaternion(0, 0, 0, 1)) as GameObject;
-        //    string r = "route" + (i + 1);
-        //    Material myMaterial = Resources.Load("materials/" + r) as Material;
-        //    go.GetComponent<Renderer>().material = myMaterial;
-        //}
     }
 
     public void CreateFireObject(string firestring)
@@ -368,26 +362,38 @@ public class Counter : MonoBehaviour
             if (type == "buildingGeneration")
             {
                 buildingString myObject = JsonUtility.FromJson<buildingString>(uwr.downloadHandler.text);
-                buildingOb.GetComponent<Building>().addStrings(myObject);
-                buildingOb.GetComponent<Building>().createArrays();
-                s.BuildNavMesh();
-                 if (alarm != -1)
+
+                if (myObject.rooms == null)
                 {
-                    string s = findPeople();
+                    Debug.Log("No rooms recalling");
                     if (isSimulation)
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
+                        StartCoroutine(postRequest(ip + "buildingGeneration", "{\"type\":\"buildingData\",\"mode\":\"simulation\"}", "buildingGeneration"));
                     else
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+true+"," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
+                        StartCoroutine(postRequest(ip + "buildingGeneration", "{\"type\":\"buildingData\"}", "buildingGeneration"));
                 }
                 else
                 {
-                    Debug.Log("again");
-                   // yield return new WaitForSeconds(5.0f);
-                    if (isSimulation)
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":"+false+",\"mode\":\"simulation\"}", "assignPeople"));
+                    buildingOb.GetComponent<Building>().addStrings(myObject);
+                    buildingOb.GetComponent<Building>().createArrays();
+                    s.BuildNavMesh();
+                    if (alarm != -1)
+                    {
+                        string s = findPeople();
+                        if (isSimulation)
+                            StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":" + true + "," + "\"peopleLocations\":\"" + s + "\",\"mode\":\"simulation\"}", "assignPeople"));
+                        else
+                            StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":" + true + "," + "\"peopleLocations\":\"" + s + "\"}", "assignPeople"));
+                    }
                     else
-                        StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
+                    {
+                        Debug.Log("again");
+                        // yield return new WaitForSeconds(5.0f);
+                        if (isSimulation)
+                            StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":" + false + ",\"mode\":\"simulation\"}", "assignPeople"));
+                        else
+                            StartCoroutine(postRequest(ip + "building", "{\"type\":\"assignPeople\",\"alarm\":false}", "assignPeople"));
 
+                    }
                 }
             }
             else if (type == "assignPeople")
@@ -398,12 +404,13 @@ public class Counter : MonoBehaviour
                 Debug.Log("emergency: " + myObject.emergency);
                 Debug.Log("Fire: " + myObject.fires);
 
-                if(myObject.fires == "")//delete this whole if statement later
-                {
-                    Debug.Log("Fire is empty putting in fake data");
-                    myObject.fires = "0 * 4.5,0.0 % 4.5,4.0 % 0.0,4.0 % 0.0,0.0";
+                //if(myObject.fires == "")//delete this whole if statement later
+                //{
+                //    Debug.Log("Fire is empty putting in fake data");
+                //    myObject.fires = "0 * 4.5,0.0 % 4.5,4.0 % 0.0,4.0 % 0.0,0.0";
+                //    //0 * 5.8,4.0 % 5.8,8.0 % 10.0,8.0 % 10.0,4.0
 
-                }
+                //}
                 //Fire: 0 * 4.5,0.0 % 4.5,4.0 % 0.0,4.0 % 0.0,0.0
 
                 if (myObject != null)
@@ -454,23 +461,6 @@ public class Counter : MonoBehaviour
                     Debug.Log("ERROR: my object is equal to null should call again");
                 }
 
-                // if(alarm != -1)
-                // {
-                //    if(alarm == 0)
-                //    {
-                //        once = true;
-                //        Debug.Log("once");
-                //        alarm = 1;
-                //    }
-                //    else
-                //    {
-                //        Debug.Log("stuck");
-                //        while(alarm == 1)
-                //        {
-                //            yield return new WaitForSeconds(1.0f);
-                //        }
-                //    }
-                // }
 
                 yield return new WaitForSeconds(1.0f);
                 //findPeople();

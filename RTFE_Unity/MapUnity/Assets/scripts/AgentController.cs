@@ -47,9 +47,9 @@ public class AgentController : MonoBehaviour
         
         if(g == null)
         {
-            //Material myMaterial = Resources.Load("materials/" + r) as Material;
+            Material myMaterial = Resources.Load("materials/AgentRed") as Material;
         
-            gameObject.GetComponent<Renderer>().material.color = new Color(1,0,0,1);
+            //gameObject.GetComponent<Renderer>().material.color = new Color(1,0,0,1);
         }
         else
         {
@@ -72,6 +72,10 @@ public class AgentController : MonoBehaviour
 
     public void goTo(List<Vector3> list, bool emergency)
     {
+        Debug.Log("ASSIGNING PERSON ROUTE");
+        for (int i = 0; i < list.Count; i++)
+            Debug.Log(i + ": "+list[i].x + " " + list[i].y + list[i].z);
+ 
         this.emergency = emergency;
 
         if (list.Count > 0)
