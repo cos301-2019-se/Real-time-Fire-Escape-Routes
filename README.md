@@ -23,147 +23,56 @@
 <h2>Meet the Sandwico Team</h2>
 <img src ="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/images/groupPhoto.jpeg?raw=true" width ="100%"/>
 <p><i>From left to right: Pieter Braak, Xaio Jian Li, Kateryna Reva, Mathilda Bresler, Jason Louw</i></p>
-<ul>
-    <li><b>Name: </b> Mathilda Anna Bresler</li>
-   <li><b>Student Number: </b>
-        u16313382
-   </li>
-    <li><a href="https://drive.google.com/file/d/1bCwLsxItpME2UU_yPvfoacp5Xk8dUySd/view?usp=sharing">View CV on google Drive</a></li>
-    <li><b>Position: </b>3rd Year BSc Computer Science student</li>
-    <li><b>Interests: </b>Artificial intelligence, Software engineering, Project management, reading, music, deepsea diving </li>
-    <li><b>Skills</b>
-        <ul>
-            <li>Communicating with people</li>
-            <li>Problem solving</li>
-            <li>System intgration</li>
-            <li>Planning and organizing</li>
-            <li>Music</li>
-        </ul>
-    </li>
-    <li><b>Work Experience: </b>
-        <ul>
-            <li>IMY 120 tutor 2017 </li>
-            <li>Private Cambridge AS tutoring</li>
-            <li>Private Computer science tutoring (Tutcoition) </li>
-            <li>Private Math tutoring (Tutcoition) </li>
-            <li>Website development and maintenance (IG Tutors)</li>
-            <li>
-        </ul>
-    </li>
-  <li>
-    <b>Attitude: </b>
-  "Everything seems impossible until it is done". I believe in inspiring people to be the best version of themselves, and that there is no problem that cannot be solved if you take it one step at a time. No matter how touch life gets, a smile will always make your day better!
-  </li>
-    
-    
-    
-</ul>
+
+|    Name    | Mathilda Anna Bresler |
+|:----------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Student no | u16313382 |
+| Position   | 3rd Year BSc Computer Science student|
+| Github Profile         |  <a href="https://github.com/Litt1eRebe1">Github profile</a> |
+| CV         | <a href="https://drive.google.com/file/d/1bCwLsxItpME2UU_yPvfoacp5Xk8dUySd/view?usp=sharing">View CV on google Drive</a>|
+| Email      | tilaniebresler@gmail.com|
+| About me   | "Everything seems impossible until it is done". I believe in inspiring people to be the best version of themselves, and that there is no problem that cannot be solved if you take it one step at a time. No matter how touch life gets, a smile will always make your day better! |
+
 <hr/>
-<ul>
-    <li><b>Name: </b>Pieter Braak</li>
-    <li><a href="https://github.com/Viper3489753489">Github profile</a></li>
-    <li><a href="https://www.linkedin.com/in/pieter-braak-128473132/">Linkedin</a></li>
-    <li><a href="https://drive.google.com/file/d/1s4oBJvPdPu4bnfQj_qL-Ba2p-6PbSAtq/view?usp=sharing">CV on google Drive</a></li>
-    <li><b>Email:</b> pieterbraak@yahoo.com</li>
-    <li><b>Student Number: </b>16009917</li>
-    <li><b>Position:</b> Third Year BIS Multimedia Student</li>
-    <li><b>Role in project:</b> Back-end/Technical lead</li>
-    <li><b>Interests: </b>Computers, Networking, Home automation</li>
-    <li><b>Skills: </b>
-        <ul>
-            <li>Team management</li>
-            <li>Web development</li>
-            <li>Languages: XML, JQuery, HTML & CSS, PHP, JavaScript, Java, 64-bit Assembly</li>
-        </ul>
-    </li>
-    <li><b>Work Experience: </b>
-        <ul>
-            <li>IMY 210 Tutor 2018</li>
-            <li>COS 214 Tutor 2018</li>
-            <li>IMY 210 Tutor 2019</li>
-            <li>ITSI support Assitant (January 2017)</li>
-            <li>ITSI support Assitant (January 2018)</li>
-            <li>ITSI support Assitant (January 2019)</li>
-        </ul>
-    </li>
-    <li><b>Attitude:</b> I am a optimist at heart, and from my combined past part time jobs I have learned there is always a solution to every problem.</li>
-    
-</ul>
+
+|    Name    |Pieter Braak |
+|:----------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Student no | u16009917 |
+| Position   | Third Year BIS Multimedia Student|
+| Github Profile         |  <a href="https://github.com/Viper3489753489">Github profile</a> |
+| CV         |  <a href="https://www.linkedin.com/in/pieter-braak-128473132/">Linkedin</a> , <a href="https://drive.google.com/file/d/1s4oBJvPdPu4bnfQj_qL-Ba2p-6PbSAtq/view?usp=sharing">Google Drive</a> |
+| Email      | pieterbraak@yahoo.com|
+| About me   | I am a optimist at heart, and from my combined past part time jobs I have learned there is always a solution to every problem. |
 
 <hr>
-<ul>
-    <li><b>Name: </b>Xaio Jian Li</li>
-   <li><b>Student Number: </b>16099860</li>
-    <li><b>Position: </b> Third year BIS Multimedia Student </li>
-    <li><b>Interests: </b> Web developement, Networking</li>
-     <li><b>Skills: </b>
-        <ul>
-            <li>Web Developement</li>
-            <li> Languages: Javascript, HTML & CSS, PHP, C++, Java, C# </li>
-        </ul>
-    </li>    
-        <li><b>Work Experience: </b>
-        <ul>
-            <li>Reddi Tech Software Developer (Feburary 2018)</li>
-        </ul>
-    <li><b>Attitude: </b>Willing to learn new thing and strive for more knowledge</li>
-        
-        
-</ul>
+
+|    Name    |Xaio Jian Li |
+|:----------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Student no | u16099860 |
+| Position   | Third Year BIS Multimedia Student|
+| Github Profile         |  <a href="https://github.com/Tunafishat9">Github profile</a> |
+| CV         | |
+| Email      | u16099860@tuks.co.za|
+| About me   | Willing to learn new thing and strive for more knowledge |
 
 <hr />
-<ul>
-    <li><b>Name: </b> Jason Louw</li>
-   <li><b>Student Number: </b>u16054017</li>
-    <li><a href="https://github.com/JasonLouw">Github</a></li>
-  <li><a href="https://www.linkedin.com/in/jason-louw-271897125/">Linkedin</a></li>
-  <li><a href="https://drive.google.com/open?id=1czdWxQn162osKgikTstMXCwf68qBvvYS">CV</a></li>
-    <li><b>Position: </b>Unity Simulation</li>
-    <li><b>Interests: </b> Game development, AI and </li>
-     <li><b>Skills: </b>
-        <ul>
-            <li>Unity</li>
-            <li>Data structures</li>
-            <li>Languages: C++, C#, x86 assembly, php, javascript, Java, HTML, CSS </li>
-        </ul>
-    </li>
-    <li><b>Work Experience: </b>
-        <ul>
-            <li>COS110 Teaching Assistant</li>
-            <li>House and Petting</li>
-            <li>Intel and Lenovo Promotions</li>
-       </ul>
-    </li>
-    <li><b>Attitude: </b>Havent given up yet.</li>
-    
-    
-</ul>
-<hr/>
-<ul>
-    <li><b>Name: </b>Kateryna Reva</li>
-  <li><a href="https://drive.google.com/file/d/1ZWAO3-FwlbSeg7J2uoipd4XEPGCL5y5H/view?usp=sharing">View CV on google Drive</a></li>
-  <li><a href="https://github.com/littleNeuronCell">My GitHub Profile</a></li>
-  <li><b>Email:</b> u17035989@tuks.co.za or madeoutofcells@gmail.com</li>
-   <li><b>Student Number: </b>17035989</li>
-    <li><b>Position: </b>Third Year BIS Multimedia Student</li>
-    <li><b>Role in project: </b>front-end web developer</li>
-    <li><b>Interests: </b>Visual Arts and Digital Forensics, Ballet and HCI</li>
-     <li><b>Skills: </b>
-        <ul>
-            <li>Visual Design</li>
-            <li> Web development</li>
-            <li>Languages: Java, C++, JavaScript, XML, HTML, CSS, PHP</li>
-        </ul>
-    </li>
-    <li><b>Work Experience: </b>
-        <ul>
-            <li>Worked as tutor for IMY 110 (2018)</li>
-            <li>Worked as tutor for COS 122 (2018)</li>
-            <li>Worked as backend web developer for Reddi Tech Software Company (January 2019) </li>
-        </ul>
-    </li>
-   <li> <b>Attitude: </b>I am hard worker and I love to make my life difficult by overloading myself with the work, and, later, cry about it.
-    </li>
-    
-</ul>
 
+|    Name    | Jason Louw |
+|:----------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Student no | u16054017 |
+| Position   | Third Year BIS Multimedia Student|
+| Github Profile         |  <a href="https://github.com/JasonLouw">Github profile</a> |
+| CV         | <a href="https://www.linkedin.com/in/jason-louw-271897125/">Linkedin</a> , <a href="https://drive.google.com/open?id=1czdWxQn162osKgikTstMXCwf68qBvvYS"> Google Drive</a>   |
+| Email      | mjasonlouw@gmail.com |
+| About me   | Havent given up yet. |
+
+<hr/>
+
+|    Name    |Kateryna Reva |
+|:----------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Student no | u16054017 |
+| Position   | Third Year BIS Multimedia Student|
+| Github Profile         |  <a href="https://github.com/littleNeuronCell">Github profile</a> |
+| CV         | <a href="https://drive.google.com/file/d/1ZWAO3-FwlbSeg7J2uoipd4XEPGCL5y5H/view?usp=sharing"> Google Drive</a>   |
+| Email      | u17035989@tuks.co.za or madeoutofcells@gmail.com |
+| About me   | I am hard worker and I love to make my life difficult by overloading myself with the work, and, later, cry about it. |
