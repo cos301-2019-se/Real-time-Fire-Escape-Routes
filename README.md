@@ -27,10 +27,10 @@
 |    Name    | Mathilda Anna Bresler |
 |:----------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | Student no | u16313382 |
-| Position   | 3rd Year BSc Computer Science student|
+| Position   | Third Year BSc Computer Science Student|
 | Github Profile         |  <a href="https://github.com/Litt1eRebe1">Github profile</a> |
-| CV         | <a href="https://drive.google.com/file/d/1bCwLsxItpME2UU_yPvfoacp5Xk8dUySd/view?usp=sharing">View CV on google Drive</a>|
-| Email      | tilaniebresler@gmail.com|
+| CV         | <a href="https://drive.google.com/file/d/1bCwLsxItpME2UU_yPvfoacp5Xk8dUySd/view?usp=sharing">Google Drive</a>|
+| Email      | tilaniebresler@gmail.com |
 | About me   | "Everything seems impossible until it is done". I believe in inspiring people to be the best version of themselves, and that there is no problem that cannot be solved if you take it one step at a time. No matter how touch life gets, a smile will always make your day better! |
 
 <hr/>
