@@ -3,35 +3,21 @@
 
 <p>The Real-time Fire Escape Routes (Firewatch) System is a new approach to solve an age-old problem. The main goal of the Firewatch system is to indicate to the agent using the application what the most efficient route in a specific building one should take in the case of a fire emergency. Each agent in the building will be sent a push notification to his/her phone indicating what escape path to follow in such extreme situation.</p>
 <p>
-  <h3> Latest Demo - Demo 4</h3>
+  <h3>Quick links:</h3>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes" target = "_blank">GitHub</a> <br/>
-  <a href="https://trello.com/sandwicodevelopmentteam" target = "_blank">Trello</a> <br/>
-    <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/SRS%20%26%20Architectural%20Design%20Document.pdf" target = "_blank">SRS demo 4 - (Architectural Requirements and design documentation)</a><br/>  
-  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/CodingStandardsDocumentation.pdf" target = "_blank">Coding Standarts Document Demo 4</a> <br/>
-    <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/Testing_policy_document.pdf" target = "_blank">Testing Policy Document demo 4</a><br/>
-<a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/UserManual.pdf" target = "_blank">User Manual demo 4</a><br/>
-<hr/>    
-<h3> Previous Demo's </h3>
-  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes" target = "_blank">GitHub</a> <br/>
-  <a href="https://trello.com/sandwicodevelopmentteam" target = "_blank">Trello</a> <br/>
-  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%201/SRS%20Demo%201.pdf" target = "_blank">SRS_Demo 1</a> <br/>
-  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/ArchitecturalDesignDocumentation.pdf" target = "_blank"> SRS_Demo 2 (Architectural Requirements and design documentation)</a><br/>
-    <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/SRS%20%26%20Architectural%20Design%20Document.pdf" target = "_blank">SRS demo 3 - (Architectural Requirements and design documentation)</a><br/>
-  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/CodingStandardsDocumentation.pdf" target = "_blank">Coding Standarts Document Demo 2</a> <br/>
-    <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/CodingStandardsDocumentation.pdf" target = "_blank">Coding Standards Document Demo 3</a><br/>
-  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/Testing_policy_document.pdf" target = "_blank">Testing Policy Document demo 2</a> <br/>
-    <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Testing_policy_document.pdf" target = "_blank">Testing Policy Document demo 3</a><br/>
-  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%202/UserManual.pdf" target = "_blank">User Manual demo 2</a> <br/> 
-    <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/UserManual.pdf" target = "_blank">User Manual demo 3</a><br/>
-  <br/>
-    <h4>Extra</h4>
+  <a href="https://trello.com/sandwicodevelopmentteam" target = "_blank">Project Management - Trello</a> <br/>
+  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/SRS%20%26%20Architectural%20Design%20Document.pdf" target = "_blank">Architectural Requirements and design documentation</a><br/>  
+  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/CodingStandardsDocumentation.pdf" target = "_blank">Coding Standards Document</a> <br/>
+  <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/Testing_policy_document.pdf" target = "_blank">Testing Policy Document</a><br/>
+<a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/UserManual.pdf" target = "_blank">User Manual</a><br/>
+    <h4>Additional Research/Documentation</h4>
     <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Fire_Escape_Regulations_South_Africa.pdf" target = "_blank">Fire Escape Regulations South Africa</a><br/>
     <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Hardware_Research.pdf" target = "_blank">Hardware Research</a><br/>
     <a href="https://drive.google.com/drive/folders/1tLzRexg6MaVqy_WswbaeX5CcyjTGmbym?usp=sharing" target = "_blank">Website Prototype 1 (User testing)</a><br/>
     <a href="https://xd.adobe.com/view/8fc9a9a1-81b9-43bd-572b-c8729c0920c4-f9f8/?fullscreen" target = "_blank">Website Prototype 2 (User testing)</a><br/>
     <a href="https://cos301-2019-se.github.io/Real-time-Fire-Escape-Routes/Documentation/Demo%203/Javadoc/index.html" target = "_blank">Doxygen</a><br/>
     <a href="https://documenter.getpostman.com/view/3793445/S1a7Wkcs?version=latest" target = "_blank">Postman API documentation</a><br/>
-    
+    <hr/>
 </p>
 
 <h2>Meet the Sandwico Team</h2>
