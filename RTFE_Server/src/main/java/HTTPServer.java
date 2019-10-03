@@ -120,6 +120,8 @@ public class HTTPServer extends Server{
                 return "text/css";
             if(fileRequested.endsWith(".js"))
                 return "text/javascript";
+            if(fileRequested.endsWith(".wasm"))
+                return "application/wasm";
             return "text/plain";
         }
 
@@ -318,6 +320,9 @@ public class HTTPServer extends Server{
                             out.println("HTTP/1.1 200 OK");
                             out.println("Date: " + new Date());
                             out.println("Content-type: " + content);
+                            if(content.equals("application/wasm")){
+                                out.println("Content-Encoding: " + "gzip");
+                            }
                             out.println("Content-length: " + fileLength);
                             out.println(); // blank line between headers and content, very important !
                             out.flush(); // flush character output stream buffer
@@ -342,8 +347,6 @@ public class HTTPServer extends Server{
                     e.printStackTrace();
                 }catch (Exception e){
 
-//                    System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
-//                    System.out.println(ANSI_RED +  Arrays.toString(e.getStackTrace()) + ANSI_RESET);
                     JSONObject response = new JSONObject();
                     response.put("status","failed");
                     response.put("message", Arrays.toString(e.getStackTrace()));
@@ -398,6 +401,7 @@ public class HTTPServer extends Server{
             }
             catch (Exception e){
                 System.out.println("Something went wrong parsing the payload: "+payload);
+                System.out.println(e.getMessage());
             }
             throw new Exception("Error parsing payload");
         }
@@ -406,6 +410,7 @@ public class HTTPServer extends Server{
         data = data.replace("\r","");
         data = data.replace("\n","");
         data = data.replace("\t","");
+        data = data.trim();
         return data;
     }
 

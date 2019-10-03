@@ -47,9 +47,9 @@ public class BuildingAPI extends API {
                 response = new JSONObject();
                 response.put("fires",unityFireLocations());
 //       building.assignPeople();
-                if(request.has("peopleLocations")){
-                    unityUpdatePeopleLocation(request);
-                }
+//                if(request.has("peopleLocations")){
+//                    unityUpdatePeopleLocation(request);
+//                }
                 if(request.has("alarm")){
                     if(request.getBoolean("alarm")){
                         building.emergency = true;
