@@ -143,6 +143,15 @@ function displayOverlayWindow(contentFunc, user, name, type, device)
         $("#overlay-window").append(`<div id="contentCard-fireWindow"  class="rtferCard">
                 ${contentFunc()}
             </div>`);
+            /*canvas.addEventListener('mousemove', function(evt) {
+                var mousePos = getMousePos(canvas, evt);
+                var message = 'Mouse position: ' + parseFloat(mousePos.x).toFixed(2) + ',' + parseFloat(mousePos.y).toFixed(2);
+                writeMessage(message);
+            }, false);
+            canvas.addEventListener('mousedown', function(evt) {
+                var mousePos = getMousePos(canvas, evt);
+                console.log('Mouse position: ' + parseFloat(mousePos.x).toFixed(2) + ',' + parseFloat(mousePos.y).toFixed(2));
+            }, false);*/
     }
 
     else
@@ -283,7 +292,7 @@ function fireWindow()
     let maxX = 100;
     let maxY= 100;
     let maxFloor = 100;
-    $()
+
 
     
     console.log(maxFloor);
@@ -292,19 +301,26 @@ function fireWindow()
     return `<div id='fire-div-heading'> 
                 <h1 id='fire-head' style='text-align:center;'>Simulate fire in the building</h1>
             </div>
+            <div class="canvas-window">
+				<canvas id="canvas" style="width: 100%;
+                                    display: block;
+                                    margin: 25% 0 0;">
+				    
+                </canvas>
+			</div>
             <div class='card-content'>
                 <div class='form-group'>
                     <label for='x-coordinate' class="content-card-label">X</label>
                     <input type='number' min='0' max='${maxX}' class='form-control content-card-input' id='x-coordinate' value='0'>
                 </div>
                 <div class='form-group'>
-                    <label for='y-coordinate' class="content-card-label">Y</label>
-                    <input type='number' min='0' max='${maxY}' class='form-control content-card-input' id='y-coordinate' value='0'>
+                    <label for='z-coordinate' class="content-card-label">Z</label>
+                    <input type='number' min='0' max='${maxY}' class='form-control content-card-input' id='z-coordinate' value='0'>
                 </div>
-                <div class='form-group'>
+                <!--<div class='form-group'>
                     <label for='rad-number' class="content-card-label">Radius</label>
                     <input type='number' min='0' max='${maxRad}' class='form-control content-card-input' id='rad-number' value='0'>
-                </div>
+                </div>-->
                 <div class='form-group'>
                     <div class='form-group'>
                         <label for='floor-number' class="content-card-label">Floors</label>
@@ -318,6 +334,83 @@ function fireWindow()
                       <button onclick='clearWindow()' id='cancel-new-user-button' class='btn btn-danger'>Cancel</button>
                     </div>
                   </div>
+                  <script>
+                        var buildingToDisplay = $("#buildingDropDownSim").val();;
+                
+                        var canvas=document.getElementById("canvas");
+                        var ctx=canvas.getContext("2d");
+                        var img=new Image();
+                        img.onload=start;
+                        img.src="http://127.0.0.1:8080/Buildings/"+buildingToDisplay+"/building.jpeg";
+                        var dimensions = getDimensions(buildingToDisplay);
+                        
+                       // $("#z-coordinate").val(dimensions.z);
+                        function start(){
+                            var w=img.width;
+                            var h=img.height;
+                            canvas.width=w;
+                            canvas.height=h;
+                            // resize img to fit in the canvas 
+                            // You can alternately request img to fit into any specified width/height
+                            var sizer=scalePreserveAspectRatio(w,h,canvas.width,canvas.height);
+                            ctx.drawImage(img,0,0,w,h,0,0,w*sizer,h*sizer);
+                        }
+                        function scalePreserveAspectRatio(imgW,imgH,maxW,maxH){
+                            return(Math.min((maxW/imgW),(maxH/imgH)));
+                        }
+                        function writeMessage(message){
+                            $("#message").html(message);
+                        }	
+                        function getMousePos(canvas, evt) {
+                            var rect = canvas.getBoundingClientRect();
+                            var padding =  - 0.5;
+                            return {
+                                x: ((evt.clientX - rect.left) / ($("#canvas").width()) * dimensions.x)+padding,
+                                y:(Math.abs(evt.clientY - rect.bottom) / ($("#canvas").height()) * dimensions.z)+padding  
+                            };
+                        }
+                        
+                        var context = canvas.getContext('2d');
+                        canvas.addEventListener('mousemove', function(evt) {
+                            var mousePos = getMousePos(canvas, evt);
+                            var message = 'Mouse position: ' + parseFloat(mousePos.x).toFixed(2) + ',' + parseFloat(mousePos.y).toFixed(2);
+                            writeMessage(message);
+                        }, false);
+                        canvas.addEventListener('mousedown', function(evt) {
+                            var mousePos = getMousePos(canvas, evt);
+                            $("#x-coordinate").val(mousePos.x);
+                            $("#z-coordinate").val(mousePos.y);
+                            console.log('Mouse position: ' + parseFloat(mousePos.x).toFixed(2) + ',' + parseFloat(mousePos.y).toFixed(2));
+                        }, false);	
+                        function getDimensions(buildingName){
+                            var maxX = 0;
+                            var maxZ = 0;
+                            var building;
+                            $.ajax({
+                            async: false,
+                                type: "GET",
+                                url: "http://127.0.0.1:8080/Buildings/"+buildingName+"/data.json",
+                                success: function (response) {
+                                    var building = JSON.parse(response).floors[0].corners;
+                                    for (var i = 0; i < building.length; i++) {
+                                        var x = building[i][0];
+                                        var z = building[i][1];
+                                        if(x>maxX){
+                                            maxX = x;
+                                        }
+                                        if(z>maxZ){
+                                            maxZ = z;
+                                        }
+                                    }
+                                    console.log(building);
+                                }
+                            });
+                            return {
+                                x: maxX,
+                                z: maxZ
+                            };
+                        }
+                    </script>
         `;
 }
 
@@ -454,10 +547,11 @@ function getInfoFromInput(callFunc, email1)
     else if(callFunc === addFire)
     {
         let x = $("#x-coordinate").val();
-        let y = $("#y-coordinate").val();
+        let y = $("#z-coordinate").val();
         let rad = $("#rad-number").val();
         let floor = $("#floor-number").val();
         addFire(x, y, rad, floor);
+        clearWindow();
     }
 
         // clearWindow();

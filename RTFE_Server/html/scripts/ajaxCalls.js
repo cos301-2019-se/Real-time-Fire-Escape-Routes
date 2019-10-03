@@ -160,7 +160,7 @@ function addFire(x, y, rad, floor)
             type: "fire",
             mode: "simulation",
             position: [x,y],
-            radius: rad,
+            radius: 100.00,
             floor: floor
         }),
         success: function(data){
