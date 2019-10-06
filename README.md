@@ -4,6 +4,8 @@
 <p>The Real-time Fire Escape Routes (Firewatch) System is a new approach to solve an age-old problem. The main goal of the Firewatch system is to indicate to the agent using the application what the most efficient route in a specific building one should take in the case of a fire emergency. Each agent in the building will be sent a push notification to his/her phone indicating what escape path to follow in such extreme situation.</p>
 <p>
   <h3>Quick links:</h3>
+  
+  <a href="https://www.youtube.com/watch?v=5w62RdJLQKo&t=646s" target = "_blank">Virtual Demo</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes" target = "_blank">GitHub</a> <br/>
   <a href="https://trello.com/sandwicodevelopmentteam" target = "_blank">Project Management - Trello</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/SRS%20%26%20Architectural%20Design%20Document.pdf" target = "_blank">Architectural Requirements and design documentation</a><br/>  
