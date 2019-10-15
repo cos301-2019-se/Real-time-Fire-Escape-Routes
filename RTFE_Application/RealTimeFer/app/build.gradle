@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "teamsandwico.com"
-        minSdkVersion 15
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -24,6 +24,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.17'
+    implementation 'com.estimote:proximity-sdk:1.0.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
