@@ -12,7 +12,7 @@
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/CodingStandardsDocumentation.pdf" target = "_blank">Coding Standards Document</a> <br/>
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/Testing_policy_document.pdf" target = "_blank">Testing Policy Document</a><br/>
 <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/UserManual.pdf" target = "_blank">User Manual</a><br/>
- <a href = "https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/FireWatchResearch.pdf" target = "_blank">System efficiency research report</a><br/>
+ <a href = "https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/FireWatchResearch.pdf" target = "_blank">System Efficiency Research Report</a><br/>
     <h4>Additional Research/Documentation</h4>
    
     <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Fire_Escape_Regulations_South_Africa.pdf" target = "_blank">Fire Escape Regulations South Africa</a><br/>
