@@ -13,9 +13,9 @@
   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/Testing_policy_document.pdf" target = "_blank">Testing Policy Document</a><br/>
 <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/UserManual.pdf" target = "_blank">User Manual</a><br/>
  <a href = "https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%204/FireWatchResearch.pdf" target = "_blank">System Efficiency Research Report</a><br/>
-    <h4>Additional Research/Documentation</h4>
+ <h4>Additional Research/Documentation</h4>
    
-    <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Fire_Escape_Regulations_South_Africa.pdf" target = "_blank">Fire Escape Regulations South Africa</a><br/>
+   <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Fire_Escape_Regulations_South_Africa.pdf" target = "_blank">Fire Escape Regulations South Africa</a><br/>
     <a href="https://github.com/cos301-2019-se/Real-time-Fire-Escape-Routes/blob/master/Documentation/Demo%203/Hardware_Research.pdf" target = "_blank">Hardware Research</a><br/>
     <a href="https://drive.google.com/drive/folders/1tLzRexg6MaVqy_WswbaeX5CcyjTGmbym?usp=sharing" target = "_blank">Website Prototype 1 (User testing)</a><br/>
     <a href="https://xd.adobe.com/view/8fc9a9a1-81b9-43bd-572b-c8729c0920c4-f9f8/?fullscreen" target = "_blank">Website Prototype 2 (User testing)</a><br/>
